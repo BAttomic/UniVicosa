@@ -1,3 +1,4 @@
+-- Inserção de dados na tabela Funcionario
 INSERT INTO funcionario (CPF, Primeiro_Nome, Nome_Meio, Ultimo_Nome, Data_Nascimento, Endereco, Sexo, Salario, CPF_Supervisor, Numero_Departamento) 
 VALUES 
 ('12345678966', 'João', 'B', 'Silva', '1965-01-09', 'Rua das Flores, 751, São Paulo, SP', 'M', 30000, '33344555587', 5),
@@ -9,12 +10,14 @@ VALUES
 ('98798798733','André','V','Pereira','1969-03-29','Rua Timbira, 35, São Paulo, SP','M',25000,'98765432168',4),
 ('88866555576','Jorge','E','Brito','1937-11-10','Rua do Horto, 35, São Paulo, SP','M',55000,NULL,1);
 
+-- Inserção de dados na tabela Departamento
 INSERT INTO departamento (Nome_Departamento, Numero_Departamento, CPF_Gerente, Data_Inicio_Gerente)
 VALUES
 ('Pesquisa',5,'33344555587','1988-05-22'),
 ('Administração',4,'98765432168','1995-01-01'),
 ('Matriz',1,'88866555576','1981-06-19');
 
+-- Inserção de dados na tabela Localizacoes_Departamento
 INSERT INTO localizacoes_departamento (Numero_Departamento, Local)
 VALUES
 (1,'São Paulo'),
@@ -23,6 +26,7 @@ VALUES
 (5,'Itu'),
 (5,'São Paulo');
 
+-- Inserção de dados na tabela Trabalha_Em
 INSERT INTO trabalha_em (CPF_Funcionario, Numero_Projeto, Horas)
 VALUES
 ('12345678966',1,33),
@@ -42,6 +46,7 @@ VALUES
 ('98765432168',20,15),
 ('88866555576',20,NULL);
 
+-- Inserção de dados na tabela Projeto
 INSERT INTO projeto (Nome_Projeto, Numero_Projeto, Local_Projeto, Numero_Departamento)
 VALUES
 ('ProdutoX',1,'Santo André',5),
@@ -51,6 +56,7 @@ VALUES
 ('Reorganização',20,'São Paulo',1),
 ('Novosbeneficios',30,'Mauá',4);
 
+-- Inserção de dados na tabela Dependente
 INSERT INTO dependente (CPF_Funcionario, Nome_Dependente, Sexo, Data_Nascimento, Parentesco)
 VALUES
 ('33344555587','Alicia','F','1986-04-05','Filha'),
