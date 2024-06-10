@@ -4,7 +4,7 @@
 
 int main() {
     int menu;
-    printf("Escolha a operação abaixo que deseja: \n1 - Adicao; A+B\n2 - Subtracao; A-B\n3 - Divisao; A/B\n4 - Multiplicacao; A*B\n5 - Potencializacao; A^B\n6 - Radicializacao; A^(1/B)\nOperacao desejada: ");
+    printf("Escolha a operacao abaixo que deseja: \n1 - Adicao; A+B\n2 - Subtracao; A-B\n3 - Divisao; A/B\n4 - Multiplicacao; A*B\n5 - Potencializacao; A^B\n6 - Radicializacao; A^(1/B)\nOperacao desejada: ");
     scanf("%d", &menu);
     
     float a, b;
