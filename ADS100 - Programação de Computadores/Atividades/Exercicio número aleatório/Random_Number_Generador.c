@@ -19,15 +19,15 @@ int main() {
 
         // Verifica se o chute está abaixo do número
         if (chute < numeroAleatorio) {
-            printf("Seu chute está abaixo do numero.\n");
+            printf("Seu chute esta abaixo do numero.\n");
         }
         // Verifica se o chute está acima do número
         else if (chute > numeroAleatorio) {
-            printf("Seu chute está acima do numero.\n");
+            printf("Seu chute esta acima do numero.\n");
         }
         // Se não está abaixo nem acima, então o chute está correto
         else {
-            printf("Parabens! Voce acertou o número em %d tentativas!\n", tentativas);
+            printf("Parabens! Voce acertou o numero em %d tentativas!\n", tentativas);
         }
     } while (chute != numeroAleatorio);
 
