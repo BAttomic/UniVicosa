@@ -3,18 +3,18 @@
 int main()
 {
     float h, r, c, quantidade, area, litro;
-    /*Criação das variáveis Altura, Raio, Custo, Quantidade, Area e Litro respectivamente*/
+    /*Criacao das variaveis Altura, Raio, Custo, Quantidade, Area e Litro respectivamente*/
 
     printf("Informe a altura: "); /*Input de Altura*/
-    scanf("%f",&h); /*Registro de Altura na variável h*/
+    scanf("%f",&h); /*Registro de Altura na variavel h*/
 
     printf("Informe o raio: "); /*Input de Raio*/
-    scanf("%f",&r); /*Registro de Raio na variável r*/
+    scanf("%f",&r); /*Registro de Raio na variavel r*/
     
-    area=(3.14*pow(r,2))+(2*3.14*r*h); /*Cálculo e Registro de Área*/
-    litro=area/3; /*Cálculo e Registro de Litro*/
-    quantidade=litro/5; /*Cálculo e Registro de Quantidade*/
-    c=quantidade*50; /*Cálculo e Registro de Custo*/
+    area=(3.14*pow(r,2))+(2*3.14*r*h); /*Calculo e Registro de Area*/
+    litro=area/3; /*Calculo e Registro de Litro*/
+    quantidade=litro/5; /*Calculo e Registro de Quantidade*/
+    c=quantidade*50; /*Calculo e Registro de Custo*/
     
     printf("Quantidade de latas necessarias: %.2f",quantidade); /*Print da Quantidade*/
     printf("\nValor de custo: %.2f",c); /*Print do Custo*/
