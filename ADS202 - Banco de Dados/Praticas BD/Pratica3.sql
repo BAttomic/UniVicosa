@@ -36,7 +36,7 @@ FROM Funcionario;
 SELECT DISTINCT Salario
 FROM Funcionario;
 
--- Questão f
+-- Questão F
 -- Seleciona valores distintos de Numero_Projeto de Projeto
 -- Faz joins entre as tabelas Projeto, Departamento e Funcionario, relacionando através de chaves estrangeiras
 -- Filtra os resultados para apenas aqueles onde o Ultimo_Nome é 'Silva' (seja como funcionário ou gerente)
