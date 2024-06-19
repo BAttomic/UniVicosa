@@ -44,9 +44,9 @@ GROUP BY f.Numero_Departamento;
 SELECT f.Primeiro_Nome, f.Nome_Meio, f.Ultimo_Nome
 FROM Funcionario f
 WHERE f.Numero_Departamento = (SELECT f1.Numero_Departamento
-                                FROM Funcionario f1
-                                ORDER BY f1.Salario DESC
-                                LIMIT 1);
+       FROM Funcionario f1
+       ORDER BY f1.Salario DESC
+       LIMIT 1);
 
 -- Questão F
 -- Recupere os nomes dos funcionários que ganham pelo menos R$ 10.000,00 a mais que o funcionário que
