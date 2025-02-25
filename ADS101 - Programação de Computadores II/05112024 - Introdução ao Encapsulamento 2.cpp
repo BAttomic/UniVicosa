@@ -17,8 +17,7 @@ private:
     }
 
 public:
-    ContaBancaria(const string& nome, double saldoInicial)
-        : nomeCliente(nome), saldo(saldoInicial) {}
+    ContaBancaria(const string& nome, double saldoInicial): nomeCliente(nome), saldo(saldoInicial) {}
 
     string depositar(double valor) {
         if (valor > 0) {
