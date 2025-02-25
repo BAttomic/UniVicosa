@@ -1,5 +1,6 @@
 #include <iostream>
 #include <string>
+#include <sstream>
 
 using namespace std;
 
@@ -8,6 +9,13 @@ private:
     string nomeCliente;
     double saldo;
 
+    string formatarValor(double valor) {
+        ostringstream stream;
+        stream.precision(2);
+        stream << fixed << valor;
+        return stream.str();
+    }
+
 public:
     ContaBancaria(const string& nome, double saldoInicial)
         : nomeCliente(nome), saldo(saldoInicial) {}
@@ -15,7 +23,7 @@ public:
     string depositar(double valor) {
         if (valor > 0) {
             saldo += valor;
-            return "Deposito de " + to_string(valor) + " realizado com sucesso.";
+            return "Deposito de " + formatarValor(valor) + " realizado com sucesso.";
         }
         return "Valor de deposito invalido.";
     }
@@ -23,7 +31,7 @@ public:
     string sacar(double valor) {
         if (valor > 0 && valor <= saldo) {
             saldo -= valor;
-            return "Saque de " + to_string(valor) + " realizado com sucesso.";
+            return "Saque de " + formatarValor(valor) + " realizado com sucesso.";
         }
         return "Saque nao realizado. Saldo insuficiente ou valor invalido.";
     }
