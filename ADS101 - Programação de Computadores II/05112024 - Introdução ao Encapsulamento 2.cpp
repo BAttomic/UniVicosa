@@ -9,15 +9,23 @@ private:
     double saldo;
 
 public:
-    ContaBancaria(string nome, double saldoInicial)
+    ContaBancaria(const string& nome, double saldoInicial)
         : nomeCliente(nome), saldo(saldoInicial) {}
 
-    void depositar(double valor) {
-        if (valor > 0) saldo += valor;
+    string depositar(double valor) {
+        if (valor > 0) {
+            saldo += valor;
+            return "Deposito de " + to_string(valor) + " realizado com sucesso.";
+        }
+        return "Valor de deposito invalido.";
     }
 
-    void sacar(double valor) {
-        if (valor > 0 && valor <= saldo) saldo -= valor;
+    string sacar(double valor) {
+        if (valor > 0 && valor <= saldo) {
+            saldo -= valor;
+            return "Saque de " + to_string(valor) + " realizado com sucesso.";
+        }
+        return "Saque nao realizado. Saldo insuficiente ou valor invalido.";
     }
 
     double getSaldo() const { return saldo; }
