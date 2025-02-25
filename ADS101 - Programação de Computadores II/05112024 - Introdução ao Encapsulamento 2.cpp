@@ -9,7 +9,7 @@ private:
     double saldo;
 
 public:
-    ContaBancaria(const string& nome, double saldoInicial)
+    ContaBancaria(string nome, double saldoInicial)
         : nomeCliente(nome), saldo(saldoInicial) {}
 
     void depositar(double valor) {
