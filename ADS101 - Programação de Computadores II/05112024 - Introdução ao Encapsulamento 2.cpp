@@ -34,8 +34,9 @@ public:
 int main() {
     ContaBancaria conta("João", 1000.0);
 
-    conta.depositar(200.0);
-    conta.sacar(150.0);
+    cout << conta.depositar(200.0) << endl;
+    cout << conta.sacar(150.0) << endl;
+    cout << conta.sacar(2000.0) << endl; // Tentativa de saque com saldo insuficiente
 
     cout << "Saldo atual: " << conta.getSaldo() << endl;
 
