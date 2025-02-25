@@ -12,7 +12,7 @@ int main() {
     Pessoa p;
 
     cout << "Digite o nome: ";
-    getline(cin, p.nome);
+    cin >> p.nome;
 
     cout << "Digite a idade: ";
     cin >> p.idade;
