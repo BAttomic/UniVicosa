@@ -1,0 +1,77 @@
+%% USPSC-IntroducaoTutorial.tex
+
+% ----------------------------------------------------------
+% Introdução (exemplo de capítulo sem numeração, mas presente no Sumário)
+% ----------------------------------------------------------
+\chapter[Introdução]{Introdução}
+\label{Introdução}
+
+Parte inicial do texto, que contém a delimitação do assunto tratado, objetivos da pesquisa e outros elementos necessários para apresentar o tema do trabalho \cite{aguia2020}.
+
+A equipe de desenvolvimento e manutenção do Pacote USPSC, atualmente na versão 3.1, contendo a Classes USPSC, tutorial e modelos para trabalhos acadêmicos em \LaTeX\ utilizando a classe USPSC, foi estabelecida em abril de 2015. É integralmente composta por pessoas vinculadas às Bibliotecas das Unidades de ensino e pesquisa do Campus USP de São Carlos, incluindo a Biblioteca da Prefeitura do Campus USP de São Carlos (PUSP-SC), para garantir a sustentabilidade deste produto, tendo autonomia para implementar novos recursos, efetuar compatibilizações necessárias em decorrência de alterações de normas da ABNT e/ou normas e padrões estabelecidos pelas comissões de pós-graduação das Unidades, incluir novos programas de pós-graduação das Unidades, dentre outras razões.
+
+O Grupo Desenvolvedor do Pacote USPSC optou por manter os exemplos apresentados nas versões anteriores do tutorial, que são os relacionados no capítulo \textbf{\ref{Referências} MODELOS DE REFERÊNCIAS} do documento \textbf{Diretrizes para apresentação de dissertações e teses da USP}: documento eletrônico e impresso - Parte I (ABNT), 3ª edição de 2016, porém em conformidade com ABNT NBR 6023:2018. 
+
+Atualmente a USP em São Carlos possui a Prefeitura do Campus USP de São Carlos (PUSP-SC), o Centro de Divulgação Científica e Cultural (CDCC) e as seguintes Unidades de ensino e pesquisa: Escola de Engenharia de São Carlos (EESC), Instituto de Ciências Matemáticas e de Computação (ICMC), Instituto de Física de São Carlos (IFSC), Instituto de Química de São Carlos (IQSC) e o Instituto de Arquitetura e Urbanismo (IAU)).
+
+Na versão 2.0 o Pacote USPSC passou a ser composto pela \textbf{Classe USPSC}, o \textbf{Modelo para TCC em \LaTeX\ utilizando a classe USPSC} e o \textbf{Modelo para teses e dissertações em \LaTeX\ utilizando a classe USPSC} para a EESC.
+
+Na versão 3.0 do Pacote USPSC os modelos de trabalhos acadêmicos \textbf{USPSC-modelo.tex} e \textbf{USPSC-TCC-modelo.tex} foram simplificados, no que tange ao conteúdo, e foi criado o \textbf{Tutorial do Pacote USPSC para modelos de trabalhos de acad\^emicos em LaTeX - vers\~ao 3.0}, contendo as instruções precisas e detalhadas para melhor utilização dos recursos do Pacote USPSC. Para tanto, foram acrescidos diversos arquivos, para atender as especificidades do tutorial que possui os elementos pré-textuais distintos para teses, dissertações, TCCs e outros trabalhos acadêmicos, conforme descrito em  \textbf{\ref{Pacote} Pacote USPSC: Classe USPSC e modelos de trabalhos de acadêmicos}. A estrutura deste tutorial é igual à  estrutura de trabalhos acadêmicos estabelecida pela ABNT NBR 14724, conforme a \autoref{fig_EstruturaTrabAcad}.		
+
+A versão 3.0 do Pacote USPSC traz ainda as seguintes alterações e implementações:
+
+\begin{alineas}	 
+	\item foi alterada a estrutura da pasta para distribuir mais didaticamente os diversos arquivos que compõem o referido pacote, conforme descrito em \ref{Pacote}; 
+	\item foram criados os seguintes arquivos de elementos pré-textuais: USPSC-Errata.tex, USPSC-Dedicatoria.tex, USPSC-Agradecimentos.tex, USPSC-Epigrafe.tex,\\
+	USPSC-Resumo.tex, USPSC-Abstract.tex, USPSC-AbreviaturasSiglas.tex e USPSC-Simbolos.tex. 
+	Tais informações constavam diretamente dos arquivos \textbf{USPSC-modelo.tex} e  \textbf{USPSC-TCC-modelo.tex} e nesta versão passaram a ser incluídas através do comando \verb+\include{nome do arquivo tex}+;
+	\item implementação do Modelo para TCC para o ICMC e IQSC, conforme descrito em \ref{Pacote};
+	\item alteração do pacote utilizado para estruturas, reações e mecanismos de reações químicas, conforme descrito em \ref{Reaquimica};
+	\item alterações na Classe USPSC (USPSC.cls e USPSC1.cls):
+		\begin{subalineas}
+			\item foi adicionado o comando \verb+\ABNTEXcaptiondelim+ e alterado o separador de \textbf{captions} para \textbf{long dash} visando a compatibilização com a norma  ABNT NBR 14724:2011 e a conformidade com a classe \abnTeX\ v1.9.6;
+			\item para incluir novos comandos e parâmetros para possibilitar a impressão de página de rosto adicional, atualmente adotada apenas pelo ICMC;
+		\end{subalineas}
+	\item alterações no arquivo USPSC-pre-textual-EESC.tex em decorrência das alterações nos programas de pós-graduação;
+	\item alterações no arquivo USPSC-pre-textual-IFSC.tex para incluir opções de programas em inglês;
+	\item alterações no arquivo USPSC-pre-textual-ICMC.tex para incluir os comandos e parâmetros referentes à página de rosto adicional;
+	\item alterações no arquivo USPSC-Unidades.tex para incluir os comandos relativos aos novos Modelos de TCC;
+	\item criação dos arquivos USPSC-TCC-pre-textual-ICMC.tex e USPSC-TCC-pre-textual-IQSC.tex, necessários para implementar o Modelo para TCC para o ICMC e IQSC;
+	\item alteração no capítulo \textbf{\ref{Referências} MODELOS DE REFERÊNCIAS}, mantendo os exemplos contidos nas \textbf{Diretrizes para apresentação de dissertações e teses da USP}: documento eletrônico e impresso - Parte I (ABNT), porém em conformidade com ABNT NBR 6023:2018; 
+	\item inclusão da alternativa de cores para os links nos arquivos \textbf{USPSC-modelo.tex} e \textbf{USPSC-TCC-modelo.tex}, conforme descrito em \ref{coreslinks} 
+	\item alterações no arquivo \textbf{USPSC-modelo.tex} e nos demais arquivos \textbf{.tex} em conformidade com as alterações e implementações efetuadas.	\\
+\end{alineas}
+
+	A versão 3.1 traz as alterações na Classe USPSC (USPSC.cls e USPSC1.cls) específicas para incluir novos parâmetros para capa e tipo de publicação em inglês.
+
+	O Grupo Desenvolvedor do Pacote USPSC está assim constituído:
+
+\textbf{Coordenação e Programação}
+
+- Marilza Aparecida Rodrigues Tognetti - marilza@sc.usp.br (PUSP-SC)	
+
+- Ana Paula Aparecida Calabrez - aninha@sc.usp.br (PUSP-SC) 
+
+\textbf{Normalização e Padronização}
+
+- Ana Paula Aparecida Calabrez - aninha@sc.usp.br (PUSP-SC)
+
+- Brianda de Oliveira Ordonho Sigolo - brianda@usp.br (IAU)
+
+- Eduardo Graziosi Silva - edu.gs@sc.usp.br (EESC)
+
+- Eliana de Cássia Aquareli Cordeiro - eliana@iqsc.usp.br (IQSC)
+
+- Flávia Helena Cassin - cassinp@sc.usp.br (EESC)	
+
+- Maria Cristina Cavarette Dziabas - mcdziaba@ifsc.usp.br (IFSC)	
+
+- Marilza Aparecida Rodrigues Tognetti - marilza@sc.usp.br (PUSP-SC)
+
+- Regina Célia Vidal Medeiros - rcvm@icmc.usp.br (ICMC)
+
+	O objetivo do presente trabalho é apresentar a versão 3.1 do Pacote USPSC, composto pela \textbf{Classe USPSC}, \textbf{Tutorial do Pacote USPSC para modelos de trabalhos de acad\^emicos em LaTeX - vers\~ao 3.1},  \textbf{Modelo para TCC em \LaTeX\ utilizando a classe USPSC} e o \textbf{Modelo para teses e dissertações em \LaTeX\ utilizando a classe USPSC}, concebidos em conformidade com a \textbf{ABNT NBR 14724} \cite{nbr14724}, as \textbf{Diretrizes para apresentação de dissertações e teses da USP} \cite{aguia2020} e normas e padrões estabelecidos pelas Unidades. 
+	
+	A expectativa é que o Pacote USPSC, mediante os modelos propostos, proporcione o aprimoramento da qualidade dos trabalhos acadêmicos produzidos pelos alunos de graduação e de pós-graduação das referidas Unidades de Ensino e Pesquisa do Campus USP de São Carlos, garantindo a normalização e padronização estabelecidas.
+	
+	

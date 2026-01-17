@@ -1,0 +1,460 @@
+%% USPSC-Tutorial-num.tex
+% ---------------------------------------------------------------
+% USPSC: Modelo de Trabalho Academico (tese de doutorado, dissertacao de
+% mestrado e trabalhos monograficos em geral) em conformidade com 
+% ABNT NBR 14724:2011: Informacao e documentacao - Trabalhos academicos -
+% Apresentacao
+%----------------------------------------------------------------
+%% Esta é uma customização do abntex2-modelo-trabalho-academico.tex de v-1.9.5 laurocesar 
+%% para as Unidades do Campus USP de São Carlos:
+%% EESC - Escola de Engenharia de São Carlos
+%% IAU - Instituto de Arquitetura e Urbanismo
+%% ICMC - Instituto de Ciências Matemáticas e de Computação
+%% IFSC - Instituto de Física de São Carlos
+%% IQSC - Instituto de Química de São Carlos
+%%
+%% Este trabalho utiliza a classe USPSC.cls que é mantida pela seguinte equipe:
+%% 
+%% Coordenação e Programação:
+%%   - Marilza Aparecida Rodrigues Tognetti - marilza@sc.usp.br (PUSP-SC)
+%%   - Ana Paula Aparecida Calabrez - aninha@sc.usp.br (PUSP-SC)
+%% Normalização:
+%%   - Brianda de Oliveira Ordonho Sigolo - brianda@usp.br (IAU)
+%%   - Eduardo Graziosi Silva - edu.gs@sc.usp.br (EESC)
+%%   - Eliana de Cássia Aquareli Cordeiro - eliana@iqsc.usp.br (IQSC)
+%%   - Flávia Helena Cassin - cassinp@sc.usp.br (EESC)
+%%   - Maria Cristina Cavarette Dziabas - mcdziaba@ifsc.usp.br (IFSC)
+%%   - Regina Célia Vidal Medeiros - rcvmat@icmc.usp.br (ICMC)
+%%
+%% O USPSC-modelo.tex e USPSC-TCC-modelo.tex utilizam diversos arquivos relacionado em 
+%% 2.1 Pacote USPSC: Classe USPSC e modelos de trabalhos acadêmicos	do Tutorial do Pascote 
+%%  USPSC para modelos de trabalhos de acadêmicos em LaTeX - versão 3.1
+
+
+%----------------------------------------------------------------
+%% Sobre a classe abntex2.cls:
+%% abntex2.cls, v-1.9.5 laurocesar
+%% Copyright 2012-2015 by abnTeX2 group at https://www.abntex.net.br/ 
+%%
+%----------------------------------------------------------------
+
+\documentclass[
+% -- opções da classe memoir --
+12pt,		% tamanho da fonte
+openright,	% capítulos começam em pág ímpar (insere página vazia caso preciso)
+twoside,  % para impressão em anverso (frente) e verso. Oposto a oneside - Nota: utilizar \imprimirfolhaderosto*
+%oneside, % para impressão em páginas separadas (somente anverso) -  Nota: utilizar \imprimirfolhaderosto
+% inclua uma % antes do comando twoside e exclua a % antes do oneside 
+a4paper,			% tamanho do papel. 
+% -- opções da classe abntex2 --
+chapter=TITLE,		% títulos de capítulos convertidos em letras maiúsculas
+% -- opções do pacote babel --
+english,			% idioma adicional para hifenização
+french,				% idioma adicional para hifenização
+spanish,			% idioma adicional para hifenização
+brazil				% o último idioma é o principal do documento
+% {USPSC-classe/USPSC} configura o cabeçalho contendo apenas o número da página
+]{USPSC-classe/USPSC}
+%]{USPSC-classe/USPSC1}
+% Inclua % antes de ]{USPSC-classe/USPSC} e retire a % antes de %]{USPSC-classe/USPSC1} para utilizar o 
+% cabeçalho diferenciado para as páginas pares e ímpares:
+%- páginas ímpares: com seções ou subseções e o número da página
+%- páginas pares: com o número da página e o título do capítulo 
+% ---
+% ---
+% Pacotes básicos - Fundamentais 
+% ---
+\usepackage[T1]{fontenc}		% Seleção de códigos de fonte.
+\usepackage[utf8]{inputenc}		% Codificação do documento (conversão automática dos acentos)
+\usepackage{lmodern}			% Usa a fonte Latin Modern
+% Para utilizar a fonte Times New Roman, inclua uma % no início do comando acima  "\usepackage{lmodern}"
+% Abaixo, tire a % antes do comando  \usepackage{times}
+%\usepackage{times}		    	% Usa a fonte Times New Roman	
+% Lembre-se de alterar a fonte no comando que imprime o preâmbulo no arquivo da Classe USPSC.cls				
+\usepackage{lastpage}			% Usado pela Ficha catalográfica
+\usepackage{indentfirst}		% Indenta o primeiro parágrafo de cada seção.
+\usepackage{color}				% Controle das cores
+\usepackage{graphicx}			% Inclusão de gráficos
+\usepackage{float} 				% Fixa tabelas e figuras no local exato
+\usepackage{chemfig,chemmacros} % Para escrever reações químicas
+%\usepackage{mychemistry}        % Para escrever reações químicas
+\usepackage{tikz}				% Para escrever reações químicas e outros
+\usetikzlibrary{positioning}
+%\usetikzlibrary{arrows, babel}	% Para escrever reações químicas e outros
+\usepackage{microtype} 			% para melhorias de justificação
+\usepackage{pdfpages}
+\usepackage{makeidx}            % para gerar índice remissivo
+% ---
+
+% ---
+% Pacotes de citações
+% Citações padrão ABNT
+% ---
+% Sistemas de chamada: autor-data ou numérico.
+% Sistema autor-data
+%\usepackage[alf, abnt-emphasize=bf, abnt-thesis-year=both, abnt-repeated-author-omit=no, abnt-last-names=abnt, abnt-etal-cite, abnt-etal-list=3, abnt-etal-text=it, abnt-and-type=e, abnt-doi=doi, abnt-url-package=none, abnt-verbatim-entry=no]{abntex2cite}
+%\bibliographystyle{USPSC-classe/abntex2-alf-USPSC}
+% Se o idioma for o inglês, inclua % no comando acima e exclua o % do comando abaixo
+%\bibliographystyle{USPSC-classe/abntex2-alfeng-USPSC}
+
+% Para o IQSC, que indica todos os autores nas referências, incluir % no início dos comandos acima e retirar a % dos comandos abaixo 
+%\usepackage[alf, abnt-emphasize=bf, abnt-thesis-year=both, abnt-repeated-author-omit=no, abnt-last-names=abnt, abnt-etal-cite, abnt-etal-list=0, abnt-etal-text=it, abnt-and-type=e, abnt-doi=doi, abnt-url-package=none, abnt-verbatim-entry=no]{abntex2cite} 
+%\bibliographystyle{USPSC-classe/abntex2-alf-USPSC}
+% Se o idioma for o inglês, exclua % no comando acima ou do comando abaixo
+%\bibliographystyle{USPSC-classe/abntex2-alfeng-USPSC}
+
+% Sistema Numérico
+% Para citações numéricas, sistema adotado pelo IFSC, incluir % no início dos comandos acima e retirar a % dos comandos abaixo 
+\usepackage{cite}              % agrupa citações numéricas consecutivas
+\usepackage[num, abnt-emphasize=bf, abnt-thesis-year=both, abnt-repeated-author-omit=no, abnt-last-names=abnt, abnt-etal-cite, abnt-etal-list=3, abnt-etal-text=it, abnt-and-type=e, abnt-doi=doi, abnt-url-package=none, abnt-verbatim-entry=no]{abntex2cite} 
+\bibliographystyle{USPSC-classe/abntex2-num-USPSC}
+% Se o idioma for o inglês, inclua % no comando acima e exclua o % do comando abaixo
+%\bibliographystyle{USPSC-classe/abntex2-numeng-USPSC}
+
+
+
+
+
+
+
+% Se o idioma for o inglês, exclua % no comando acima ou do comando abaixo
+%\bibliographystyle{USPSC-classe/abntex2-numeng-USPSC}
+
+% Complementarmente, verifique as instruções abaixo sobre os Pacotes de Nota de rodapé
+% ---
+% Pacotes de Nota de rodapé
+% Configurações de nota de rodapé
+
+% O presente modelo adota o formato numérico para as notas de rodapés quando utiliza o sistema de chamada autor-data para citações e referências. Para utilizar o sistema de chamada numérico para citações e referências, habilitar um dos comandos abaixo.
+% Há diversa opções para nota de rodapé no Sistema Numérico.  Para o IFSC, habilitade o comando abaixo.
+
+\renewcommand{\thefootnote}{\fnsymbol{footnote}}  %Comando para inserção de símbolos em nota de rodapé
+
+% Outras opções para nota de rodapé no Sistema Numérico:
+%\renewcommand{\thefootnote}{\alph{footnote}}      %Comando para inserção de letras minúscula em nota de rodapé
+%\renewcommand{\thefootnote}{\Alph{footnote}}      %Comando para inserção de letras maiúscula em nota de rodapé
+%\renewcommand{\thefootnote}{\roman{footnote}}     %Comando para inserção de números romanos minúsculos  em nota de rodapé
+%\renewcommand{\thefootnote}{\Roman{footnote}}     %Comando para inserção de números romanos minúsculos  em nota de rodapé
+
+\renewcommand{\footnotesize}{\small} %Comando para diminuir a fonte das notas de rodapé
+
+% ---
+% Pacote para agrupar a citação numérica consecutiva
+% Quando for adotado o Sistema Numérico, a exemplo do IFSC, habilite 
+% o pacote cite abaixo retirando a porcentagem antes do comando abaixo
+%\usepackage[superscript]{cite}	
+
+% ---
+% Pacotes adicionais, usados apenas no âmbito do Modelo Canônico do abnteX2
+% ---
+\usepackage{lipsum}				% para geração de dummy text
+% ---
+
+% pacotes de tabelas
+\usepackage{multicol}	% Suporte a mesclagens em colunas
+\usepackage{multirow}	% Suporte a mesclagens em linhas
+\usepackage{longtable}	% Tabelas com várias páginas
+\usepackage{threeparttablex}    % notas no longtable
+\usepackage{array}
+
+% ----
+% Compatibilização com a ABNT NBR 6023:2018
+% Para tirar <> da URL
+%\DeclareFieldFormat{url}{\bibstring{urlfrom}\addcolon\addspace\url{#1}}
+\usepackage{USPSC-classe/ABNT6023-2018}
+% As demais compatibilizações estão nos arquivos abntex2-alf-USPSC.bst,abntex2-alfeng-USPSC.bst, abntex2-num-USPSC.bst e abntex2-numeng-USPSC.bst, dependendo do idioma do textos e se o sistemas de chamada for autor-data ou numérico, conforme explicitado acima.
+% ----
+
+
+% ---
+% DADOS INICIAIS - Define sigla com título, área de concentração e opção do Programa 
+% Consulte a tabela referente aos Programas, áreas e opções de sua unidade contante do
+% arquivo USPSC-Siglas estabelecidas para os Programas de Pós-Graduação nos APÊNDICES B-J
+% Para o Tutorial é ulilizado USPSC em ambos os parâmetros
+\siglaunidade{USPSC}
+\programa{USPSC}
+% Os demais dados deverão ser fornecidos no arquivo USPSC-pre-textual-UUUU ou USPSC-TCC-pre-textual-UUUU, onde UUUU é a sigla da Unidade. 
+% Exemplo:USPSC-pre-textual-IFSC.tex
+% ---
+% Configurações de aparência do PDF final
+% alterando o aspecto da cor azul
+\definecolor{blue}{RGB}{41,5,195}
+
+
+
+
+% informações do PDF
+\makeatletter
+\hypersetup{
+	%pagebackref=true,
+	pdftitle={\@title}, 
+	pdfauthor={\@author},
+	pdfsubject={\imprimirpreambulo},
+	pdfcreator={LaTeX with abnTeX2},
+	pdfkeywords={abnt}{latex}{abntex}{USPSC}{trabalho acadêmico}, 
+	colorlinks=true,       		% false: boxed links; true: colored links
+	linkcolor=black,          	% color of internal links
+	citecolor=black,        		% color of links to bibliography
+	filecolor=black,      		% color of file links
+	urlcolor=black,
+	%Para habilitar as cores dos links, retire a % antes dos comandos abaixo e inclua a % antes das 4 linhas de comando acima 
+	%linkcolor=blue,            	% color of internal links
+	%citecolor=blue,        		% color of links to bibliography
+	%filecolor=magenta,      		% color of file links
+	%urlcolor=blue,
+	bookmarksdepth=4	
+}
+\makeatother
+% --- 
+
+% --- 
+% Espaçamentos entre linhas e parágrafos 
+% --- 
+
+% O tamanho do parágrafo é dado por:
+\setlength{\parindent}{1.3cm}
+
+% Controle do espaçamento entre um parágrafo e outro:
+\setlength{\parskip}{0.2cm}  % tente também \onelineskip
+
+% ---
+% compila o sumário e índice
+\makeindex
+% ---
+
+% ----
+% Início do documento
+% ----
+
+\begin{document}
+
+% Seleciona o idioma do documento (conforme pacotes do babel)
+\selectlanguage{brazil}
+% Se o idioma do texto for inglês, inclua uma % antes do 
+%      comando \selectlanguage{brazil} e 
+%      retire a % antes do comando abaixo
+%\selectlanguage{english}
+
+% Retira espaço extra obsoleto entre as frases.
+\frenchspacing 
+
+% --- Formatação dos Títulos
+\renewcommand{\ABNTEXchapterfontsize}{\fontsize{12}{12}\bfseries}
+\renewcommand{\ABNTEXsectionfontsize}{\fontsize{12}{12}\bfseries}
+\renewcommand{\ABNTEXsubsectionfontsize}{\fontsize{12}{12}\normalfont}
+\renewcommand{\ABNTEXsubsubsectionfontsize}{\fontsize{12}{12}\normalfont}
+\renewcommand{\ABNTEXsubsubsubsectionfontsize}{\fontsize{12}{12}\normalfont}
+
+
+% ----------------------------------------------------------
+% ELEMENTOS PRÉ-TEXTUAIS
+% ----------------------------------------------------------
+% ---
+% Capa
+% ---
+\imprimircapam
+% ---
+% Folha de rosto
+% (o * indica impressão em anverso (frente) e verso )
+% ---
+\imprimirfolhaderostom*
+%\imprimirfolhaderosto
+% ---
+% ---
+% Inserir a ficha catalográfica em pdf
+% ---
+% A biblioteca da sua Unidade lhe fornecerá um PDF com a ficha
+% catalográfica definitiva. 
+% Quando estiver com o documento, salve-o como PDF no diretório
+% do seu projeto como fichacatalografica.pdf e inclua o arquivo
+% utilizando o comando abaixo:
+
+%\includepdf{USPSC-TA-PreTextual/USPSC-fichacatalografica.pdf}
+
+% Se você optar por elaborar a ficha catalográfica, deverá 
+% incluir uma % antes da linha % antes
+% do comando \include{USPSC-TA-PreTextual/USPSC-fichacatalografica} 
+% e retirar o % do comando abaixo
+\include{USPSC-Tutorial/USPSC-fichacatalograficaTutorial}
+% As informações que compõem a ficha catalográfica estão 
+% definidas no arquivo USPSC-pre-textual-UUUU.tex
+% ---
+
+% ---
+% Folha de rosto adicional
+% Para imprimir a folha de rosto adicional, exigida por algumas Unidades, a exemplo do ICMC,
+% retire a % antes do comando abaixo
+
+%\imprimirfolhaderostoadic
+
+% ---
+% ---
+% Inserir errata
+% ---
+
+\include{USPSC-Tutorial/USPSC-ErrataTutorial}
+%Para Teses, Dissertações, TCCs e outros trabalhos acadêmicos, no arquivo USPSC-Modelo.tex e USPSC-TCC-modelo.tex, utilizar o comando \include{USPSC-TA-PreTextual/USPSC-Errata}
+
+% ---
+
+% ---
+% Inserir folha de aprovação
+% ---
+
+% A Folha de aprovação é um elemento obrigatório da NBR 4724/2011 (seção 4.2.1.3). 
+% Após a defesa/aprovação do trabalho, gere o arquivo folhadeaprovacao.pdf da página assinada pela banca 
+% e iclua o arquivo utilizando o comando abaixo:
+\includepdf{USPSC-TA-PreTextual/USPSC-folhadeaprovacao.pdf}
+% Alternativa para a Folha de Aprovação:
+% Se for a sua opção elaborar uma folha de aprovação, insira uma % antes do comando acima que inclui o arquivo folhadeaprovacao.pdf,
+% tire o % do comando abaixo e altere o arquivo folhadeaprovacao.tex conforme suas necessidades
+%\include{folhadeaprovacao}
+\includepdf{USPSC-TA-PreTextual/USPSC-PaginaEmBranco.pdf}
+
+% ---
+% Dedicatória
+% ---
+\include{USPSC-Tutorial/USPSC-DedicatoriaTutorial}
+% ---
+
+% ---
+% Agradecimentos
+% ---
+\include{USPSC-Tutorial/USPSC-AgradecimentosTutorial}
+% ---
+
+% ---
+% Epígrafe
+% ---
+\include{USPSC-Tutorial/USPSC-EpigrafeTutorial}
+% ---
+
+% A T E N Ç Ã O
+% Se o idioma do texto for em inglês, o abstract deve preceder o resumo
+% resumo em português
+%
+% Resumo
+% ---
+\include{USPSC-Tutorial/USPSC-ResumoTutorial}
+% ---
+
+% Abstract
+% ---
+\include{USPSC-Tutorial/USPSC-AbstractTutorial}
+% ---
+
+% ---
+% inserir lista de figurass
+% ---
+\pdfbookmark[0]{\listfigurename}{lof}
+\listoffigures*
+\cleardoublepage
+% ---
+
+% ---
+% inserir lista de tabelas
+% ---
+\pdfbookmark[0]{\listtablename}{lot}
+\listoftables*
+\cleardoublepage
+% ---
+
+% ---
+% inserir lista de quadros
+% ---
+\pdfbookmark[0]{\listofquadroname}{loq}
+\listofquadro*
+\cleardoublepage
+% ---
+
+% ---
+% inserir lista de abreviaturas e siglas
+% ---
+\include{USPSC-Tutorial/USPSC-AbreviaturasSiglasTutorial}
+% ---
+
+% ---
+% inserir lista de símbolos
+% ---
+\include{USPSC-Tutorial/USPSC-SimbolosTutorial}
+% ---
+% ---
+% inserir o sumario
+% ---
+\pdfbookmark[0]{\contentsname}{toc}
+\tableofcontents*
+\cleardoublepage
+% ---
+% ----------------------------------------------------------
+% ELEMENTOS TEXTUAIS
+% ----------------------------------------------------------
+\textual
+% Os capítulos são inseridos como arquivos externos 
+
+% Capítulo 1 - Introdução
+% ---
+\include{USPSC-Tutorial/USPSC-Cap1-IntroducaoTutorial}
+% ---
+
+% ---
+% Capítulo 2
+% ---
+\include{USPSC-Tutorial/USPSC-Cap2-DesenvolvimentoTutorial}
+
+% ---
+% Capítulo 3 - Citações
+% ---
+\include{USPSC-Tutorial/USPSC-Cap3-CitacoesTutorial}
+% ---
+
+% ---
+% Capítulo 4 - Referencias
+% ---
+\include{USPSC-Tutorial/USPSC-Cap4-ReferenciasTutorial}
+% ---
+
+% Capítulo 5 - Conclusão
+% ---
+\include{USPSC-Tutorial/USPSC-Cap5-ConclusaoTutorial}
+% ---
+
+% ----------------------------------------------------------
+% ELEMENTOS PÓS-TEXTUAIS
+% ----------------------------------------------------------
+\postextual
+% ----------------------------------------------------------
+
+% -----------------------------------------------------------
+% Referências bibliográficas
+% ----------------------------------------------------------
+\bibliography{USPSC-bib/USPSC-modelo-references}
+
+
+% ----------------------------------------------------------
+% Glossário
+% ----------------------------------------------------------
+%
+% Consulte o manual da classe abntex2 para orientações sobre o glossário.
+%
+%\glossary
+
+% ----------------------------------------------------------
+% Apêndices
+% ----------------------------------------------------------
+\include{USPSC-Tutorial/USPSC-ApendicesTutorial}
+
+% ----------------------------------------------------------
+% Anexos
+% ----------------------------------------------------------
+\include{USPSC-Tutorial/USPSC-AnexosTutorial}
+
+%---------------------------------------------------------------------
+% INDICE REMISSIVO
+%--------------------------------------------------------------------
+%\include{USPSC-Tutorial/USPSC-IndicesRemissivos}
+\phantompart
+\printindex
+%---------------------------------------------------------------------
+
+
+\end{document}

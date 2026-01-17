@@ -1,0 +1,352 @@
+\chapter{MATERIAL E MÉTODOS}
+
+Este capítulo apresenta a metodologia adotada para o desenvolvimento da plataforma de ingressos online, detalhando a caracterização do projeto, o contexto de aplicação, os recursos necessários, os procedimentos metodológicos, os critérios de avaliação e as limitações do estudo. A abordagem metodológica fundamenta-se em práticas consolidadas de engenharia de software e gestão de projetos \cite{Pressman:2019, Sommerville:2016}.
+
+\section{Caracterização do Projeto}
+
+O presente projeto caracteriza-se como um desenvolvimento tecnológico aplicado, voltado para a criação de uma solução de software empresarial no domínio de sistemas de informação para eventos. Trata-se de um sistema de informação transacional que integra funcionalidades de e-commerce, processamento de pagamentos, gestão de identidades e controle de acesso físico.
+
+Do ponto de vista da natureza do projeto, classifica-se como um projeto de desenvolvimento de software do tipo greenfield, ou seja, uma construção desde o início sem sistemas legados a serem considerados, permitindo a adoção de tecnologias modernas e arquitetura de microsserviços sem restrições de compatibilidade retroativa \cite{Newman:2021}.
+
+Quanto à complexidade, o projeto é considerado de média a alta complexidade devido à necessidade de integração com múltiplos sistemas externos (gateways de pagamento, provedores de e-mail, infraestrutura de nuvem), requisitos rigorosos de segurança e conformidade regulatória (PCI DSS, LGPD), e necessidade de alta disponibilidade e escalabilidade para suportar picos massivos de demanda.
+
+A abordagem de desenvolvimento adotada é incremental e iterativa, baseada em metodologias ágeis, especificamente utilizando elementos do Scrum adaptado às características do projeto acadêmico \cite{Schwaber:2020}. O desenvolvimento será organizado em sprints de duas semanas, com entregas incrementais e validação contínua com stakeholders.
+
+\section{Local do Projeto}
+
+O desenvolvimento do projeto será realizado em ambiente acadêmico, nas dependências do Centro Universitário de Viçosa, com atividades distribuídas em três contextos físicos distintos:
+
+\subsection{Ambiente de Desenvolvimento}
+
+As atividades de codificação, testes e documentação serão executadas nas instalações do laboratório de desenvolvimento de software da instituição, equipado com estações de trabalho adequadas e conectividade de alta velocidade. As reuniões de planejamento, revisão e retrospectiva da equipe ocorrerão em salas de projeto dedicadas.
+
+\subsection{Ambiente de Infraestrutura}
+
+A infraestrutura de execução da aplicação será provisionada inteiramente em nuvem, utilizando serviços de provedores estabelecidos (AWS, Azure ou Google Cloud Platform). Esta escolha elimina a necessidade de infraestrutura física local e permite elasticidade, escalabilidade global e conformidade com padrões de segurança internacionais \cite{MellGrance:2011}.
+
+Os ambientes serão segregados em:
+
+\begin{itemize}
+    \item \textbf{Desenvolvimento:} Ambiente instável para testes rápidos e experimentação
+    \item \textbf{Homologação/Staging:} Réplica do ambiente de produção para validação final
+    \item \textbf{Produção:} Ambiente de operação real com alta disponibilidade
+\end{itemize}
+
+\subsection{Contexto de Validação}
+
+A validação do sistema de controle de acesso (aplicação de check-in) será conduzida em eventos reais de pequeno e médio porte na região de Viçosa, mediante parceria com organizadores locais. Estes testes em ambiente real são essenciais para validar requisitos de usabilidade, performance e funcionamento offline em condições adversas.
+
+\section{Classificação e Definição de Recursos}
+
+Os recursos necessários para a execução do projeto são classificados em quatro categorias principais: recursos humanos, recursos tecnológicos, recursos financeiros e recursos de conhecimento.
+
+\subsection{Recursos Humanos}
+
+A equipe do projeto é composta por perfis especializados, totalizando 6 profissionais:
+
+\begin{itemize}
+    \item \textbf{1 Gerente de Projeto:} Responsável pelo planejamento, coordenação, controle de cronograma, gestão de riscos e comunicação com stakeholders. Requisitos: Certificação PMP ou equivalente, experiência em gestão de projetos de software.
+    
+    \item \textbf{2 Desenvolvedores Full-Stack Sênior:} Responsáveis pela implementação de backend (APIs, lógica de negócio, integrações) e frontend (interfaces responsivas, experiência do usuário). Requisitos: Experiência com JavaScript/TypeScript, Node.js ou Python, React ou Vue.js, bancos de dados relacionais e NoSQL.
+    
+    \item \textbf{1 Especialista em Segurança e Pagamentos:} Responsável pela implementação de camadas de segurança, integração com gateways de pagamento, conformidade PCI DSS e LGPD. Requisitos: Conhecimento profundo de segurança de aplicações web, OWASP Top 10, criptografia e tokenização.
+    
+    \item \textbf{1 Designer UX/UI:} Responsável pelo design de interfaces, prototipagem, testes de usabilidade e garantia de acessibilidade. Requisitos: Experiência com design systems, ferramentas de prototipagem (Figma, Adobe XD), conhecimento de princípios WCAG 2.1.
+    
+    \item \textbf{1 Analista de Testes e QA:} Responsável pela estratégia de testes, automação de testes unitários e de integração, testes de carga e validação de qualidade. Requisitos: Experiência com frameworks de teste (Jest, Cypress, JMeter), CI/CD e metodologias de teste.
+\end{itemize}
+
+\subsection{Recursos Tecnológicos}
+
+Os recursos tecnológicos abrangem software, hardware, infraestrutura e ferramentas necessárias para desenvolvimento, implantação e operação:
+
+\textbf{Infraestrutura de Nuvem:}
+\begin{itemize}
+    \item Servidores de aplicação escaláveis (AWS EC2, Azure VMs ou Google Compute Engine)
+    \item Banco de dados gerenciado relacional (PostgreSQL/MySQL em RDS, Azure SQL ou Cloud SQL)
+    \item Banco de dados NoSQL para cache e sessões (Redis/Memcached)
+    \item Storage de objetos para imagens e arquivos (S3, Azure Blob ou Cloud Storage)
+    \item Content Delivery Network (CloudFront, Azure CDN ou Cloud CDN)
+    \item Load Balancer e Auto-scaling configurados
+\end{itemize}
+
+\textbf{Ferramentas de Desenvolvimento:}
+\begin{itemize}
+    \item IDE/Editores: Visual Studio Code, WebStorm ou IntelliJ IDEA
+    \item Controle de versão: Git com repositório GitHub ou GitLab
+    \item Containerização: Docker para ambientes consistentes
+    \item Orquestração: Kubernetes para gerenciamento de containers (opcional)
+\end{itemize}
+
+\textbf{Ferramentas de Qualidade e Monitoramento:}
+\begin{itemize}
+    \item CI/CD: GitHub Actions, GitLab CI ou Jenkins
+    \item Testes automatizados: Jest, Pytest, Cypress, Selenium
+    \item Análise de código: SonarQube para qualidade e segurança
+    \item Monitoramento: New Relic, DataDog ou Prometheus+Grafana
+    \item Logging: ELK Stack (Elasticsearch, Logstash, Kibana) ou CloudWatch
+\end{itemize}
+
+\textbf{Integrações Externas:}
+\begin{itemize}
+    \item Gateway de Pagamento: Stripe, Mercado Pago ou PagSeguro
+    \item Serviço de E-mail Transacional: SendGrid, AWS SES ou Mailgun
+    \item Serviço de SMS (opcional): Twilio ou SNS
+    \item Geolocalização: Google Maps API ou Mapbox
+\end{itemize}
+
+\subsection{Recursos Financeiros}
+
+O orçamento total estimado para o projeto é de R\$ 450.000,00, distribuído conforme detalhado no Capítulo 8 (Estimativa de Recursos e Custos). A composição inclui custos com recursos humanos (71\%), infraestrutura e tecnologia (18\%), e reserva de contingência (11\%).
+
+\subsection{Recursos de Conhecimento}
+
+São considerados recursos de conhecimento essenciais para o sucesso do projeto:
+
+\begin{itemize}
+    \item Documentação técnica de APIs e frameworks utilizados
+    \item Normas e padrões: ISO 9241-11 (usabilidade), WCAG 2.1 (acessibilidade), PCI DSS (segurança de pagamentos)
+    \item Legislação: Lei Geral de Proteção de Dados (LGPD), Código de Defesa do Consumidor
+    \item Literatura acadêmica e profissional sobre arquitetura de software, microsserviços e engenharia de requisitos
+    \item Referências técnicas do OWASP para segurança de aplicações web
+\end{itemize}
+
+\section{Procedimentos}
+
+Os procedimentos metodológicos descrevem como o trabalho será executado, incluindo metodologias de desenvolvimento, processos de controle de qualidade e gestão do projeto.
+
+\subsection{Metodologia de Desenvolvimento Ágil}
+
+O projeto adota uma abordagem ágil baseada no framework Scrum, com adaptações para o contexto acadêmico \cite{Schwaber:2020}. A estrutura de trabalho é organizada da seguinte forma:
+
+\textbf{Sprints:} Ciclos iterativos de desenvolvimento de 2 semanas (10 dias úteis), resultando em incrementos potencialmente entregáveis do produto.
+
+\textbf{Cerimônias Scrum:}
+\begin{itemize}
+    \item \textbf{Sprint Planning:} Realizada no primeiro dia de cada sprint, com duração de 4 horas. A equipe seleciona itens do backlog do produto, define metas do sprint e planeja as tarefas necessárias.
+    
+    \item \textbf{Daily Standup:} Reuniões diárias de 15 minutos para sincronização da equipe, identificação de impedimentos e ajuste de plano quando necessário.
+    
+    \item \textbf{Sprint Review:} Realizada no último dia do sprint, com duração de 2 horas. A equipe demonstra o incremento desenvolvido para stakeholders e coleta feedback.
+    
+    \item \textbf{Sprint Retrospective:} Realizada após a review, com duração de 1,5 horas. A equipe reflete sobre o processo e identifica melhorias para o próximo sprint.
+\end{itemize}
+
+\textbf{Artefatos:}
+\begin{itemize}
+    \item \textbf{Product Backlog:} Lista priorizada de todas as funcionalidades, requisitos, melhorias e correções necessárias, mantida pelo Gerente de Projeto (assumindo papel de Product Owner).
+    
+    \item \textbf{Sprint Backlog:} Subconjunto do product backlog selecionado para o sprint atual, incluindo as tarefas técnicas necessárias para implementação.
+    
+    \item \textbf{Incremento:} Produto funcional ao final de cada sprint, testado e potencialmente implantável em ambiente de homologação.
+\end{itemize}
+
+\subsection{Arquitetura de Microsserviços}
+
+A arquitetura do sistema segue o padrão de microsserviços, onde a aplicação é decomposta em serviços pequenos, independentes e fracamente acoplados \cite{Newman:2021}. Cada microsserviço:
+
+\begin{itemize}
+    \item Possui responsabilidade bem definida e limitada
+    \item Pode ser desenvolvido, testado e implantado independentemente
+    \item Comunica-se via APIs REST ou mensageria assíncrona
+    \item Possui seu próprio banco de dados (database per service pattern)
+    \item Pode ser escalado horizontalmente de forma independente
+\end{itemize}
+
+Os principais microsserviços identificados são:
+\begin{enumerate}
+    \item \textbf{Identity Service:} Autenticação, autorização e gestão de usuários
+    \item \textbf{Event Service:} Gestão de eventos, categorias e informações
+    \item \textbf{Ticket Service:} Gestão de tipos de ingressos, lotes e disponibilidade
+    \item \textbf{Payment Service:} Processamento de pagamentos e integração com gateway
+    \item \textbf{Order Service:} Gestão de pedidos e carrinho de compras
+    \item \textbf{Digital Ticket Service:} Geração e validação de ingressos digitais com QR Code
+    \item \textbf{Notification Service:} Envio de e-mails e notificações
+    \item \textbf{Check-in Service:} Validação de ingressos e controle de acesso
+\end{itemize}
+
+\subsection{Controle de Qualidade e Testes}
+
+A estratégia de qualidade é estruturada em múltiplas camadas de testes automatizados e manuais \cite{Pressman:2019}:
+
+\textbf{Testes Unitários:} Executados automaticamente a cada commit, garantindo que funções e componentes individuais funcionem corretamente. Meta: cobertura mínima de 80\% do código.
+
+\textbf{Testes de Integração:} Validam a comunicação entre microsserviços e com sistemas externos. Executados automaticamente no pipeline de CI/CD.
+
+\textbf{Testes End-to-End (E2E):} Simulam fluxos completos de usuário através da interface. Executados antes de cada release em ambiente de homologação.
+
+\textbf{Testes de Carga e Performance:} Validam escalabilidade e tempos de resposta sob diferentes níveis de carga. Executados periodicamente e antes de releases importantes.
+
+\textbf{Testes de Segurança:} Incluem análise estática de código (SAST), análise dinâmica (DAST) e testes de penetração conduzidos por especialista externo.
+
+\textbf{Testes de Usabilidade:} Realizados com usuários reais (5-8 participantes por perfil) para validar interfaces e fluxos.
+
+\subsection{Integração Contínua e Entrega Contínua (CI/CD)}
+
+O projeto implementa um pipeline automatizado de CI/CD que:
+
+\begin{enumerate}
+    \item Executa testes automatizados a cada push para o repositório
+    \item Realiza análise estática de código para identificar vulnerabilidades e code smells
+    \item Constrói imagens Docker dos microsserviços
+    \item Implanta automaticamente em ambiente de desenvolvimento
+    \item Requer aprovação manual para deploy em homologação e produção
+    \item Implementa estratégia de blue-green deployment para zero downtime
+\end{enumerate}
+
+\subsection{Gestão de Configuração e Documentação}
+
+Todo o código-fonte é versionado usando Git, com estratégia de branching baseada em GitFlow:
+
+\begin{itemize}
+    \item \textbf{main:} Branch de produção, sempre estável
+    \item \textbf{develop:} Branch de desenvolvimento, integração contínua
+    \item \textbf{feature/*:} Branches para desenvolvimento de funcionalidades
+    \item \textbf{hotfix/*:} Branches para correções urgentes em produção
+\end{itemize}
+
+A documentação é mantida continuamente e inclui:
+\begin{itemize}
+    \item Documentação de APIs (OpenAPI/Swagger)
+    \item Diagramas de arquitetura (C4 Model)
+    \item Manuais de usuário e guias de operação
+    \item Runbooks para incidentes e operações
+\end{itemize}
+
+\section{Avaliação do Projeto}
+
+A avaliação do projeto será realizada através de múltiplas métricas e indicadores, organizados em três dimensões principais: técnica, experiência do usuário e negócio.
+
+\subsection{Métricas Técnicas}
+
+\textbf{Performance e Disponibilidade:}
+\begin{itemize}
+    \item Tempo médio de resposta das APIs (meta: < 200ms para 95\% das requisições)
+    \item Tempo de carregamento de páginas (meta: < 2 segundos)
+    \item Disponibilidade do sistema (meta: > 99,9\% ou SLA de 8,76 horas de downtime/ano)
+    \item Taxa de erro de requisições (meta: < 0,1\%)
+\end{itemize}
+
+\textbf{Escalabilidade:}
+\begin{itemize}
+    \item Número de usuários simultâneos suportados (meta: 10.000)
+    \item Tempo de resposta sob carga (degradação máxima de 20\% com carga máxima)
+    \item Eficiência de auto-scaling (tempo de provisionamento de novos recursos)
+\end{itemize}
+
+\textbf{Qualidade de Código:}
+\begin{itemize}
+    \item Cobertura de testes unitários (meta: > 80\%)
+    \item Índice de manutenibilidade (meta: A ou B no SonarQube)
+    \item Densidade de defeitos (meta: < 0,5 defeitos por 1000 linhas de código)
+    \item Dívida técnica (meta: classificação A no SonarQube)
+\end{itemize}
+
+\textbf{Segurança:}
+\begin{itemize}
+    \item Número de vulnerabilidades críticas (meta: 0)
+    \item Número de vulnerabilidades altas (meta: < 3, com plano de correção)
+    \item Conformidade com OWASP Top 10 (meta: 100\%)
+    \item Taxa de tentativas de fraude detectadas (meta: > 95\%)
+\end{itemize}
+
+\subsection{Métricas de Experiência do Usuário}
+
+\textbf{Usabilidade:}
+\begin{itemize}
+    \item Taxa de conclusão de tarefas (meta: > 95\% para fluxo de compra)
+    \item Tempo médio para completar compra (meta: < 3 minutos)
+    \item Taxa de abandono do carrinho (meta: < 15\%)
+    \item System Usability Scale (SUS) (meta: > 80 pontos)
+\end{itemize}
+
+\textbf{Satisfação:}
+\begin{itemize}
+    \item Net Promoter Score (NPS) (meta: > 50)
+    \item Avaliação média pós-compra (meta: > 4,5/5,0)
+    \item Taxa de reclamações (meta: < 2\% das transações)
+\end{itemize}
+
+\textbf{Acessibilidade:}
+\begin{itemize}
+    \item Conformidade WCAG 2.1 nível AA (meta: 100\%)
+    \item Resultado em ferramentas automatizadas (Lighthouse, axe) (meta: > 95)
+\end{itemize}
+
+\subsection{Métricas de Negócio}
+
+\textbf{Adoção e Crescimento:}
+\begin{itemize}
+    \item Número de organizadores cadastrados (meta: 50 nos primeiros 6 meses)
+    \item Número de eventos publicados (meta: 100 no primeiro ano)
+    \item Número de ingressos vendidos (meta: 100.000 no primeiro ano)
+    \item Taxa de crescimento trimestral (meta: 25\%)
+\end{itemize}
+
+\textbf{Eficiência Operacional:}
+\begin{itemize}
+    \item Taxa de sucesso em transações de pagamento (meta: > 99\%)
+    \item Taxa de sucesso na validação de ingressos (meta: > 99,5\%)
+    \item Tempo médio de validação na portaria (meta: < 2 segundos)
+\end{itemize}
+
+\textbf{Retorno sobre Investimento:}
+\begin{itemize}
+    \item Custo de aquisição de cliente (CAC)
+    \item Lifetime value (LTV) de organizadores
+    \item ROI positivo (meta: a partir do 18º mês de operação)
+\end{itemize}
+
+\subsection{Métodos de Coleta de Dados}
+
+Os dados serão coletados através de:
+
+\begin{itemize}
+    \item \textbf{Application Performance Monitoring (APM):} New Relic ou DataDog para métricas técnicas em tempo real
+    \item \textbf{Analytics:} Google Analytics ou Mixpanel para comportamento de usuários
+    \item \textbf{Logs Centralizados:} ELK Stack para análise de eventos e troubleshooting
+    \item \textbf{Pesquisas de Satisfação:} Questionários automáticos pós-compra e pós-evento
+    \item \textbf{Testes de Usabilidade:} Sessões gravadas com protocolo de pensamento em voz alta
+    \item \textbf{A/B Testing:} Experimentos controlados para otimização de conversão
+\end{itemize}
+
+\section{Limitações do Estudo}
+
+É fundamental reconhecer as limitações do presente estudo para contextualizar adequadamente os resultados e conclusões obtidas:
+
+\subsection{Limitações de Escopo}
+
+\textbf{Ausência de Aplicativos Nativos:} O projeto não contempla o desenvolvimento de aplicativos móveis nativos para iOS e Android, focando exclusivamente em uma solução web responsiva. Embora essa abordagem atenda à maioria dos casos de uso, pode haver limitações em funcionalidades específicas de dispositivos móveis, como notificações push nativas ou integração profunda com recursos do sistema operacional.
+
+\textbf{Mercado Secundário:} O sistema não implementa funcionalidades de revenda ou transferência de ingressos entre usuários, focando exclusivamente no mercado primário. Esta limitação visa simplificar a implementação inicial e reduzir riscos relacionados a fraudes e cambismo, mas pode ser uma restrição para alguns modelos de negócio.
+
+\textbf{Escolha de Assentos Marcados:} Não será desenvolvido sistema interativo de seleção de assentos em mapas de eventos (teatros, estádios). Esta funcionalidade, de alta complexidade, está fora do escopo inicial e poderá ser considerada em versões futuras.
+
+\subsection{Limitações Temporais}
+
+\textbf{Prazo de Desenvolvimento:} O projeto está limitado ao cronograma acadêmico de 30 semanas (7,5 meses), o que pode restringir o nível de refinamento e otimização de algumas funcionalidades. Recursos avançados de analytics, machine learning para detecção de fraudes e funcionalidades de marketing automatizado foram priorizados para fases posteriores.
+
+\textbf{Dados Históricos:} Como se trata de um sistema novo (greenfield), não haverá dados históricos de uso real durante a fase de desenvolvimento. Testes de carga e validações de escalabilidade serão realizados com dados sintéticos e simulações, podendo não capturar completamente todos os padrões de uso reais.
+
+\subsection{Limitações de Recursos}
+
+\textbf{Equipe Reduzida:} A equipe de 6 profissionais, embora adequada para o escopo do projeto, pode limitar a velocidade de desenvolvimento e a capacidade de trabalhar em múltiplas frentes simultaneamente. Priorização rigorosa de funcionalidades será necessária.
+
+\textbf{Orçamento Fixo:} O orçamento de R\$ 450.000,00 é fixo e não expansível, limitando a adoção de algumas tecnologias premium de terceiros e restringindo a quantidade de testes em larga escala que podem ser conduzidos.
+
+\subsection{Limitações Metodológicas}
+
+\textbf{Validação com Usuários Reais:} Os testes de usabilidade serão realizados com amostras limitadas de usuários (5-8 por perfil), o que pode não capturar todas as variações de comportamento e necessidades do público amplo.
+
+\textbf{Ambiente de Teste:} Testes de validação do sistema de check-in em eventos reais serão limitados a eventos de pequeno e médio porte na região de Viçosa, não cobrindo cenários de megaeventos com dezenas de milhares de participantes.
+
+\textbf{Integrações Específicas:} A integração com gateways de pagamento será limitada a 1-2 provedores durante a fase inicial, não contemplando todos os métodos de pagamento disponíveis no mercado brasileiro.
+
+\subsection{Limitações Contextuais}
+
+\textbf{Mercado Específico:} O projeto é desenvolvido no contexto brasileiro, com foco em regulamentações locais (LGPD) e métodos de pagamento nacionais (PIX). A adaptação para mercados internacionais exigirá customizações adicionais.
+
+\textbf{Cenário Tecnológico em Evolução:} Tecnologias, frameworks e padrões de segurança evoluem rapidamente. Decisões arquiteturais tomadas no início do projeto podem necessitar revisão durante o desenvolvimento ou após a implantação.
+
+Estas limitações não comprometem a validade dos objetivos do projeto, mas estabelecem fronteiras claras para interpretação dos resultados e identificam oportunidades para trabalhos futuros e evolução contínua da plataforma.
+

@@ -1,0 +1,401 @@
+\chapter{RESULTADOS ESPERADOS}
+
+Este capítulo apresenta os resultados esperados ao término do projeto de desenvolvimento da plataforma de ingressos online, estabelecendo as entregas concretas, as melhorias proporcionadas aos stakeholders e os impactos projetados nas dimensões técnica, operacional e de negócio. Os resultados estão alinhados aos objetivos específicos definidos no Capítulo 1 e fundamentados nas melhores práticas de engenharia de software \cite{Pressman:2019, Sommerville:2016}.
+
+\section{Entregas Técnicas}
+
+\subsection{Plataforma Web Completa e Operacional}
+
+Ao término do projeto, espera-se a entrega de uma plataforma web completa, responsiva e funcional, composta pelos seguintes módulos integrados:
+
+\textbf{1. Sistema de Autenticação e Gestão de Identidades}
+
+O sistema permitirá que usuários se cadastrem e autentiquem de forma segura, com suporte a múltiplos perfis (comprador, organizador, operador de portaria). A implementação utilizará JSON Web Tokens (JWT) para gestão de sessões e OAuth 2.0 para integração opcional com provedores externos (Google, Facebook). Espera-se que o sistema atinja:
+
+\begin{itemize}
+    \item Tempo de resposta inferior a 500ms para autenticação
+    \item Taxa de sucesso superior a 99,9\% em processos de login
+    \item Zero vulnerabilidades críticas relacionadas a autenticação e autorização
+    \item Conformidade total com requisitos de proteção de credenciais do OWASP \cite{OWASP:2021}
+\end{itemize}
+
+\textbf{2. Módulo de Gestão de Eventos}
+
+Interface administrativa completa permitindo que organizadores cadastrem eventos com informações detalhadas, configurem múltiplos tipos de ingressos, definam lotes promocionais com preços diferenciados e façam upload de imagens promocionais. O módulo entregará:
+
+\begin{itemize}
+    \item CRUD completo de eventos com validação de dados
+    \item Suporte a categorias de ingressos ilimitadas por evento
+    \item Sistema de lotes com controle automático de disponibilidade
+    \item Dashboard em tempo real com estatísticas de vendas
+    \item Capacidade de processar 100 eventos ativos simultaneamente
+\end{itemize}
+
+\textbf{3. Sistema de Comercialização e Pagamentos}
+
+Fluxo completo de compra desde a seleção de ingressos até a confirmação de pagamento, incluindo carrinho de compras resiliente, integração com gateway de pagamento certificado PCI DSS, e sistema de filas virtuais para alta demanda. Resultados esperados:
+
+\begin{itemize}
+    \item Tempo médio de finalização de compra inferior a 3 minutos
+    \item Taxa de abandono de carrinho inferior a 15\%
+    \item Suporte a PIX e cartão de crédito com processamento em tempo real
+    \item Taxa de sucesso em transações superior a 99\%
+    \item Capacidade de processar 10.000 transações simultâneas sem degradação
+\end{itemize}
+
+\textbf{4. Geração de Ingressos Digitais Seguros}
+
+Sistema de geração de ingressos digitais utilizando QR Codes dinâmicos e únicos, vinculados diretamente à conta do comprador para prevenir falsificações e cambismo. Espera-se entregar:
+
+\begin{itemize}
+    \item Geração instantânea de QR Code após confirmação de pagamento
+    \item Atualização automática do código a cada 30 segundos para evitar capturas de tela
+    \item Vinculação criptografada entre ingresso e usuário
+    \item Formato PDF para download e impressão quando necessário
+    \item Taxa de fraude inferior a 0,1\% do volume total de ingressos
+\end{itemize}
+
+\textbf{5. Aplicação de Controle de Acesso (Check-in)}
+
+Interface otimizada para operadores de portaria, com capacidade de validar ingressos através de leitura de QR Code, funcionar em modo offline com sincronização posterior, e fornecer feedback visual claro sobre status de validação. Resultados técnicos esperados:
+
+\begin{itemize}
+    \item Tempo de validação por ingresso inferior a 2 segundos
+    \item Funcionamento offline com cache de até 50.000 ingressos
+    \item Sincronização automática e inteligente ao restaurar conectividade
+    \item Taxa de sucesso na validação superior a 99,5\%
+    \item Interface responsiva otimizada para tablets e smartphones
+\end{itemize}
+
+\subsection{Arquitetura e Infraestrutura}
+
+A plataforma será construída sobre uma arquitetura de microsserviços moderna e escalável, implantada em infraestrutura de nuvem com as seguintes características:
+
+\textbf{Arquitetura de Microsserviços:}
+\begin{itemize}
+    \item 8 microsserviços independentes e fracamente acoplados
+    \item Comunicação via APIs REST com documentação OpenAPI/Swagger
+    \item Database per service pattern para independência de dados
+    \item Event-driven architecture para processamentos assíncronos
+    \item Containerização com Docker para portabilidade
+\end{itemize}
+
+\textbf{Infraestrutura Cloud:}
+\begin{itemize}
+    \item Ambientes segregados (desenvolvimento, homologação, produção)
+    \item Auto-scaling horizontal baseado em métricas de carga
+    \item Load balancing com distribuição inteligente de tráfego
+    \item CDN global para distribuição de conteúdo estático
+    \item Backup automatizado com RPO de 4 horas e RTO de 4 horas
+\end{itemize}
+
+\textbf{Segurança e Conformidade:}
+\begin{itemize}
+    \item Certificação PCI DSS Level 1 para processamento de pagamentos
+    \item Conformidade total com LGPD para proteção de dados pessoais \cite{LGPD:2018}
+    \item Criptografia TLS 1.3 para dados em trânsito
+    \item Criptografia AES-256 para dados sensíveis em repouso
+    \item Proteção contra todas as vulnerabilidades do OWASP Top 10 \cite{OWASP:2021}
+    \item Web Application Firewall (WAF) configurado e operacional
+\end{itemize}
+
+\subsection{Qualidade de Software}
+
+O projeto entregará um sistema com altos padrões de qualidade, evidenciados por:
+
+\textbf{Cobertura de Testes:}
+\begin{itemize}
+    \item Cobertura de testes unitários superior a 80\%
+    \item Suite completa de testes de integração cobrindo fluxos críticos
+    \item Testes end-to-end automatizados para jornadas principais de usuário
+    \item Validação de performance com simulação de 10.000 usuários simultâneos
+    \item Auditoria de segurança externa sem vulnerabilidades críticas
+\end{itemize}
+
+\textbf{Métricas de Qualidade de Código:}
+\begin{itemize}
+    \item Índice de manutenibilidade classificação A no SonarQube
+    \item Densidade de defeitos inferior a 0,5 por 1000 linhas de código
+    \item Dívida técnica inferior a 5\% (classificação A)
+    \item Zero code smells críticos ou bloqueadores
+    \item Documentação de APIs 100\% completa e atualizada
+\end{itemize}
+
+\textbf{Performance e Disponibilidade:}
+\begin{itemize}
+    \item Tempo de resposta médio de APIs inferior a 200ms (P95 < 500ms)
+    \item Tempo de carregamento de páginas inferior a 2 segundos
+    \item Disponibilidade superior a 99,9\% (SLA de 8,76 horas downtime/ano)
+    \item Taxa de erro de requisições inferior a 0,1\%
+    \item Capacidade demonstrada de escalar para 10x carga normal
+\end{itemize}
+
+\section{Melhorias para Stakeholders}
+
+\subsection{Benefícios para Organizadores de Eventos}
+
+Os organizadores de eventos obterão uma plataforma confiável e profissional que otimiza significativamente suas operações de comercialização de ingressos:
+
+\textbf{Eficiência Operacional:}
+\begin{itemize}
+    \item Redução de 70\% no tempo gasto com gestão manual de ingressos
+    \item Eliminação de processos manuais de controle de estoque e vendas
+    \item Dashboard centralizado com visibilidade em tempo real de todas as métricas
+    \item Relatórios automatizados de vendas, público e receita
+    \item Redução estimada de 50\% em custos operacionais versus bilheteria física
+\end{itemize}
+
+\textbf{Segurança e Controle:}
+\begin{itemize}
+    \item Redução de 90\% em casos de falsificação de ingressos
+    \item Controle efetivo sobre cambismo através de vinculação usuário-ingresso
+    \item Auditoria completa de todas as transações e acessos
+    \item Prevenção de overselling através de controle de estoque em tempo real
+    \item Mitigação de fraudes financeiras através de gateway certificado
+\end{itemize}
+
+\textbf{Capacidade e Alcance:}
+\begin{itemize}
+    \item Capacidade de vender para público global 24/7 sem limitações geográficas
+    \item Escalabilidade para suportar eventos de qualquer porte (10 a 100.000 participantes)
+    \item Integração com marketing digital através de links compartilháveis
+    \item Aumento estimado de 30\% no alcance de público potencial
+    \item Redução de 40\% no tempo entre lançamento e esgotamento de ingressos
+\end{itemize}
+
+\subsection{Benefícios para Compradores}
+
+Os consumidores finais experimentarão uma jornada de compra moderna, segura e conveniente:
+
+\textbf{Experiência do Usuário:}
+\begin{itemize}
+    \item Processo de compra simplificado com máximo 3 etapas
+    \item Interface responsiva funcionando perfeitamente em qualquer dispositivo
+    \item Busca e descoberta facilitada de eventos de interesse
+    \item Confirmação instantânea e envio automático de ingressos por e-mail
+    \item Acesso permanente aos ingressos através do portal do cliente
+\end{itemize}
+
+\textbf{Confiança e Segurança:}
+\begin{itemize}
+    \item Garantia de autenticidade dos ingressos através de QR Codes únicos
+    \item Proteção de dados pessoais e financeiros conforme LGPD
+    \item Processamento seguro de pagamentos certificado PCI DSS
+    \item Transparência total sobre taxas, políticas e informações do evento
+    \item Redução de 95\% no risco de aquisição de ingressos falsificados
+\end{itemize}
+
+\textbf{Conveniência:}
+\begin{itemize}
+    \item Compra a qualquer hora, de qualquer lugar, em qualquer dispositivo
+    \item Eliminação de deslocamento a pontos de venda físicos
+    \item Múltiplos métodos de pagamento (PIX instantâneo, cartão de crédito)
+    \item Histórico completo de compras e ingressos em um único lugar
+    \item Reenvio instantâneo de ingressos em caso de perda ou esquecimento
+\end{itemize}
+
+\subsection{Benefícios para Operadores de Portaria}
+
+A equipe de controle de acesso contará com ferramentas eficientes que agilizam e profissionalizam o processo de entrada:
+
+\textbf{Agilidade e Eficiência:}
+\begin{itemize}
+    \item Redução de 80\% no tempo médio de validação por participante
+    \item Eliminação de filas extensas na entrada (processamento < 2 segundos)
+    \item Interface intuitiva requerendo treinamento mínimo (< 15 minutos)
+    \item Funcionamento offline garantindo operação mesmo com conectividade falha
+    \item Redução estimada de 60\% na necessidade de equipe de portaria
+\end{itemize}
+
+\textbf{Segurança e Confiabilidade:}
+\begin{itemize}
+    \item Detecção instantânea de tentativas de ingresso duplicado ou fraudulento
+    \item Registro completo de horários de entrada para auditoria
+    \item Alertas visuais claros sobre status de validação (aprovado/rejeitado)
+    \item Impossibilidade de manipulação manual de registros de entrada
+    \item Sincronização automática de dados entre múltiplos pontos de acesso
+\end{itemize}
+
+\section{Impactos Projetados}
+
+\subsection{Impacto no Setor de Eventos}
+
+A plataforma desenvolvida tem potencial para elevar significativamente os padrões de qualidade e profissionalismo no setor de eventos brasileiro:
+
+\textbf{Democratização do Acesso:}
+\begin{itemize}
+    \item Organizadores de eventos de pequeno e médio porte terão acesso a tecnologia antes disponível apenas para grandes players
+    \item Redução de barreiras de entrada para novos organizadores através de custos operacionais menores
+    \item Expansão estimada de 40\% no número de eventos que adotam comercialização digital profissional
+\end{itemize}
+
+\textbf{Profissionalização do Mercado:}
+\begin{itemize}
+    \item Estabelecimento de novos padrões de segurança e conformidade regulatória
+    \item Redução de práticas predatórias como cambismo e falsificação
+    \item Aumento da confiança do consumidor no mercado de eventos online
+    \item Benchmark para outras soluções do setor em termos de usabilidade e segurança
+\end{itemize}
+
+\textbf{Dados e Inteligência:}
+\begin{itemize}
+    \item Geração de dados estruturados sobre perfil de público e comportamento de compra
+    \item Possibilidade de análises preditivas para otimização de preços e estratégias
+    \item Insights para organizadores melhorarem planejamento e experiência de eventos
+\end{itemize}
+
+\subsection{Impacto Acadêmico e Científico}
+
+Do ponto de vista acadêmico, o projeto contribui significativamente para o conhecimento e formação dos envolvidos:
+
+\textbf{Aplicação Prática de Conhecimentos:}
+\begin{itemize}
+    \item Consolidação de conceitos de arquitetura de software, microsserviços e cloud computing
+    \item Aplicação real de metodologias ágeis e gestão de projetos
+    \item Experiência prática com padrões de segurança e conformidade regulatória
+    \item Desenvolvimento de competências em engenharia de requisitos e design centrado no usuário
+\end{itemize}
+
+\textbf{Contribuição para a Literatura:}
+\begin{itemize}
+    \item Documentação completa do ciclo de desenvolvimento de sistema web complexo
+    \item Estudo de caso aplicável em disciplinas de engenharia de software
+    \item Referência para trabalhos futuros sobre sistemas de e-commerce e eventos
+    \item Validação empírica de práticas de desenvolvimento seguro e escalável
+\end{itemize}
+
+\textbf{Formação Profissional:}
+\begin{itemize}
+    \item Preparação da equipe para atuação no mercado de tecnologia
+    \item Desenvolvimento de portfolio técnico robusto e demonstrável
+    \item Experiência em todas as fases do ciclo de vida de desenvolvimento de software
+    \item Habilidades de trabalho em equipe, comunicação e gestão de stakeholders
+\end{itemize}
+
+\subsection{Impacto Social}
+
+Embora seja primariamente um projeto tecnológico, a plataforma traz benefícios sociais relevantes:
+
+\textbf{Acessibilidade:}
+\begin{itemize}
+    \item Interface desenvolvida seguindo diretrizes WCAG 2.1 nível AA \cite{WCAG:2018}
+    \item Possibilidade de participação em eventos para pessoas com limitações de mobilidade (compra online, sem necessidade de deslocamento a bilheteria)
+    \item Democratização do acesso a informações sobre eventos culturais
+\end{itemize}
+
+\textbf{Transparência e Proteção ao Consumidor:}
+\begin{itemize}
+    \item Conformidade total com Código de Defesa do Consumidor
+    \item Clareza de informações sobre preços, taxas e políticas de cancelamento
+    \item Proteção contra fraudes e práticas abusivas de cambismo
+    \item Garantia de privacidade e proteção de dados pessoais conforme LGPD
+\end{itemize}
+
+\textbf{Inclusão Digital:}
+\begin{itemize}
+    \item Incentivo à adoção de tecnologias digitais por organizadores tradicionais
+    \item Educação de usuários sobre práticas seguras de compra online
+    \item Contribuição para redução da exclusão digital no acesso a entretenimento e cultura
+\end{itemize}
+
+\section{Indicadores de Sucesso}
+
+O sucesso do projeto será mensurado através dos seguintes indicadores-chave:
+
+\subsection{Indicadores Técnicos}
+
+\begin{table}[H]
+\centering
+\caption{Indicadores técnicos de sucesso do projeto.}
+\label{tab:kpi-tecnicos}
+\small
+\begin{tabular}{|p{5cm}|p{2.5cm}|p{3cm}|p{2cm}|}
+\hline
+\textbf{Indicador} & \textbf{Meta} & \textbf{Método Medição} & \textbf{Período} \\ \hline
+Disponibilidade do sistema & > 99,9\% & APM/Monitoramento & Contínuo \\ \hline
+Tempo resposta P95 APIs & < 500ms & APM & Contínuo \\ \hline
+Tempo carregamento páginas & < 2s & Lighthouse & Semanal \\ \hline
+Cobertura testes unitários & > 80\% & SonarQube & Sprint \\ \hline
+Vulnerabilidades críticas & 0 & SAST/DAST & Sprint \\ \hline
+Taxa erro transações & < 0,1\% & Logs/Analytics & Diário \\ \hline
+Capacidade concorrência & 10.000 users & Testes carga & Mensal \\ \hline
+\end{tabular}
+\end{table}
+
+\subsection{Indicadores de Experiência do Usuário}
+
+\begin{table}[H]
+\centering
+\caption{Indicadores de experiência do usuário.}
+\label{tab:kpi-ux}
+\small
+\begin{tabular}{|p{5cm}|p{2.5cm}|p{3cm}|p{2cm}|}
+\hline
+\textbf{Indicador} & \textbf{Meta} & \textbf{Método Medição} & \textbf{Período} \\ \hline
+Taxa conclusão compra & > 95\% & Analytics & Diário \\ \hline
+Tempo médio compra & < 3 min & Analytics & Diário \\ \hline
+Taxa abandono carrinho & < 15\% & Analytics & Diário \\ \hline
+System Usability Scale (SUS) & > 80 & Pesquisa & Trimestral \\ \hline
+Net Promoter Score (NPS) & > 50 & Pesquisa & Trimestral \\ \hline
+Satisfação pós-compra & > 4,5/5 & Pesquisa & Transação \\ \hline
+Conformidade WCAG 2.1 AA & 100\% & Auditoria & Mensal \\ \hline
+\end{tabular}
+\end{table}
+
+\subsection{Indicadores de Negócio}
+
+\begin{table}[H]
+\centering
+\caption{Indicadores de negócio e adoção.}
+\label{tab:kpi-negocio}
+\small
+\begin{tabular}{|p{5cm}|p{2.5cm}|p{3cm}|p{2cm}|}
+\hline
+\textbf{Indicador} & \textbf{Meta} & \textbf{Método Medição} & \textbf{Período} \\ \hline
+Organizadores cadastrados & 50 & Banco dados & 6 meses \\ \hline
+Eventos publicados & 100 & Banco dados & 12 meses \\ \hline
+Ingressos vendidos & 100.000 & Banco dados & 12 meses \\ \hline
+Taxa sucesso pagamentos & > 99\% & Gateway/Logs & Diário \\ \hline
+Taxa sucesso validações & > 99,5\% & Logs check-in & Evento \\ \hline
+Crescimento trimestral & 25\% & Banco dados & Trimestre \\ \hline
+Taxa fraude detectada & < 0,1\% & ML/Analytics & Mensal \\ \hline
+\end{tabular}
+\end{table}
+
+\section{Sustentabilidade e Evolução Futura}
+
+Embora o projeto tenha prazo definido de 30 semanas, espera-se que a plataforma desenvolvida tenha sustentabilidade de longo prazo:
+
+\textbf{Documentação Completa:}
+\begin{itemize}
+    \item Documentação técnica detalhada de arquitetura, APIs e deploy
+    \item Manuais de usuário para cada perfil (comprador, organizador, operador)
+    \item Runbooks para operação, troubleshooting e resolução de incidentes
+    \item Base de conhecimento para suporte e manutenção
+\end{itemize}
+
+\textbf{Código Limpo e Manutenível:}
+\begin{itemize}
+    \item Arquitetura modular facilitando evolução independente de componentes
+    \item Padrões de código consistentes e bem documentados
+    \item Baixa dívida técnica e alta cobertura de testes automatizados
+    \item Facilidade para onboarding de novos desenvolvedores
+\end{itemize}
+
+\textbf{Roadmap de Evolução:}
+
+Funcionalidades candidatas para fases futuras pós-projeto inicial:
+\begin{itemize}
+    \item \textbf{Fase 2 (3-6 meses):} Marketplace secundário para revenda segura, escolha de assentos marcados, programa de fidelidade
+    \item \textbf{Fase 3 (6-12 meses):} Aplicativos móveis nativos iOS/Android, analytics avançado com machine learning, integração com redes sociais
+    \item \textbf{Fase 4 (12+ meses):} Expansão internacional, suporte multi-idioma e multi-moeda, white-label para organizadores grandes
+\end{itemize}
+
+\section{Considerações Finais}
+
+Os resultados esperados apresentados neste capítulo demonstram que o projeto de desenvolvimento da plataforma de ingressos online não se limita à entrega de um produto tecnológico, mas representa uma solução abrangente que endereça desafios reais do setor de eventos, beneficia múltiplos stakeholders e tem potencial de impacto significativo no mercado.
+
+O alinhamento rigoroso entre objetivos definidos, planejamento detalhado, recursos adequados e métricas de sucesso claras estabelece bases sólidas para o atingimento dos resultados projetados. A ênfase em qualidade, segurança, usabilidade e escalabilidade posiciona a plataforma como uma referência técnica e funcional no domínio de sistemas de comercialização de ingressos online.
+
+Mais do que um trabalho acadêmico, espera-se que este projeto contribua efetivamente para a evolução do setor de eventos no Brasil, promovendo profissionalização, segurança e melhoria da experiência de todos os envolvidos no ecossistema de eventos culturais, esportivos e corporativos.
+

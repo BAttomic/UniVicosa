@@ -1,0 +1,180 @@
+\chapter{ENGENHARIA DE REQUISITOS}
+
+\section{Requisitos Funcionais}
+
+Com base na análise dos stakeholders e no Termo de Abertura, foram identificados os seguintes requisitos funcionais para a plataforma de ingressos online:
+
+\textbf{RF001 - Sistema de Autenticação e Autorização}
+\begin{itemize}
+    \item Cadastro de usuários com validação de e-mail
+    \item Suporte a perfis: Organizador, Comprador e Operador de Portaria
+    \item Autenticação segura com JWT e OAuth 2.0
+\end{itemize}
+
+\textbf{RF002 - Gestão de Eventos}
+\begin{itemize}
+    \item Cadastro completo de eventos com informações detalhadas
+    \item Configuração de múltiplos tipos de ingressos e lotes promocionais
+    \item Upload de imagens e descrições dos eventos
+    \item Definição de capacidade e políticas específicas
+\end{itemize}
+
+\textbf{RF003 - Processo de Compra}
+\begin{itemize}
+    \item Carrinho de compras com seleção de quantidade e tipos
+    \item Integração com gateway de pagamento (PIX e cartão de crédito)
+    \item Sistema de filas virtuais para gerenciar alta demanda
+    \item Confirmação automática por e-mail
+\end{itemize}
+
+\textbf{RF004 - Ingressos Digitais Seguros}
+\begin{itemize}
+    \item Geração de QR Code único e dinâmico para cada ingresso
+    \item Vinculação direta à conta do usuário comprador
+    \item Prevenção de screenshots e compartilhamento indevido
+    \item Atualização periódica do código para evitar clonagem
+\end{itemize}
+
+\textbf{RF005 - Controle de Acesso}
+\begin{itemize}
+    \item Aplicação para validação rápida via leitura de QR Code
+    \item Funcionamento offline com sincronização posterior
+    \item Registro de entrada e controle de capacidade em tempo real
+    \item Interface otimizada para uso em dispositivos móveis
+\end{itemize}
+
+\textbf{RF006 - Portal do Cliente}
+\begin{itemize}
+    \item Visualização de todos os ingressos adquiridos
+    \item Histórico completo de compras
+    \item Reenvio de comprovantes e ingressos por e-mail
+    \item Gestão de dados pessoais e preferências
+\end{itemize}
+
+\section{Requisitos Não Funcionais}
+
+\textbf{RNF001 - Performance e Escalabilidade}
+\begin{itemize}
+    \item Tempo de resposta inferior a 2 segundos para 95\% das requisições
+    \item Suporte a 10.000 usuários simultâneos sem degradação
+    \item Disponibilidade superior a 99,9\% (máximo 8,76h de indisponibilidade/ano)
+    \item Auto-scaling automático baseado na demanda
+\end{itemize}
+
+\textbf{RNF002 - Segurança}
+\begin{itemize}
+    \item Conformidade com padrões PCI DSS para processamento de pagamentos \cite{PCIDSS:2022}
+    \item Criptografia de dados sensíveis em trânsito e em repouso
+    \item Proteção contra ataques do OWASP Top 10 \cite{OWASP:2021}
+    \item Auditoria completa de todas as transações financeiras
+\end{itemize}
+
+\textbf{RNF003 - Usabilidade}
+\begin{itemize}
+    \item Interface responsiva para desktop, tablet e smartphone
+    \item Navegação intuitiva com máximo 3 cliques para finalizar compra
+    \item Suporte aos principais navegadores (Chrome, Firefox, Safari, Edge)
+    \item Acessibilidade seguindo diretrizes WCAG 2.1 \cite{WCAG:2018}
+\end{itemize}
+
+\textbf{RNF004 - Confiabilidade}
+\begin{itemize}
+    \item Backup automático de dados críticos
+    \item Recuperação de desastres em menos de 4 horas
+    \item Monitoramento 24/7 com alertas automáticos
+    \item Logs detalhados para auditoria e troubleshooting
+\end{itemize}
+
+\section{Histórias de Usuário}
+
+\textbf{US001 - Comprar Ingresso}
+\begin{itemize}
+    \item \textbf{Como} comprador, \textbf{quero} selecionar um evento e finalizar a compra rapidamente, \textbf{para} garantir meu ingresso sem frustrações.
+    \item \textbf{Critérios de Aceitação:} Processo completo em menos de 3 minutos, confirmação por e-mail, ingresso disponível imediatamente.
+\end{itemize}
+
+\textbf{US002 - Validar Entrada}
+\begin{itemize}
+    \item \textbf{Como} operador de portaria, \textbf{quero} escanear QR Codes rapidamente, \textbf{para} evitar filas na entrada do evento.
+    \item \textbf{Critérios de Aceitação:} Validação em menos de 2 segundos, funcionamento offline, informações claras na tela.
+\end{itemize}
+
+\textbf{US003 - Gerenciar Evento}
+\begin{itemize}
+    \item \textbf{Como} organizador, \textbf{quero} acompanhar vendas em tempo real, \textbf{para} tomar decisões estratégicas durante a comercialização.
+    \item \textbf{Critérios de Aceitação:} Dashboard atualizado a cada 5 minutos, relatórios exportáveis, alertas de capacidade.
+\end{itemize}
+
+\section{Riscos do Projeto}
+
+\textbf{R001 - Picos de Demanda Extrema}
+\begin{itemize}
+    \item \textbf{Descrição:} Sistema pode não suportar demanda massiva em lançamentos de eventos populares
+    \item \textbf{Probabilidade:} Alta | \textbf{Impacto:} Crítico
+    \item \textbf{Mitigação:} Implementar filas virtuais, CDN global e auto-scaling agressivo
+\end{itemize}
+
+\textbf{R002 - Falhas na Integração de Pagamentos}
+\begin{itemize}
+    \item \textbf{Descrição:} Problemas com gateways podem impedir finalização de compras
+    \item \textbf{Probabilidade:} Média | \textbf{Impacto:} Alto
+    \item \textbf{Mitigação:} Múltiplos provedores, fallback automático e testes de carga extensivos
+\end{itemize}
+
+\textbf{R003 - Fraudes e Falsificação}
+\begin{itemize}
+    \item \textbf{Descrição:} Tentativas de burlar sistema com ingressos falsos ou cambismo
+    \item \textbf{Probabilidade:} Média | \textbf{Impacto:} Alto
+    \item \textbf{Mitigação:} QR Codes dinâmicos, machine learning para detecção de padrões suspeitos
+\end{itemize}
+
+\textbf{R004 - Conectividade no Local do Evento}
+\begin{itemize}
+    \item \textbf{Descrição:} Internet instável pode afetar validação de ingressos na portaria
+    \item \textbf{Probabilidade:} Média | \textbf{Impacto:} Médio
+    \item \textbf{Mitigação:} Modo offline robusto, sincronização inteligente e backup de conectividade
+\end{itemize}
+
+\section{Restrições}
+
+As restrições do projeto definem as limitações e condições obrigatórias que devem ser respeitadas durante o desenvolvimento da plataforma \cite{Sommerville:2016}.
+
+\textbf{Restrições Tecnológicas}
+\begin{itemize}
+    \item Conformidade obrigatória com padrões PCI DSS Level 1 para processamento de pagamentos \cite{PCIDSS:2022}
+    \item Proteção contra vulnerabilidades do OWASP Top 10 \cite{OWASP:2021}
+    \item Acessibilidade seguindo diretrizes WCAG 2.1 nível AA \cite{WCAG:2018}
+    \item Ausência de aplicativos móveis nativos -- solução exclusivamente web responsiva
+    \item Utilização obrigatória de tecnologias de nuvem com auto-scaling automático
+\end{itemize}
+
+\textbf{Restrições Legais e Regulatórias}
+\begin{itemize}
+    \item Conformidade total com a Lei Geral de Proteção de Dados (LGPD) \cite{LGPD:2018}
+    \item Atendimento às normas do Código de Defesa do Consumidor para e-commerce
+    \item Adequação às regulamentações de eventos públicos e privados
+    \item Compliance com normas de segurança financeira do Banco Central do Brasil
+\end{itemize}
+
+\textbf{Restrições Orçamentárias}
+\begin{itemize}
+    \item Orçamento total limitado a R\$ 450.000{,}00
+    \item Distribuição fixa: 71\% recursos humanos, 18\% infraestrutura, 11\% contingência
+    \item Impossibilidade de contratação de recursos adicionais além do planejado
+    \item Aprovação obrigatória para mudanças de escopo que impactem custos
+\end{itemize}
+
+\textbf{Restrições Temporais}
+\begin{itemize}
+    \item Prazo fixo de 30 semanas para desenvolvimento completo
+    \item Datas de entrega das fases não negociáveis conforme cronograma acadêmico
+    \item Marcos obrigatórios de entrega conforme calendário da disciplina
+\end{itemize}
+
+\textbf{Restrições Operacionais}
+\begin{itemize}
+    \item Sistema de controle de acesso deve funcionar offline com sincronização posterior
+    \item Dependência de conectividade limitada em locais de eventos
+    \item Interface deve ser operável em condições adversas (ruído, multidões, pressão temporal)
+    \item Disponibilidade mínima de 99{,}9\% mesmo durante picos de demanda
+\end{itemize}

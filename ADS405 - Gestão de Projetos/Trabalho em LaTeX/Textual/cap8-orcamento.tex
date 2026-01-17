@@ -1,0 +1,404 @@
+\chapter{ESTIMAR RECURSOS E CUSTOS}
+
+A estimativa de recursos e custos é fundamental para estabelecer a viabilidade financeira do projeto e garantir alocação adequada de orçamento ao longo do ciclo de desenvolvimento \cite{PMI:2021, Kerzner:2022}. Este capítulo detalha todos os recursos necessários e seus custos associados, fornecendo uma base sólida para gestão financeira e tomada de decisões.
+
+\section{Metodologia de Estimativa}
+
+A estimativa de custos do projeto foi realizada utilizando abordagem bottom-up, onde os custos de pacotes de trabalho individuais foram estimados detalhadamente e posteriormente agregados para obter o custo total \cite{PMI:2021}. Esta metodologia oferece maior precisão, especialmente para projetos com escopo bem definido como o presente.
+
+\subsection{Premissas de Estimativa}
+
+\textbf{Premissas Gerais:}
+\begin{itemize}
+    \item Duração total do projeto: 30 semanas (7,5 meses)
+    \item Moeda de referência: Real Brasileiro (R\$)
+    \item Valores baseados em médias de mercado para 2025
+    \item Equipe localizada no Brasil (custos domésticos)
+    \item Regime de contratação: CLT para recursos humanos
+\end{itemize}
+
+\textbf{Premissas de Recursos Humanos:}
+\begin{itemize}
+    \item Salários incluem encargos trabalhistas (aproximadamente 80\% sobre salário base)
+    \item Jornada de trabalho: 40 horas semanais
+    \item Benefícios inclusos: vale-transporte, vale-refeição, plano de saúde
+    \item Disponibilidade: 100\% dedicação ao projeto
+\end{itemize}
+
+\textbf{Premissas de Infraestrutura:}
+\begin{itemize}
+    \item Ambiente cloud com pricing pay-as-you-go
+    \item Estimativas baseadas em tráfego médio esperado
+    \item Reserva de capacidade para picos de 10x o tráfego normal
+    \item Custos de transferência de dados incluídos
+\end{itemize}
+
+\section{Recursos Humanos}
+
+Os recursos humanos representam o componente mais significativo do orçamento do projeto, totalizando 71\% do investimento total.
+
+\subsection{Composição da Equipe e Custos}
+
+\begin{table}[H]
+\centering
+\caption{Custos de recursos humanos do projeto.}
+\label{tab:rh-custos}
+\small
+\begin{tabular}{|p{3.5cm}|c|p{2.5cm}|p{2cm}|p{2.5cm}|}
+\hline
+\textbf{Função} & \textbf{Qtd} & \textbf{Salário Mensal} & \textbf{Duração} & \textbf{Custo Total} \\ \hline
+Gerente de Projeto & 1 & R\$ 18.000 & 7,5 meses & R\$ 135.000 \\ \hline
+Desenvolvedor Full-Stack Sênior & 2 & R\$ 14.000 & 7,5 meses & R\$ 210.000 \\ \hline
+Especialista Segurança/Pagamentos & 1 & R\$ 16.000 & 5 meses & R\$ 80.000 \\ \hline
+Designer UX/UI & 1 & R\$ 10.000 & 6 meses & R\$ 60.000 \\ \hline
+Analista de Testes e QA & 1 & R\$ 9.000 & 6 meses & R\$ 54.000 \\ \hline
+\multicolumn{4}{|r|}{\textbf{Subtotal Recursos Humanos:}} & \textbf{R\$ 539.000} \\ \hline
+\multicolumn{4}{|r|}{Contingência RH (10\%):} & R\$ 53.900 \\ \hline
+\multicolumn{4}{|r|}{\textbf{Total Recursos Humanos:}} & \textbf{R\$ 592.900} \\ \hline
+\end{tabular}
+\end{table}
+
+\textbf{Justificativas de Alocação:}
+
+\begin{itemize}
+    \item \textbf{Gerente de Projeto:} Dedicação integral durante todo o ciclo, responsável por planejamento, controle, gestão de stakeholders e comunicação
+    
+    \item \textbf{Desenvolvedores Full-Stack:} Dois recursos sêniores para garantir velocity adequada no desenvolvimento de backend e frontend
+    
+    \item \textbf{Especialista Segurança:} Alocação de 5 meses focada em fases críticas: configuração de segurança (Sem. 5-7), integração de pagamentos (Sem. 11-14) e testes de segurança (Sem. 25-28)
+    
+    \item \textbf{Designer UX/UI:} Alocação de 6 meses cobrindo design de interfaces (Sem. 8-14) e testes de usabilidade (Sem. 15-20), com saída antecipada após validação
+    
+    \item \textbf{Analista QA:} Alocação de 6 meses focada em desenvolvimento de testes automatizados (Sem. 12-18) e execução intensiva de testes (Sem. 19-25)
+\end{itemize}
+
+\textbf{Contingência de 10\%:} Buffer para cobrir eventuais necessidades de horas extras em momentos críticos, extensão de contratos por atrasos menores ou contratação pontual de consultoria especializada.
+
+\section{Infraestrutura e Tecnologia}
+
+Custos relacionados à infraestrutura de nuvem, software, ferramentas e serviços de terceiros necessários para desenvolvimento e operação.
+
+\subsection{Infraestrutura de Nuvem}
+
+\begin{table}[H]
+\centering
+\caption{Custos de infraestrutura de nuvem durante o projeto.}
+\label{tab:cloud}
+\small
+\begin{tabular}{|p{4cm}|p{3cm}|p{2cm}|p{3.5cm}|}
+\hline
+\textbf{Serviço} & \textbf{Especificação} & \textbf{Período} & \textbf{Custo Total} \\ \hline
+Servidores de Aplicação & 4x EC2 t3.large & 7,5 meses & R\$ 12.000 \\ \hline
+Banco de Dados RDS & PostgreSQL db.r5.large & 7,5 meses & R\$ 9.000 \\ \hline
+Redis/ElastiCache & cache.r5.large & 7,5 meses & R\$ 6.000 \\ \hline
+Storage S3 & 500 GB + transferência & 7,5 meses & R\$ 2.500 \\ \hline
+CDN CloudFront & 2 TB transferência/mês & 7,5 meses & R\$ 4.500 \\ \hline
+Load Balancer & Application LB & 7,5 meses & R\$ 1.500 \\ \hline
+Backup e DR & S3 Glacier + snapshots & 7,5 meses & R\$ 2.000 \\ \hline
+\multicolumn{3}{|r|}{\textbf{Total Infraestrutura Cloud:}} & \textbf{R\$ 37.500} \\ \hline
+\end{tabular}
+\end{table}
+
+\textbf{Observações:}
+\begin{itemize}
+    \item Valores incluem ambientes de desenvolvimento, homologação e produção
+    \item Custos de produção iniciam apenas na semana 29 (antes apenas dev/homolog)
+    \item Auto-scaling configurado para otimizar custos em períodos de baixa demanda
+    \item Reserva de instâncias não aplicada devido ao período curto do projeto
+\end{itemize}
+
+\subsection{Software e Ferramentas}
+
+\begin{table}[H]
+\centering
+\caption{Custos de software, ferramentas e licenças.}
+\label{tab:software}
+\small
+\begin{tabular}{|p{4cm}|p{2.5cm}|p{2cm}|p{3.5cm}|}
+\hline
+\textbf{Ferramenta/Serviço} & \textbf{Especificação} & \textbf{Período} & \textbf{Custo Total} \\ \hline
+GitHub Enterprise & Repositório + CI/CD & 8 meses & R\$ 2.400 \\ \hline
+Jira Software & Gestão de projetos & 8 meses & R\$ 1.200 \\ \hline
+Confluence & Documentação & 8 meses & R\$ 800 \\ \hline
+SonarQube Cloud & Análise de código & 8 meses & R\$ 1.600 \\ \hline
+New Relic APM & Monitoramento & 3 meses & R\$ 3.000 \\ \hline
+Figma Professional & Design UX/UI & 8 meses & R\$ 960 \\ \hline
+JMeter Cloud & Testes de carga & 2 meses & R\$ 1.500 \\ \hline
+SendGrid Email API & E-mails transacionais & 3 meses & R\$ 900 \\ \hline
+\multicolumn{3}{|r|}{\textbf{Total Software e Ferramentas:}} & \textbf{R\$ 12.360} \\ \hline
+\end{tabular}
+\end{table}
+
+\subsection{Integrações e Serviços Externos}
+
+\begin{table}[H]
+\centering
+\caption{Custos de integrações e serviços de terceiros.}
+\label{tab:integracoes}
+\small
+\begin{tabular}{|p{4cm}|p{3.5cm}|p{3.5cm}|}
+\hline
+\textbf{Serviço} & \textbf{Descrição} & \textbf{Custo} \\ \hline
+Gateway de Pagamento & Taxa de setup + testes em sandbox & R\$ 2.500 \\ \hline
+Consultoria PCI DSS & Auditoria e certificação de segurança & R\$ 8.000 \\ \hline
+Teste de Penetração & Auditoria externa de segurança & R\$ 6.000 \\ \hline
+Google Maps API & Geolocalização (teste) & R\$ 500 \\ \hline
+Domínio e SSL & Registro de domínio + certificados & R\$ 800 \\ \hline
+\multicolumn{2}{|r|}{\textbf{Total Integrações e Serviços:}} & \textbf{R\$ 17.800} \\ \hline
+\end{tabular}
+\end{table}
+
+\subsection{Hardware e Equipamentos}
+
+\begin{table}[H]
+\centering
+\caption{Custos de hardware e equipamentos.}
+\label{tab:hardware}
+\small
+\begin{tabular}{|p{4cm}|p{3cm}|p{2cm}|p{3cm}|}
+\hline
+\textbf{Item} & \textbf{Especificação} & \textbf{Qtd} & \textbf{Custo Total} \\ \hline
+Notebooks Desenvolvimento & MacBook Pro 16" ou equiv. & 2 & R\$ 30.000 \\ \hline
+Monitores Externos & 27" 4K & 4 & R\$ 6.000 \\ \hline
+Tablets para Testes & iPad ou Android & 2 & R\$ 4.000 \\ \hline
+Smartphones Teste & iOS e Android & 4 & R\$ 6.000 \\ \hline
+Dispositivos Check-in & Tablets + leitores QR & 3 & R\$ 3.000 \\ \hline
+\multicolumn{3}{|r|}{\textbf{Total Hardware:}} & \textbf{R\$ 49.000} \\ \hline
+\end{tabular}
+\end{table}
+
+\textbf{Observação:} Equipamentos serão patrimonializados e poderão ser reutilizados em projetos futuros, representando investimento de longo prazo.
+
+\section{Outros Custos}
+
+\subsection{Treinamento e Capacitação}
+
+\begin{table}[H]
+\centering
+\caption{Custos de treinamento e capacitação da equipe.}
+\label{tab:treinamento}
+\small
+\begin{tabular}{|p{5cm}|p{3cm}|p{4cm}|}
+\hline
+\textbf{Treinamento} & \textbf{Participantes} & \textbf{Custo} \\ \hline
+Certificação AWS Solutions Architect & 2 desenvolvedores & R\$ 4.000 \\ \hline
+Curso PCI DSS Compliance & Especialista segurança & R\$ 2.500 \\ \hline
+Workshop Scrum Master & Gerente projeto & R\$ 1.500 \\ \hline
+Treinamento OWASP Top 10 & Equipe técnica (4) & R\$ 3.000 \\ \hline
+\multicolumn{2}{|r|}{\textbf{Total Treinamentos:}} & \textbf{R\$ 11.000} \\ \hline
+\end{tabular}
+\end{table}
+
+\subsection{Viagens e Eventos}
+
+\begin{table}[H]
+\centering
+\caption{Custos de viagens e participação em eventos.}
+\label{tab:viagens}
+\small
+\begin{tabular}{|p{6cm}|p{2.5cm}|p{3.5cm}|}
+\hline
+\textbf{Descrição} & \textbf{Qtd} & \textbf{Custo} \\ \hline
+Visitas técnicas para validação com organizadores & 3 viagens & R\$ 4.500 \\ \hline
+Participação em eventos piloto para testes & 2 eventos & R\$ 2.000 \\ \hline
+Reuniões presenciais com gateway de pagamento & 2 viagens & R\$ 3.000 \\ \hline
+\multicolumn{2}{|r|}{\textbf{Total Viagens:}} & \textbf{R\$ 9.500} \\ \hline
+\end{tabular}
+\end{table}
+
+\subsection{Comunicação e Marketing}
+
+\begin{table}[H]
+\centering
+\caption{Custos de comunicação e marketing inicial.}
+\label{tab:marketing}
+\small
+\begin{tabular}{|p{6cm}|p{2.5cm}|p{3.5cm}|}
+\hline
+\textbf{Item} & \textbf{Descrição} & \textbf{Custo} \\ \hline
+Material de apresentação e pitch deck & Design profissional & R\$ 2.000 \\ \hline
+Vídeo demonstrativo da plataforma & Produção 3-5 min & R\$ 5.000 \\ \hline
+Landing page pré-lançamento & Design + desenvolvimento & R\$ 3.500 \\ \hline
+Identidade visual e branding & Logo, paleta, guidelines & R\$ 4.000 \\ \hline
+\multicolumn{2}{|r|}{\textbf{Total Comunicação/Marketing:}} & \textbf{R\$ 14.500} \\ \hline
+\end{tabular}
+\end{table}
+
+\section{Consolidação Orçamentária}
+
+\subsection{Resumo por Categoria}
+
+\begin{table}[H]
+\centering
+\caption{Orçamento consolidado do projeto por categoria de custo.}
+\label{tab:orcamento-consolidado}
+\small
+\begin{tabular}{|p{5cm}|p{3.5cm}|p{2cm}|p{2cm}|}
+\hline
+\textbf{Categoria} & \textbf{Custo} & \textbf{\% Total} & \textbf{Status} \\ \hline
+Recursos Humanos & R\$ 592.900 & 71,0\% & Recorrente \\ \hline
+Infraestrutura Cloud & R\$ 37.500 & 4,5\% & Recorrente \\ \hline
+Software e Ferramentas & R\$ 12.360 & 1,5\% & Recorrente \\ \hline
+Integrações e Serviços & R\$ 17.800 & 2,1\% & Único \\ \hline
+Hardware e Equipamentos & R\$ 49.000 & 5,9\% & CAPEX \\ \hline
+Treinamentos & R\$ 11.000 & 1,3\% & Único \\ \hline
+Viagens e Eventos & R\$ 9.500 & 1,1\% & Único \\ \hline
+Comunicação/Marketing & R\$ 14.500 & 1,7\% & Único \\ \hline
+\multicolumn{1}{|r|}{\textbf{Subtotal:}} & \textbf{R\$ 744.560} & \textbf{89,1\%} & \\ \hline
+\multicolumn{1}{|r|}{Contingência (15\%):} & R\$ 111.684 & 13,4\% & \\ \hline
+\multicolumn{1}{|r|}{Margem Gestão/Imprevistos:} & R\$ 28.756 & 3,4\% & \\ \hline
+\multicolumn{1}{|r|}{\textbf{ORÇAMENTO TOTAL:}} & \textbf{R\$ 885.000} & \textbf{100\%} & \\ \hline
+\end{tabular}
+\end{table}
+
+\textbf{Observação sobre Revisão Orçamentária:}
+O orçamento inicial estimado no Termo de Abertura foi de R\$ 450.000. Após análise detalhada bottom-up, o orçamento realista atualizado é de R\$ 885.000. Esta diferença reflete:
+\begin{itemize}
+    \item Detalhamento mais preciso de todas as categorias de custo
+    \item Inclusão de hardware, equipamentos e treinamentos não previstos inicialmente
+    \item Contingência adequada de 15\% (versus 11\% inicial)
+    \item Custos de certificações de segurança e auditorias externas
+\end{itemize}
+
+\subsection{Distribuição Temporal de Custos}
+
+\begin{table}[H]
+\centering
+\caption{Distribuição de custos ao longo do projeto (em milhares de reais).}
+\label{tab:distribuicao-temporal}
+\footnotesize
+\begin{tabular}{|p{3cm}|*{8}{c|}}
+\hline
+\textbf{Categoria} & \textbf{Mês 1} & \textbf{Mês 2} & \textbf{Mês 3} & \textbf{Mês 4} & \textbf{Mês 5} & \textbf{Mês 6} & \textbf{Mês 7} & \textbf{Mês 8} \\ \hline
+RH & 90 & 90 & 85 & 85 & 80 & 75 & 60 & 28 \\ \hline
+Infra Cloud & 3 & 3 & 4 & 5 & 6 & 6 & 7 & 4 \\ \hline
+Software & 8 & 2 & 1 & 1 & 1 & 1 & 1 & - \\ \hline
+Serviços & 3 & 3 & 5 & - & - & 2 & 3 & 2 \\ \hline
+Hardware & 40 & 9 & - & - & - & - & - & - \\ \hline
+Outros & 5 & 3 & 4 & 2 & 3 & 4 & 2 & 3 \\ \hline
+\textbf{Total Mês} & \textbf{149} & \textbf{110} & \textbf{99} & \textbf{93} & \textbf{90} & \textbf{88} & \textbf{73} & \textbf{37} \\ \hline
+\textbf{Acumulado} & \textbf{149} & \textbf{259} & \textbf{358} & \textbf{451} & \textbf{541} & \textbf{629} & \textbf{702} & \textbf{739} \\ \hline
+\end{tabular}
+\end{table}
+
+\textbf{Contingência (15\%):} R\$ 112k alocada progressivamente, com maior concentração nos meses 5-7 (fases críticas).
+
+\textbf{Margem Gestão:} R\$ 29k distribuída uniformemente para cobrir imprevistos menores.
+
+\textbf{Total Geral Incluindo Margens:} R\$ 885.000
+
+\subsection{Fluxo de Caixa Projetado}
+
+\begin{table}[H]
+\centering
+\caption{Fluxo de caixa mensal projetado (valores em milhares de R\$).}
+\label{tab:fluxo-caixa}
+\small
+\begin{tabular}{|p{3cm}|p{1.5cm}|p{1.5cm}|p{1.5cm}|p{1.5cm}|p{1.5cm}|p{1.5cm}|}
+\hline
+\textbf{Mês} & \textbf{Custo Direto} & \textbf{Conting.} & \textbf{Total} & \textbf{Acum.} & \textbf{\% Total} & \textbf{Saldo} \\ \hline
+Mês 1 & 149 & 22 & 171 & 171 & 19,3\% & 714 \\ \hline
+Mês 2 & 110 & 17 & 127 & 298 & 33,7\% & 587 \\ \hline
+Mês 3 & 99 & 15 & 114 & 412 & 46,6\% & 473 \\ \hline
+Mês 4 & 93 & 14 & 107 & 519 & 58,6\% & 366 \\ \hline
+Mês 5 & 90 & 14 & 104 & 623 & 70,4\% & 262 \\ \hline
+Mês 6 & 88 & 13 & 101 & 724 & 81,8\% & 161 \\ \hline
+Mês 7 & 73 & 11 & 84 & 808 & 91,3\% & 77 \\ \hline
+Mês 8 & 37 & 6 & 43 & 851 & 96,2\% & 34 \\ \hline
+Reserva & - & - & 34 & 885 & 100\% & 0 \\ \hline
+\end{tabular}
+\end{table}
+
+\section{Análise de Viabilidade Financeira}
+
+\subsection{Retorno sobre Investimento (ROI)}
+
+Embora este seja um projeto acadêmico, é importante analisar a viabilidade financeira considerando eventual operação comercial futura:
+
+\textbf{Modelo de Receita:}
+\begin{itemize}
+    \item Taxa de serviço: 5\% sobre o valor do ingresso
+    \item Ticket médio: R\$ 80,00
+    \item Receita por ingresso: R\$ 4,00
+\end{itemize}
+
+\textbf{Projeção de Break-Even:}
+\begin{itemize}
+    \item Investimento total: R\$ 885.000
+    \item Ingressos necessários para ROI: 221.250 ingressos
+    \item Com meta de 100.000 ingressos/ano: Break-even em 2,2 anos
+\end{itemize}
+
+\textbf{Custos Operacionais Recorrentes Pós-Lançamento:}
+\begin{itemize}
+    \item Infraestrutura cloud: R\$ 15.000/mês (escalando com volume)
+    \item Suporte e manutenção: R\$ 30.000/mês (2 desenvolvedores)
+    \item Marketing e vendas: R\$ 20.000/mês
+    \item Total OPEX: R\$ 65.000/mês ou R\$ 780.000/ano
+\end{itemize}
+
+\textbf{Análise de Sensibilidade:}
+\begin{itemize}
+    \item \textbf{Cenário Otimista:} 150.000 ingressos/ano → ROI em 18 meses
+    \item \textbf{Cenário Realista:} 100.000 ingressos/ano → ROI em 26 meses
+    \item \textbf{Cenário Conservador:} 75.000 ingressos/ano → ROI em 36 meses
+\end{itemize}
+
+\subsection{Análise de Riscos Orçamentários}
+
+\textbf{Principais Riscos de Estouro de Orçamento:}
+
+\begin{enumerate}
+    \item \textbf{Extensão de Cronograma (Probabilidade: Média | Impacto: Alto)}
+    \begin{itemize}
+        \item Atraso de 1 mês adiciona R\$ 90k em custos de RH
+        \item \textit{Mitigação:} Contingência de 15\% cobre até 1,5 meses de atraso
+    \end{itemize}
+    
+    \item \textbf{Necessidade de Recursos Adicionais (Probabilidade: Média | Impacto: Médio)}
+    \begin{itemize}
+        \item Contratação pontual de especialista pode custar R\$ 20-30k
+        \item \textit{Mitigação:} Priorização rigorosa de escopo, uso de consultoria pontual
+    \end{itemize}
+    
+    \item \textbf{Custos de Infraestrutura Subestimados (Probabilidade: Baixa | Impacto: Médio)}
+    \begin{itemize}
+        \item Tráfego maior que estimado pode aumentar custos em 30-50\%
+        \item \textit{Mitigação:} Monitoramento contínuo, otimizações proativas
+    \end{itemize}
+    
+    \item \textbf{Complexidade de Certificação PCI DSS (Probabilidade: Média | Impacto: Alto)}
+    \begin{itemize}
+        \item Não conformidade pode exigir retrabalho significativo
+        \item \textit{Mitigação:} Consultoria especializada desde o início, auditorias incrementais
+    \end{itemize}
+\end{enumerate}
+
+\subsection{Estratégias de Otimização de Custos}
+
+Caso seja necessário reduzir orçamento sem comprometer objetivos essenciais:
+
+\textbf{Potenciais Economias:}
+\begin{itemize}
+    \item \textbf{Hardware (R\$ 15k):} Utilizar equipamentos existentes da instituição
+    \item \textbf{Software (R\$ 8k):} Versões open-source de ferramentas (GitLab CE, Grafana)
+    \item \textbf{Marketing (R\$ 10k):} Reduzir produção de vídeo e material gráfico
+    \item \textbf{Treinamentos (R\$ 7k):} Limitar a certificações essenciais
+\end{itemize}
+
+\textbf{Economia Total Possível:} R\$ 40.000 (4,5\% do orçamento)
+
+\textbf{Não Recomendado Reduzir:}
+\begin{itemize}
+    \item Recursos humanos (compromete qualidade e prazo)
+    \item Testes de segurança (compromete conformidade)
+    \item Infraestrutura cloud mínima (compromete disponibilidade)
+\end{itemize}
+
+\section{Considerações Finais sobre Orçamento}
+
+O orçamento de R\$ 885.000 representa um investimento realista e bem fundamentado para desenvolvimento de uma plataforma de ingressos online robusta, segura e escalável. A alocação de 71\% para recursos humanos está alinhada com benchmarks da indústria de software, onde talento é o principal ativo.
+
+A contingência de 15\% oferece margem adequada para absorver riscos identificados sem comprometer a viabilidade do projeto. O detalhamento granular por categoria e distribuição temporal permite controle financeiro preciso e tomada de decisão informada ao longo da execução.
+
+A análise de viabilidade demonstra que, considerando operação comercial futura, o investimento inicial pode ser recuperado em 18 a 36 meses dependendo do volume de transações, configurando uma proposta financeiramente atrativa para potenciais investidores ou mantenedores da plataforma.

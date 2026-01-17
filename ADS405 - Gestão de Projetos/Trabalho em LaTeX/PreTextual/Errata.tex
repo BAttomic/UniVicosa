@@ -1,0 +1,34 @@
+%% USPSC-Errata.tex
+\begin{errata}
+	%\OnehalfSpacing 			
+	A errata é um elemento opcional, que consiste de uma lista de erros da obra, precedidos pelas folhas e linhas onde eles ocorrem e seguidos pelas correções correspondentes. Deve ser inserida logo após a folha de rosto e conter a referência do trabalho para facilitar sua identificação, conforme a ABNT NBR 14724 \cite{nbr14724}.
+	
+	Modelo de Errata:
+		
+	\begin{flushleft} 
+			\setlength{\absparsep}{0pt} % ajusta o espaçamento da referência	
+			\SingleSpacing 
+			\imprimirautorabr~ ~\textbf{\imprimirtituloresumo}.	\imprimirdata. \pageref{LastPage}p. 
+			%Substitua p. por f. quando utilizar oneside em \documentclass
+			%\pageref{LastPage}f.
+			\imprimirtipotrabalho~-~\imprimirinstituicao, \imprimirlocal, \imprimirdata. 
+ 	\end{flushleft}
+\vspace{\onelineskip}
+\OnehalfSpacing 
+\center
+\textbf{ERRATA}
+\vspace{\onelineskip}
+\OnehalfSpacing 
+\begin{table}[htb]
+	\center
+	\footnotesize
+	\begin{tabular}{p{2cm} p{2cm} p{4cm} p{4cm} }
+		\hline
+		\textbf{Folha} & \textbf{Linha}  & \textbf{Onde se lê}  & \textbf{Leia-se}  \\
+			\hline
+			1 & 10 & auto-conclavo & autoconclavo\\
+		\hline
+	\end{tabular}
+\end{table}
+\end{errata}
+% ---

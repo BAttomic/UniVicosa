@@ -1,0 +1,45 @@
+\changetocdepth {4}
+\babel@toc {brazil}{}\relax 
+\babel@toc {brazil}{}\relax 
+\setlength {\cftchapterindent }{\cftlastnumwidth } \setlength {\cftchapternumwidth }{2em}
+\setlength {\cftchapterindent }{\cftlastnumwidth } \setlength {\cftchapternumwidth }{2em}
+\setlength {\cftchapterindent }{0em} \setlength {\cftchapternumwidth }{\cftlastnumwidth }
+\contentsline {chapter}{\chapternumberline {1}\MakeTextUppercase []{INTRODUÇÃO}}{8}{chapter.1}%
+\contentsline {section}{\numberline {1.1}Contextualização}{8}{section.1.1}%
+\contentsline {subsection}{\numberline {1.1.1}Problema e justificativa}{8}{subsection.1.1.1}%
+\contentsline {subsection}{\numberline {1.1.2}Objetivos}{9}{subsection.1.1.2}%
+\contentsline {subsubsection}{\numberline {1.1.2.1}Objetivo geral}{9}{subsubsection.1.1.2.1}%
+\contentsline {subsubsection}{\numberline {1.1.2.2}Objetivos específicos}{9}{subsubsection.1.1.2.2}%
+\contentsline {subsection}{\numberline {1.1.3}Escopo e Contraescopo}{10}{subsection.1.1.3}%
+\setlength {\cftchapterindent }{0em} \setlength {\cftchapternumwidth }{\cftlastnumwidth }
+\contentsline {chapter}{\chapternumberline {2}\MakeTextUppercase []{ANÁLISE DE STAKEHOLDERS E TERMO DE ABERTURA DO PROJETO}}{12}{chapter.2}%
+\contentsline {section}{\numberline {2.1}Análise dos \textit {Stakeholders}}{12}{section.2.1}%
+\contentsline {subsection}{\numberline {2.1.1}Personas}{12}{subsection.2.1.1}%
+\contentsline {subsubsection}{\numberline {2.1.1.1}Persona 1: João Silva - Organizador de Eventos}{12}{subsubsection.2.1.1.1}%
+\contentsline {subsubsection}{\numberline {2.1.1.2}Persona 2: Maria Santos - Compradora de Ingressos}{13}{subsubsection.2.1.1.2}%
+\contentsline {subsubsection}{\numberline {2.1.1.3}Persona 3: Carlos Mendes - Operador de Portaria}{14}{subsubsection.2.1.1.3}%
+\contentsline {section}{\numberline {2.2}Mapa de Empatia}{14}{section.2.2}%
+\contentsline {subsection}{\numberline {2.2.1}Análise Empática dos Stakeholders}{15}{subsection.2.2.1}%
+\contentsline {section}{\numberline {2.3}Requisitos de Alto Nível}{16}{section.2.3}%
+\contentsline {subsection}{\numberline {2.3.1}Requisitos Funcionais de Alto Nível}{16}{subsection.2.3.1}%
+\contentsline {subsection}{\numberline {2.3.2}Requisitos Não-Funcionais de Alto Nível}{17}{subsection.2.3.2}%
+\contentsline {section}{\numberline {2.4}Termo de Abertura do Projeto}{17}{section.2.4}%
+\contentsline {subsection}{\numberline {2.4.1}Justificativa do Projeto}{17}{subsection.2.4.1}%
+\contentsline {subsection}{\numberline {2.4.2}Objetivos do Projeto}{17}{subsection.2.4.2}%
+\contentsline {subsubsection}{\numberline {2.4.2.1}Objetivo Geral}{17}{subsubsection.2.4.2.1}%
+\contentsline {subsubsection}{\numberline {2.4.2.2}Objetivos Específicos}{17}{subsubsection.2.4.2.2}%
+\contentsline {subsection}{\numberline {2.4.3}Escopo do Projeto}{18}{subsection.2.4.3}%
+\contentsline {subsubsection}{\numberline {2.4.3.1}Dentro do Escopo}{18}{subsubsection.2.4.3.1}%
+\contentsline {subsubsection}{\numberline {2.4.3.2}Fora do Escopo}{18}{subsubsection.2.4.3.2}%
+\contentsline {subsection}{\numberline {2.4.4}Stakeholders Identificados}{18}{subsection.2.4.4}%
+\contentsline {subsection}{\numberline {2.4.5}Cronograma Macro}{19}{subsection.2.4.5}%
+\contentsline {subsection}{\numberline {2.4.6}Recursos Necessários}{19}{subsection.2.4.6}%
+\contentsline {subsection}{\numberline {2.4.7}Riscos Iniciais}{20}{subsection.2.4.7}%
+\contentsline {subsection}{\numberline {2.4.8}Critérios de Sucesso}{20}{subsection.2.4.8}%
+\setlength {\cftchapterindent }{0em} \setlength {\cftchapternumwidth }{\cftlastnumwidth }
+\contentsline {chapter}{\chapternumberline {3}\MakeTextUppercase []{ENGENHARIA DE REQUISITOS}}{22}{chapter.3}%
+\contentsline {section}{\numberline {3.1}Requisitos Funcionais}{22}{section.3.1}%
+\contentsline {section}{\numberline {3.2}Requisitos Não Funcionais}{23}{section.3.2}%
+\contentsline {section}{\numberline {3.3}Histórias de Usuário}{24}{section.3.3}%
+\contentsline {section}{\numberline {3.4}Riscos do Projeto}{24}{section.3.4}%
+\contentsline {section}{\numberline {3.5}Restrições}{25}{section.3.5}%
