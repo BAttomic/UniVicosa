@@ -1,0 +1,1141 @@
+% ---
+%% USPSC-Cap3-CitacoesTutorial.tex
+% --
+% Este capítulo traz os exemplos de citações das "Diretrizes para apresentação de dissertações e teses da USP: documento eletrônico e impresso - Parte I (ABNT)" disponílvel em: http://biblioteca.puspsc.usp.br/pdfFiles_Caderno_Estudos_9_PT_1.pdf
+
+
+% --- 
+\chapter{Citações}
+\label{Citações}
+% --- 
+Citação é a menção no texto de informações extraídas de uma fonte documental que tem o propósito de esclarecer ou fundamentar as ideias do autor. A fonte de onde foi extraída a informação deve ser citada obrigatoriamente, respeitando-se os direitos autorais, conforme ABNT NBR 10520 \cite{nbr10520}.
+
+As citações mencionadas no texto devem, obrigatoriamente, seguir a mesma forma de entrada utilizada nas Referências, no final do trabalho e/ou em Notas de Rodapé.
+
+Todos os documentos relacionados nas Referências devem ser citados no texto, assim como todas as citações do texto devem constar nas Referências. 
+
+Os textos que constam desse manual e os exemplos de citações e referências foram elaborados com base nas \textbf{Diretrizes para apresentação de dissertações e teses da USP}: documento eletrônico e impresso - Parte I (ABNT) \cite{sibi2016}.
+
+Para elaborar as citações utilizando a Classe USPSC é necessário a instalação do pacote: 
+
+\begin{alineas}
+	\item \textbf{usepackage[num]abntex2cite:} para gerar citações e referências em estilo numérico;
+	\item \textbf{usepackage[alf]abntex2cite:} para gerar citações e referências em estilo alfabético.
+\end{alineas}
+
+As explicações para utilização do pacote abntex2cite e exemplos de como elaborar citações e referências de acordo com as normas da ABNT está presente nos manuais: \textbf{O pacote abntex2cite}: estilos bibliográficos compatíveis com a ABNT NBR 6023 \cite{abnetxcite} e  \textbf{O pacote abntex2cite}: tópicos específicos da ABNT NBR 10520:2002 e o estilo bibliográfico alfabético (sistema autor-data) \cite{abnetxcitealf}.
+
+Abaixo seguem alguns exemplos de citações, mas se o exemplo que você precisa não estiver contemplado aqui, acesse o manual \textbf{O pacote abntex2cite} que possui aproximadamente 240 modelos de referências.
+
+Em todo esse documento e especificamente nos exemplos abaixo, foi utilizado o ponto final após o comando \verb+\cite{}+, em conformidade com sistema autor-data. Para o sistema numérico é necessário utilizar o ponto final antes do comando \verb+\cite{}+. 
+
+Alertamos que se este documento for alterado para sistema numérico a pontuação final ficará incorreta. 
+
+\section{Citação direta}
+
+É a transcrição (reprodução integral) de parte da obra consultada, conservando-se a grafia, pontuação, idioma etc.
+
+A reprodução de um texto de \textbf{até três linhas} deve ser incorporada ao parágrafo entre aspas duplas. As aspas simples são utilizadas para indicar citação no interior da citação.
+
+\textbf{Nota:} nas citações diretas é obrigatória a indicação da página.
+
+\textbf{Exemplos: }
+
+\begin{alineas} 
+\item 
+
+Segundo \verb+\citeonline[p.~89]{madigan2010}+ “As vesículas de gás são estruturas fusiformes, preenchidas por gás e constituídas de proteínas; elas são ocas, porém rígidas, variando quanto ao comprimento e diâmetro”.
+
+Que corresponde: \\
+Segundo \citeonline[p.~89]{madigan2010} “As vesículas de gás são estruturas
+fusiformes, preenchidas por gás e constituídas de proteínas; elas são ocas, porém
+rígidas, variando quanto ao comprimento e diâmetro”.
+
+\item 
+
+“A comparação é a técnica científica aplicável sempre que houver dois ou
+mais termos com as mesmas propriedades gerais ou características particulares”  \verb+\cite[p.~32]{cervo2007}.+
+
+Que corresponde: \\
+“A comparação é a técnica científica aplicável sempre que houver dois ou
+mais termos com as mesmas propriedades gerais ou características particulares” \cite[p.~32]{cervo2007}.
+
+\end{alineas}
+
+As transcrições com \textbf{mais de três linhas} devem figurar abaixo do texto, com recuo de 4 cm da margem esquerda, com letra menor que a do texto utilizado e sem aspas. 
+
+Utilize o ambiente citação para incluir citações diretas com mais de três linhas.
+
+Use o ambiente assim: \\
+
+\verb+\begin{citação}+
+
+Texto texto texto texto texto texto texto texto texto.
+
+\verb+\end{citação}+
+
+O ambiente citação pode receber como parâmetro opcional um nome de idioma previamente carregado nas opções da classe. Nesse caso, o texto da citação é automaticamente escrito em itálico e a hifenização é ajustada para o idioma selecionado na opção do ambiente.\\
+  Por exemplo:
+ 
+\verb+\begin{citacao}[english]+
+ 
+ Text in English language in italic with correct hyphenation.
+ 
+\verb+\end{citacao}+
+ 
+Tem como resultado:
+\begin{citacao}[english]
+Text in English language in italic with correct hyphenation. \\
+\end{citacao}
+
+\textbf{Exemplos:} 
+
+\begin{alineas} 
+
+\item 
+De acordo com \verb+\citeonline[p.~35]{cervo2007}+
+
+\verb+\begin{citacao}+
+
+A análise e a síntese racionais só podem ser feitas mentalmente. Empregam-se principalmente na filosofia e na matemática. A análise é uma espécie de indução; parte-se do particular, do complexo, para o princípio geral e mais simples. A síntese é uma espécie de dedução; vai do mais simples ao mais complexo.
+
+\verb+\end{citacao}+
+
+Que corresponde: 
+
+De acordo com \citeonline[p.~35]{cervo2007}
+
+\begin{citacao}
+A análise e a síntese racionais só podem ser feitas mentalmente. Empregam-se principalmente na filosofia e na matemática. A análise é uma espécie de indução; parte-se do particular, do complexo, para o princípio geral e mais simples. A síntese é uma espécie de dedução; vai do mais simples ao mais complexo.
+\end{citacao}
+
+\item
+De acordo com \verb+\citeonline[p.~S4]{Hood1999}+
+
+\verb+\begin{citacao}[english]+
+
+Text in English. Text in English. Text in English. Text in
+English. Text in English. Text in English. Text in English. 
+Text in English. Text in English. Text in English. Text in
+English. Text in English.
+
+\verb+\end{citacao}+
+
+Que corresponde: \\
+
+ De acordo com \citeonline[p.~S4]{Hood1999}
+\begin{citacao}[english]
+	Text in English. Text in English. Text in English. Text in English. Text in English. Text in English. Text in English. Text in English. Text in English. Text in English Text in English. Text in English.
+\end{citacao}
+
+\end{alineas}
+
+\section{Citação indireta}
+
+É o texto criado com base na obra de autor consultado, em que se reproduz o conteúdo e ideias do documento original; dispensa o uso de aspas duplas.
+
+\textbf{Exemplos:}
+
+A hipertemia em bovinos Jersey foi constatada quando a temperatura do ambiente
+alcançava 2.5o \verb+\cite{reick1948}+
+
+Que corresponde:
+
+A hipertemia em bovinos Jersey foi constatada quando a temperatura do ambiente
+alcançava 2.5o \cite{reick1948}
+
+
+\section{Citação de citação}
+
+É a citação direta ou indireta de um texto que se refere ao documento original, que não se teve acesso.
+
+Indicar no texto o sobrenome do(s) autor(es) do documento não consultado, seguido da data, da expressão latina apud (citado por) e do sobrenome do(s) autor(es) do documento consultado, data e página. 
+
+Para elaboração de citação de citação são disponibilizados os seguintes comandos: \verb+\apud e \apudonline+.
+
+\textbf{Exemplos:}
+
+\begin{alineas}
+
+\item
+Incluir a citação da obra consultada nas referências. 
+
+\citetext{Reis1956}
+
+\item
+Mencionar, em nota de rodapé, a referência do trabalho não consultado
+
+\newpage
+
+\textbf{No texto:}
+
+Segundo \apudonline{Segatto1995}{Vianna1986}, “[...] o viés organicista da burocracia estatal e o antiliberalismo da cultura politica de 1937, preservado de modo encapuçado na Carta de 1046”.
+
+-------------------
+
+\textsuperscript{1}\citetext{Vianna1986}
+
+\textbf{Nas Referências:}
+
+\citetext{Segatto1995}
+
+\end{alineas}
+\textbf{Nota:}
+
+Este tipo de citação só deve ser utilizada nos casos em que o documento original não foi recuperado (documentos muito antigos, dados insuficientes para a localização do material etc.).
+
+Ressaltamos que os comandos \verb+\apud e \apudonline+ estão em conformidade com ABNT NBR 10520 e para elaborar a citação de citação conforme as Diretrizes da USP, que sugere a inclusão da citação da obra consultada nas referências e mencionar, em nota de rodapé, a referência do trabalho não consultado, é necessário criar a citação conforme abaixo, esse recurso deve ser utilizado para citações com sistema numérico, já que as notas de rodapé estão configuradas com símbolos. 
+
+
+
+\begin{alineas}
+\item 
+\begin{verbatim}
+Segundo Vianna\footnote{VIANNA, S. B. \textbf{ A politica econômica 
+no segundo Governo Vargas:} 1951-1954. Rio de Janeiro: BNDES, 1986}
+(1986, p. 172 apud  \citeauthor{Segatto1995}, 1995, p. 214-215) 
+“[...] o viés organicista da burocracia estatal e o antiliberalismo 
+da cultura politica de 1937, preservado de modo encapuçado na Carta 
+de 1046”.
+\end{verbatim}
+\end{alineas}
+
+
+Que Corresponde: \\
+
+Segundo Vianna\footnote{VIANNA, S. B.\textbf{ A politica econômica no segundo Governo Vargas:} 1951-1954. Rio de Janeiro: BNDES, 1986} (1986, p. 172 apud \citeauthor{Segatto1995}, 1995, p. 214-215) “[...] o viés organicista da burocracia estatal e o antiliberalismo da cultura politica de 1937, preservado de modo encapuçado na Carta de 1046”.
+
+\newpage
+
+\textbf{Observação:}
+
+Também é possível escolher dentre os dois comandos: \verb+\footciteref{}+ e o comando \verb+\footnote{\citetext{}}+ para inserir referências em notas de rodapés, mas ao utilizar esses comandos a referência é automaticamente inserida na lista final de referências, constando tanto das notas de rodapés quanto da lista de referências.
+
+\section{Citação de fontes informais}
+
+\textbf{Informação Verbal}
+
+Quando obtidas através de comunicações pessoais, anotações de aulas, trabalhos de eventos não publicados (conferências, palestras, seminários, congressos, simpósios etc.), indicar entre parênteses a expressão (informação verbal), mencionando os dados disponíveis somente em nota de rodapé.
+
+\textbf{Exemplo:}
+
+\begin{alineas}
+	\item
+	\begin{verbatim}
+	Ferreira (2014)\footnote{ Informação fornecida por Ferreira durante 
+	o XVIII Seminário Nacional de Bibliotecas Universitárias, Belo 
+	Horizonte, 2014.} afirma que as bibliotecas universitárias passam 
+	por transformações decorrentes das tecnologias de informação e 
+	comunicação (informação verbal).
+	\end{verbatim}
+\end{alineas}
+
+Que corresponde:
+
+Ferreira (2014)\footnote{ Informação fornecida por Ferreira durante 
+o XVIII Seminário Nacional de Bibliotecas Universitárias, Belo Horizonte, 
+2014.} afirma que as bibliotecas universitárias passam por transformações decorrentes das tecnologias de informação e comunicação (informação verbal).
+
+
+\textbf{Informação Pessoal}
+
+Indicar, entre parênteses, a expressão (informação pessoal) para dados obtidos de comunicações pessoais, correspondências pessoais (postal ou \emph{e-mail}), mencionando-se os dados disponíveis em nota de rodapé.
+
+\textbf{Exemplo:}
+
+
+\begin{alineas}
+\item
+\begin{verbatim}
+Pestana menciona que 20% das bibliotecas [\ldots] (informação 
+pessoal).\footnote{ PESTANA, F. O. Bibliotecas de ONGs. 
+Mensagem recebida porvmbc@terra.com.br em 13 de abr. 2014.}
+\end{verbatim}
+\end{alineas}
+
+
+Que corresponde:
+
+Pestana menciona que 20\% das bibliotecas [\ldots] (informação pessoal).\footnote{ PESTANA, F. O. \textbf{Bibliotecas de ONGs}. Mensagem recebida porvmbc@terra.com.br em 13 de abr. 2014.}\\
+
+
+\textbf{Em fase de impressão}
+
+Trabalhos em fase de impressão devem ser mencionados nas Referências.
+
+\textbf{Exemplo:}
+
+\begin{alineas}
+	\item
+PAULA, F. C. E. \textit{et al.} Incinerador de resíduos líquidos e pastosos. \textbf{Revista de
+Engenharia e Ciências Aplicadas}, São Paulo, v. 5, 2001. No prelo.
+\end{alineas}
+
+
+\section{Citação de website}
+
+O endereço eletrônico é indicado nas Referências. No texto, a citação é referente ao autor ou ao título do trabalho. 
+
+\textbf{Exemplo:}
+
+\begin{alineas}
+\item
+\textbf{No texto}
+\begin{verbatim}
+“[...] a manifestação da CCP deverá ser submetida à deliberação da
+CPG.”\cite{USP2013}.
+\end{verbatim}
+Que corresponde:\\
+“[...] a manifestação da CCP deverá ser submetida à deliberação da
+CPG.” \cite{USP2013}. \\
+
+\item 
+\textbf{Nas referências}\\
+
+UNIVERSIDADE DE SÃO PAULO. Resolução nº 6542, de 18 de abril de 2013.
+Baixa o Regimento de Pós-Graduação da Universidade de São Paulo. \textbf{Diário
+Oficial [do] Estado de São Paulo}, 20 abr. 2013. Disponível em: http://www.
+leginf.usp.br/?resolucao=resolucao-no-6542-de-18-de-abril. Acesso em: 08 jun.
+2015.
+\end{alineas}
+
+\section{Destaque e supressões no texto}
+
+Utilizar os comandos abaixo durante a redação das citações com destaques e supressões.
+
+\verb+\underline{}+: para grifar.
+
+\verb+\textbf{}+: para colocar em negrito.
+
+\verb+\textit{}+: para colocar em itálico.
+
+\verb+[\ldots]+: para supressões [...]. \\
+
+\textbf{Exemplos:}
+
+\begin{alineas}
+\item
+
+\textbf{Destaques}
+
+Usar \underline{grifo} ou \textbf{negrito} ou \textit{itálico} para ênfases ou destaques. Na citação, indicar (grifo nosso ou negrito nosso ou itálico nosso) entre parênteses, logo após a data.
+
+\begin{verbatim}
+``Se existe alguém de quem não aceitamos um `não', é porque, na 
+verdade,\underline{entregamos o controle de nossa vida a essa 
+pessoa}.'' \cite[~p.129, grifo nosso]{Cloud1999} \\
+\end{verbatim}	
+
+Que corresponde: \\
+
+``Se existe alguém de quem não aceitamos um `não', é porque, na verdade,
+\underline{entregamos o controle de nossa vida a essa pessoa}.'' \cite[~p.129, grifo nosso]{Cloud1999} \\
+
+Usar a expressão “grifo do autor” “negrito do autor” ou "itálico do autor", caso o destaque seja do autor consultado.
+
+\begin{verbatim}
+“A palavra \textit{intuição} vem do latim \textit{intuire}, que 
+significa \textit{ver por dentro}. O conceito varia conforme a
+corrente de pensamento” \cite[~p.47, itálico do autor]{cervo2007}
+\end{verbatim}
+
+Que corresponde: \\
+
+“A palavra \textit{intuição} vem do latim \textit{intuire}, que 
+significa \textit{ver por dentro}. O conceito varia conforme a
+corrente de pensamento” \cite[~p.47, itálico do autor]{cervo2007}\\
+
+\item
+
+\textbf{Supressões}
+
+Indicar as \textbf{supressões} por reticências dentro de colchetes, estejam elas no início, no meio ou no fim do parágrafo e/ou frase.
+
+\begin{verbatim}
+Segundo \citeonline[~p.72]{Bottomore1987}  assinala "[\ldots]  
+a Sociologia, embora não pretenda ser mais a ciência capaz de 
+incluir toda a sociedade [\ldots] pretende ser sinóptica"
+\end{verbatim}
+
+Que corresponde:\\
+
+Segundo \citeonline[~p.72]{Bottomore1987}  assinala "[\ldots]  a Sociologia, embora não pretenda ser mais a ciência capaz de incluir toda a sociedade [\ldots] pretende ser sinóptica".\\ 
+
+\item
+
+\textbf{Interpolações}
+
+Indicar as \textbf{interpolações}, comentários, acréscimos e explicações dentro de colchetes, estejam elas no meio ou no fim do parágrafo e/ou frase.
+
+\begin{verbatim}
+"não se mova [como se isso fosse possível] faça de conta que 
+está morta" \cite[~p.72]{Clarac1985}.
+\end{verbatim}
+
+Que corresponde:\\
+
+"não se mova [como se isso fosse possível] faça de conta que 
+está morta" \cite[~p.72]{Clarac1985}. \\
+
+\item
+
+\textbf{Tradução feita pelo autor}
+
+Quando a citação incluir uma \textbf{tradução feita pelo autor}, acrescentar a chamada da citação seguida da expressão “tradução nossa”, tudo entre parênteses.
+
+\begin{verbatim}
+"A epilepsia pode ocorrer em muitas doenças infecciosas, como 
+as causadas por vírus, bactérias e parasitas." \cite[~p.102,
+tradução nossa]{Brito2003}.
+\end{verbatim}
+
+Que corresponde:\\
+
+"A epilepsia pode ocorrer em muitas doenças infecciosas, como 
+as causadas por vírus, bactérias e parasitas." . \cite[~p.102, tradução nossa]{Brito2003}.\\
+\end{alineas}
+
+\section{Notas de rodapé}
+As notas de rodapé são observações ou esclarecimentos, cujas inclusões no texto são feitas pelo autor do trabalho. Inclui dados obtidos por fontes informais tais como: informação verbal, pessoal, trabalhos em fase de elaboração ou não consultados diretamente.
+
+\newpage
+
+Classificam-se em:\\
+\begin{alineas}
+\item
+\textbf{Notas explicativas} constituem-se em comentários, complementações ou traduções que interromperiam a sequência lógica se colocadas no texto. \cite{Soares2002}
+
+\item
+\textbf{Notas de referências} indicam documentos consultados ou remetem a outras partes do texto onde o assunto em questão foi abordado. \\
+\end{alineas}
+
+Devem ser digitadas em fontes menores, dentro das margens, ficando separadas do texto por um espaço simples de entrelinhas e por filete de aproximadamente 5 cm, a partir da margem esquerda.
+
+As notas de rodapé podem ser indicadas por numeração consecutiva, com números sobrescritos dentro do capítulo ou da parte (não se inicia a numeração a cada folha).\\
+
+\textbf{Exemplo}
+
+\begin{alineas}
+
+\item
+
+\textbf{No texto:}
+
+Competência: é “uma capacidade específica de executar a ação em um nível de habilidade que seja suficiente para alcançar o efeito desejado” (RHINESMITH\textsuperscript{1}, 1993 apud VERGARA, 2000, p. 38).
+Segundo Vergara (2000) mentalidade não é competência. A competência se estabelece a partir de uma mentalidade transformada em comportamento, assim como característica não é competência.
+Para Rhinesmith\textsuperscript{2} (1993 apud VERGARA, 2000, p. 38) as competências a seguir complementam as mencionadas anteriormente:
+
+\textbf{Em nota de rodapé:}
+
+---------------------
+
+\textsuperscript{1}RHINESMITH, S. Guia gerencial para globalização. Rio de Janeiro: Berkeley, 1993.
+
+\textsuperscript{2}Ibid, p. 38-39.
+
+
+\end{alineas}
+
+\textbf{Notas}
+
+Os exemplos de inserção de notas de rodapé já foram expostos nos itens 3.3 e 3.4.
+
+Se a opção for pelo sistema de chamada numérico, a indicação da nota de rodapé deverá ser por símbolos (ex.: asterisco etc.). 
+Este modelo está com o sistema numérico para nota de rodapés para mudar para simbólico é necessário ativar o comando \verb+\renewcommand{\thefootnote}{\fnsymbol{footnote}}+
+
+\section{Expressões Latinas}
+
+As expressões latinas podem ser usadas para evitar repetições
+constantes de fontes citadas anteriormente. A primeira citação de uma obra
+deve apresentar sua referência completa e as subsequentes podem aparecer
+sob forma abreviada (Quadro 1).
+Não usar destaque tipográfico quando utilizar expressões latinas.
+As expressões latinas não devem ser usadas no texto, apenas em nota
+de rodapé, exceto a expressão apud.
+A presença da referência em nota de rodapé não dispensa sua inclusão
+nas Referências, no final do trabalho.
+
+As expressões idem, ibidem, opus citatum, passim, só podem ser usadas na mesma página ou folha da citação a que se referem.
+
+Para não prejudicar a leitura é recomendado evitar o emprego de
+expressões latinas.
+
+
+\section{Apresentação de Autores no Texto}
+
+As citações devem ser indicadas no texto por um dos sistemas de chamada: autor-data ou numérico.
+
+Qualquer que seja o sistema adotado deve ser seguido ao longo de todo o trabalho. 
+
+Para a citação, consideram-se como elementos identificadores: autoria pessoal, institucional ou entrada pela primeira palavra do título em caso de autoria desconhecida e ano da publicação referida.
+
+A forma da entrada do nome do autor pessoal ou institucional na citação deve ser a mesma utilizada nas Referências ou em notas de rodapé.
+
+Para a citação direta é obrigatório incluir o número da página.
+
+Nas citações as chamadas pelo sobrenome do autor, pela instituição responsável ou pelo título incluído na sentença ou entre parênteses devem estar em letras maiúsculas e minúsculas.
+
+\subsection{Alternativas de formatação}
+Nesse sistema, a indicação da fonte é feita da seguinte forma:
+
+\begin{alineas}
+	\item
+	no caso de citação direta, para obras com indicação de autoria ou responsabilidade. Pelo sobrenome de cada autor ou pelo nome da entidade responsável, até o primeiro sinal de pontuação, seguido da data de publicação do documento e da página de citação, separados por vírgula e entre parênteses. Para as citações indiretas o número das páginas é opcional;
+	\item
+	no caso de citação direta, para obras sem indicação de autoria ou responsabilidade. Pela primeira palavra do título, seguida de reticências, da data de publicação do documento e da(s) página(s) da citação direta, separados por vírgula e entre parênteses. Para as citações indiretas o número das páginas é opcional;
+	\item
+	se o título iniciar por artigo (definido ou indefinido), ou monossílabo, este deve ser incluído na indicação da fonte.
+	
+\end{alineas}
+	
+\section{Exemplos de citações}
+
+Nesta seção são apresentados diversos exemplos de citações diferenciando os elementos identificadores. 
+
+\subsection{Um autor}
+
+Pelo sobrenome\\
+
+[\ldots] duas camadas têm ainda morfologia e funções diferentes \cite{Pereira2013}
+
+ou
+
+\citeonline{Pereira2013} mostrou que duas camadas têm ainda morfologia e funções diferentes.\\
+
+
+\subsection{Dois autores}
+
+Os sobrenomes dos autores entre parênteses devem ser separados por ponto e vírgula. Quando citados fora de parênteses devem ser separados pela letra “e”\\
+
+[\ldots] \cite{Ramos2014} e de acordo com os resultados obtidos na investigação [\ldots] 
+
+ou 
+
+\citeonline{Ramos2014} obtiveram os resultados de sua investigação [\ldots] \\
+
+\subsection{Três autores}
+
+Os sobrenomes dos autores citados entre parênteses devem ser separados por ponto e vírgula. Quando citados fora de parênteses, os autores devem ser separados por vírgula sendo o último separado pela letra “e”.\\
+
+[\ldots] o acesso ao protótipo \cite{Oliveira2013}
+
+ou
+
+Conforme \citeonline{Oliveira2013} o protótipo [\ldots]\\
+
+\subsection{Quatro ou mais autores}
+
+Indicar o sobrenome do primeiro autor seguido da expressão latina \textit{et al.}\\
+
+[\ldots]  com o grupo de jovens \cite{Sena2012}
+
+ou
+
+\citeonline{Sena2012} pesquisando um grupo de jovens [\ldots]\\
+
+\subsection{Citações consecutivas em Sistema Numérico}
+
+Para agrupar a citação numérica quando for consecutiva:
+
+Adicionar o pacote “cite” junto aos demais pacotes listados inicialmente:
+
+\verb+\usepackage{cite}+ \\
+
+Ao citar a referência:
+
+Para 2 referências consecutivas: 
+
+\verb+\cite{bibtexkey}-\cite{bibtexkey}+ \\
+
+Para 3 ou mais: 
+
+\verb+~\cite{bibtexkey}+ \\
+
+\subsection{Documentos de mesmo autor publicado no mesmo ano}
+
+Quando houver coincidência de trabalhos do mesmo autor publicados
+no mesmo ano para identificar o trabalho citado acrescentar letras minúsculas após o ano, sem espaço.\\
+
+[\ldots] \cite{Garcia2013b}   \textbf{\underline{outra obra}}   [\ldots] \cite{Garcia2013a} \\
+
+ou\\
+
+\citeonline{Garcia2013b}  \textbf{\underline{outra obra}}   \citeonline{Garcia2013a}
+
+\subsection{Coincidência de sobrenome e ano}
+
+Quando houver coincidência de sobrenome de autores com trabalhos
+publicados no mesmo ano acrescentar as iniciais dos prenomes dos autores
+para estabelecer diferenças.\\
+
+[\ldots] (CASTRO FILHO, C., \citeyear{CastroC2012}) \textbf{\underline{outra obra}}   [\ldots] (CASTRO FILHO, M., \citeyear{CastroC2012}) \\
+
+ou\\
+
+Castro Filho, C. (\citeyear{CastroC2012}) \textbf{\underline{outra obra}}    Castro Filho, M. (\citeyear{CastroC2012})
+
+\subsection{Coincidência de sobrenome, inicial do prenome e ano}
+
+Usar os prenomes completos para estabelecer diferenças. \\
+
+ (SOUZA FILHO, Alberto \citeyear{Souza2015}) \textbf{\underline{outra obra}}   [\ldots] (SOUZA FILHO, Amauri, \citeyear{Souza2015}) \\
+
+
+ou\\
+
+
+Souza Filho, Alberto (\citeyear{Souza2015}) \textbf{\underline{outra obra}}   [\ldots] Souza Filho, Amauri, (\citeyear{Souza2015}) \\
+
+
+\subsection{Autoria desconhecida}
+
+Quando o documento não trouxer autoria explícita citar pela primeira palavra do título, seguida de reticências e do ano de publicação.\\
+
+[\ldots] \cite{Controle2015}\\
+
+ou \\
+
+De acordo com a publicação Controle [\ldots] (\citeyear{Controle2015}) estima-se em [\ldots]\\
+
+
+\subsection{Entidades coletivas}
+
+Citar pela forma em que aparece na referência.\\
+\newpage
+
+[\ldots] \cite{Sergipe2010}
+
+ou 
+
+A \citeonline{Sergipe2010} [\ldots] \\
+
+
+[\ldots] \cite{Food2005}
+
+ou 
+
+A \citeonline{Food2005} [\ldots] \\
+
+
+\subsection{Patentes}
+
+Citar pela forma em que aparece na referência.\\
+
+[\ldots] \cite{Bagnato2018}
+
+ou 
+
+Para \citeonline{Bagnato2018} [\ldots] \\
+
+
+[\ldots] \cite{Rocha2017}
+
+ou 
+
+Para \citeonline{Rocha2017} [\ldots] \\
+
+
+\subsection{Eventos}
+
+Mencionar o nome completo do evento, seguido do ano de publicação.\\
+
+\cite{reuniao1985}\\
+
+ou\\
+
+Os trabalhos apresentados na \citeonline{reuniao1985} [\ldots]\\
+
+\subsection{Vários trabalhos da mesma autoria}
+
+Ao citar vários trabalhos de uma mesma autoria, publicados em anos distintos e mencionados simultaneamente, seguir a ordem cronológica, separando-os com vírgula.\\
+
+[\ldots] (SMITH, \citeyear{Smith1990}, \citeyear{Smith1999}, \citeyear{Smith2002}) \\
+
+ou\\
+
+[\ldots] conforme afirmou Smith (\citeyear{Smith1990}, \citeyear{Smith1999}, \citeyear{Smith2002})\\
+
+
+\subsection{Vários trabalhos de autorias diferentes}
+
+Ao citar vários trabalhos simultaneamente, de autorias diferentes, indicar
+em ordem cronológica. Quando entre parênteses separados por ponto e
+vírgula (;) e quando citados fora de parênteses, separados por vírgula (,) e pela
+partícula “e”.\\
+
+\citeonline{Ando1990,Ferreira1989,SilvaRibeiro2001}  estudaram [\ldots]\\
+	
+ou\\
+
+[\ldots] \cite{Ando1990,Ferreira1989,SilvaRibeiro2001}  \\
+
+
+\section{Comandos em \LaTeX\ para citações}
+
+
+No texto você deve inserir as citações com os comandos relacionados abaixo:
+
+\begin{alineas}
+\item
+\begin{verbatim}
+\cite
+\end{verbatim}
+
+Utilizado para inserir o sobrenome do autor dentro de parênteses seguido da informação do ano.
+
+\textbf{Exemplos} 
+
+\begin{verbatim}
+\cite{Paula2001}
+\end{verbatim}
+\cite{Paula2001}
+
+\begin{verbatim}
+\cite{Demakopoulou2000}
+\end{verbatim}
+\cite{Demakopoulou2000}
+
+\begin{verbatim}
+\cite{PhillipiJunior2000}
+\end{verbatim}
+\cite{PhillipiJunior2000}
+
+\begin{verbatim}
+\cite{resprin1997}
+\end{verbatim}
+\cite{resprin1997}
+
+\begin{verbatim}
+\cite{saopaulo1963}
+\end{verbatim}
+\cite{saopaulo1963}
+
+\begin{verbatim}
+\cite{resolucao1991}
+\end{verbatim}
+\cite{resolucao1991}
+
+\begin{verbatim}
+\cite{codigo1985}
+\end{verbatim}
+\cite{codigo1985}
+
+\begin{verbatim}
+\cite{constituicao1988}
+\end{verbatim}
+\cite{constituicao1988}
+
+\begin{verbatim}
+\cite{buscopan2013}
+\end{verbatim}
+\cite{buscopan2013}
+
+\begin{verbatim}
+\cite{Pasquarelli1987}
+\end{verbatim}
+\cite{Pasquarelli1987}\\
+
+\item
+\begin{verbatim}
+\citeonline
+\end{verbatim}
+
+É utilizado quando você menciona explicitamente o autor da referência na sentença.
+
+\textbf{Exemplos}
+
+\begin{verbatim}
+\citeonline{Novak1967}
+\end{verbatim}
+\citeonline{Novak1967}
+
+\begin{verbatim}
+\citeonline{Dood2002}
+\end{verbatim}
+\citeonline{Dood2002}
+
+\begin{verbatim}
+\citeonline{biblioteca1985}
+\end{verbatim}
+\citeonline{biblioteca1985}
+
+\begin{verbatim}
+\citeonline{usp2001}
+\end{verbatim}
+\citeonline{usp2001}
+
+\begin{verbatim}
+\citeonline{educacao2005}
+\end{verbatim}
+\citeonline{educacao2005}
+
+\begin{verbatim}
+\citeonline{brasil1981}
+\end{verbatim}
+\citeonline{brasil1981}
+
+\begin{verbatim}
+\citeonline{brasil1986}
+\end{verbatim}
+\citeonline{brasil1986}
+
+\begin{verbatim}
+\citeonline{Gomes1980}
+\end{verbatim}
+\citeonline{Gomes1980}\\
+
+\item
+\begin{verbatim}
+\citeyear
+\end{verbatim}
+
+Apenas o \textbf{ano} da obra constará do texto, suprimindo-se os outros dados presentes na citação e os dados bibliográficos continuarão constando da lista de referências. 
+
+\textbf{Exemplos}
+
+\begin{verbatim}
+\citeyear{law1967}
+\end{verbatim}
+\citeyear{law1967}
+
+\begin{verbatim}
+\citeyear{Agencia2003}
+\end{verbatim}
+\citeyear{Agencia2003}
+
+\begin{verbatim}
+\citeyear{Dorlands2000}
+\end{verbatim}
+\citeyear{Dorlands2000}
+
+\begin{verbatim}
+\citeyear{abetter2004}
+\end{verbatim}
+\citeyear{abetter2004}
+
+\begin{verbatim}
+\citeyear{abetter2004}
+\end{verbatim}
+\citeyear{council2001}
+
+\begin{verbatim}
+\citeyear{Thome1999}
+\end{verbatim}
+\citeyear{Thome1999}
+
+
+\begin{verbatim}
+\citeyear{Brennan2006}
+\end{verbatim}
+\citeyear{Brennan2006}
+
+\begin{verbatim}
+\citeyear{microsoft1995}
+\end{verbatim}
+\citeyear{microsoft1995}\\
+
+\item
+\begin{verbatim}
+\citeauthor
+\end{verbatim}
+
+Apenas o \textbf{sobrenome do autor} da obra constará do texto em letras maiúsculas, suprimindo-se os outros dados presentes na citação e os dados bibliográficos continuarão constando da lista de referências. 
+
+{\tiny {\tiny }}\begin{verbatim}
+\citeauthor{Piccini1996} 
+\end{verbatim}
+\citeauthor{Piccini1996} 
+
+\begin{verbatim}
+\citeauthor{Wendel1992}
+\end{verbatim}
+\citeauthor{Wendel1992}
+
+\begin{verbatim}
+\citeauthor{Elewa2006}
+\end{verbatim}
+\citeauthor{Elewa2006}
+
+\begin{verbatim}
+\citeauthor{Hofling1993}
+\end{verbatim}
+\citeauthor{Hofling1993}
+
+%\begin{verbatim}
+%\citeauthor{bule18}
+%\end{verbatim}
+%\cite{bule18}\\
+
+\item
+\begin{verbatim}
+\citeauthoronline
+\end{verbatim}
+
+Apenas o \textbf{sobrenome do autor} da obra constará do texto, suprimindo-se os outros dados presentes na citação e os dados bibliográficos continuarão constando da lista de referências.
+
+\textbf{Exemplos}
+
+\begin{verbatim}
+\citeauthoronline{Fonseca2000}
+\end{verbatim}
+\citeauthoronline{Fonseca2000}
+
+\begin{verbatim}
+\citeauthoronline{bibliotecanacional2000}
+\end{verbatim}
+\citeauthoronline{bibliotecanacional2000}
+
+\begin{verbatim}
+\citeauthoronline{Demakopoulou2000}
+\end{verbatim}
+\citeauthoronline{Demakopoulou2000}
+
+\begin{verbatim}
+\citeauthoronline{GlasscockIII1987}
+\end{verbatim}
+\citeauthoronline{GlasscockIII1987}
+
+\begin{verbatim}
+\citeauthoronline{delvecchio1995}
+\end{verbatim}
+\citeauthoronline{delvecchio1995}
+
+\begin{verbatim}
+\citeauthoronline{brasil1990}
+\end{verbatim}
+\citeauthoronline{brasil1990}
+
+\begin{verbatim}
+\citeauthoronline{Herbrick1989}
+\end{verbatim}
+\citeauthoronline{Herbrick1989}
+
+\begin{verbatim}
+\citeauthoronline{Mostafavi2014}
+\end{verbatim}
+\citeauthoronline{Mostafavi2014}\\
+
+\item
+\begin{verbatim}
+\citetext
+\end{verbatim}
+
+Imprime o conteúdo da referência de uma citação dentro do texto e também na lista de referências. Ao utilizar a macro  \verb+\citetext+ será transcrito o conteúdo da referência com a formatação padrão do documento, ou seja com espaçamento entre as linhas de 1,5 cm e na lista de referências com espaçamento simples.
+
+\textbf{Exemplos}
+
+\begin{verbatim}
+\citetext{Lacasse2005}
+\end{verbatim}
+
+\citetext{Lacasse2005} \\
+
+Para alterar o espaçamento entre linhas da referência para simples dentro do documento é necessário inserir o comando de formatação para espaços simples \verb+\SingleSpacing+ conforme abaixo:
+
+\begin{verbatim}
+\begin{SingleSpace} 
+\citetext{Lacasse2005}
+\end{SingleSpace}
+\end{verbatim}
+
+\begin{SingleSpace} 
+	\citetext{Lacasse2005}
+\end{SingleSpace}
+
+Os exemplos abaixo estão formatados com espaçamento simples.
+
+\begin{verbatim}
+\begin{SingleSpace} 
+\citetext{Palagachev2006}
+\end{SingleSpace}
+\end{verbatim}
+
+\begin{SingleSpace} 
+	\citetext{Palagachev2006}
+\end{SingleSpace}
+
+\begin{verbatim}
+\begin{SingleSpace} 
+\citetext{Zelen2000}
+\end{SingleSpace}
+\end{verbatim}
+
+\begin{SingleSpace} 
+	\citetext{Zelen2000}
+\end{SingleSpace}
+
+\begin{verbatim}
+\begin{SingleSpace} 
+\citetext{Boyd1993}
+\end{SingleSpace}
+\end{verbatim}
+
+\begin{SingleSpace} 
+	\citetext{Boyd1993}
+\end{SingleSpace} 
+
+\begin{verbatim}
+\begin{SingleSpace} 
+\citetext{Cochrane1998}
+\end{SingleSpace}
+\end{verbatim}
+
+\begin{SingleSpace} 
+	\citetext{Cochrane1998}
+\end{SingleSpace} 
+
+\begin{verbatim}
+\begin{SingleSpace} 
+\citetext{Oliveira2006}
+\end{SingleSpace}
+\end{verbatim}
+
+\begin{SingleSpace} 
+	\citetext{Oliveira2006}
+\end{SingleSpace}
+
+\begin{verbatim}
+\begin{SingleSpace} 
+\citetext{Harrison2001}
+\end{SingleSpace}
+\end{verbatim}
+
+\begin{SingleSpace} 
+	\citetext{Harrison2001}
+\end{SingleSpace}
+
+\begin{verbatim}
+\begin{SingleSpace} 
+\citetext{usp2006}
+\end{SingleSpace}
+\end{verbatim}
+
+\begin{SingleSpace} 
+	\citetext{usp2006}
+\end{SingleSpace} 
+
+\quad
+
+\item
+\begin{verbatim}
+\Idem comando específico para mesmo autor
+\Ibidem comando específico para mesma obra
+\opcit comando específico para obra citada
+\passim comando específico para aqui e alí
+\loccit comando específico para no lugar citado
+\cfcite comando específico para confira
+\etseq comando específico para e sequencia 
+\end{verbatim} 
+
+As expressões latinas podem ser usadas para evitar repetições constantes de fontes citadas anteriormente. A primeira citação de uma obra deve apresentar sua referência completa e as subsequentes podem aparecer sob forma abreviada. Não usar destaque tipográfico quando utilizar expressões latinas. As expressões latinas não devem ser usadas no texto, apenas em nota de rodapé, exceto apud. A presença da referência em nota de rodapé não dispensa sua inclusão nas Referências, no final do trabalho. As expressões idem, ibidem, opus citatum, passim, loco citato, cf. e et seq. só podem ser usadas na mesma página ou folha da citação a que se referem. Para não prejudicar a leitura é recomendado evitar o emprego de expressões latinas.\\
+
+\textbf{Exemplos}
+
+\begin{verbatim}
+\Idem[p.~491]{Abend2002}
+\end{verbatim}
+\Idem[p.~491]{Abend2002}
+
+\begin{verbatim}
+\Idem[p.~15]{tratados1999}
+\end{verbatim}
+\Idem[p.~15]{tratados1999}
+
+\begin{verbatim}
+\Idem[p.~18]{central1998}
+\end{verbatim}
+\Idem[p.~18]{central1998}
+
+\begin{verbatim}
+\Ibidem[p.~1]{Emenda1995}
+\end{verbatim}
+\Ibidem[p.~1]{Emenda1995}
+
+\begin{verbatim}
+\Ibidem[p.~15]{Paciornick1978}
+\end{verbatim}
+\Ibidem[p.~15]{Paciornick1978}
+
+\begin{verbatim}
+\Ibidem[p.~15]{atlas1981}
+\end{verbatim}
+\Ibidem[p.~35]{atlas1981}
+
+\begin{verbatim}
+\opcit[p.~23]{Denver1974}
+\end{verbatim}
+\opcit[p.~23]{Denver1974}
+
+\begin{verbatim}
+\opcit[p.~2]{Almeida1995}
+\end{verbatim}
+\opcit[p.~2]{Almeida1995}
+
+\begin{verbatim}
+\opcit[p.~3]{bionline}
+\end{verbatim}
+\opcit[p.~3]{bionline}
+
+\begin{verbatim}
+\passim{Villa-Lobos1916}
+\end{verbatim}
+\passim{Villa-Lobos1916}
+
+\begin{verbatim}
+\passim{Ramos1999}
+\end{verbatim}
+\passim{Ramos1999}
+
+\begin{verbatim}
+\passim{atlas2001}
+\end{verbatim}
+\passim{atlas2001}
+
+\begin{verbatim}
+\loccit{Wu1999}
+\end{verbatim}
+\loccit{Wu1999}
+
+\begin{verbatim}
+\loccit{Costa2002}
+\end{verbatim}
+\loccit{Costa2002}
+
+\begin{verbatim}
+\loccit{Geografico1986}
+\end{verbatim}
+\loccit{Geografico1986}
+
+\begin{verbatim}
+\cfcite[p.~2]{BRAYNER1994}
+\end{verbatim}
+\cfcite[p.~2]{BRAYNER1994}
+
+\begin{verbatim}
+\cfcite[p.~2]{Sabroza1998}
+\end{verbatim}
+\cfcite[p.~2]{Sabroza1998}
+
+\begin{verbatim}
+\cfcite[p.~46]{Oliva1900}
+\end{verbatim}
+\cfcite[p.~46]{Oliva1900}
+
+\begin{verbatim}
+\etseq[p.~2]{Montgomery1992}
+\end{verbatim}
+\etseq[p.~2]{Montgomery1992}
+
+\begin{verbatim}
+\etseq[p.~2]{Dudek2006}
+\end{verbatim}
+\etseq[p.~2]{Dudek2006}
+
+\begin{verbatim}
+\etseq[p.~2]{brasil1990b}
+\end{verbatim}
+\etseq[p.~2]{brasil1990b}
+
+\end{alineas}
+
+

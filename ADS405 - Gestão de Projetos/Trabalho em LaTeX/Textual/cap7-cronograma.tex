@@ -1,0 +1,255 @@
+\chapter{ESTIMAR DURAÇÃO E ELABORAR CRONOGRAMA}
+
+A estimativa de duração e elaboração do cronograma são processos fundamentais na gestão de projetos, estabelecendo as bases temporais para planejamento, execução e controle \cite{PMI:2021}. Este capítulo apresenta a análise de rede de atividades, a identificação do caminho crítico e o cronograma sumarizado do projeto de desenvolvimento da plataforma de ingressos online.
+
+\section{Diagrama de Rede e Análise do Caminho Crítico}
+
+O diagrama de rede representa graficamente a sequência lógica das atividades do projeto e suas interdependências, permitindo a identificação do caminho crítico \cite{Kerzner:2022}.
+
+\subsection{Método do Caminho Crítico (CPM)}
+
+O Método do Caminho Crítico (Critical Path Method - CPM) é uma técnica de análise de rede que identifica a sequência de atividades que determina a duração mínima do projeto. O caminho crítico representa a série de atividades sem folga, onde qualquer atraso impacta diretamente a data de conclusão do projeto \cite{PMI:2021}.
+
+Para a plataforma de ingressos online, a análise do caminho crítico foi realizada considerando todas as tarefas detalhadas no Capítulo 4, suas durações estimadas e dependências identificadas. A aplicação do método CPM envolve:
+
+\begin{enumerate}
+    \item Cálculo das datas mais cedo de início e término (Forward Pass)
+    \item Cálculo das datas mais tarde de início e término (Backward Pass)
+    \item Identificação da folga total de cada atividade
+    \item Determinação do caminho crítico (atividades com folga zero)
+\end{enumerate}
+
+\subsection{Caminho Crítico Identificado}
+
+A análise revelou o seguinte caminho crítico do projeto, com duração total de \textbf{30 semanas}:
+
+\begin{table}[H]
+\centering
+\caption{Atividades do caminho crítico do projeto.}
+\label{tab:caminho-critico}
+\footnotesize
+\begin{tabular}{|p{1cm}|p{6cm}|p{2cm}|p{2cm}|p{2cm}|}
+\hline
+\textbf{ID} & \textbf{Atividade} & \textbf{Duração} & \textbf{Início} & \textbf{Término} \\ \hline
+1.1.1 & Workshops com stakeholders & 1 semana & Sem. 1 & Sem. 1 \\ \hline
+1.1.2 & Documentar requisitos funcionais & 1 semana & Sem. 2 & Sem. 2 \\ \hline
+1.1.4 & Validar requisitos & 3 dias & Sem. 3 & Sem. 3 \\ \hline
+1.2.1 & Projetar arquitetura microsserviços & 1 semana & Sem. 3 & Sem. 3 \\ \hline
+1.2.2 & Selecionar stack tecnológico & 3 dias & Sem. 4 & Sem. 4 \\ \hline
+1.2.3 & Elaborar diagramas arquitetura & 1 semana & Sem. 4 & Sem. 4 \\ \hline
+1.2.4 & Revisar e aprovar arquitetura & 2 dias & Sem. 5 & Sem. 5 \\ \hline
+1.3.1 & Provisionar recursos em nuvem & 1 semana & Sem. 5 & Sem. 5 \\ \hline
+1.3.5 & Configurar segurança & 1 semana & Sem. 6 & Sem. 6 \\ \hline
+1.3.6 & Validar infraestrutura & 2 dias & Sem. 7 & Sem. 7 \\ \hline
+2.2.1 & Modelo de dados eventos & 3 dias & Sem. 7 & Sem. 7 \\ \hline
+2.2.2 & CRUD de eventos & 2 semanas & Sem. 7-8 & Sem. 8 \\ \hline
+2.2.4 & Gestão de lotes & 1 semana & Sem. 9 & Sem. 9 \\ \hline
+2.2.5 & Testar API de eventos & 1 semana & Sem. 10 & Sem. 10 \\ \hline
+2.3.2 & Lógica de carrinho & 1 semana & Sem. 11 & Sem. 11 \\ \hline
+2.3.3 & Integrar gateway pagamento & 2 semanas & Sem. 11-12 & Sem. 12 \\ \hline
+2.3.4 & Webhooks de confirmação & 1 semana & Sem. 13 & Sem. 13 \\ \hline
+2.3.5 & Geração de comprovante & 3 dias & Sem. 14 & Sem. 14 \\ \hline
+2.3.6 & Testar API pagamentos & 1 semana & Sem. 14 & Sem. 14 \\ \hline
+3.1.2 & Fluxo de compra frontend & 2 semanas & Sem. 15-16 & Sem. 16 \\ \hline
+3.1.3 & Portal do cliente & 1 semana & Sem. 17 & Sem. 17 \\ \hline
+3.1.4 & Responsividade mobile & 1 semana & Sem. 18 & Sem. 18 \\ \hline
+3.1.5 & Validar usabilidade & 3 dias & Sem. 19 & Sem. 19 \\ \hline
+5.2.1 & Configurar testes E2E & 2 dias & Sem. 19 & Sem. 19 \\ \hline
+5.2.2 & Desenvolver cenários teste & 1 semana & Sem. 19-20 & Sem. 20 \\ \hline
+5.2.3 & Executar testes integração & 1 semana & Sem. 21 & Sem. 21 \\ \hline
+5.2.4 & Aprovar suite de testes & 2 dias & Sem. 22 & Sem. 22 \\ \hline
+5.3.2 & Cenários de carga & 3 dias & Sem. 22 & Sem. 22 \\ \hline
+5.3.3 & Executar testes progressivos & 1 semana & Sem. 22-23 & Sem. 23 \\ \hline
+5.3.4 & Otimizar gargalos & 1 semana & Sem. 24 & Sem. 24 \\ \hline
+5.3.5 & Validar metas performance & 2 dias & Sem. 25 & Sem. 25 \\ \hline
+5.4.2 & Análise DAST & 3 dias & Sem. 25 & Sem. 25 \\ \hline
+5.4.3 & Teste de penetração & 1 semana & Sem. 25-26 & Sem. 26 \\ \hline
+5.4.4 & Remediar vulnerabilidades & 1 semana & Sem. 27 & Sem. 27 \\ \hline
+5.4.5 & Certificação de segurança & 1 semana & Sem. 28 & Sem. 28 \\ \hline
+6.1.1 & Preparar ambiente produção & 3 dias & Sem. 28 & Sem. 28 \\ \hline
+6.1.2 & Deploy blue-green & 1 dia & Sem. 29 & Sem. 29 \\ \hline
+6.1.3 & Migrar dados iniciais & 1 dia & Sem. 29 & Sem. 29 \\ \hline
+6.1.4 & Validar funcionamento & 1 dia & Sem. 29 & Sem. 29 \\ \hline
+6.1.5 & Go-live oficial & 1 dia & Sem. 29 & Sem. 29 \\ \hline
+6.3.2 & Documentação funcional & 2 semanas & Sem. 29-30 & Sem. 30 \\ \hline
+6.3.4 & Treinamento organizadores & 1 semana & Sem. 30 & Sem. 30 \\ \hline
+6.3.5 & Finalizar projeto & 1 dia & Sem. 30 & Sem. 30 \\ \hline
+\end{tabular}
+\end{table}
+
+\subsection{Análise de Folgas}
+
+As atividades que não estão no caminho crítico possuem folgas que podem ser aproveitadas para otimização de recursos:
+
+\textbf{Atividades com Folga Significativa (> 1 semana):}
+\begin{itemize}
+    \item \textbf{API de Autenticação (2.1.*):} Folga total de 2 semanas. Pode ser desenvolvida em paralelo com API de eventos sem impacto no cronograma.
+    \item \textbf{API de Ingressos Digitais (2.4.*):} Folga total de 3 semanas. Permite refinamento e otimização sem pressão de prazo.
+    \item \textbf{Dashboard Organizador (3.2.*):} Folga total de 2 semanas. Interface pode ser desenvolvida de forma mais elaborada.
+    \item \textbf{Aplicação Check-in (3.3.*):} Folga total de 4 semanas. Permite testes extensivos em múltiplos eventos piloto.
+\end{itemize}
+
+\textbf{Estratégia de Gestão de Folgas:}
+\begin{itemize}
+    \item Atividades com folga são priorizadas para alocação de recursos juniores (desenvolvimento de habilidades)
+    \item Folgas são utilizadas como buffer natural para absorver riscos e imprevistos
+    \item Não serão programadas reduções artificiais de folga, mantendo margem de segurança
+\end{itemize}
+
+\subsection{Marcos Principais e Gates de Qualidade}
+
+O projeto estabelece 8 marcos principais que funcionam como gates de qualidade:
+
+\begin{table}[H]
+\centering
+\caption{Marcos principais do projeto e critérios de aprovação.}
+\label{tab:marcos}
+\small
+\begin{tabular}{|p{1.5cm}|p{5cm}|p{7cm}|}
+\hline
+\textbf{Marco} & \textbf{Descrição} & \textbf{Critérios de Aprovação} \\ \hline
+M1 & Requisitos aprovados (Sem. 3) & Documento de requisitos assinado por stakeholders, baseline estabelecida \\ \hline
+M2 & Arquitetura aprovada (Sem. 5) & Diagramas C4 completos, decisões técnicas documentadas, revisão técnica aprovada \\ \hline
+M3 & Infraestrutura operacional (Sem. 7) & Ambientes dev/homolog/prod provisionados, testes de conectividade 100\% \\ \hline
+M4 & APIs core funcionais (Sem. 14) & APIs autenticação, eventos e pagamentos testadas, cobertura > 80\% \\ \hline
+M5 & Frontend completo (Sem. 19) & Interfaces comprador e organizador funcionais, testes usabilidade aprovados \\ \hline
+M6 & Testes de qualidade aprovados (Sem. 25) & Cobertura testes > 80\%, performance validada, zero vulnerabilidades críticas \\ \hline
+M7 & Sistema em produção (Sem. 29) & Deploy realizado, smoke tests aprovados, monitoramento ativo \\ \hline
+M8 & Projeto finalizado (Sem. 30) & Documentação completa, treinamentos realizados, retrospectiva conduzida \\ \hline
+\end{tabular}
+\end{table}
+
+\section{Cronograma Sumarizado}
+
+O cronograma sumarizado apresenta a organização temporal do projeto em fases e atividades principais, fornecendo uma visão consolidada da distribuição de trabalho ao longo das 30 semanas de desenvolvimento.
+
+\subsection{Estrutura Temporal por Fases}
+
+\begin{table}[H]
+\centering
+\caption{Cronograma sumarizado por fases do projeto.}
+\label{tab:cronograma-fases}
+\small
+\begin{tabular}{|p{4cm}|p{2cm}|p{2.5cm}|p{5cm}|}
+\hline
+\textbf{Fase} & \textbf{Duração} & \textbf{Período} & \textbf{Principais Entregas} \\ \hline
+\textbf{1. Iniciação e Planejamento} & 4 semanas & Sem. 1-4 & Requisitos validados, arquitetura definida, planejamento completo \\ \hline
+\textbf{2. Infraestrutura e Segurança} & 3 semanas & Sem. 5-7 & Ambientes cloud operacionais, CDN configurada, segurança implementada \\ \hline
+\textbf{3. Desenvolvimento Backend} & 8 semanas & Sem. 7-14 & APIs de autenticação, eventos, pagamentos e ingressos testadas \\ \hline
+\textbf{4. Desenvolvimento Frontend} & 5 semanas & Sem. 15-19 & Interfaces de comprador, organizador e check-in funcionais \\ \hline
+\textbf{5. Integrações} & 4 semanas & Sem. 16-19 & Gateways pagamento, e-mail, filas integrados e testados \\ \hline
+\textbf{6. Testes e Qualidade} & 7 semanas & Sem. 19-25 & Suites de testes completas, performance validada, segurança certificada \\ \hline
+\textbf{7. Implantação e Encerramento} & 2 semanas & Sem. 29-30 & Sistema em produção, documentação completa, treinamentos realizados \\ \hline
+\end{tabular}
+\end{table}
+
+\textbf{Observação:} Algumas fases possuem sobreposição temporal intencional, refletindo a natureza iterativa do desenvolvimento ágil onde múltiplas frentes de trabalho avançam em paralelo quando não há dependências críticas.
+
+\subsection{Gráfico de Gantt - Visão Executiva}
+
+O gráfico de Gantt apresenta visualmente a distribuição temporal das fases e atividades principais do projeto, facilitando a compreensão da sequência, paralelismo e duração das entregas.
+
+\begin{table}[H]
+\centering
+\caption{Gráfico de Gantt sumarizado - Fases principais do projeto (semanas).}
+\label{tab:gantt}
+\tiny
+\begin{tabular}{|p{3.5cm}|*{30}{c|}}
+\hline
+\textbf{Fase/Atividade} & \multicolumn{30}{c|}{\textbf{Semanas}} \\ \hline
+ & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 & 10 & 11 & 12 & 13 & 14 & 15 & 16 & 17 & 18 & 19 & 20 & 21 & 22 & 23 & 24 & 25 & 26 & 27 & 28 & 29 & 30 \\ \hline
+\textbf{1. Iniciação e Planejamento} & █ & █ & █ & █ &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  \\ \hline
+Workshops e requisitos & █ & █ & █ &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  \\ \hline
+Arquitetura e stack &  &  & █ & █ &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  \\ \hline
+\textbf{2. Infraestrutura} &  &  &  &  & █ & █ & █ &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  \\ \hline
+Provisionar cloud &  &  &  &  & █ & █ &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  \\ \hline
+Segurança e CDN &  &  &  &  &  & █ & █ &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  \\ \hline
+\textbf{3. Backend APIs} &  &  &  &  &  &  & █ & █ & █ & █ & █ & █ & █ & █ &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  \\ \hline
+API Autenticação &  &  &  &  &  &  & █ & █ & █ &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  \\ \hline
+API Eventos &  &  &  &  &  &  & █ & █ & █ & █ &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  \\ \hline
+API Pagamentos &  &  &  &  &  &  &  &  &  &  & █ & █ & █ & █ &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  \\ \hline
+API Ingressos &  &  &  &  &  &  &  &  & █ & █ & █ & █ &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  \\ \hline
+\textbf{4. Frontend} &  &  &  &  &  &  &  &  &  &  &  &  &  &  & █ & █ & █ & █ & █ &  &  &  &  &  &  &  &  &  &  &  \\ \hline
+Interface Comprador &  &  &  &  &  &  &  &  &  &  &  &  &  &  & █ & █ & █ & █ &  &  &  &  &  &  &  &  &  &  &  &  \\ \hline
+Dashboard Organizador &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  & █ & █ & █ &  &  &  &  &  &  &  &  &  &  &  &  \\ \hline
+App Check-in &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  & █ & █ & █ &  &  &  &  &  &  &  &  &  &  &  \\ \hline
+\textbf{5. Integrações} &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  & █ & █ & █ & █ &  &  &  &  &  &  &  &  &  &  &  \\ \hline
+Gateway Pagamento &  &  &  &  &  &  &  &  &  &  & █ & █ & █ & █ &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  \\ \hline
+E-mail e Filas &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  & █ & █ & █ &  &  &  &  &  &  &  &  &  &  &  &  \\ \hline
+\textbf{6. Testes e QA} &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  & █ & █ & █ & █ & █ & █ & █ &  &  &  &  &  \\ \hline
+Testes Unitários &  &  &  &  &  &  &  & █ & █ & █ & █ & █ & █ & █ & █ &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  \\ \hline
+Testes Integração &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  & █ & █ & █ & █ &  &  &  &  &  &  &  &  \\ \hline
+Testes Carga &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  & █ & █ & █ & █ &  &  &  &  &  \\ \hline
+Testes Segurança &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  & █ & █ & █ & █ &  &  \\ \hline
+\textbf{7. Implantação} &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  & █ & █ \\ \hline
+Deploy Produção &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  & █ &  \\ \hline
+Documentação &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  & █ & █ \\ \hline
+Treinamento &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  & █ \\ \hline
+\textbf{MARCOS} & ▼ &  & ▼ &  & ▼ &  & ▼ &  &  &  &  &  &  & ▼ &  &  &  &  & ▼ &  &  &  &  &  & ▼ &  &  &  & ▼ & ▼ \\ \hline
+\end{tabular}
+\end{table}
+
+\textbf{Legenda:} 
+\begin{itemize}
+    \item █ = Período de execução da atividade
+    \item ▼ = Marco do projeto (gate de qualidade)
+\end{itemize}
+
+\subsection{Distribuição de Esforço por Fase}
+
+A distribuição de esforço da equipe ao longo do projeto segue um padrão típico de projetos de software, com pico de atividade durante a fase de desenvolvimento:
+
+\begin{table}[H]
+\centering
+\caption{Distribuição de esforço por fase (pessoa-semana).}
+\label{tab:esforco}
+\small
+\begin{tabular}{|p{4.5cm}|p{2cm}|p{2.5cm}|p{4cm}|}
+\hline
+\textbf{Fase} & \textbf{Duração} & \textbf{Esforço} & \textbf{Carga Média} \\ \hline
+1. Iniciação e Planejamento & 4 semanas & 20 p-sem & 5 pessoas (capacidade reduzida) \\ \hline
+2. Infraestrutura e Segurança & 3 semanas & 12 p-sem & 4 pessoas (especialistas) \\ \hline
+3. Desenvolvimento Backend & 8 semanas & 40 p-sem & 5 pessoas (pico de atividade) \\ \hline
+4. Desenvolvimento Frontend & 5 semanas & 25 p-sem & 5 pessoas (pico de atividade) \\ \hline
+5. Integrações & 4 semanas & 16 p-sem & 4 pessoas (especialistas) \\ \hline
+6. Testes e Qualidade & 7 semanas & 28 p-sem & 4 pessoas (foco em QA) \\ \hline
+7. Implantação e Encerramento & 2 semanas & 10 p-sem & 5 pessoas (todos envolvidos) \\ \hline
+\textbf{Total} & \textbf{30 semanas} & \textbf{151 p-sem} & \textbf{Média: 5 pessoas} \\ \hline
+\end{tabular}
+\end{table}
+
+\subsection{Considerações sobre o Cronograma}
+
+\textbf{Flexibilidade e Adaptação:}
+O cronograma apresentado estabelece a linha de base para planejamento e controle, mas mantém flexibilidade inerente à metodologia ágil adotada. Ajustes na priorização de funcionalidades dentro de cada sprint são permitidos sem impacto no cronograma macro, desde que os marcos principais sejam mantidos.
+
+\textbf{Dependências Externas:}
+O cronograma considera tempo adequado para integração com fornecedores externos (gateways de pagamento, provedores de e-mail), incluindo buffer para eventuais atrasos em aprovações, homologações ou questões de suporte técnico.
+
+\textbf{Gestão de Buffer:}
+Foram incluídos buffers implícitos de 10-15\% em atividades críticas do caminho crítico, especialmente em:
+\begin{itemize}
+    \item Integração com gateway de pagamento (complexidade elevada)
+    \item Testes de carga e otimização de performance (resultados imprevisíveis)
+    \item Testes de segurança e remediação (vulnerabilidades desconhecidas)
+\end{itemize}
+
+\textbf{Fast-Tracking e Crashing:}
+Em caso de necessidade de aceleração do cronograma, as seguintes estratégias podem ser aplicadas:
+\begin{itemize}
+    \item \textbf{Fast-Tracking:} Paralelização de atividades normalmente sequenciais (ex: iniciar desenvolvimento de frontend antes de completar todos os backends)
+    \item \textbf{Crashing:} Alocação de recursos adicionais em atividades críticas (ex: contratação temporária de desenvolvedor adicional)
+\end{itemize}
+
+Ambas as estratégias aumentam riscos e devem ser aplicadas apenas após análise cuidadosa de impacto e aprovação do Comitê de Direcionamento.
+
+\textbf{Monitoramento e Controle:}
+O progresso em relação ao cronograma será monitorado semanalmente através de:
+\begin{itemize}
+    \item Análise de variação de prazo (Schedule Variance - SV)
+    \item Índice de desempenho de prazo (Schedule Performance Index - SPI)
+    \item Burndown charts por sprint
+    \item Atualização semanal de datas previstas de conclusão
+\end{itemize}
+
+Desvios superiores a 5\% em relação ao planejado acionam processo formal de análise de causas e definição de ações corretivas, garantindo que o projeto se mantenha dentro do prazo acadêmico estabelecido de 30 semanas.

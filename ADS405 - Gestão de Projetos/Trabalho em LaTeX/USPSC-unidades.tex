@@ -1,0 +1,57 @@
+%% USPSC-unidades.tex
+% Camando para definição do programa de Pós-Graduação, Especialidade do Título e Instituição
+\newcommand{\siglaunidade}[1]{
+
+
+% EESC-TCC ==========================================================================
+    \ifthenelse{\equal{#1}{EESC-TCC}}{
+     			\include{USPSC-TCC-pre-textual-EESC}
+% ---
+    }{
+% EESC ==========================================================================
+	\ifthenelse{\equal{#1}{EESC}}{
+	\include{USPSC-pre-textual-EESC}
+	% ---
+}{    
+% IAU ===========================================================================
+        \ifthenelse{\equal{#1}{IAU}}{
+        \include{USPSC-pre-textual-IAU}    
+        }{
+% ICMC ===========================================================================
+        \ifthenelse{\equal{#1}{ICMC}}{
+        \include{USPSC-pre-textual-ICMC}    
+        }{
+% ICMC-TCC ===========================================================================
+        \ifthenelse{\equal{#1}{ICMC-TCC}}{
+        	\include{USPSC-TCC-pre-textual-ICMC}    
+        }{
+% IFSC ===========================================================================
+        \ifthenelse{\equal{#1}{IFSC}}{
+        \include{USPSC-pre-textual-IFSC}    
+        }{
+% IQSC ===========================================================================
+        \ifthenelse{\equal{#1}{IQSC}}{
+        \include{USPSC-pre-textual-IQSC}    
+        }{
+% IQSC-TCC ===========================================================================
+	\ifthenelse{\equal{#1}{IQSC-TCC}}{
+	\include{USPSC-TCC-pre-textual-IQSC}    
+       }{
+% USPSC ===========================================================================
+\ifthenelse{\equal{#1}{USPSC}}{
+	\include{USPSC-pre-textual-Tutorial}    
+}{
+% OUTROS-TCC ===========================================================================
+\ifthenelse{\equal{#1}{OUTROS-TCC}}{
+	\include{USPSC-TCC-pre-textual-OUTROS}    
+}{
+% Outros ========================================================================
+                       % ------------------------------------------------------------------------
+        \include{USPSC-pre-textual-OUTRO} 
+								  }
+                }
+							}
+						}
+				}
+			}}}}}}
+         	

@@ -1,0 +1,60 @@
+\chapter{INTRODUÇÃO}
+
+\section{Contextualização}
+
+A indústria global de eventos, que engloba desde megafestivais de música e competições esportivas até conferências corporativas e espetáculos teatrais, representa um setor dinâmico e de grande impacto econômico \cite{Getz:2012}. O sucesso e a viabilidade desses eventos estão intrinsecamente ligados à eficiência de seus sistemas de comercialização de ingressos. Nas últimas décadas, testemunhou-se uma massiva migração das bilheterias físicas para as plataformas digitais, uma transformação impulsionada pela adoção de tecnologias de computação em nuvem que oferecem elasticidade e disponibilidade global \cite{MellGrance:2011}. Essa mudança, ao mesmo tempo que democratizou o acesso e ofereceu conveniência sem precedentes, introduziu uma nova gama de desafios complexos relacionados à tecnologia, segurança e experiência do usuário \cite{Sommerville:2016}.
+
+Neste cenário, a robustez de uma plataforma de ingressos online não é apenas um diferencial competitivo, mas um requisito fundamental para a operação \cite{Pressman:2019}. A capacidade de gerenciar picos de alta demanda, garantir a segurança das transações financeiras e combater fraudes tornou-se um pilar central. Este trabalho, portanto, dedica-se a apresentar o projeto arquitetural de um sistema web para a venda de ingressos, concebido como uma solução moderna, segura e altamente escalável, abordando a contextualização do problema, os objetivos do desenvolvimento e os limites da proposta.
+
+\subsection{Problema e justificativa}
+
+O problema central que motiva este projeto é a persistente lacuna no mercado de plataformas de venda de ingressos que consigam conciliar, de maneira eficaz, três pilares essenciais: alta performance sob demanda, segurança de ponta-a-ponta e uma experiência de usuário fluida e intuitiva. A usabilidade, definida pela ISO 9241-11 como a medida em que um produto pode ser usado por usuários específicos para alcançar objetivos específicos com eficácia, eficiência e satisfação \cite{ISO9241:2018}, torna-se crítica em ambientes de alta concorrência por ingressos limitados.
+
+Atualmente, o ecossistema de eventos é marcado por uma série de deficiências sistêmicas. Do ponto de vista do consumidor, a frustração é uma constante, manifestando-se em sistemas que se tornam inacessíveis durante lançamentos de eventos populares, longas e instáveis filas virtuais, processos de compra confusos e falhas recorrentes no momento do pagamento. Essa experiência negativa é agravada pela vulnerabilidade a fraudes, como a ação de cambistas que utilizam robôs para adquirir grandes lotes de ingressos e a circulação de bilhetes falsificados, que geram insegurança e perdas financeiras significativas.
+
+Para os organizadores de eventos, os desafios são igualmente críticos. A dependência de sistemas pouco confiáveis pode resultar em perdas de receita, danos à reputação da marca e complexidades operacionais na gestão de acessos e validação de ingressos. A falta de ferramentas eficazes para controlar a distribuição e garantir a autenticidade dos bilhetes abre brechas para atividades ilícitas que comprometem a integridade do evento. Soma-se a isso a necessidade de conformidade com legislações de proteção de dados, que impõem requisitos rígidos para o tratamento de informações pessoais dos usuários \cite{LGPD:2018}.
+
+A justificativa para a criação de um novo sistema, portanto, é robusta e multifacetada. A aplicação de uma arquitetura de microsserviços, conforme descrita por Newman \cite{Newman:2021}, permite a construção de uma plataforma modular e evolutiva, capaz de escalar horizontalmente para absorver picos massivos de tráfego sem degradação do serviço. A implementação de tecnologias como QR Codes dinâmicos, vinculados a contas de usuário e com validação em tempo real, oferece uma barreira de segurança substancialmente mais forte contra a falsificação e o cambismo. 
+
+A conformidade com padrões de segurança como PCI DSS \cite{PCIDSS:2022} garante a integridade das transações financeiras, enquanto a proteção contra vulnerabilidades do OWASP Top 10 \cite{OWASP:2021} fortalece a postura de segurança da aplicação. A aderência às diretrizes WCAG 2.1 \cite{WCAG:2018} assegura acessibilidade universal, permitindo que pessoas com diferentes habilidades possam utilizar a plataforma de forma eficaz. A relevância deste projeto está, assim, na sua capacidade de entregar uma solução tecnológica integrada que não apenas resolve as dores latentes de consumidores e organizadores, mas que também eleva o padrão de qualidade, segurança e confiabilidade para o setor de eventos.
+
+\subsection{Objetivos}
+
+\subsubsection{Objetivo geral}
+
+Projetar e desenvolver um sistema web completo e robusto para a venda de ingressos online, que priorize a segurança, a escalabilidade e a usabilidade, com o propósito de otimizar a gestão de eventos para os organizadores e proporcionar um processo de compra transparente, rápido e confiável para os consumidores.
+
+\subsubsection{Objetivos específicos}
+
+Para a consecução do objetivo geral, as seguintes metas específicas serão cumpridas:
+\begin{itemize}
+    \item Desenvolver um módulo de identidade e acesso seguro, permitindo o cadastro e a autenticação de diferentes perfis de usuário (compradores e organizadores) com validação de dados;
+    \item Implementar uma interface administrativa para que organizadores de eventos possam cadastrar, configurar e gerenciar seus eventos de forma autônoma, definindo informações como local, data, capacidade, lotes e categorias de preço dos ingressos;
+    \item Construir um fluxo de compra otimizado, incluindo um carrinho de compras resiliente e a integração com um gateway de pagamento moderno que suporte múltiplos métodos, como Pix e cartão de crédito;
+    \item Projetar e implementar um sistema de geração de ingressos digitais seguros, utilizando QR Codes únicos, dinâmicos e intransferíveis, associados diretamente à conta do comprador para coibir fraudes;
+    \item Criar um portal do cliente, onde o usuário possa visualizar, gerenciar e acessar facilmente todos os ingressos adquiridos, bem como seu histórico de compras;
+    \item Desenvolver uma solução de controle de acesso (check-in) eficiente e de baixa latência, que permita a validação rápida e segura dos ingressos na portaria dos eventos através da leitura do QR Code.
+\end{itemize}
+
+\subsection{Escopo e Contraescopo}
+
+O escopo do projeto engloba todas as funcionalidades e entregáveis que serão desenvolvidos, conforme listado abaixo:
+\begin{itemize}
+    \item Desenvolvimento de uma plataforma web responsiva, garantindo uma experiência consistente em navegadores de desktops, tablets e smartphones;
+    \item Sistema de cadastro de eventos detalhado, permitindo a inclusão de imagens, descrições, políticas do evento e diferentes tipos de ingressos (ex: Pista, VIP, Meia-entrada);
+    \item Implementação de um sistema de filas virtuais para gerenciar o tráfego em eventos de altíssima demanda, garantindo a estabilidade da plataforma;
+    \item Processo de compra completo, desde a seleção dos ingressos até a confirmação do pagamento, com envio de confirmação por e-mail;
+    \item Integração com uma API de pagamento que processe transações de forma segura, seguindo as normas PCI DSS de segurança de dados \cite{PCIDSS:2022};
+    \item Geração de ingressos digitais com QR Code que se atualiza periodicamente para evitar a captura de tela e o compartilhamento indevido;
+    \item Uma aplicação ou página web simplificada para o controle de acesso, que permita aos staffs do evento validar os ingressos de forma rápida e consultar o status de cada um em tempo real.
+\end{itemize}
+
+O contraescopo, por sua vez, explicita as funcionalidades e atividades que, intencionalmente, não fazem parte deste projeto:
+\begin{itemize}
+    \item O desenvolvimento de aplicativos móveis nativos para as plataformas Android e iOS. A interação móvel será garantida pela responsividade da aplicação web;
+    \item Funcionalidades de um mercado secundário, como a revenda ou transferência de ingressos entre usuários dentro da plataforma;
+    \item Um sistema interativo para a escolha de assentos marcados em mapas de eventos, como em teatros ou estádios;
+    \item Módulos de marketing e afiliados, bem como a integração com programas de fidelidade, pontos ou milhas;
+    \item Geração de painéis analíticos e relatórios financeiros complexos para os organizadores;
+    \item Recursos de interação social, como sistemas de avaliação de eventos, comentários, ou a criação de listas de amigos e confirmação de presença.
+\end{itemize}

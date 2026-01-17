@@ -1,0 +1,3408 @@
+% ---
+%% USPSC-Cap4-ReferenciasTutorial.tex
+% --
+% Este capítulo traz os exemplos de referências das "Diretrizes para apresentação de dissertações e teses da USP: documento eletrônico e impresso - Parte I (ABNT)" disponílvel em: http://biblioteca.puspsc.usp.br/pdfFiles_Caderno_Estudos_9_PT_1.pdf
+
+
+% --- 
+%\chapter{Modelos de re$  $ferências}
+\chapter{Modelos de referências}
+\label{Referências}
+% --- 
+Elemento obrigatório, que consiste na relação das obras consultadas e citadas no texto, de maneira que permita a identificação individual de cada uma delas. As referências devem ser organizadas em ordem alfabética, caso as citações no texto obedeçam ao sistema autor-data, ou conforme aparecem no texto, quando utilizado o sistema numérico de chamada. \cite{sibi2016}.
+
+Este capítulo foi elaborado com base nas \textbf{Diretrizes para apresentação de dissertações e teses da USP}: documento eletrônico e impresso - Parte I (ABNT), 3ª edição de 2016, e todos os exemplos aqui apresentados constam dessas Diretrizes, porém em conformidade com ABNT NBR 6023:2018. 
+
+Para organização, gerenciamento e editoração das referências em BibTeX foi utilizado o software JabRef versão 2.10.
+
+A ABNT NBR 6023 especifica os elementos a serem incluídos, fixa sua ordem, orienta a preparação e compilação das referências de materiais utilizados para a produção de documentos e para a inclusão em bibliografias, resumos etc. \cite{nbr6023a}.
+
+Normalmente não há problemas em usar caracteres acentuados em arquivos bibliográficos {(*.bib)}. Porém, como as regras da ABNT NBR 6023 exigem a conversão do autor ou organização para letras maiúsculas, é preciso observar o modo como se escrevem os nomes dos autores. No~\autoref{quadro-acentos} você encontra alguns
+exemplos das conversões mais importantes. Preste atenção especial para `ç' e `í'
+que devem estar envoltos em chaves. A regra geral é sempre usar a acentuação neste modo quando houver conversão para letras maiúsculas. \cite{abnetxcite} \\
+
+\begin{quadro}[H]
+	\caption{\label{quadro-acentos}Conversão de acentuação}
+		\begin{tabular}{|p{7.5cm}|p{7.5cm}|}
+			\hline
+			\textbf{Acentos} & \textbf{BibTeX}\\
+			\hline
+			à á ã & \verb+\`a+ \verb+\'a+ \verb+\~a+\\
+			\hline
+			í & \verb+{\'\i}+\\
+			\hline
+			ç & \verb+{\c c}+\\
+			\hline
+		\end{tabular}
+		\begin{flushleft}
+			Fonte: \citeonline{abnetxcite}
+		\end{flushleft}	
+\end{quadro}
+
+
+\section{Monografias}
+
+Nesta categoria são incluídos livros, folhetos, guias, catálogos, folderes, dicionários e trabalhos acadêmicos.
+
+Elementos essenciais: autoria, título, edição, local de publicação, editora e ano de publicação.
+
+Elementos complementares: responsabilidade (tradutor, revisor, ilustrador, entre outros), paginação, série, notas e ISBN.
+
+O prenome pode estar abreviado ou por extenso, porém deve estar padronizado em toda a listagem. \\
+
+\subsection{Monografia no todo}
+
+\begin{tabular}{|l|c|} \hline
+SOBRENOME, Prenome(s) do(s) autor(es). \textbf{Título da obra}: subtítulo \\ (se houver). Edição (se houver). Local de publicação (cidade):	Editora, data \\
+de publicação.  Paginação. Série. Notas. ISBN.\\\hline
+\end{tabular}\\
+
+\subsubsection{Um autor}
+
+\begin{tabular}{|l|c|} \hline
+ ESPÍRITO SANTO, A. \textbf{Essências de metodologia científica}: aplicada \\
+ à educação. Londrina: Universidade Estadual, 1987. \\\hline
+\end{tabular}\\
+
+\textbf{Campos em LATEX:}
+
+\begin{verbatim}
+\@Book{EspiritoSanto1987,
+Title                    = {Essências de metodologia científica},
+Address                  = {Londrina},
+Author                   = {Esp{\'\i}rito, Santo, A.},
+Publisher                = {Universidade Estadual},
+Subtitle                 = {aplicada à educação},
+Year                     = {1987},
+Owner                    = {apcalabrez},
+Timestamp                = {2015.09.21}
+}
+\end{verbatim}
+
+\begin{tabular}{|l|c|} \hline
+DE ROSE JUNIOR, D. \textbf{Minibasquetebol na escola}. São Paulo: Ícone, \\ 2015. 128 p. \\\hline
+\end{tabular}\\
+
+\newpage
+
+\textbf{Campos em LATEX:}
+
+\begin{verbatim}
+@Book{DeRose2015,
+Title                    = {Minibasquetebol na escola},
+Address                  = {São Paulo},
+Author                   = {De, Rose Júnior, D.},
+Pages                    = {128},
+Publisher                = {Ícone},
+Year                     = {2015},
+Owner                    = {apcalabrez},
+Timestamp                = {2015.09.21}
+}
+\end{verbatim}
+
+\begin{tabular}{|l|c|} \hline
+	SMITH, E. B. \textbf{Basic chemical thermodynamics}. 6th ed. London:\\ Imperial College Press, 2014.  \\\hline
+\end{tabular}\\
+
+\textbf{Campos em LATEX:}
+
+\begin{verbatim}
+@Book{DeRose2015,
+Title                    = {Basic chemical thermodynamics},
+Address                  = {London},
+Edition                  = {6th ed},
+Author                   = {SMITH, E. B.},
+Publisher                = {Imperial College Press},
+Year                     = {2014},
+Owner                    = {apcalabrez},
+Timestamp                = {2015.09.21}
+}
+\end{verbatim}
+
+\subsubsection{Dois autores}
+
+\begin{tabular}{|l|c|} \hline
+GOMES, C.B.; KEIL, K. \textbf{Brazilian stone meteorites} Albuquerque: \\ Univerity of New Mexico, 1980. \\\hline
+\end{tabular}\\
+
+\textbf{Campos em LATEX:}
+\begin{verbatim}
+@Book{Novak1967,
+Title                    = {Brazilian stone meteorites},
+Address                  = {Albuquerque},
+Author                   = {Gomes, C. B. and Keil, K.},
+Publisher                = {University of New Mexico},
+Year                     = {1980},
+Owner                    = {apcalabrez},
+Timestamp                = {2015.09.21}
+}
+\end{verbatim}
+
+\begin{tabular}{|l|c|} \hline
+DIAS, R. B.; COTO, N. P. \textbf{Odontologia do esporte}: história e \\ evolução. Rio de Janeiro: MedBook, 2014. \\\hline
+\end{tabular}\\
+
+\textbf{Campos em LATEX:}
+
+\begin{verbatim}
+@Book{DIAS2014,
+Title                    = {Odontologia do esporte},
+Subtitle                 = {história e evolução},
+Address                  = {Rio de Janeiro},
+Author                   = {DIAS, R. B.and COTO, N. P.},
+Publisher                = {MedBook},
+Year                     = {2014},
+Owner                    = {apcalabrez},
+Timestamp                = {2015.09.21}
+}
+\end{verbatim}
+
+\subsubsection{Três autores}
+
+\begin{tabular}{|l|c|} \hline
+GIANNINI, S. D.; FORTI, N.; DIAMENT, J. \textbf{Cardiologia preventiva}:\\ prevenção primária e secundária. São Paulo: Atheneu, 2000. \\\hline
+\end{tabular}\\
+\\
+\textbf{Campos em LATEX:}
+
+\begin{verbatim}
+@Book{Giannini2000,
+Title                    = {Cardiologia preventiva},
+Address                  = {São Paulo},
+Author                   = {Giannini, S. D. and Forti, N. and Diament, 
+J.},
+Publisher                = {Atheneu},
+Subtitle                 = {prevenção primária e secundária},
+Year                     = {2000},
+Owner                    = {apcalabrez},
+Timestamp                = {2015.09.21}
+}
+\end{verbatim}
+
+\begin{tabular}{|l|c|} \hline
+PAMMI, M.; VALLEJO, J. G.; ABRAMS, S. A. \textbf{Nutrition-infection} \\ \textbf{interactions and impacts on human health}. Hoboken: Taylor and Francis, \\ 2014. \\\hline
+\end{tabular}\\
+
+\textbf{Campos em LATEX:}
+
+\begin{verbatim}
+@Book{Pammi2000,
+Title                    = { Nutrition-infection interactions
+and impacts on human health},
+Address                  = {Hoboken},
+Author                   = {PAMMI, M. and VALLEJO, J. G. and ABRAMS, 
+S. A.},
+Publisher                = {Taylor and Francis},
+Year                     = {2014},
+Owner                    = {apcalabrez},
+Timestamp                = {2015.09.21}
+}
+\end{verbatim}
+
+\subsubsection{Quatro autores}
+
+\begin{tabular}{|l|c|} \hline
+BAST JUNIOR, C. \textit{et al.} (ed.). \textbf{Cancer medicine}. 
+5th ed.	New York: \\ American Cancer Society, 2000. 
+\\\hline
+\end{tabular}\\
+
+\begin{verbatim}
+@Book{bast2000,
+Title                    = {Cancer medicine},
+Address                  = {New York},
+Address                  = {Hamilton},
+Edition                  = {5th ed},
+Author                   = {Bast Junior, C. et al.},
+Publisher                = {American Cancer Society},
+Publisher                = {BC Decker},
+Year                     = {2000},
+Owner                    = {apcalabrez},
+Timestamp                = {2015.09.21}
+}
+\end{verbatim}
+
+\begin{tabular}{|l|c|} \hline
+PASQUARELLI, M. L. R. \textit{et al.} \textbf{Avaliação do uso de periódicos}. 
+São \\ Paulo: SIBi-USP, 1987. 14 p.\\\hline
+\end{tabular}\\
+
+\textbf{Campos em LATEX:}
+
+\begin{verbatim}
+@Book{Pasquarelli1987,
+Title                    = {Avaliação do uso de periódicos},
+Address                  = {São Paulo},
+Author                   = {Pasquarelli, M. L. R. and Krzyzanowski,
+R. F.; Imperatriz, I. M. M.; Noronha, D. P.; Andrade, E.; Zapparoli,
+M. C. M.; Bonesio, M. C. M.; Lobo, M. P.; Almeida, M. S.; Arruda, 
+R. M. A.; Plaza, R. T. T.},
+Pages                    = {14},
+Publisher                = {SIBi-USP},
+Year                     = {1987},
+Owner                    = {apcalabrez},
+Timestamp                = {2015.09.21}
+}
+\end{verbatim}
+
+\textbf{Nota:} quando houver quatro ou mais autores, convém indicar todos. Permite-se a indicação do primeiro autor, seguido da expressão \textit{et al.} 
+
+Para desativar a substituição dos autores por ‘et al.’, nas referências você deve incluir o pacote com a seguinte opção: \verb+\usepackage[alf,abnt-etal-cite=0]{abntex2cite}+
+
+No ~\autoref{quadro-opcoes-etal} estão descritos os comandos dos pacotes de alteração da composição dos estilos bibliográficos para alterar o estilo ‘et al.’.
+
+A obrigatoriedade do \textit{et al.} ser em itálico, segundo a ABNT NBR 6023:2018, é atendida mediante o parâmetro \textbf{abnt-etal-text=it} na chamada do pacote \textbf{abntex2cite} no arquivo principal do projeto USPSC-modelo.tex ou USPSC-TCC-modelo.tex. 
+
+
+
+\begin{quadro}[H]
+	\caption{\label{quadro-opcoes-etal}Opções de alteração da composição dos estilos bibliográficos para utilização da sigla ‘et al.’}
+		\begin{tabular}{|p{4.0cm}|p{2.0cm}|p{8.5cm}|}
+			\hline
+			\textbf{Campo} & \textbf{Opções} & \textbf{Descrição} \\ 
+			\hline
+			\emph{abnt-etal-cite} &  & controla como e quando os co-autores são
+			substituídos por \emph{et al.}  Note que a substituição
+			por \emph{et al.} continua ocorrendo \emph{sempre} se os co-autores tiverem sido indicados
+			como \texttt{others}.\\
+			\hline
+			\texttt{abnt-etal-cite=0}&\texttt{0}& não abrevia a lista de autores.\\
+			\hline
+			\texttt{abnt-etal-cite=2}& \texttt{2} & abrevia com mais de 2 autores.\\
+			\hline
+			\texttt{abnt-etal-cite=3}& \texttt{3} & abrevia com mais de 2 autores.\\
+			\hline
+			$\vdots$ & $\vdots$ & \\
+			\hline
+			\texttt{abnt-etal-cite=5}& \texttt{5} & abrevia com mais de 5 autores.\\
+			\hline
+		\end{tabular}
+	\begin{flushleft}
+		Fonte: \citeonline{abnetxcite}
+	\end{flushleft}	
+\end{quadro}
+
+Para ver as demais opções e o modo de uso dos pacotes de especificidades para formatação de referências veja o documento \textbf{O pacote abntex2cite}. \cite{abnetxcite}.
+
+Sendo assim, para que todos os nomes dos autores constem da referência basta acrescentar o pacote: 
+
+\verb+\usepackage[alf,abnt-etal-cite=0]{abntex2cite}+
+
+E a referência será escrita da seguinte forma: \\
+
+\begin{tabular}{|l|c|} \hline
+PASQUARELLI, M. L. R.; KRZYZANOWSKI, R. F.; IMPERATRIZ, I. M.\\
+M.; NORONHA, D. P.; ANDRADE, E.; ZAPPAROLI, M. C. M.; BONESIO, \\
+M. C. M.; LOBO, M. P.; ALMEIDA, M. S.; ARRUDA, R. M. A.; PLAZA, R. \\ \textbf{Avaliação do uso de periódicos}. São Paulo: SIBi-USP, 1987. 14 p.\\\hline
+\end{tabular}\\
+
+\textbf{Campos em LATEX:} permanecerão transcritos da mesma forma.\\
+
+\begin{verbatim}
+@Book{Pasquarelli1987,
+Title                    = {Avaliação do uso de periódicos},
+Address                  = {São Paulo},
+Author                   = {Pasquarelli, M. L. R. and Krzyzanowski,
+R. F.; Imperatriz, I. M. M.; Noronha, D. P.; Andrade, E.; Zapparoli,
+M. C. M.; Bonesio, M. C. M.; Lobo, M. P.; Almeida, M. S.; Arruda, 
+R. M. A.; Plaza, R. T. T.},
+Pages                    = {14},
+Publisher                = {SIBi-USP},
+Year                     = {1987},
+Owner                    = {apcalabrez},
+Timestamp                = {2015.09.21}
+}
+\end{verbatim}
+
+
+\subsubsection{Responsabilidade pelo conjunto da obra (editor, organizador,coordenador, compilador entre outros)}
+
+\begin{tabular}{|l|c|} \hline
+	DEL VECCHIO, M. (comp.). \textbf{A vista de antejo longa mira}: los \\antejos
+	del  Luxottica, as lunetas do Museo Luxottica. Tradução: G. Lizabe \\M. Maglione,  Monique Di Prima. Milão: Arti Grafiche Salea Luxottica, 1995.  \\\hline
+\end{tabular}\\
+
+\textbf{Campos em LATEX:}
+
+\begin{verbatim}
+@Book{delvecchio1995,
+Title                    = {A Vista de antejo longa mira},
+Address                  = {Milão},
+Editor                   = {Del, Vecchio, M},
+Editortype               = {comp.},
+Furtherresp              = {Tradução: G. Lizabe M. Maglione, Monique 
+Di Prima},
+Publisher                = {Arti Grafiche Salea Luxottica},
+Subtitle                 = {los antejos del Luxottica, as lunetas do 
+Museo Luxottica.},
+Year                     = {1995},
+Owner                    = {apcalabrez},
+Timestamp                = {2015.09.21}
+}
+\end{verbatim}
+
+\begin{tabular}{|l|c|} \hline
+	PLOTKIN, S. A.; ORENSTEIN, W. A. (ed.). \textbf{Vaccines}. 3rd ed. Philadelphia: \\ W.B. Saunders, 1999. 1230 p.  \\\hline
+\end{tabular}\\
+
+\textbf{Campos em LATEX:}
+
+\begin{verbatim}
+@Book{Plotkin1999,
+Title                    = {Vaccines.},
+Address                  = {Philadelphia},
+Editor                   = {Plotkin, S. A. and Orenstein W. A.},
+Editortype               = {ed.},
+Pages                    = {1230},
+Publisher                = {W.B. Saunders},
+Year                     = {1999},
+Edition                  = {3rd ed},
+Owner                    = {apcalabrez},
+Timestamp                = {2016.03.31}
+}
+\end{verbatim}
+
+\begin{tabular}{|l|c|} \hline
+	CAVALCANTI, M. G. P. \textit{et al.} (org.). \textbf{Tomografia computadorizada por feixe} \\ \textbf{cônico}: interpretação e diagnóstico para o cirurgião-dentista. São Paulo: Santos, \\ 2010.\\\hline
+\end{tabular}\\
+
+\textbf{Campos em LATEX:}
+
+\begin{verbatim}
+@Book{Cavalcanti2010,
+Title                    = { Tomografia computadorizada 
+por feixe cônico},
+Address                  = {São Paulo},
+Editor                   = {Cavalcanti, M. G. P. and Santos, C. P. and 
+Silva, A. M.
+and Souza, T. B.},
+Editortype               = {org.},
+Publisher                = {Santos},
+Subtitle                 = {interpretação e diagnóstico para o 
+cirurgião-dentista},
+Year                     = {2010},
+Owner                    = {apcalabrez},
+Timestamp                = {2015.09.22}
+}
+\end{verbatim}
+
+\subsubsection{Outros tipos de responsabilidade (tradutor, prefaciador, ilustrador entre outros)} 
+
+
+\begin{tabular}{|l|c|} \hline
+	BERGSTEIN, R. \textbf{Do tornozelo para baixo:}  a história dos
+	sapatos e \\ como eles definem as mulheres. Tradução: Débora Guimarães Isidoro.\\ Rio de
+	Janeiro: Casa da Palavra, 2013. \\\hline
+\end{tabular}\\
+
+\textbf{Campos em LATEX:}
+
+\begin{verbatim}
+@Book{Bergstein2013,
+Title                    = {Do tornozelo para baixo},
+Subtitle                 = {a história dos sapatos 
+e como eles definem as mulheres}
+Author                   = {Bergstein, R.}
+Address                  = {Philadelphia},
+Editor                   = {Fonseca, R. J.},
+Furtherresp              = {Tradução: Débora Guimarães
+Isidoro},
+Publisher                = {Casa da Palavra},
+Year                     = {2013},
+Owner                    = {apcalabrez},
+Timestamp                = {2015.09.17}
+}
+\end{verbatim}
+
+\begin{tabular}{|l|c|} \hline
+	FONSECA, R. J. (ed.). \textbf{Oral and maxillofacial surgery}. Illustrated by\\
+	William M. Winn. Philadelphia: Saunders, 2000. \\\hline
+\end{tabular}\\
+
+\textbf{Campos em LATEX:}
+
+\begin{verbatim}
+@Book{Fonseca2000,
+Title                    = {Oral and maxillofacial surgery},
+Address                  = {Philadelphia},
+Editor                   = {Fonseca, R. J.},
+Editortype               = {ed.},
+Furtherresp              = {llustrated by William M. Winn},
+Publisher                = {Saunders},
+Year                     = {2000},
+Owner                    = {apcalabrez},
+Timestamp                = {2015.09.17}
+}
+\end{verbatim}
+
+
+\subsubsection{Autor entidade (entidades coletivas, governamentais, públicas, particulares etc.)} 
+
+As obras de responsabilidade de autor entidade (órgãos governamentais, empresas, associações, comissões, congressos, seminários etc.) têm entrada pelo próprio nome da entidade, por extenso. Seu nome é precedido pelo nome do órgão superior, ou pelo nome da jurisdição geográfica à qual pertence. 
+
+No capítulo \ref{Citações} foram exemplificados algumas citações com  as referências para entidades coletivas. Conforme exposto anteriormente os arquivos.bib de referências para entidade coletiva deve conter o comando Org-short que equivale a forma como a referência será citada no texto. \\
+
+\begin{tabular}{|l|c|} \hline
+	INSTITUTO DE PESQUISAS TECNOLÓGICAS DO ESTADO DE SÃO \\
+	PAULO.  \textbf{Mapeamento de riscos em encostas e margens de rios}. \\ 
+	Brasília: Ministério das Cidades: IPT, 2007.   \\\hline
+\end{tabular}\\
+
+\textbf{Campos em LATEX:}
+
+\begin{verbatim}
+@Book{Instituto2007,
+Title                    = {Mapeamento de riscos em encostas
+e margens de rios},
+Address                  = {Brasília: Ministério das Cidades},
+Organization             = {Instituto de Pesquisa
+Tecnológicas do Estado de São Paulo},
+Publisher                = {IPT},
+Year                     = {2007},
+Owner                    = {apcalabrez},
+Timestamp                = {2015.09.23}
+}
+\end{verbatim}
+
+\begin{tabular}{|l|c|} \hline
+	SÃO PAULO (Estado). Secretaria da Agricultura. \textbf{O café}: estatística de \\produção e commercio 1935-1936. São Paulo: Typ. Brasil de Rothschild, \\1937. 261 p.  \\\hline
+\end{tabular}\\
+
+\textbf{Campos em LATEX:}
+
+\begin{verbatim}
+@Book{saopaulo1937,
+Title                    = {O café},
+Address                  = {São Paulo},
+Org-short                = {S\~ao Paulo},
+Organization             = {S\~ao Paulo {(Estado). Secretaria da 
+Agricultura}},
+Pages                    = {261},
+Publisher                = {Typ. Brasil de Rothschild},
+Subtitle                 = {estatística de produção e commercio 1935-
+1936.},
+Year                     = {1937},
+Owner                    = {apcalabrez},
+Timestamp                = {2015.09.23}
+}
+\end{verbatim}
+T
+
+\begin{tabular}{|l|c|} \hline
+	U.S. NATIONAL INSTITUTE OF PUBLIC HEALTH. \textbf{Siphonaptera}: \\  a study
+	of species infesting wild hares and rabbits of North America,\\ North of Mexico. Washington: GPO, 1988. Não paginado.  \\\hline
+\end{tabular}\\
+
+\textbf{Campos em LATEX:}
+
+\begin{verbatim}
+@Book{Health1988,
+Title                    = {Siphonaptera},
+Address                  = {Washington},
+Organization             = {U. S. National Institute of Public Health}},
+Note                     = {Não paginado},
+Publisher                = {GPO},
+Subtitle                 = {a study of species infesting 
+wild hares and rabbits of North America,},
+Year                     = {1988},
+Owner                    = {apcalabrez},
+Timestamp                = {2015.09.23}
+}
+\end{verbatim}
+
+Em caso de duplicidade de nomes, deve-se acrescentar entre parêntese a unidade geográfica que identifica a jurisdição a que pertence. \\
+
+
+\begin{tabular}{|l|c|} \hline
+	BIBLIOTECA NACIONAL (Brasil). \textbf{Movimento de vanguarda na Euro-} \\ \textbf{pa e modernismo brasileiro (1909-1924)}. Rio de Janeiro, 1976.	83 p.   \\\hline
+\end{tabular}\\
+
+\textbf{Campos em LATEX:}
+
+\begin{verbatim}
+@Book{bibliotecanacional1976,
+Title                    = {Movimento de vangarda na Europa e modernismo
+brasileiro (1909-1924)},
+Address                  = {Rio de Janeiro},
+Org-short                = {Biblioteca Nacional {(Brasil)}},
+Organization             = {Biblioteca Nacional {(Brasil)}},
+Pages                    = {83},
+Year                     = {1976},
+Owner                    = {apcalabrez},
+Timestamp                = {2015.09.23}
+}
+\end{verbatim}
+
+\begin{tabular}{|l|c|} \hline
+	BIBLIOTECA NACIONAL (Portugal). \textbf{O 24 de Julho de 1833 e a} \\ \textbf{guerra civil de 1829-1834}. Lisboa, 1983. 95 p.   \\\hline
+\end{tabular}\\
+
+\textbf{Campos em LATEX:}
+
+\begin{verbatim}
+@Book{bibliotecanacional1983,
+Title                    = {O 24 de Julho de 1833  e a guerra civil de 
+1829-1834},
+Address                  = {Lisboa},
+Org-short                = {Biblioteca Nacional {(Portugal)}},
+Organization             = {Biblioteca Nacional {(Portugal)}},
+Pages                    = {95},
+Year                     = {1983},
+Owner                    = {apcalabrez},
+Timestamp                = {2015.09.23}
+}
+\end{verbatim}
+
+\subsubsection{Autoria desconhecida} 
+
+Quando a autoria não puder ser identificada no documento inicia-se a referência pelo título.
+
+\begin{tabular}{|l|c|} \hline
+	A BETTER investiment climate for everyone. Washington: Oxford University \\ Press, 2004.\\\hline
+\end{tabular}\\
+
+\textbf{Campos em LATEX:}
+
+\begin{verbatim}
+@Book{abetter2004,
+Title                    = {A BETTER investiment climate for everyone},
+Address                  = {Washington},
+Org-short                = {A Better},
+Publisher                = {Oxford University Press},
+Year                     = {2004},
+Owner                    = {apcalabrez},
+Timestamp                = {2015.09.21}
+}
+\end{verbatim}
+
+\begin{tabular}{|l|c|} \hline
+	EDUCAÇÃO para todos: o imperativo da qualidade. Brasília, DF: Unesco,\\ 2005.\\\hline
+\end{tabular}\\
+
+\textbf{Campos em LATEX:}
+
+\begin{verbatim}
+@Book{educacao2005,
+Title                    = {Educa{\c c}\~ao para todos},
+Address                  = {Brasília, DF},
+Org-short                = {Educa{\c c}\~ao},
+Publisher                = {Unesco},
+Subtitle                 = {o imperativo da qualidade},
+Year                     = {2005},
+Owner                    = {apcalabrez},
+Timestamp                = {2015.09.21}
+}
+\end{verbatim}
+
+\subsubsection{Autor(es) com mais de uma obra referenciada } 
+
+Quando se referenciam várias obras do mesmo autor, até a ABNT NBR 6023:2002, era permitido substituir as seguintes por um traço sublinear (equivalente a seis espaços) e ponto.
+
+A ABNT NBR 6023:2018 define que o uso do traço sublinear não é mais indicado para representar a mesma autoria do documento anterior na lista de referência, devendo-se repeti-la quantas vezes forem necessário.
+
+Sendo assim, no Pacote USPSC o parâmetro \textbf{abnt-repeated-author-omit} está configurado com a opção \textbf{no} para exibir os autores em todas as referências, conforme exemplificado abaixo: 
+
+\verb+\usepackage[alf, abnt-emphasize=bf, abnt-thesis-year=both, + \\ \verb+abnt-repeated-author-omit=no, abnt-last-names=abnt, abnt-etal-cite,+ \\
+\verb+abnt-etal-list=3, abnt-etal-text=it, abnt-and-type=e, abnt-doi=doi,+ \\ \verb+abnt-url-package=none, abnt-verbatim-entry=no]{abntex2cite}+ \\
+
+As obras de mesmos autores serão listadas conforme abaixo: \\
+
+\begin{tabular}{|l|c|} \hline
+	PICCINI, A. \textbf{Casa de Babylonia}: estudo da habitação rural no interior de \\São Paulo. São Paulo: Annablume, 1996. 165 p. \\
+	
+	PICCINI, A. \textbf{Cortiços na cidade}: conceito e preconceito na reestruturação do \\centro urbano de  São Paulo. São Paulo: Annablume, 1999. 166 p.   \\\hline
+\end{tabular}\\
+
+\textbf{Campos em LATEX:}
+
+\begin{verbatim}
+@Book{Piccini1996,
+Title                    = {Casa de Babylonia},
+Address                  = {São Paulo},
+Author                   = {Piccini, A.},
+Pages                    = {165},
+Publisher                = {Annablume},
+Subtitle                 = {estudo da habitação rural no interior de 
+São Paulo},
+Year                     = {1996},
+Owner                    = {apcalabrez},
+Timestamp                = {2015.09.23}
+}
+\end{verbatim}
+
+\begin{verbatim}
+Book{Piccini1999,
+Title                    = {Cortiços na cidade},
+Address                  = {São Paulo},
+Author                   = {Piccini, A.},
+Pages                    = {166},
+Publisher                = {Annablume},
+Subtitle                 = {conceito e preconceito na reestruturação do 
+centro urbano de São Paulo},
+Year                     = {1999},
+Owner                    = {apcalabrez},
+Timestamp                = {2015.09.21}
+}
+\end{verbatim}
+
+\subsubsection{Mais de um volume}
+
+\begin{tabular}{|l|c|} \hline
+	KUHN, H. A.; LASCH, H. G. \textbf{Avaliação clínica e funcional do doente}. \\São Paulo:  E.P.U., 1977. 4 v.    \\\hline
+\end{tabular}\\
+
+\textbf{Campos em LATEX:}
+
+\begin{verbatim}
+@Book{Kuhn1977,
+Title                    = {Avaliação clínica e funcional do doente},
+Address                  = {São Paulo},
+Author                   = {Kuhn, H. A. and Lasch, H. G.},
+Publisher                = {E. P. U.},
+Year                     = {1977},
+Volume                   = {4},
+Owner                    = {apcalabrez},
+Timestamp                = {2016.04.11}
+}
+\end{verbatim}
+
+\begin{tabular}{|l|c|} \hline
+	MATSUO, T. \textit{et al.}  \textbf{ Science of the rice plant}. Tokyo: Food and \\ Agriculture Policy Research Center, 1977. 4 v: Genetics. \\\hline
+\end{tabular}\\
+
+\textbf{Campos em LATEX:}
+
+\begin{verbatim}
+@Book{Matsuo1977,
+Title                    = {Science of the rice plant},
+Address                  = {Tokyo},
+Author                   = {Matsuo, T and Sakomoto, H. A. and Tieko, H. 
+G. and Suzuki, A.},
+Publisher                = { Food and Agriculture
+Policy Research Center,},
+Year                     = {1977},
+Volume                   = {4: Genetics},
+Owner                    = {apcalabrez},
+Timestamp                = {2016.04.11}
+}
+\end{verbatim}
+
+\subsubsection{Série}
+
+\begin{tabular}{|l|c|} \hline
+	PHILLIPI JÚNIOR, A. \textit{et al.} \textbf{Interdisciplinaridade em ciências ambien-}\\ 
+	\textbf{tais}. São Paulo: Signus, 2000. 318 p. (Série textos básicos para a formação \\ambiental, 5). \\\hline
+\end{tabular}\\
+
+\textbf{Campos em LATEX:}
+
+\begin{verbatim}
+@Book{PhillipiJunior2000,
+Title                 = {Interdisciplinaridade em ciências ambientais},
+Address               = {São Paulo},
+Author                = {Phillipi, Junior, A. and Medeiros, C. B. and 
+Silva, A. M. and Piccini, A.},
+Pages                 = {318},
+Publisher             = {Signus},
+Series                = {Série textos básicos para a formação ambiental, 
+5},
+Year                  = {2000},
+Owner                 = {apcalabrez},
+Timestamp             = {2015.09.21}
+}
+\end{verbatim}
+
+\begin{tabular}{|l|c|} \hline
+STEPHENSON, J. B.; KING, M. D. \textbf{ Handbook of neurological}\\ \textbf{investigations in children}. London: Wright, 1989. (Handbooks of \\
+investigations in children). \\\hline
+\end{tabular}\\
+
+\textbf{Campos em LATEX:}
+
+\begin{verbatim}
+@Book{Stephenson1989,
+Title                 = {Handbook of neurological
+investigations in children},
+Address               = {London},
+Author                = {Stephenson, J. B and King, M. D.},
+Publisher             = {Wright},
+Series                = {Handbooks of
+investigations in children},
+Year                  = {1989},
+Owner                 = {apcalabrez},
+Timestamp             = {2015.09.21}
+}
+\end{verbatim}
+
+
+\subsubsection{Catálogo}
+
+\begin{tabular}{|l|c|} \hline
+	BIBLIOTECA NACIONAL (Brasil). \textbf{500 anos de Brasil na Biblioteca }\\ \textbf{Nacional}: catálogo. Rio de Janeiro, 2000. 143 p. Catálogo da exposição em \\comemoração aos 500  anos do Brasil e aos 190 anos da Biblioteca Nacional, \\13 de dezembro de 2000 a 20 de abril de 2001.    \\\hline
+\end{tabular}\\
+
+\textbf{Campos em LATEX:}
+
+\begin{verbatim}
+@Book{bibliotecanacional2000,
+Title                    = {500 anos de Brasil na Biblioteca Nacional},
+Address                  = {Rio de Janeiro},
+Note                     = {Catálogo da exposição em comemoração aos 500
+anos do Brasil e aos 190 anos da Biblioteca Nacional, 13 de dezembro de
+2000 a 20 de abril de 2001},
+Org-short                = {Biblioteca Nacional {(Brasil)}},
+Organization             = {Biblioteca Nacional {(Brasil)}},
+Pages                    = {143},
+Subtitle                 = {catálogo},
+Year                     = {2000},
+Owner                    = {apcalabrez},
+Timestamp                = {2015.09.18}
+}
+\end{verbatim}
+
+\begin{tabular}{|l|c|} \hline
+	DEMAKOPOULOU, K. \textit{et al.} \textbf{Gods and heroes of the european}\\ \textbf{bronze age}. London:  Thames and Hudson, 2000. 303 p. Catalog.    \\\hline
+\end{tabular}\\
+
+\textbf{Campos em LATEX:}
+
+\begin{verbatim}
+@Book{Demakopoulou2000,
+Title                    = {Gods and heroes of the european bronze age},
+Address                  = {London},
+Author                   = {Demakopoulou, K. and Arruda, M. L. and Souza,
+L. S. and Saadi, S.},
+Note                     = {Catalog},
+Pages                    = {303},
+Publisher                = {Thames and Hudson},
+Year                     = {2000},
+Owner                    = {apcalabrez},
+Timestamp                = {2015.09.18}
+}
+\end{verbatim}
+
+\begin{tabular}{|l|c|} \hline
+	FARIAS, A. A. C \textbf{Amor = love}: catálogo. São Paulo: Thomas \\ Cohn, 2001. Catálogo de exposição artística Beth Moysés.    \\\hline
+\end{tabular}\\
+
+\textbf{Campos em LATEX:}
+
+\begin{verbatim}
+@Book{Farias2001,
+Title                    = {Amor = love},
+Subtitle                 = {catálogo},
+Address                  = {São Paulo},
+Author                   = {Farias, A. A. C.},
+Note                     = {Catálogo de exposição
+artística Beth Moysés},
+Publisher                = {Thomas Cohn},
+Year                     = {2001},
+Owner                    = {apcalabrez},
+Timestamp                = {2015.09.18}
+}
+\end{verbatim}
+
+\begin{tabular}{|l|c|} \hline
+	UNIVERSIDADE DE SÃO PAULO. Museu de Arqueologia e Etnologia.  \\ \textbf{Brasil 50 mil anos}: uma viagem ao passado pré-colonial, guia temático \\ para professores: catálogo. [São Paulo]: Universidade de São Paulo, Museu \\ de
+	Arqueologia e Etnologia, [2001]. 28 p. il. 19 pranchas. Catálogo de \\ exposição.   \\\hline
+\end{tabular}\\
+
+\textbf{Campos em LATEX:}
+
+\begin{verbatim}
+@Book{USPmuseu2001,
+Title                    = {Brasil 50 mil anos},
+Address                  = {[São Paulo]},
+Org-short                = {Universidade de S\~ao Paulo},
+Organization             = {Universidade de S\~ao Paulo. {Museu de 
+Arqueologia e Etnologia}},
+Pages                    = {28},
+Publisher                = {Universidade de São Paulo, Museu de 
+Arqueologia e Etnologia},
+Subtitle                 = { uma viagem ao passado
+pré-colonial, guia temático para professores: catálogo},
+Year                     = {[2001]},
+Note                     = { il. 19 pranchas. Catálogo de exposição}
+Owner                    = {apcalabrez},
+Timestamp                = {2015.09.23}
+}
+\end{verbatim}
+
+\subsubsection{Relatório e parecer técnico}
+
+\begin{tabular}{|l|c|} \hline
+	CASTRO, M. C. \textit{et al.} \textbf{Cooperação técnica na implementação do
+		Pro-}\\\textbf{grama Integrado de Desenvolvimento - Polonordeste}. Brasília, DF: \\ PNUD: FAO, 1990. 47 p. Relatório da Missão de Avaliação do Projeto \\ BRA/87/037.     \\\hline
+\end{tabular}\\
+
+\textbf{Campos em LATEX:}
+
+\begin{verbatim}
+@Book{Castro,
+Title                    = {Cooperação técnica na implementação do 
+Programa Integrado 
+de Desenvolvimento - Polonordeste},
+Address                  = {Brasília},
+Author                   = {Castro, M. C. and Souza, L. S. and Cardoso, 
+R. F and Arruda, M. L.},
+Note                     = {Relatório da Missão de Avaliação do 
+Projeto BRA/87/037},
+Pages                    = {47},
+Publisher                = {PNUD: FAO},
+Year                     = {1990},
+
+Owner                    = {apcalabrez},
+Timestamp                = {2015.09.17}
+}
+\end{verbatim}
+
+\begin{tabular}{|l|c|} \hline
+	COMPANHIA ESTADUAL DE TECNOLOGIA DE SANEAMENTO AMBI-\\ENTAL. \textbf{Bacia hidrográfica do Ribeirão Pinheiros}: relatório técnico. São \\Paulo: CETESB, 1994. 39 p.   \\\hline
+\end{tabular}\\
+
+\textbf{Campos em LATEX:}
+
+\begin{verbatim}
+@Book{Castro,
+@Book{CETESB1994,
+Title                    = {Bacia hidrográfica do Ribeirão Pinheiros},
+Address                  = {São Paulo},
+Organization             = {Companhia Estadual de Tecnologia de 
+Saneamento Ambiental},
+Pages                    = {39},
+Publisher                = {CETESB},
+Subtitle                 = {relatório técnico},
+Year                     = {1994},
+Owner                    = {apcalabrez},
+Timestamp                = {2015.09.17}
+}
+\end{verbatim}
+
+\begin{tabular}{|l|c|} \hline
+	GUBITOSO, M. D. \textbf{Máquina worm}: simulador de máquinas paralelas. \\São Paulo: IME- USP, 1989. 29 p. Relatório técnico, Rt-Mac-8908.   \\\hline
+\end{tabular}\\
+
+\textbf{Campos em LATEX:}
+
+\begin{verbatim}
+@Book{Gubitoso1989,
+Title                    = {Máquina worm},
+Address                  = {São Paulo},
+Author                   = {Gubitoso, M. D.},
+Note                     = {Relatório técnico, Rt-Mac-8908},
+Pages                    = {29},
+Publisher                = {IME-USP},
+Subtitle                 = {simulador de máquinas paralelas},
+Year                     = {1989},
+Owner                    = {apcalabrez},
+Timestamp                = {2015.09.17}
+\end{verbatim}
+
+
+\begin{tabular}{|l|c|} \hline
+	POGGIANI, F. \textit{et al.} \textbf{ Parecer sobre o Projeto de Revegetação nas} \\ \textbf{Áreas do
+		Gasoduto de Merluza}. Piracicaba: IPEF: ESALQ, Depto. \\ Ciências Florestais,
+	1992. 5 p. Parecer técnico apresentado à Petrobrás,\\Cubatão.   \\\hline
+\end{tabular}\\
+
+
+
+
+\textbf{Campos em LATEX:}
+
+\begin{verbatim}
+@Book{Poggiani1992,
+Title                    = {Parecer sobre o Projeto
+de Revegetação nas Áreas do Gasoduto de Merluza},
+Address                  = {Piracicaba},
+Author                   = {Poggiani, A. B. and Gusmão, M. D. and 
+Silva, B. C. and Machado, D. B.},
+Note                     = {Parecer técnico
+apresentado à Petrobrás, Cubatão},
+Pages                    = {5},
+Publisher                = {IPEF: ESALQ, Depto. Ciências Florestais},
+Year                     = {1992},
+Owner                    = {apcalabrez},
+Timestamp                = {2015.09.17}
+}
+\end{verbatim}
+
+\begin{tabular}{|l|c|} \hline
+WORLD HEALTH ORGANIZATION.  Study Group on Integration on \\ Health Care Delivery.  \textbf{Report}. Geneva, 1996. (WHO technical report \\ series, 861)  \\\hline
+\end{tabular}\\
+
+\textbf{Campos em LATEX:}
+
+\begin{verbatim}
+@Book{World1996,
+Title                    = {Report},
+Address                  = {Geneva},
+Organization             = {World Health Organization. {Study Group on 
+Integration on Health Care Delivery}},
+Org-short                = {World Health Organization}
+Series                   = {WHO technical report series, 861}
+Year                     = {1996},
+Owner                    = {apcalabrez},
+Timestamp                = {2015.09.17}
+}
+\end{verbatim}
+
+
+\subsubsection{Dicionário}
+
+\begin{tabular}{|l|c|} \hline
+	DORLAND'S illustrated medical dictionary. 29th. ed. Philadelphia: W.\\B. Saunders, 2000.   \\\hline
+\end{tabular}\\
+
+
+\textbf{Campos em LATEX:}
+
+\begin{verbatim}
+@Book{Dorlands2000,
+Title                    = {Dorland's illustrated medical dictionary},
+Address                  = {Philadelphia},
+Org-short                = {DORLAND'S},
+Publisher                = {W.B. Saunders},
+Year                     = {2000},
+Edition                  = {29th.},
+Owner                    = {apcalabrez},
+Timestamp                = {2015.09.24}
+}
+\end{verbatim}
+
+
+\begin{tabular}{|l|c|} \hline
+	SCHEARZ, R. G. (org.). \textbf{Dicionário de direito do trabalho, de} \\ \textbf{direito processual do trabalho e de direito previdenciário} \\ \textbf{aplicado ao direito do trabalho}. São Paulo: LTr, 2012.  \\\hline
+\end{tabular}\\
+
+
+\textbf{Campos em LATEX:}
+
+\begin{verbatim}
+@Book{Schearz2012,
+Title                    = {Dicionário de direito do trabalho, 
+de direito processual do trabalho e de direito previdenciário 
+aplicado ao direito do trabalho},
+Address                  = {São Paulo},
+Editor                   = {Schearz, R. G.},
+Editortype               = {org.},
+Publisher                = {LTr},
+Year                     = {2012},
+Owner                    = {apcalabrez},
+Timestamp                = {2015.09.24}
+}
+\end{verbatim}
+
+\subsubsection{Trabalhos acadêmicos}
+
+\textbf{Elementos essenciais}\\
+
+\begin{tabular}{|l|c|} \hline
+	SOBRENOME, Prenome do autor. \textbf{Título}: subtítulo (se houver). Ano. \\ Tipo de trabalho. Grau (Mestrado / Doutorado / Especialização entre \\ outros e curso entre parênteses) - Vinculação Acadêmica, Unidade de \\ defesa, local, data de defesa.\\\hline
+\end{tabular}\\
+
+\textbf{Exemplos}\\
+
+\begin{tabular}{|l|c|} \hline
+	ALVES, J. M. \textbf{Competividade e tendência da produção de manga} \\ \textbf{para exportação do nordeste do Brasil}. 2002. Tese (Doutorado em \\ Economia Aplicada) - Escola Superior de Agricultura "Luiz de Queiroz", \\ Universidade de São Paulo, Piracicaba, 2002.    \\\hline
+\end{tabular} \\
+
+\textbf{Campos em LATEX:}
+
+\begin{verbatim}
+@Phdthesis{Alves2002,
+Title                    = {Competividade e tendência da produção de 
+manga para exportação do nordeste do Brasil},
+Address                  = {Piracicaba},
+Author                   = {Alves, J. M.},
+School                   = {Escola Superior de Agricultura "Luiz de 
+Queiroz", Universidade de São Paulo},
+Type                     = {Doutorado em Economia Aplicada},
+Year                     = {2002},
+Owner                    = {apcalabrez},
+Timestamp                = {2015.09.23}
+}
+\end{verbatim} 
+
+\begin{tabular}{|l|c|} \hline
+	DIAS, F. L. F. \textbf{Efeito da aplicação de calcário, lodo de esgoto e vinhaça} \\ \textbf{em solo cultivado em sorgo granífero (\textit{Sorghum bicolor} L. Moench)}. 1994. \\ Trabalho de Conclusão do Curso (Engenharia Agronômica) - Faculdade de Ciências\\  Agrárias e Veterinárias, Universidade Estadual Paulista "Júlio de Mesquita Filho", \\ Jaboticabal, 1994.     \\\hline
+\end{tabular} \\
+
+\textbf{Campos em LATEX:} 
+
+\begin{verbatim}
+@Thesis{Dias1994,
+Title                    = {Efeito da aplicação de calcário, lodo de 
+esgoto e vinhaça em solo cultivado em sorgo granífero (Sorghum bicolor 
+L. Moench)},
+Address                  = {Jaboticabal},
+Author                   = {Dias, F. L. F.},
+School                   = {Faculdade de Ciências Agrárias e Veterinárias, 
+Universidade Estadual Paulista "Júlio de Mesquita Filho"},
+Type                     = {Trabalho de Conclusão do Curso (Engenharia 
+Agronômica)},
+Year                     = {1994},
+Owner                    = {apcalabrez},
+Timestamp                = {2015.09.23}
+}
+\end{verbatim}
+
+
+\begin{tabular}{|l|c|} \hline
+	DOOD, M. J. \textbf{Silicon photonic crystals and spontaneous emission.} \\ 2002.
+	 Ph. D. Thesis (Physics) - FOM Institute for Atomic and Molecular
+	 \\ Physics, University of Utrecht, Utrecht, 2002.    \\\hline
+\end{tabular} \\
+
+\textbf{Campos em LATEX:} \\
+
+\begin{verbatim}
+@PhdThesis{Dood2002,
+Title                    = {Silicon photonic
+crystals and spontaneous emission},
+Address                  = {Utrecht},
+Author                   = {Dood, M. J.},
+School                   = {FOM Institute for
+Atomic and Molecular Physics, University of
+Utrecht},
+Type                     = {Physics},
+Year                     = {2002},
+Owner                    = {apcalabrez},
+Timestamp                = {2015.09.23}
+}
+\end{verbatim}
+
+\subsection{Parte de monografia}	
+
+\begin{tabular}{|l|c|} \hline
+	SOBRENOME, Prenome(s) do(s) autor(es) do capítulo. Título do capítulo. \textit{In}: \\ SOBRENOME, Prenome(s) do(s) autor(es) do documento. \textbf{Título da obra}: \\ subtítulo (se houver). Edição (se houver). Local de publicação (cidade): Editora, data da\\ publicação. Páginas ou indicação do capítulo. Série. Notas. ISBN.     \\\hline
+\end{tabular} \\
+
+\subsubsection{Autor distinto da obra no todo} 
+
+\begin{tabular}{|l|c|} \hline
+	CATANI, A. M. O que é capitalismo. \textit{In}: SPINDEL, A. \textbf{Que é socialismo e o}\\ \textbf{que é comunismo}. São Paulo: Círculo do Livro, 1989. p. 7-87. (Primeiros \\passos, 1).    \\\hline
+\end{tabular} \\
+
+\textbf{Campos em LATEX:} 
+
+\begin{verbatim}
+@Incollection{Catani1989,
+Title                    = {O que é capitalismo},
+Author                   = {Catani, A. M.},
+Booktitle                = {O que é socialismo e o que é comunismo},
+Organization             = {Spindel, A.},
+Publisher                = {Círculo do Livro},
+Year                     = {1989},
+Address                  = {São Paulo},
+Note                     = {(Primeiros Passos, 1)},
+Pages                    = {7-87},
+Owner                    = {apcalabrez},
+Timestamp                = {2015.09.25}
+}
+\end{verbatim}
+
+
+\begin{tabular}{|l|c|} \hline
+	MOSS, D. W.; HENDERSON, A. R. Clinical enzymology. \textit{In}: BURTIS, C. \\A.; ASHWOOD, E. R. (ed.). \textbf{Tietz textbook of clinical chemistry}. 3rd\\ ed. Philadelphia: W. B. Saunders, 1999. cap. 22, p. 617-721.  \\\hline
+\end{tabular} \\
+
+\textbf{Campos em LATEX:} 
+
+\begin{verbatim}
+@Incollection{Moss1999,
+Title                    = {Clinical enzymology},
+Author                   = {Moss, D. W. and Henderson, A. R.},
+Booktitle                = {Tietz textbook of clinical chemistry},
+Publisher                = {W. B. Saunders},
+Year                     = {1999},
+Address                  = {Philadelphia},
+Chapter                  = {22},
+Edition                  = {3rd},
+Editor                   = {Burtis, C. A. and Ashwood, E. R.},
+editortype               = {ed.},
+Pages                    = {617-721},
+Owner                    = {apcalabrez},
+Timestamp                = {2015.09.25}
+}
+\end{verbatim}
+
+\subsubsection{Mesmo autor da obra no todo}
+
+Repete-se a autoria. \\
+
+\begin{tabular}{|l|c|} \hline
+	MONTGOMERY, R.; CONWAY, T. W.; SPECTOR, A. A. Estructuras de \\las proteínas.  \textit{In}: MONTGOMERY, R.; CONWAY, T. W.; SPECTOR, A. A. \\
+	\textbf{Bioquímica}: casos y texto. 5th ed. St. Louis:
+	Mosby, 1992. cap. 2, p. 41-90.  \\\hline
+\end{tabular} \\ 
+
+\textbf{Campos em LATEX:} 
+
+\begin{verbatim}
+@InBook{Montgomery1992,
+author       = {Montgomery, R. and Conway, T. W. and Spector, A. A.},
+title        = {Estructuras de las proteínas},
+booktitle    = {Bioquímica},
+year         = {1992},
+booksubtitle = {casos y texto. 5th ed.},
+organization = {Montgomery, R.; Conway, T. W.; Spector, A. A.},
+publisher    = {Mosby},
+chapter      = {2},
+pages        = {41-90},
+address      = {St. Louis},
+owner        = {apcalabrez},
+timestamp    = {2015.09.25},
+}
+\end{verbatim}
+
+\begin{tabular}{|l|c|} \hline
+	RAMOS, M. E. M. Serviços administrativos na Bicen da UEPG. \textit{In}:
+	RAMOS, \\
+	M. E. M. \textbf{Tecnologia e novas formas de gestão em bibliotecas} \\
+		\textbf{universitárias}. Ponta Grossa: UEPG, 1999. p. 157-182.   \\\hline
+\end{tabular} \\ 
+
+\textbf{Campos em LATEX:} 
+
+\begin{verbatim}
+@Inbook{Ramos1999,
+Title                    = {Serviços administrativos na {Bicen da UEPG}},
+Author                   = {Ramos, M. E. M.},
+Pages                    = {157-182},
+Publisher                = {UEPG},
+Year                     = {1999},
+Address                  = {Ponta Grossa},
+Booktitle                = {Tecnologia e novas formas de gestão em 
+bibliotecas universitárias},
+Organization             = {Ramos, M. E. M.}, 
+Owner                    = {apcalabrez},
+Timestamp                = {2015.09.25}
+}
+\end{verbatim}
+
+\subsection{Monografia em suporte eletrônico}	 
+
+\begin{tabular}{|l|c|} \hline
+	SOBRENOME, Prenome(s) do(s) autor(es). \textbf{Título da obra}: 
+	subtítulo (se \\ houver). Edição (se houver). Local de publicação (cidade): Editora, data da publicação. \\ Disponível em: endereço eletrônico. Acesso em: dia mês abreviado e ano.     \\\hline
+\end{tabular} \\
+
+Exemplos: \\ 
+
+\begin{tabular}{|l|c|} \hline
+	DUDEK, S. G. (ed.). \textbf{Nutrition essentials for nursing practice}. 5th ed.\\  Philadelphia: Lippincott \& Williams  Wilkins, 2006. Disponível em: http:// \\gateway.ut.ovid.com/gw1/ovidweb.cgi. Acesso em: 24 out. 2006.  \\\hline
+\end{tabular} \\ 
+
+\textbf{Campos em LATEX:} 
+
+\begin{verbatim}
+@Book{Dudek2006,
+Title                    = {Nutrition essentials for nursing practice},
+Address                  = {Philadelphia},
+Editor                   = {Dudek, S. G.},
+Editortype               = {ed.},
+Publisher                = {Lippincott Williams \& Wilkins},
+Year                     = {2006},
+Edition                  = {5th},
+Url                      = {http://gateway.ut.ovid.com/gw1/ovidweb.cgi},
+Urlaccessdate            = {24 out. 2011},
+Owner                    = {apcalabrez},
+Timestamp                = {2015.09.28}
+}
+\end{verbatim}
+
+
+\begin{tabular}{|l|c|} \hline
+	FOREST PHARMACEUTICALS. \textbf{Frequently asked questions}. New York, \\ 2005. Disponível em:  http://www.celexa.com/Celexa/faq.aspx. Acesso em: \\ 17 out. 2005.   \\\hline
+\end{tabular} \\ 
+
+\textbf{Campos em LATEX:} 
+
+\begin{verbatim}
+@Book{forest2005,
+Title                    = {Frequently asked questions.},
+Address                  = {New York},
+Year                     = {2005},
+Edition                  = {7th},
+Url                      = {http://www.celexa.com/Celexa/faq.aspx},
+Urlaccessdate            = {17 out. 2005},
+Owner                    = {apcalabrez},
+Timestamp                = {2015.09.28}
+}
+\end{verbatim}
+
+
+\begin{tabular}{|l|c|} \hline
+	THOMÉ, V. M. R. \textit{et al.} \textbf{Zoneamento agroecológico e socioeconômico} \\ \textbf{do Estado de Santa Catarina}:  versão preliminar. Florianópolis: EPAGRI, \\
+	1999. 1 CD-ROM.  \\\hline
+\end{tabular} \\ 
+
+\textbf{Campos em LATEX:} 
+
+\begin{verbatim}
+@Book{Thome1999,
+Title                    = {Zoneamento agroecológico e socioeconômico do 
+Estado de Santa Catarina},
+Address                  = {Florianópolis},
+Author                   = {Thom\'e, V. M. R. and Souza, L. S. and 
+Oliveira, A. P. and Silva, A. M.},
+Note                     = {1 CD-ROM},
+Publisher                = {EPAGRI},
+Subtitle                 = {versão preliminar},
+Year                     = {1999},
+Owner                    = {apcalabrez},
+Timestamp                = {2015.09.28}
+}
+\end{verbatim}
+
+
+ \subsubsection{Parte de monografia em suporte eletrônico}
+	 
+	 \begin{tabular}{|l|c|} \hline
+	 	SOBRENOME, Prenome(s) do(s) autor(es) do capítulo. Título do capítulo. \\ \textit{In}:
+	 	SOBRENOME, Prenome(s)  do(s) autor(es) do documento.  \textbf{Título da} \\ \textbf{obra}: subtítulo (se houver).Edição (se houver). Local de publicação (cidade): Editora, \\ data da publicação. Páginas ou indicação do capítulo. Disponível em: \\ endereço eletrônico. Acesso em: dia mês abreviado e ano.  \\\hline
+	 \end{tabular} \\ 
+	 
+	 Exemplos: \\ 
+	 
+	 \begin{tabular}{|l|c|} \hline
+		ZELEN, M. Theory and practice of clinical trials. \textit{In}: BAST JUNIOR, R. C. \\\textit{et al.} (ed.). \textbf{Cancer medicine e.5.} Hamilton: BC Decker; New York: \\American Cancer Society, 2000. CD-ROM  \\\hline
+	\end{tabular} \\ 
+	
+	\textbf{Campos em LATEX:} 
+	
+	
+	\begin{verbatim}
+	@InCollection{Zelen2000,
+	author     = {Zelen, M.},
+	title      = {Theory and practice of clinical trials},
+	booktitle  = {Cancer medicine e.5},
+	year       = {2000},
+	editor     = {Bast, Junior, R. C. and Arruda, A. C. and Marques, A. P. 
+	and Oliveira, A. C.},
+	editortype = {ed.},
+	note       = {CD-ROM},
+	publisher  = {BC Decker},
+	address    = {Hamilton},
+	owner      = {apcalabrez},
+	timestamp  = {2015.09.28},
+	}
+	\end{verbatim}
+		
+	 Como a versão atual do pacote \textbf{abntex2cite} tem restrições para elaboração de alguns tipos de referências, houve necessidade de adaptações para atender as especificidades da ABNT NBR 6023:2018. As  referências abaixo são exemplos desta questão, que mesmo sendo uma parte de monografia foi necessário utilizar o tipo  \textbf{Book} ao invés do \textbf{Inbook} ou \textbf{Incollection} do \textbf{BibTeX}. \\
+	 
+	 \begin{tabular}{|l|c|} \hline
+	 	FOOD AND DRUG ADMINISTRATION. Code of federal regulations, \\ 21CFR202. \textit{In}: FOOD AND DRUG ADMINISTRATION. \textbf{Food and drugs}. \\Rockville, 2005. cap. 1. Disponível em: http://www.accessdata.fda.gov/\\ scripts,cdrh/cfdocs/cfcfr/CFRPart=202s\&howFR=1. Acesso em: 14 out. 2005. \\\hline
+	 \end{tabular} \\ 
+	 
+	 \textbf{Campos em LATEX:} 
+	 
+	 \begin{verbatim}
+	 @Book{Food2005,
+	 Title                    = {Food and drugs},
+	 Organization             = {Food and Drug Administration. {Code of 
+	 federal regulations, 21CFR202. \textit{In}: FOOD AND DRUG 
+	 ADMINISTRATION}},
+	 org-short                = {Food and Drug Administration},
+	 Url                      = {http://www.accessdata.fda.gov/scripts,cdrh/
+	 cfdocs/cfcfr/CFRPart=202&showFR=1},
+	 Urlaccessdate            = {14 out. 2005},
+	 Year                     = {2005},
+	 Address                  = {Rockville},
+	 note                     = {{cap. 1}},
+	 Owner                    = {marilza},
+	 Timestamp                = {2019.10.08}
+	 }
+	 \end{verbatim}
+	 
+		 
+	 \begin{tabular}{|l|c|} \hline
+	 	SÃO PAULO (Estado). Secretaria do Meio Ambiente. Tratados e organizações\\ ambientais em matéria de meio ambiente. \textit{In}: SÃO PAULO (Estado). Secretaria \\ do Meio Ambiente. \textbf{Entendendo o meio ambiente}. São Paulo, 1999. v. 1. \\ Disponível em: http://www/bdf.org.br/sma/entendendo/atual.htm. Acesso \\ em: 9 mar. 1999.  \\\hline
+	 \end{tabular} \\ 
+	 
+	  \textbf{Campos em LATEX:} 
+
+	  \begin{verbatim}
+	   @Book{tratados1999,
+	   title         = {Entendendo o meio ambiente},
+	   year          = {1999},
+	   volume        = {1},
+	   url           = {http://www/bdf.org.br/sma/entendendo/atual.htm},
+	   urlaccessdate = {9 mar. 1999},
+	   address       = {São Paulo},
+	   org-short     = {S\~ao Paulo (Estado). Secretaria do Meio Ambiente},
+	   organization  = {S\~ao Paulo {(Estado). Secretaria do Meio Ambiente. 
+	   Tratados e organizações ambientais em matéria de meio ambiente. 
+	   \textit{In}: SÃO PAULO (Estado). Secretaria do Meio Ambiente}},
+	   owner         = {marilza},
+	   timestamp     = {2019.10.08},
+	   }
+	 \end{verbatim}
+	 
+	
+
+\subsection{Evento}
+%\textbf{4.1.4 Evento} \\
+
+Conjunto dos documentos reunidos em um produto final com denominação
+de: atas, anais, proceedings, resumos entre outros. \\
+%\newpage
+%\textbf{Elementos essenciais:} 
+
+\begin{tabular}{|l|c|} \hline
+	
+	NOME DO EVENTO, numeração do evento em arábico (se
+	houver), ano, lo-\\cal (cidade) de realização do evento. \textbf{Título do documento [...]} (Anais, Atas, \\Resumos etc.). Local: Editora, data de publicação. \\\hline
+\end{tabular} \\ 
+
+\subsubsection{Evento completo} 
+
+\begin{tabular}{|l|c|} \hline
+	ANNUAL MEETING OF THE AMERICAN SOCIETY OF INTERNATIONAL \\ LAW, 65., 1967,  Washington. \textbf{Proceedings [...]}. Washington: ASIL, 1967. \\\hline
+\end{tabular} \\
+
+\textbf{Campos em LATEX:} 
+
+\begin{verbatim}
+@Proceedings{law1967,
+Title                    = {Proceedings [...]},
+Address                  = {Washington},
+Conference-location      = {Washington},
+Conference-number        = {65},
+Conference-year          = {1997},
+Organization             = {Annual Meeting of the American Society of 
+International Law},
+Publisher                = {ASIL},
+Year                     = {1967},
+Owner                    = {apcalabrez},
+Timestamp                = {2015.09.28}
+}
+\end{verbatim}
+
+\begin{tabular}{|l|c|} \hline
+	CONGRESSO DE INICIAÇÃO CIENTÍFICA DA UFPe, 4., 1996, Recife. \\ \textbf{Anais eletrônicos [...]} Recife: UFPe, 1996. Disponível em: http://www.\\ propesq.ufpe.br/anais/anais/educ/ce04.htm. Acesso em: 21 jan. 1997 \\\hline
+\end{tabular} \\
+
+\textbf{Campos em LATEX:} 
+
+\begin{verbatim}
+@Proceedings{law1967,
+Title                    = {Anais eletrônicos [...]},
+Address                  = {Recife},
+Conference-location      = {recife},
+Conference-number        = {4},
+Conference-year          = {1996},
+Organization             = {Congresso De Inicia{\c c}\~ao Científica Da 
+{UFPe}},
+Publisher                = {UFPe},
+Year                     = {1996},
+Url                      = {http://www.\\ propesq.ufpe.br/anais/anais/
+educ/ce04.htm},
+Urlaccessdate            = {21 jan. 1997},
+Owner                    = {apcalabrez},
+Timestamp                = {2015.09.28}
+}
+\end{verbatim}
+
+\begin{tabular}{|l|c|} \hline
+	REUNIÃO ANUAL DA SOCIEDADE BRASILEIRA DE QUÍMICA, 20., \\1997, Poços de Caldas. \textbf{Química}: academia, indústria, sociedade: livro de \\resumos. São Paulo: Sociedade Brasileira de Química, 1997.  \\\hline
+\end{tabular} \\
+
+\textbf{Campos em LATEX:} 
+
+\begin{verbatim}
+@Proceedings{quimica1997,
+Title                    = {Química},
+Address                  = {São Paulo},
+Conference-location      = {Poços de Caldas},
+Conference-number        = {20},
+Conference-year          = {1997},
+Organization             = {Reuni\~ao Anual da Sociedade Brasileira de 
+Qu{\'\í}mica},
+Publisher                = {Sociedade Brasileira de Química},
+Subtitle                 = {academia, indústria, sociedade: livro de 
+resumos},
+Year                     = {1997},
+Owner                    = {apcalabrez},
+Timestamp                = {2015.09.28}
+}
+\end{verbatim}
+
+\subsubsection{Trabalho apresentado em evento}
+
+\begin{tabular}{|l|c|} \hline
+	BRAYNER, A. R. A.; MEDEIROS, C. B. Incorporação do tempo em SGBD \\orientado a objetos. \textit{In}: SIMPÓSIO BRASILEIRO DE BANCO DE DADOS, \\9., 1994, São Paulo. \textbf{Anais [...]} São Paulo: USP, 1994. p. 16-29.  \\\hline
+\end{tabular} \\
+
+\textbf{Campos em LATEX:} 
+
+\begin{verbatim}
+@InProceedings{BRAYNER1994,
+Title                    = {Incorporação do tempo em {SGBD} orientado a 
+objetos},
+Author                   = {Brayner, A. R. A. and Medeiros, C. B.},
+Booktitle                = {Anais [...]},
+Conference-location      = {São Paulo},
+Conference-number        = {9},
+Conference-year          = {1994},
+Year                     = {1994},
+Address                  = {São Paulo},
+Organization             = {Simp\'osio Brasileiro de Banco de Dados},
+Pages                    = {16-29},
+Publisher                = {USP},
+Owner                    = {Ana Paula},
+Timestamp                = {2015.09.10}
+}
+\end{verbatim}
+
+\begin{tabular}{|l|c|} \hline
+	VALARINI, M. J.; VIEIRA, M. L. C. Avaliação da fixação de nitrogênio \\ em \textit{Stylosantes guyanensis}0 derivado de cultura de tecidos. \textit{In}: SIMPÓSIO \\ BRASILEIRO SOBRE MICROBIOLOGIA DO SOLO, 3.; REUNIÃO DE \\ LABORATÓRIOS PARA RECOMENDAÇÃO DE ESTIRPES DE \\ \textit{RHIZOBIUM} E \textit{BRADYRHIZOBIUM}, 6., 1994, Londrina. \textbf{Resumos [...]} \\ Londrina: IAPAR, 1994. p. 34. \\\hline
+\end{tabular} \\
+
+\textbf{Campos em LATEX:} 
+
+
+\begin{verbatim}
+@InProceedings{Nitrogenio1994,
+author              = {Valarini, M. J. and Vieira, M. L. C.},
+title               = {Avaliação da fixação de nitrogênio em 
+\textit{Stylosantes guyanensis} derivado de cultura de tecidos.},
+booktitle           = {Resumos...},
+year                = {1994},
+organization        = {Simp\'osio Brasileiro sobre Microbiologia do Solo, 
+3.; Reuni\~ao de Laboratórios para Recomendação de Estirpes de Rhizobium 
+e Bradyrhizobium de Banco de Dados},
+publisher           = {IAPAR},
+pages               = {34},
+address             = {Londrina},
+conference-location = {Londrina},
+conference-number   = {6},
+conference-year     = {1994},
+owner               = {Ana Paula},
+timestamp           = {2015.09.10}
+}
+\end{verbatim}
+
+\begin{tabular}{|l|c|} \hline
+	KRONSTRAND, R. \textit{et al.} Relationship between melanin and codeine
+	concen-\\trations in hair after oral administration. \textit{In}: ANNUAL MEETINGS OF THE \\AMERICAN  ACADEMY OF FORENSIC SCIENCE, 1999, Orlando. \\\textbf{Proceedings [...]} Orlando:  Academic Press, 1999. p. 12.   \\\hline
+\end{tabular} \\
+
+\textbf{Campos em LATEX:} 
+
+\begin{verbatim}
+@Inproceedings{kronstrand1994,
+Title                    = {Relationship between melanin and codeine
+concentrations in hair after oral administration},
+Author                   = {Kronstrand, R. and Arruda, M. L. and Kuhn, 
+H. A. and Braams, J.},
+Booktitle                = {Proceedings [...]},
+Conference-location      = {Orlando},
+Conference-year          = {1999},
+Year                     = {1994},
+Address                  = {Orlando},
+Organization             = {Annual Meetings of the American Academy of 
+Forensic Science},
+Pages                    = {12},
+Publisher                = {Academic Press},
+Owner                    = {Ana Paula},
+Timestamp                = {2015.09.10}
+}
+\end{verbatim}
+
+\subsubsection{Trabalho de evento publicado em periódico} 
+
+\begin{tabular}{|l|c|} \hline
+	MINGRONI-NETTO, R. C. Origin of fmr-1 mutation: study of closely linked \\microsatellite loci in fragile x syndrome. \textbf{Brazilian Journal of Genetics}, \\Ribeirão Preto, v. 19, n.3, p. 144, 1996. Supplement. Program and abstract \\42nd. National Congress of Genetics, 1996. 
+	\\\hline
+\end{tabular} \\
+
+\textbf{Campos em LATEX:} 
+
+\begin{verbatim}
+@Article{Mingroni-Netto1996,
+Title                    = {Origin of fmr-1 mutation: study of closely 
+linked microsatellite loci in fragile x syndrome},
+Author                   = {Mingroni-Netto, R. C},
+Journal                  = {Brazilian Journal of Genetics},
+Year                     = {1996},
+Address                  = {Ribeirão Preto},
+Note                     = {Supplement. Program and abstract 42nd. 
+National Congress of Genetics, 1996},
+Number                   = {3},
+Pages                    = {144},
+Volume                   = {19},
+Owner                    = {AnaPaula},
+Timestamp                = {2015.10.02}
+\end{verbatim} \\
+
+\subsubsection{Evento em suporte eletrônico} 
+
+\begin{tabular}{|l|c|} \hline
+	NOME DO EVENTO, numeração do evento em arábico (se
+	houver), ano, \\local de realização do evento. \textbf{Título do
+		documento [...]} (Anais, Atas, \\Resumos etc.)  Local: Editora, data de publicação. Paginação. Disponível \\ em: endereço eletrônico. Acesso em: dia mês abreviado. ano. Mídia.
+	\\\hline
+\end{tabular} \\
+
+\textbf{Exemplo:} \\
+
+\begin{tabular}{|l|c|} \hline
+	SIMPÓSIO INTERNACIONAL DE INICIAÇÃO CIENTÍFICA DA
+	UNI-\\VERSIDADE DE SÃO PAULO, 8., 2000, São Paulo. \textbf{Resumos [...]}
+	São \\ Paulo: USP, 2000. 1 CD-ROM.  \\\hline
+\end{tabular} \\
+
+\textbf{Campos em LATEX:} 
+
+\begin{verbatim}
+@Proceedings{Simposio2000,
+Title                    = {Resumos [...]},
+Address                  = {São Paulo},
+Conference-location      = {São Paulo},
+Conference-number        = {8},
+Conference-year          = {2000},
+Organization             = {Simp\'osio Internacional de Iniciação 
+Cient{\'\i}fica da Universidade de São Paulo},
+Publisher                = {USP},
+Year                     = {2000},
+Note                     = {1 CD-ROM},
+Owner                    = {apcalabrez},
+Timestamp                = {2015.09.28}
+}
+\end{verbatim}
+
+\subsubsection{Trabalho de evento em suporte eletrônico}
+
+\begin{tabular}{|l|c|} \hline
+	SABROZA, P. C. Globalização e saúde: impacto nos perfis
+	epidemiológicos \\das populações. \textit{In}: CONGRESSO BRASILEIRO DE
+	EPIDEMIOLOGIA,\\4., 1998, Rio de Janeiro. \textbf{Anais eletrônicos [...]} Rio de
+	Janeiro: ABRASCO,\\1998. Mesa-redonda. Disponível em:
+	http://www.abrasco.com.br/epino98/.\\ Acesso em: 17 jan. 1999.\\\hline 
+\end{tabular} \\
+
+\textbf{Campos em LATEX:} 
+
+\begin{verbatim}
+@Inproceedings{Sabroza1998,
+Title                    = {Globalização e saúde},
+Author                   = {Sabroza, P. C.},
+Booktitle                = {Anais eletrônicos [...]},
+Conference-location      = {Rio de Janeiro},
+Conference-number        = {4},
+Conference-year          = {1998},
+Subtitle                 = {impacto nos perfis epidemiológicos das 
+populações},
+Year                     = {1998},
+Address                  = {Rio Janeiro},
+Note                     = {Mesa-redonda},
+Organization             = {Congresso Brasileiro de Epidemiologia},
+Publisher                = {ABRASCO},
+Url                      = {http://www.abrasco.com.br/epino98/},
+Urlaccessdate            = {17 jan. 1999},
+Owner                    = {apcalabrez},
+Timestamp                = {2015.10.01}
+}
+\end{verbatim}
+
+\section{Publicações Periódicas}
+
+Revistas, jornais, publicações anuais e séries monográficas, quando
+tratadas como publicação periódica. \\
+
+Quando for explicitada a periodicidade da publicação, para que a referência fique em conformidade com a ABNT NBR 6023:2018, o ISSN deverá ser indicado no campo \textbf{note} e o campo \textbf{ISSN} deverá ser suprimido, conforme exemplos abaixo. Na ausência da indicação de periodicidade, mantem-se o campo \textbf{ISSN}. \\
+
+\subsection{Coleção como um todo}
+
+\textbf{Exemplo:} \\
+
+\begin{tabular}{|l|c|} \hline
+	NATURE. London, GB: Macmillan Magazines, 1869- . ISSN
+	0028-0836.\\Semanal.\\\hline
+\end{tabular} \\
+
+\textbf{Campos em LATEX:} 
+
+\begin{verbatim}
+@Journalpart{Nature1869,
+Title                    = {Nature},
+Address                  = {London, GB},
+Note                     = {ISSN 0028-0836. Semanal},
+Publisher                = {Macmillan Magazines},
+Year                     = {1869-},
+Owner                    = {apcalabrez},
+Timestamp                = {2015.10.01}
+}
+\end{verbatim}
+
+\begin{tabular}{|l|c|} \hline
+	SÃO PAULO MEDICAL JOURNAL = REVISTA PAULISTA DE\\MEDICINA.  São Paulo: Associação Paulista de Medicina, 1941- . \\ISSN 0035-0362.\\\hline
+\end{tabular} \\
+
+\textbf{Campos em LATEX:} 
+
+\begin{verbatim}
+@Journalpart{Medicaljournal1941,
+address   = {São Paulo},
+ISSN      = {0035-0362},
+publisher = {Associação Paulista de Medicina},
+title     = {São Paulo Medical Journal = Revista Paulista de Medicina},
+year      = {1941-},
+owner     = {apcalabrez},
+timestamp = {2015.10.01}
+}
+\end{verbatim}
+
+
+\subsection{Artigo de revista}
+
+
+\begin{tabular}{|l|c|} \hline
+	BOYD, A. L.; SAMID, D. Molecular biology of transgenic animals. \textbf{Journal } \\ \textbf{of  Animal Science}, Albany, v. 71, n. 3, p. 1-9, 1993.
+	\\\hline
+\end{tabular} \\
+
+\textbf{Campos em LATEX:} 
+
+\begin{verbatim}
+@Article{Boyd1993,
+Title                    = {Molecular biology of transgenic animals},
+Author                   = {Boyd, A. L and Samid, D.},
+Journal                  = {Journal of Animal Science},
+Year                     = {1993},
+Address                  = {Albany},
+Number                   = {3},
+Pages                    = {1-9},
+Volume                   = {71},
+Owner                    = {apcalabrez},
+Timestamp                = {2015.10.02}
+}
+\end{verbatim}
+
+\begin{tabular}{|l|c|} \hline
+	KRAUSS, J. K. \textit{et al.} Flow void of cerebrospinal fluid in idiopathic normal\\
+	pressure hydrocephalus of the elderly: can it predict outcome after
+	shunting? \\\textbf{Neurosurgery}, Baltimore, v. 40, n. 1, p. 67-73, 1997.
+	Discussion 73-74. 
+	\\\hline
+\end{tabular} \\
+
+\textbf{Campos em LATEX:} 
+
+\begin{verbatim}
+@Article{Krauss1997,
+Title                    = {Flow void of cerebrospinal fluid in idiopathic 
+normal pressure hydrocephalus of the elderly:},
+Author                   = {Krauss, J. K. and Souza, L. S. and Silva, A. M. 
+and Arruda, M. L. and Mansilla, H. C. F.},
+Journal                  = {Neurosurgery},
+Subtitle                 = {can it predict outcome after shunting?},
+Year                     = {1997},
+Address                  = {Baltimore},
+Note                     = {Discussion 73-74},
+Number                   = {1},
+Pages                    = {67-73},
+Volume                   = {40},
+Owner                    = {apcalabrez},
+Timestamp                = {2015.10.02}
+}
+\end{verbatim}
+
+\begin{tabular}{|l|c|} \hline
+	RIVITTI, E. A. Departamento de Dermatologia: histórico, seus professores
+	e \\ suas contribuições científicas. \textbf{Revista de Medicina}, São Paulo, v. 81, p. 7-13, \\ nov. 2002. Número especial.
+	\\\hline
+\end{tabular} \\
+
+\textbf{Campos em LATEX:} 
+
+\begin{verbatim}
+@Article{Riviti2002,
+Title                    = {Departamento de Dermatologia},
+Author                   = {Rivitti, E. A.},
+Journal                  = {Revista de Medicina},
+Subtitle                 = {histórico, seus professores
+e suas contribuições científicas},
+Month                    = {nov.},
+
+Year                     = {1997},
+Address                  = {São Paulo},
+Note                     = {Número especial},
+Pages                    = {7-13},
+Volume                   = {81},
+Owner                    = {apcalabrez},
+Timestamp                = {2015.10.02}
+}
+\end{verbatim}
+
+\subsection{Editorial} 
+
+\begin{tabular}{|l|c|} \hline
+	BRENNAN, R. J.; SONDORP, E. Humanitarian aid: some political realities. \\ \textbf{British Medical Journal}, London, v. 333, n. 7573, p. 817-818, Oct. 2006. \\Editorial. Disponível em: http://bmj.bmjjournals.com/cgi/reprint/333/75\\73/817. Acesso em: 24 out. 2006. \\\hline
+\end{tabular} \\
+
+\textbf{Campos em LATEX:} 
+
+\begin{verbatim}
+@Article{Brennan2006,
+Title                    = {Humanitarian aid},
+Author                   = {Brennan, R. J. and Sondorp, E.},
+Journal                  = {British Medical Journal},
+Subtitle                 = {some political realities},
+Year                     = {2006},
+Address                  = {London},
+Month                    = {Oct.},
+Note                     = {Editorial},
+Number                   = {7573},
+Pages                    = {817-818},
+Url                      = {http://bmj.bmjjournals.com/cgi/reprint/333/
+7573/817},
+Urlaccessdate            = {24 out. 2006},
+Volume                   = {333},
+Owner                    = {apcalabrez},
+Timestamp                = {2015.10.02}
+}
+\end{verbatim}
+
+\begin{tabular}{|l|c|} \hline
+	COSTA, S. Os sertões: cem anos. \textbf{Revista USP}, São Paulo, v. 54, p. 5, jul./\\ago. 2002. Editorial.\\\hline
+\end{tabular} \\
+
+\textbf{Campos em LATEX:} 
+
+\begin{verbatim}
+@Article{Costa2002,
+Title                    = {Os sertões},
+Author                   = {Costa, S.},
+Journal                  = {Revista USP},
+Subtitle                 = {cem anos},
+Year                     = {2002},
+Address                  = {São Paulo},
+Month                    = {jul./ago.},
+Note                     = {Editorial},
+Owner                    = {apcalabrez},
+Timestamp                = {2015.10.02}
+}
+\end{verbatim}
+
+\subsection{Entidade coletiva}
+
+\begin{tabular}{|l|c|} \hline
+	COCHRANE INJURIES GROUP ALBUMIN REVIEWERS. Human \\albumin administration in critically ill patients: systematic review of \\randomized controlled trials. \textbf{British Medical} \textbf{Journal}, London, v. 317, \\n. 7153, p. 235-240, 1998. 
+	\\\hline
+\end{tabular} \\
+
+\textbf{Campos em LATEX:} 
+
+\begin{verbatim}
+@Article{Cochrane1998,
+Title                    = {Human albumin administration in critically 
+ill patients:systematic review of randomized controlled trials.},
+Journal                  = {British Medical Journal},
+Org-short                = {Cochrane Injuries Group Albumin Reviewers},
+Organization             = {Cochrane Injuries Group Albumin Reviewers},
+Year                     = {1998},
+Address                  = {London},
+Number                   = {7153},
+Pages                    = {235-240},
+Volume                   = {317},
+Owner                    = {apcalabrez},
+Timestamp                = {2015.10.02}
+}
+\end{verbatim}
+
+\subsection{Artigos em suplementos ou em números especiais}
+
+\begin{tabular}{|l|c|} \hline
+	BOYD, A. L.; SAMID, D. Molecular biology of transgenic animals. \textbf{Journal } \\ \textbf{of Animal Science}, Albany, v. 71, p. 1-9, 1993. Supplement 3. 
+	\\\hline
+\end{tabular} \\
+
+\textbf{Campos em LATEX:} 
+
+\begin{verbatim}
+@Article{Boyd1993,
+Title                    = {Molecular biology of transgenic animals},
+Author                   = {Boyd, A. L and Samid, D.},
+Journal                  = {Journal of Animal Science},
+Year                     = {1993},
+Address                  = {Albany},
+Note                     = {Supplement 3},
+Pages                    = {1-9},
+Volume                   = {71},
+Owner                    = {apcalabrez},
+Timestamp                = {2015.10.02}
+}
+\end{verbatim}
+
+\begin{tabular}{|l|c|} \hline
+	HOOD, D. W. The utility of complete genome sequences in the study of \\pathogenic bacteria. \textbf{Parasitology}, Cambridge, v. 118, p. S3-S9, 1999. \\Supplement. \\\hline
+\end{tabular} \\
+
+\textbf{Campos em LATEX:} 
+
+\begin{verbatim}
+@Article{Hood1999,
+Title                    = {The utility of complete genome sequences in 
+the study of pathogenic bacteria},
+Author                   = {Hood, D. W.},
+Journal                  = {Parasitology},
+Year                     = {1999},
+Address                  = {Cambridge},
+Note                     = {Supplement},
+Pages                    = {S3-S9},
+Volume                   = {118},
+Owner                    = {apcalabrez},
+Timestamp                = {2015.10.02}
+}
+\end{verbatim}
+
+\begin{tabular}{|l|c|} \hline
+	PAYNE, D. K.; SULLIVAN, M. D.; MASSIE, M. J. Women's psychological \\ reactions to breast cancer. \textbf{Seminars in Oncology},  New York, v. 23, \\n. 1, p. 89-97, 1996. Supplement 2.
+	\\\hline
+\end{tabular} \\
+
+\textbf{Campos em LATEX:} 
+
+\begin{verbatim}
+@Article{Payne1996
+Title                    = {Women's psychological
+reactions to breast cancer},
+Author                   = {Payne, D. K. and Sullivan, M. D. and Massie, 
+M. J.},
+Journal                  = {Seminars in Oncology},
+Year                     = {1996},
+Address                  = {New York},
+Note                     = {Supplement 2},
+Pages                    = {89-97},
+Volume                   = {23},
+Number                   = {1},
+Owner                    = {apcalabrez},
+Timestamp                = {2015.10.02}
+}
+\end{verbatim}
+
+\begin{tabular}{|l|c|} \hline
+	TOLLIVET, M. Agricultura e meio ambiente: reflexões sociológicas. \\\textbf{Estudos Econômicos},  São Paulo, v. 24, p. 138-198, 1994. Número \\especial. 
+	\\\hline
+\end{tabular} \\
+
+\textbf{Campos em LATEX:} 
+
+\begin{verbatim}
+@Article{Tollivet1994,
+Title                    = {Agricultura e meio ambiente: reflexões 
+sociológicas},
+Author                   = {Tollivet, M},
+Journal                  = {Estudos Econômicos},
+Year                     = {1994},
+Address                  = {São Paulo},
+Note                     = {Número especial},
+Pages                    = {138-198},
+Volume                   = {24},
+Owner                    = {apcalabrez},
+Timestamp                = {2015.10.02}
+}
+\end{verbatim}
+
+\subsection{Artigo publicado em partes}
+
+\begin{tabular}{|l|c|} \hline
+	ABEND, S. M.; KULISH, N. The psychoanalytic method from an\\
+	epistemological viewpoint. \textbf{International Journal of Psycho-Analysis}, \\London, v. 83, pt. 2, p. 491-495, 2002. \\\hline
+\end{tabular} \\
+
+\textbf{Campos em LATEX:} 
+
+\begin{verbatim}
+@Article{Abend2002,
+Title                    = {The psychoanalytic method from an 
+epistemological viewpoint},
+Author                   = {Abend, S. M. and Kulish},
+Journal                  = {International Journal of Psycho-Analysis},
+Year                     = {2002},
+Address                  = {London},
+Pages                    = {491-495},
+Volume                   = {83, pt. 2},
+Owner                    = {apcalabrez},
+Timestamp                = {2015.10.02}
+}
+\end{verbatim}
+
+\subsection{Artigo com errata publicada}
+
+\begin{tabular}{|l|c|} \hline
+	MALINOWSKI, J. M.; BOLESTA, S. Rosiglitazone in the treatment of
+	type \\2 diabetes mellitus: a critical review. Clinical Therapetucis,
+	Princeton, v. 22, \\n. 10, p. 1151-1168, 2000. Errata em: \textbf{Clinical
+		Therapeutics}, Princeton, \\v. 23, n. 2, p. 309, 2001.
+	\\\hline
+\end{tabular} \\
+
+\textbf{Campos em LATEX:} 
+
+\begin{verbatim}
+@Article{Malinowski2000,
+Title                    = {Rosiglitazone in the treatment of type 
+2 diabetes mellitus},
+Author                   = {Malinowski, J. M and Bolesta, S.},
+Journal                  = {Clinical Therapetucis},
+Subtitle                 = {a critical review},
+Year                     = {2000},
+Address                  = {Princeton},
+Note                     = {Errata em: \textbf{Clinical Therapeutics}, 
+Princeton, v. 23, n. 2, p. 309, 2001},
+Number                   = {10},
+Pages                    = {1151-1168},
+Volume                   = {22},
+Owner                    = {apcalabrez},
+Timestamp                = {2015.10.02}
+}
+\end{verbatim}
+
+\subsection{Artigo publicado com indicação do mês}
+
+\begin{tabular}{|l|c|} \hline
+	HARRISON, P. Update on pain management for advanced genitourinary	\\cancer. \textbf{Journal of Urology}, Baltimore, v. 165, n. 6, p. 1849-1858, June \\2001. 
+	\\\hline
+\end{tabular} \\
+
+\textbf{Campos em LATEX:} 
+
+\begin{verbatim}
+@Article{Harrison2001,
+Title                    = {Update on pain management for advanced 
+genitourinary 
+cancer},
+Author                   = {Harrison, P.},
+Journal                  = {Journal of Urology},
+Year                     = {2001},
+Address                  = {Baltimore},
+Month                    = {June},
+Number                   = {6},
+Pages                    = {1849-1858},
+Volume                   = {165},
+Owner                    = {AnaPaula},
+Timestamp                = {2015.10.02}
+}
+\end{verbatim}
+
+\begin{tabular}{|l|c|} \hline
+	OLIVEIRA, R. \textit{et al.} Preparações radiofarmacêuticas e suas aplicações.\\
+	\textbf{Revista Brasileira de Ciências Farmacêuticas}, São Paulo, v. 42, n. 2,\\
+	p. 151-165, abr./jun. 2006. \\\hline
+\end{tabular} \\
+
+\textbf{Campos em LATEX:} 
+
+\begin{verbatim}
+@Article{Oliveira2006,
+Title                    = {Preparações radiofarmacêuticas e suas 
+aplicações},
+Author                   = {Oliveira, R. and Silva, A. M. and Arruda, 
+M. L. and 
+Malinowski, J. M},
+Journal                  = {Revista Brasileira de Ciências Farmacêuticas},
+Year                     = {2006},
+Address                  = {São Paulo},
+Month                    = {abr./jun.},
+Number                   = {2},
+Pages                    = {151-165},
+Volume                   = {42},
+Owner                    = {AnaPaula},
+Timestamp                = {2015.10.02}
+}
+\end{verbatim}
+
+\subsection{Artigo no prelo}
+
+É considerado no prelo o artigo já aceito para publicação pelo Conselho
+Editorial do periódico.
+
+\begin{tabular}{|l|c|} \hline
+	ELEWA, H. H. Water resources and geomorphological characteristics of
+	\\Tushka and west of Lake Nasser, Agypt. \textbf{Hydrogeology Journal}, Berlin,
+	\\v. 16, n. 1, 2006. \textit{Ahead of print}. \\\hline
+\end{tabular} \\
+
+\textbf{Campos em LATEX:} 
+
+\begin{verbatim}
+@Article{Elewa2006,
+Title                    = {Water resources and geomorphological 
+characteristics of Tushka and west of Lake Nasser, Agypt},
+Author                   = {Elewa, H. H.},
+Journal                  = {Hydrogeology Journal},
+Year                     = {2006},
+Address                  = {Berlin},
+Note                     = {\textit{Ahead of print}},
+Number                   = {1},
+Volume                   = {16},
+Owner                    = {AnaPaula},
+Timestamp                = {2015.10.02}
+}
+\end{verbatim}
+
+\begin{tabular}{|l|c|} \hline
+	PAULA, F. C. E. \textit{et al.} Incinerador de resíduos líquidos e pastosos.
+	\textbf{Revista } \\ \textbf{de Engenharia e Ciências Aplicadas}, São Paulo, v. 5, n. 2,
+	2001. No \\prelo. \\\hline
+\end{tabular} \\
+
+\textbf{Campos em LATEX:} 
+
+\begin{verbatim}
+@Article{Paula2001,
+Title                    = {Incinerador de resíduos líquidos e pastosos},
+Author                   = {Paula, F. C. E and Cardoso, R. F and Oliveira, 
+A. P. and Silva, A. M. and Guimarães, P. C.},
+Journal                  = {Revista de Engenharia e Ciências Aplicadas},
+Year                     = {2001},
+Address                  = {São Paulo},
+Note                     = {No prelo},
+Volume                   = {5},
+Owner                    = {apcalabrez},
+Timestamp                = {2015.09.16}
+}
+\end{verbatim}
+
+\subsection{Publicações periódicas em suporte eletrônico}
+
+\begin{tabular}{|l|c|} \hline
+	PALAGACHEV, D. K.; RECKE, L.; SOFTOVA, L. G. Applications of\\ the
+	differential calculus to nonlinear elliptic operators with discontinuous\\
+	coefficients.  \textbf{Mathematische Annalen}, Berlin, v. 336, n. 3, p. 617-637,
+	\\Nov. 2006. Disponível em:
+	http://www.springerlink.com.w10077.dotlib.\\com.br/content/y767134777
+	841722/fulltext.pdf. Acesso em: 17 nov. \\2006. 
+	\\\hline
+\end{tabular} \\
+
+\textbf{Campos em LATEX:} 
+
+\begin{verbatim}
+Title                    = {Applications of the differential calculus 
+to nonlinear
+elliptic operators with discontinuous coefficients.},
+Author                   = {Palagachev, D. K. and Recke, L and 
+Softova, L. G.},
+Journal                  = {Mathematische Annalen},
+Year                     = {2006},
+Address                  = {Berlin},
+Month                    = {nov.},
+Number                   = {3},
+Pages                    = {617-637},
+Url                      = {http://www.springerlink.com.w10077.dotlib.
+com.br/content/y767134777841722/fulltext.pdf},
+Urlaccessdate            = {17 nov. 2006},
+Volume                   = {336},
+Owner                    = {AnaPaula},
+Timestamp                = {2015.10.02}
+}
+\end{verbatim}
+
+\begin{tabular}{|l|c|} \hline
+	PUECH-LEÃO, P. \textit{et al.} Prevalence of abdominal aortic aneurysms: a\\
+	screening program in São Paulo, Brazil. \textbf{São Paulo Medical Journal},\\
+	São Paulo, v. 122, n. 4, p. 158-160, 2004.  Disponível em: http://www.scielo.\\
+	br/scielo.php?script= sciarttextpid=S1516-93322006000200007lngennrm=iso. \\
+	Acesso em: 18 out. 2006. \\\hline
+\end{tabular} \\
+
+\textbf{Campos em LATEX:} 
+
+\begin{verbatim}
+Title                    = {Prevalence of abdominal aortic aneurysms},
+Subtitle                 = {a screening program in São Paulo, Brazil},
+Author                   = {Puech-Leão, P. and Celzi, P. A. and Facchi, A. 
+B. and Louis, D. F.},
+Journal                  = {São Paulo Medical Journal},
+Year                     = {2004},
+Address                  = {São Paulo},
+Number                   = {4},
+Pages                    = {158-160},
+Url                      = {http://www.scielo.br/scielo.php?script=sci_
+arttext&pid=S1516-31802004000400005&lng=en&nrm=iso},
+Urlaccessdate            = {18 out. 2004},
+Volume                   = {122},
+Owner                    = {AnaPaula},
+Timestamp                = {2015.10.02}
+}
+\end{verbatim}
+
+\begin{tabular}{|l|c|} \hline
+	SILVA, R. C. da; GIOIELLI, L. A. Propriedades físicas de lipídeos \\estruturados obtidos a partir de banha e óleo de soja. \textbf{Revista Brasileira} \\\textbf{de Ciências Farmacêuticas}, São Paulo, v. 42, n. 2, p. 223-235, 2006.\\
+	Disponível em: http://www.scielo.br/scielo.php?script=sci-arttextpid=\\
+	S1516-93322006000200007lng=ennrm=iso. Acesso em: 17 out. 2006. \\\hline
+\end{tabular} \\
+
+\textbf{Campos em LATEX:} 
+
+\begin{verbatim}
+Title                    = {Propriedades físicas de lipídeos estruturados
+obtidos a partir de banha e óleo de soja},
+Author                   = {SILVA, R. C. da and  GIOIELLI, L. A},
+Journal                  = {Revista Brasileira de Ciências
+Farmacêuticas},
+Year                     = {2006},
+Address                  = {São Paulo},
+Number                   = {2},
+Pages                    = {223-235},
+Url                      = {http://www.scielo.br/
+scielo.php?script=sci_arttext&pid=S1516-31802004000400005&lng=en&nrm=i
+so},
+Urlaccessdate            = {17 out. 2004},
+Volume                   = {42},
+Owner                    = {AnaPaula},
+Timestamp                = {2015.10.02}
+}
+\end{verbatim}
+
+\begin{tabular}{|l|c|} \hline
+	WU, H. \textit{et al.} Parametric sensitivity in fixed-bed catalytic reactors with \\
+	reverse flow operation. \textbf{Chemical Engineering Science}, London, v. 54,\\
+	n. 20, 1999. Disponível em: http://www.probe.br/sciencedirect.html. \\Acesso em: 8 nov. 1999. \\\hline
+\end{tabular} \\
+
+\textbf{Campos em LATEX:} 
+
+\begin{verbatim}
+@Article{Wu1999,
+Title                    = {Parametric sensitivity in fixed-bed 
+catalytic reactors with reverse flow operation},
+Author                   = {Wu, H. and Silva, A. M. and Montgomery, 
+R. and Arruda, M. L.},
+Journal                  = {Chemical Engineering Science},
+Year                     = {1999},
+Address                  = {London},
+Number                   = {20},
+Url                      = {http://www.probe.br/sciencedirect.html},
+Urlaccessdate            = {8 nov. 1999},
+Volume                   = {54},
+Owner                    = {AnaPaula},
+Timestamp                = {2015.10.02}
+}
+\end{verbatim}
+
+
+\subsection{Artigo e/ou matéria de jornal}
+
+\begin{tabular}{|l|c|} \hline
+	HOFLING, E. Livro descreve os 134 tipos de aves do campus da USP. \textbf{O} \\ \textbf{Estado de S. Paulo}, São Paulo, 15 out. 1993. Cidades, Caderno 7, p. 15. \\Depoimento a Luiz Roberto de Souza Queiroz.	\\\hline
+\end{tabular} \\
+
+\begin{verbatim}
+@Article{Hofling1993,
+Title                    = {Livro descreve os 134 tipos de aves do campus
+da USP},
+Author                   = {Hofling, E.},
+Journal                  = {O Estado de S. Paulo},
+Year                     = {1993},
+Address                  = {São Paulo},
+Month                    = {15 out.},
+Note                     = {Cidades, Caderno 7, p. 15. Depoimento a Luiz 
+Roberto de Souza Queiroz},
+Owner                    = {AnaPaula},
+Timestamp                = {2015.10.02}
+}
+\end{verbatim}
+
+\textbf{-- Em suporte eletrônico} \\
+
+\begin{tabular}{|l|c|} \hline
+	PORTER, E. This time, it's not the economy. \textbf{The New York Times}, \\New 
+	York, 24 Oct. 2006. Disponível em: http://www.nytimes.com/2006\\/10/24/
+	business/usinessoref=slogin. Acesso em: 24 out. 2006. \\\hline
+\end{tabular} \\
+
+\textbf{Campos em LATEX:} 
+
+\begin{verbatim}
+@Article{Porter2006,
+Title                    = {This time, it's not the economy},
+Author                   = {Porter, E.},
+Journal                  = {The New York Times},
+Year                     = {2006},
+Address                  = {New York},
+Month                    = {24 Oct.},
+Url                      = {http://www.nytimes.com/2006/10/24/
+business/usinessoref=slogin},
+Urlaccessdate            = {24 out. 2006},
+Owner                    = {AnaPaula},
+Timestamp                = {2015.10.02}
+}
+\end{verbatim}
+
+\subsection{Artigo publicado com correção}
+
+\textbf{-- Correção de} \\
+
+\begin{tabular}{|l|c|} \hline
+	MEYAARD, L. \textit{et al.} The epithelial celular adhesion molecule (Ep-CAM)\\
+	is a ligand for the leukocyte-associated immunoglobulin-like receptor
+	\\(LAIR). \textbf{Journal of Experimental Medicine}, New York, v. 198, n. 7,\\ 
+	p.	1129, Oct. 2003. Correção de: MEYAARD, L. \textit{et al.} \textbf{Journal of Experi-}\\ \textbf{mental Medicine}, New York, v. 194, n. 1, p. 107-112, July 2001.\\\hline
+\end{tabular} \\
+
+\textbf{Campos em LATEX:} 
+
+\begin{verbatim}
+@Article{Meyaard2003,
+Title                    = {The epithelial celular adhesion molecule 
+(Ep-CAM) is a ligand for the leukocyte-associated immunoglobulin-like 
+receptor (LAIR).}, 
+Author                   = {Meyaard, L and Arruda, M. L. and Silva, 
+A. M. and Montgomery, R. and Malinowski, J. M},
+Journal                  = {Journal of Experimental Medicine},
+Year                     = {2003},
+Address                  = {New York},
+Month                    = {Oct.},
+Note                     = {Correção de: MEYAARD, L. \textit{et al.} 
+Journal of Experimental Medicine, New York, v. 194, n. 1, p. 107-112, 
+July 2001},
+Number                   = {7},
+Pages                    = {1129},
+Volume                   = {198},
+Owner                    = {AnaPaula},
+Timestamp                = {2015.10.02}
+}
+\end{verbatim}
+
+\textbf{-- Correção em} \\
+
+\begin{tabular}{|l|c|} \hline
+	MEYAARD, L. \textit{et al.} The epithelial celular adhesion molecule (Ep-CAM)
+	\\is a ligand for the leukocyte-associated immunoglobulin-like receptor
+	(LAIR). \\Journal of Experimental Medicine, New York, v. 194, n. 1, p. 107-112, July \\2001. Correção em: MEYAARD, L. \textit{et al.} \textbf{Journal of Experimental}\\ \textbf{Medicine}, New York, v. 198, n. 7, p. 1129, Oct. 2003. 
+	\\\hline
+\end{tabular} \\
+
+\textbf{Campos em LATEX:} 
+
+\begin{verbatim}
+@Article{Meyaard2003,
+Title                    = {The epithelial celular adhesion molecule 
+(Ep-CAM) is a ligand for the leukocyte-associated immunoglobulin-like 
+receptor (LAIR).},
+Author                   = {Meyaard, L and Arruda, M. L. and Silva, 
+A. M. and Montgomery, R. and Malinowski, J. M},
+Journal                  = {Journal of Experimental Medicine},
+Year                     = {2001},
+Address                  = {New York},
+Month                    = {July},
+Note                     = {Correção em: MEYAARD, L. \textit{et al.} 
+\textbf{Journal of Experimental Medicine}, New York, v. 198, n. 7, 
+p. 1129, Oct. 2003.},
+Number                   = {1},
+Pages                    = {107-112},
+Volume                   = {194},
+Owner                    = {AnaPaula},
+Timestamp                = {2015.10.02}
+}
+\end{verbatim}
+
+\section{Patentes}
+
+Os exemplos abaixo são diferentes dos apresentados nas \textbf{Diretrizes para apresentação de dissertações e teses da USP}: documento eletrônico e impresso - Parte I (ABNT), 3ª edição de 2016, para melhor exemplificar as especificidades da ABNT NBR 6023:2018 para patentes. \\
+
+\begin{tabular}{|l|c|} \hline
+	BAGNATO, Vanderlei Salvador. \textbf{Processo de fotoalvejamento de tecidos}. \\ 
+	Int. CI. D06L 3/12; D06L 3/16 BR 102016014269-5 A2. Depósito: 2 jan. 2018.
+	\\\hline
+\end{tabular} \\
+
+\textbf{Campos em LATEX:} 
+
+\begin{verbatim}
+@Patent{Bagnato2018,
+Title                    = {Processo de fotoalvejamento de tecidos},
+Furtherresp              = {Int. CI. D06L 3/12; D06L 3/16 BR 102016014269-
+5 A2. Depósito: 2 jan},
+Author                   = {{BAGNATO, Vanderlei Salvador}},
+year                     = {2018},
+Owner                    = {marilza},
+Timestamp                = {2019.10.09}
+}
+\end{verbatim}
+
+
+
+\begin{tabular}{|l|c|} \hline
+	VICENTE, Marcos Fernandes. \textbf{Reservatório para sabão em pó com} \\ 
+	\textbf{suporte para escova}. Depositante: Marcos Fernandes Vicente: \\
+	MU8802281-1U2, 15 out. 2008, 29 jun, 2010. Depósito: 15 out. 2018. \\
+	Concessão: 29 jun. 2010.
+	\\\hline
+\end{tabular} \\
+
+
+\textbf{Campos em LATEX:} 
+
+\begin{verbatim}
+@Patent{Vicente2010,
+Title                    = {Reservatório para sabão em pó com suporte para 
+escova},
+Author                   = {{VICENTE, Marcos Fernandes}},
+Furtherresp              = {Depositante: Marcos Fernandes Vicente: 
+MU8802281-1U2, 15 out. 2008, 29 jun, 2010. Depósito: 15 out. 2018. 
+Concessão: 29 jun},
+year                     = {2010},
+Owner                    = {marilza},
+Timestamp                = {2019.10.21}
+}
+\end{verbatim}
+
+\textbf{-- Em suporte eletrônico } \\
+
+
+\begin{tabular}{|l|c|} \hline
+	ROCHA, Flavio Alves da. \textbf{Composição veterinária à base de disofenol} \\ 
+	\textbf{e suas variadas apresentações, para o combate ao carrapato em} \\ 
+	\textbf{caninos}. Depositante: Flavio Alves da Rocha. Procurador: São \\
+	Paulo Marcas e Patentes Ltda. BR 10 2017 003276 0 A2. Depósito: 17 fev. \\
+	2017. Disponível em: \verb+ https://gru.inpi.gov.br/pePI/servlet/Patente+ \\
+	\verb+Action=detail&CodPedido=1409935&SearchParameter=COMPOSI%C7%C3O%+ \\
+    \verb+ServletController?20VETERIN%C1RIA%20%C0%20BASE%20DE%20DISOFENOL%+ \\
+    \verb+20%20%20%20%20%20&Resumo=&Titulo=+. Acesso em: 1 abr. 2019. \\\hline
+\end{tabular} \\
+
+\textbf{Campos em LATEX:} 
+
+\begin{verbatim}
+@Patent{Rocha2017,
+Title                    = {Composição veterinária à base de disofenol e 
+suas variadas apresentações, para o combate ao carrapato em caninos},
+Author                   = {{ROCHA, Flavio Alves da}},
+Furtherresp              = {Depositante: Flavio Alves da Rocha. Procurador: 
+São Paulo Marcas e Patentes Ltda. 	BR 10 2017 003276 0 A2. Depósito: 17
+ fev},
+Year                     = {2017},
+URL                      =
+{https://gru.inpi.gov.br/pePI/servlet/PatenteServletController?Action=
+detail&CodPedido=1409935&SearchParameter=COMPOSI%C7%C3O%20VETERIN%C1RIA%
+20%C0%20BASE%20DE%20DISOFENOL%20%20%20%20%20%20&Resumo=&Titulo=}, 
+urlaccessdate            = {1 abr. 2019},
+Owner                    = {marilza},
+Timestamp                = {2019.10.21}
+}
+\end{verbatim}
+
+
+\begin{tabular}{|l|c|} \hline
+	OLIVEIRA, Luiz Antonio de \textit{et al.} \textbf{Ponta removível de fibra óptica para} \\ \textbf{uso de
+	laser em odontologia e seu processo de fabricação}. Depositante: \\ MM Optics
+	Ltda (BR/SP). Procurador: Marcio Loreti. PI 0504038-8 A2, \\ Depósito: 9 set.
+	2005. Disponível em: https://gru.inpi.gov.br/pePI/servlet/\\PatenteServletController?Action=detailCodPedido=687788SearchParameter\\=LASER20
+	EM20ODONTOLOGIA. Acesso em: 04 nov. 2015. 
+	\\\hline
+\end{tabular} \\
+
+\textbf{Campos em LATEX:} 
+
+\begin{verbatim}
+@Patent{Oliveira2005,
+Title                    = {Ponta removível de fibra óptica para uso de
+laser em odontologia e seu processo de fabricação},
+Author                   = {Oliveira, Luiz Antonio and Sousa, M. C. 
+and Silva, E. D. and Juarez, R. S.},
+HowPublished             = {9 set.
+2005},
+Number                   = {Depositante: MM Optics
+Ltda (BR/SP). Procurador: Marcio Loreti. PI 0504038-8 A2},
+Url                      = {https://gru.inpi.gov.br/pePI/servlet/
+PatenteServletController?Action=detail
+&CodPedido=687788&SearchParameter=LASER%
+20EM%20ODONTOLOGIA},
+Urlaccessdate            = {04 nov. 2002},
+Owner                    = {apcalabrez},
+Timestamp                = {2015.09.15}
+}
+\end{verbatim}
+
+\section{Documentos Jurídicos}
+
+Documentos referentes à legislação, jurisprudência (decisões judiciais) e
+atos administrativos.
+
+\subsection{Legislação}
+
+ Inclui Constituição, Decreto, Decreto-Lei, Emenda Constitucional, Emenda à Lei Orgânica, Lei Complementar, Lei Delegada, Lei Ordinária, Lei Orgânica e Medida Provisória, entre outros.\\
+
+\textbf{Elementos essenciais}
+
+Jurisdição, ou cabeçalho da entidade, m letras maiúsculas; epigrafe e ementa transcrita conforme publicada; dados da publicação.
+
+ 
+\textbf{Exemplos:} \\
+
+\begin{tabular}{|l|c|} \hline
+	BRASIL. \textbf{Código civil}. Organização dos textos, notas remissivas e índices: \\Juarez de Oliveira. 46. ed. São Paulo: Saraiva, 1995. 
+	\\\hline
+\end{tabular} \\
+
+\textbf{Campos em LATEX:} 
+\begin{verbatim}
+@Book{codigo1985,
+Title                    = {Código civil},
+Address                  = {São Paulo},
+Furtherresp              = {Organização dos textos, notas remissivas e 
+índices: Juarez de Oliveira},
+Org-short                = {Brasil},
+Organization             = {Brasil},
+Publisher                = {Saraiva},
+Year                     = {1985},
+Edition                  = {46},
+Owner                    = {AnaPaula},
+Timestamp                = {2015.10.02}
+}
+\end{verbatim}
+
+\begin{tabular}{|l|c|} \hline
+	BRASIL. Congresso. Senado. Resolução nº 17, de 1991. Autoriza o desbloqueio \\ de Letras Financeiras do Tesouro do Estado do Rio Grande do Sul, através de \\ revogação do parágrafo 2º, do artigo 1º da resolução nº 72, de
+	1990. \textbf{Coleção} \\ \textbf{de leis da República Federativa do Brasil}, Brasília, DF, v.
+	183, p. 1156-\\1157, maio/jun. 1991.
+	\\\hline
+\end{tabular} \\
+
+\textbf{Campos em LATEX:} 
+
+
+\begin{verbatim}
+@Article{brasil1991,
+Title                    = {Resolução nº 17, de
+1991. Autoriza o desbloqueio de Letras Financeiras do Tesouro do 
+Estado do Rio Grande do Sul, através de revogação do parágrafo 2º, 
+do artigo 1º da resolução nº 72, de 1990},
+Journal                  = {Coleção de leis da República Federativa do 
+Brasil},
+Organization             = {Brasil.  Congresso. Senado},
+Org-short                = {Brasil},
+Year                     = {1991},
+Month                    = {maio/jun},
+Address                  = {Brasília, DF},
+Volume                   = {183},
+Pages                    = {1156-1157},
+Owner                    = {Ana Paula},
+Timestamp                = {2015.09.10}
+}
+\end{verbatim}
+
+\begin{tabular}{|l|c|} \hline
+	BRASIL. \textbf{Constituição (1988)}. Constituição da República Federativa do \\Brasil. Brasília, DF: Senado, 1988. 
+	\\\hline
+\end{tabular} \\
+
+\textbf{Campos em LATEX:} 
+
+\begin{verbatim}
+@Book{constituicao1988,
+Title                    = {Constituição (1988)},
+Address                  = {Brasília, DF},
+Furtherresp              = {Constituição da República Federativa 
+do Brasil.},
+Org-short                = {Brasil},
+Organization             = {Brasil},
+Publisher                = {Senado},
+Year                     = {1988},
+Owner                    = {AnaPaula},
+Timestamp                = {2015.10.02}
+}
+\end{verbatim}
+
+\begin{tabular}{|l|c|} \hline
+	BRASIL. Constituição (1988). Emenda Constitucional 
+	nº 9, de 9 de \\novembro de 1995. Dá nova redação ao art. 177 da Constituição
+	Federal,\\ alterando e inserindo parágrafos. \textbf{Lex}: legislação federal marginalia, São \\ Paulo, v. 59, p. 1966, out./dez. 1995.  
+	\\\hline
+\end{tabular} \\
+
+\textbf{Campos em LATEX:} \\
+
+\begin{verbatim}
+@Article{Emenda1995,
+Title                    = {Emenda Constitucional nº 9, de 9 de novembro 
+de 1995. Dá nova redação ao art. 177 da Constituição Federal, alterando 
+e inserindo parágrafos.},
+Journal                  = { },
+Org-short                = {Brasil},
+Organization             = {Brasil. {Constituição (1988)}},
+Year                     = {1995},
+Address                  = {{\textbf{Lex}: legislação federal e marginalia, 
+São Paulo}},
+Month                    = {out./dez.},
+Pages                    = {1966},
+Volume                   = {59},
+Owner                    = {Marilza},
+Timestamp                = {2019.10.16}
+}
+\end{verbatim}
+
+\begin{tabular}{|l|c|} \hline
+	BRASIL. Decreto-lei nº 5452, de 1 de maio de 1943. Aprova a consolidação \\ das leis do trabalho. \textbf{Lex}: coletânea de legislação: edição federal, São Paulo, \\ v. 7, 1943. Suplemento.
+	\\\hline
+\end{tabular} \\
+
+\textbf{Campos em LATEX:} 
+
+\begin{verbatim}
+@Article{brasil1943,
+Title                    = {Decreto-lei nº 5452, de 1 de maio de 1943. 
+Aprova a consolidação das leis do trabalho.},
+Journal                  = { },
+Organization             = {Brasil},
+Year                     = {1943},
+Address                  = {{\textbf{Lex}: legislação federal e marginalia, 
+São Paulo}},
+Volume                   = {7},
+Note                     = {Suplemento},
+Owner                    = {Marilza},
+Timestamp                = {2019.10.16}
+}
+\end{verbatim}
+
+\begin{tabular}{|l|c|} \hline
+	BRASIL. Lei nº 7.000, de 20 de dezembro de 1990. Dispõe sobre a proibição
+	da \\ pesca. \textbf{Diário Oficial da União}, Brasília, DF, 21 jan. 1991. Seção 1, p. 51.
+	\\\hline
+\end{tabular} \\
+
+\textbf{Campos em LATEX:} 
+
+\begin{verbatim}
+@Article{brasil1943,
+Title                    = {Lei nº 7.000, de 20 de dezembro de 1990. 
+Dispõe sobre a proibição
+da pesca},
+Journal                  = {Diário Oficial da
+União},
+Organization             = {Brasil},
+Year                     = {1991},
+Address                  = {São Paulo},
+Volume                   = {7},
+Note                     = {Suplemento},
+Owner                    = {Ana Paula},
+Timestamp                = {2015.09.10}
+}
+\end{verbatim}
+
+\begin{tabular}{|l|c|} \hline
+	BRASIL. Medida provisória nº 1.569-9, de 11 de dezembro de 1997.
+	Estabelece \\ multa em operações de importação, e dá outras providências.
+	\textbf{Diário Oficial} \\ \textbf{[da] República Federativa do Brasil}, Poder Executivo,
+	Brasília, DF, 14 dez.\\
+	1997. Seção 1, p. 29514. \\\hline
+\end{tabular} \\
+
+\textbf{Campos em LATEX:} 
+
+\begin{verbatim}
+@Article{brasil1943,
+Title                    = {Medida provisória nº 1.569-9, de 11 de 
+dezembro de 1997. Estabelece multa em operações de importação, e 
+dá outras providências},
+Journal                  = {Diário Oficial [da] República Federativa do 
+Brasil},
+Organization             = {Brasil},
+Month                    = {14 dez.},
+Year                     = {1997},
+Address                  = {Poder Executivo,
+Brasília, DF},
+Volume                   = {7},
+Note                     = {Seção 1, p. 29514},
+Owner                    = {Ana Paula},
+Timestamp                = {2015.09.10}
+}
+\end{verbatim}
+
+
+\begin{tabular}{|l|c|} \hline
+	BRASIL. Secretaria da Receita Federal. Desliga a Empresa de Correios e \\ Telégrafos - ECT do sistema de arrecadação. Portaria nº 12, 21 de \\ março de 1996. \textbf{Lex}: coletânea de legislação e jurisprudência, São Paulo,\\ p. 742-743,
+	mar./abr., 2. trim. 1996. 
+	\\\hline
+\end{tabular} \\
+
+\textbf{Campos em LATEX:} 
+
+
+\begin{verbatim}
+@Article{brasil1996ECT,
+title         = {Desliga a {Empresa de Correios e Telégrafos - 
+ECT} do sistema de arrecadação. Portaria nº 12, 21 de
+março de 1996.},
+Organization  = {BRASIL. {Secretaria da Receita Federal}},
+Org-short     = {Brasil},
+year          = {1996},
+pages         = {742-743},
+month         = {mar./abr., 2. trim.},
+Address       = {{\textbf{Lex}: coletânea de legislação e jurisprudência, 
+São Paulo}},
+Owner         = {Marilza},
+Timestamp     = {2019.10.16}, 
+}
+\end{verbatim}
+
+
+\begin{tabular}{|l|c|} \hline
+	SÃO PAULO (Estado). Decreto nº 42.822, de 20 de janeiro de 1998. Dispõe \\ sobre a desativação de unidades administrativas de órgãos da administração \\
+	direta e das autarquias do Estado e dá providências correlatas. \textbf{Lex}: coletânea \\ de legislação e jurisprudência, São Paulo, v. 62, n. 3, p. 217-220,
+	1998.
+	\\\hline
+\end{tabular} \\
+
+\textbf{Campos em LATEX:} 
+
+
+\begin{verbatim}
+@Article{brasil1991,
+Title                    = {Decreto nº 42.822, de 20 de janeiro de 1998. 
+Dispõe sobre a desativação de unidades administrativas de órgãos da 
+administração direta e das autarquias do Estado e dá providências 
+correlatas.},
+Journal                  = { },
+Organization             = {SÃO PAULO (Estado)},
+Org-short                = {São Paulo},
+Year                     = {1998},
+Address                  = {\textbf{Lex}: legislação federal e marginalia, 
+São Paulo},
+Volume                   = {62},
+Number                   = {3},
+Pages                    = {217-220},
+Owner                    = {Marilza},
+Timestamp                = {2019.10.16}
+}
+\end{verbatim}
+\subsection{Jurisprudência}
+
+Inclui acórdão, decisão interlocutória, despacho, sentença, súmula, entre outros. \\
+
+\textbf{Elementos essenciais}
+
+Jurisdição (em letra maiúsculas), nome da corte ou trbunal; turma e/ou região (entre parênteses, se houver); tipo de documento (agravo, despacho, entre outros); número do processo (se houver); ementa (se houver); vara, ofício, cartório, câmara ou outra unidade do tribunal; mone do relator (precedido da palavra Relator, se houver), data do julgamento (se houver); dados da publicação. \\
+
+\textbf{Exemplos:} \\
+
+
+\begin{tabular}{|l|c|} \hline
+	BRASIL. Tribunal Regional Federal. (5. Região). Administrativo. Escola\\
+	Técnica Federal. Pagamento de diferenças referente a enquadramento de \\
+	servidor decorrente da implantação de Plano Único de Classificação e \\
+	Distribuição de Cargos e Empregos, instituído pela Lei nº 8.270/91. \\
+	Predominância da lei sobre a portaria. Apelação cível nº 42.441-PE \\
+	(94.05.01629-6). Apelante: Edilemos Mamede dos Santos e outros. Ape-\\
+	lada: Escola Técnica Federal de Pernambuco. Relator: Juiz Nereu San-\\
+	tos. Recife, 4 de março de 1997. \textbf{Lex}: jurisprudência do STJ e Tribu-\\
+	nais Regionais Federais, São Paulo. v. 10, n.103, p. 558-562, mar. 1998. \\\hline
+\end{tabular} \\
+
+\textbf{Campos em LATEX:} 
+
+\begin{verbatim}
+@Article{brasillex1998,
+Title                    = {Tribunal Regional Federal. Regi\~ao, 5. 
+Administrativo. Escola T\’ecnica Federal. Pagamento de diferen{\c c}as 
+referente a enquadramento de servidor decorrente de implanta{\c c}\~ao 
+de Plano {{\’U}}nico de Classifica{\cc}\~ao e Distribui{\c c}\~ao de 
+Cargos e Empregos, institu{\’\i}do pela Lei n{$^o$}~8.270/91. 
+Predomin\^ancia da lei sobre a portaria. Apela{\cc}\~ao c{\’\i}vel
+n{$^o$}~42.441-{PE} (94.05.01629-6). Apelante: Edilemos Mamede dos Santos
+e outros. Apelada: Escola T\’ecnica Federal de Pernambuco. Relator: Juiz
+Nereu Santos. Recife, 4 de mar{\c c}o de 1997},
+Journal                  = { },
+Organization             = {Brasil},
+Year                     = {1998},
+Address                  = {\textbf{Lex}: jurisprud\^encia do STJ e 
+Tribunais Regionais Federais, S\~ao Paulo},
+Month                    = {mar.},
+Number                   = {103},
+Pages                    = {558-562},
+Volume                   = {10},
+Owner                    = {Marilza},
+Timestamp                = {2019.10.16}
+}
+\end{verbatim}
+
+\subsection{Doutrina}
+
+Qualquer discussão técnica sobre questões legais (monografias, artigos
+de periódicos, papers etc.), referenciada conforme o tipo de publicação. 
+
+\textbf{Exemplos:} \\
+
+\begin{tabular}{|l|c|} \hline
+	BARROS, Raimundo Gomes de. Ministério Público: sua legitimação	frente ao\\
+	Código do Consumidor. \textbf{Revista Trimestral de Jurisprudência dos}\\
+	\textbf{Estados}, São Paulo, v. 19, n. 139, p. 53-72, ago. 1995. \\\hline
+\end{tabular} \\
+
+\textbf{Campos em LATEX:} 
+
+\begin{verbatim}
+@Article{barros1995,
+Title                    = {Ministério Público},
+Author                   = {Barros, Raimundo Gomes de},
+Journal                  = {Revista Trimestral de Jurisprudência dos 
+Estados},
+Subtitle                 = {sua legitimação
+frente ao Código do Consumidor},
+Year                     = {1995},
+Address                  = {São Paulo,},
+Month                    = {ago},
+Number                   = {139},
+Pages                    = {53-72},
+Volume                   = {19},
+Owner                    = {apcalabrez},
+Timestamp                = {2016.04.26}
+}
+\end{verbatim}
+
+\subsection{Documentos Jurídicos em suporte eletrônico}
+%\textbf{4.5.4 Documentos Jurídicos em suporte eletrônico} \\
+
+\begin{tabular}{|l|c|} \hline
+	BRASIL. Lei nº 9.887, de 7 de dezembro de 1999. Altera a legislação tributária\\
+	federal. \textbf{Diário Oficial [da] República Federativa do Brasil}, Brasília,\\
+	DF, 8 dez. 1999. Disponível em: http://www.in.gov.br/mpleis/leistexto.asp?\\
+	ld=LEI209887. Acesso em: 22 dez. 1999. 
+	\\\hline
+\end{tabular} \\
+
+\textbf{Campos em LATEX:} 
+
+\begin{verbatim}
+@Article{1999,
+Title                    = {Lei nº 9.887, de 7 de dezembro de 1999. Altera 
+a legislação tributária federal},
+Journal                  = {Diário Oficial da República Federativa do 
+Brasil},
+Organization             = {Brasil},
+Year                     = {1999},
+Address                  = {Brasília, DF},
+Month                    = {8 dez.},
+Url                      = {http://www.in.gov.br/mp_leis/leis_texto.aps?
+Id=Lei209887},
+Urlaccessdate            = {22 dez. 1999},
+Owner                    = {Ana Paula},
+Timestamp                = {2015.09.10}
+}
+\end{verbatim}
+
+
+\section{Normas}
+
+Norma é o documento estabelecido por consenso e aprovado por um organismo reconhecido, que fornece regras, diretrizes ou características mínimas para atividades ou para seus resultados, visando à obtenção de um grau ótimo de ordenação em um dado contexto.
+
+\textbf{Exemplos:} \\
+
+\begin{tabular}{|l|c|} \hline
+	ASSOCIAÇÃO BRASILEIRA DE NORMAS TÉCNICAS. \textbf{NBR 10520}: \\informação e documentação: citações em documentos: apresentação. Rio \\de Janeiro, 2002a. 7 p. 
+	\\\hline
+\end{tabular} \\
+
+\textbf{Campos em LATEX:} 
+
+\begin{verbatim}
+@Book{nbr10520,
+Title                    = {NBR 10520},
+Address                  = {Rio de Janeiro},
+Org-short                = {Associa{\c c}\~ao Brasileira de Normas 
+T\'ecnicas},
+Organization             = {Associa{\c c}\~ao Brasileira de Normas 
+T\'ecnicas},
+Pages                    = {7},
+Subtitle                 = {informação e documentação: citações 
+em documentos: 
+apresentação},
+Year                     = {2002a},
+Owner                    = {apcalabrez},
+Timestamp                = {2015.10.16}
+}
+\end{verbatim}
+
+
+\section{Materiais especiais}
+
+Filmes cinematográficos ou científicos, gravações de vídeo e som,
+esculturas, maquetes, objetos de museu, animais empalhados, jogos,
+modelos, protótipos etc. \\
+
+\begin{tabular}{|l|c|} \hline
+	TÍTULO. Diretor, produtor. Local: Produtora, data. Especificação do	suporte\\
+	em unidades físicas. Notas complementares. \\
+	
+	ou\\	
+	
+	SOBRENOME, Prenome(s) do(s) autor(es). \textbf{Título} (quando não 	existir,\\
+	deve-se atribuir uma denominação ou a indicação sem 	título, entre col-\\
+	chetes). Ano. Especificação do objeto. 
+	\\\hline
+\end{tabular} \\
+
+\textbf{Exemplos:} \\
+
+\begin{tabular}{|l|c|} \hline
+	BULE de porcelana: família Rosa, decorado com buquês e guirlandas de flores\\ 
+	sobre fundo branco, pegador de tampa em formato de fruto. [China: Compa-\\
+	nhia das Índias, 18--]. 1 bule.  
+	\\\hline
+\end{tabular} \\
+
+\textbf{Campos em LATEX:} 
+
+\begin{verbatim}
+@Book{bule18,
+Title                    = {Bule de porcela},
+Note                     = {[China: Companhia das Índias, 18--]. 1 
+bule.}, 
+Org-short                = {Bule, 18--},
+Subtitle                 = {família Rosa, decorado com buquês e 
+guirlandas de flores sobre fundo branco, pegador de tampa em formato de 
+fruto},
+Owner                    = {apcalabrez},
+Timestamp                = {2015.10.08}
+}
+\end{verbatim}
+
+\begin{tabular}{|l|c|} \hline
+	CENTRAL do Brasil. Direção: Walter Salles Júnior. Produção: Martire de\\
+	Clermont-Tonnerre e Arthur Cohn. Intérpretes: Fernanda Montenegro; Ma-\\
+	rília Pera; Vinicius de Oliveira; Sônia Lira; Othon Bastos; Matheus\\ 
+	Nachtergaele e outros. Roteiro: Marcos Bernstein, João Emanuel Carnei-\\
+	ro e Walter Salles Júnior. [\textit{S.l.}]: Le Studio Canal; Riofilme; MACT \\
+	Productions, 1998. 1 bobina cinematográfica (106 min), son., color., 
+	\\35 mm. 
+	\\\hline
+\end{tabular} \\
+
+\textbf{Campos em LATEX:} 
+
+\begin{verbatim}
+@Book{central1998,
+Title                    = {Central do Brasil},
+Furtherresp              = {Direção: Walter Salles Júnior. Produção: 
+Martire de Clermont-Tonnerre e Arthur Cohn. Intérpretes: Fernanda 
+Montenegro; Marília Pera; Vinicius de Oliveira; Sônia Lira; Othon 
+Bastos; Matheus Nachtergaele e outros. Roteiro: Marcos Bernstein, 
+João Emanuel Carneiro e Walter Salles Júnior},
+Note                     = {1 bobina cinematográfica (106 min), 
+son., color., 35 mm},
+Org-short                = {Central},
+Publisher                = {Le Studio Canal; Riofilme; MACT 
+Productions},
+Year                     = {1998},
+Owner                    = {apcalabrez},
+Timestamp                = {2015.10.08}
+}
+\end{verbatim}
+
+\begin{tabular}{|l|c|} \hline
+	KOBAYASHI, K. \textbf{Doença dos xavantes}. 1980. 1 fotografia, color., 16 cm x \\
+	56 cm. 
+	\\\hline
+\end{tabular} \\
+
+\textbf{Campos em LATEX:} 
+
+\begin{verbatim}
+@Book{Kobayashi1980,
+Title                    = {Doença dos xavantes},
+Author                   = {Kobayashi, K.},
+Note                     = {1 fotografia, color., 16 cm x 56 cm},
+Year                     = {1980},
+Owner                    = {apcalabrez},
+Timestamp                = {2015.10.08}
+}
+
+Ou
+
+@Misc{KOBAYASHI1980,
+Title                    = {Doenças dos xavantes},
+Author                   = {Kobayashi, K.},
+Note                     = {1 fot., color. 16 cm X 56 cm.},
+Year                     = {1980},
+Owner                    = {Ana Paula},
+Timestamp                = {2015.09.10}
+}
+\end{verbatim}
+
+
+\subsection{Documentos Cartográficos}
+
+Mapa, atlas, globo, fotografia aérea, imagem de satélite etc. 
+\subsubsection{No todo}
+
+\begin{tabular}{|l|c|} \hline
+	SOBRENOME, Prenome(s) do(s) autor(es). \textbf{Título}: subtítulo. Local: \\
+	Editora, ano. Designação específica. Escala
+	\\\hline
+\end{tabular} \\
+
+\textbf{Exemplos:} \\
+
+\begin{tabular}{|l|c|} \hline
+	ATLAS Mirador Internacional. Rio de Janeiro: Enciclopédia Britânica do\\
+	Brasil, 1981. 1 atlas. Escalas variam. 
+	\\\hline
+\end{tabular} \\
+
+\textbf{Campos em LATEX:} 
+
+\begin{verbatim}
+@Book{atlas1981,
+Title                    = {Atlas Mirador Internacional},
+Address                  = {Rio de Janeiro},
+Note                     = {1 atlas. Escalas variam},
+Org-short                = {Atlas},
+Publisher                = {Enciclopédia Britânica do Brasil},
+Year                     = {1981},
+Owner                    = {apcalabrez},
+Timestamp                = {2015.10.08}
+}
+\end{verbatim}
+
+\begin{tabular}{|l|c|} \hline
+	BRASIL e parte da América do Sul: mapa político, escolar, rodoviário,
+	turís-\\ 
+	tico e regional. São Paulo: Michalany, 1981. 1 mapa, color., 79 cm x\\
+	95 cm. Escala 1:600. 
+	\\\hline
+\end{tabular} \\
+
+\textbf{Campos em LATEX:} 
+
+\begin{verbatim}
+@Book{brasil1981,
+Title                    = {Brasil e parte da América do Sul},
+Address                  = {São Paulo},
+Note                     = {1 mapa, color., 79 cm x 95 cm. Escala 1:600},
+Org-short                = {Brasil},
+Publisher                = {Michalany},
+Subtitle                 = {mapa político, escolar, rodoviário, turístico 
+e regional},
+Year                     = {1981},
+Owner                    = {apcalabrez},
+Timestamp                = {2015.10.08}
+}
+\end{verbatim}
+
+\subsubsection{Em suporte eletrônico}
+
+\begin{tabular}{|l|c|} \hline
+	SOBRENOME, Prenome(s) do(s) autor(es). \textbf{Título}: subtítulo. Local: Editora,\\
+	ano. Designação específica. Escala. Disponível em: endereço eletrônico. \\
+	Acesso em: dia mês abreviado. Ano. 
+	\\\hline
+\end{tabular} \\
+
+\textbf{Exemplos:} \\
+
+\begin{tabular}{|l|c|} \hline
+	ATLAS ambiental da Bacia do Rio Corumbataí. Rio Claro: CEAPLA, IGCE,\\
+	UNESP, 2001. Disponível em: http://www.rc.unesp.br/igce/ceapla/atlas.\\
+	Acesso em: 8 abr. 2002. 
+	\\\hline
+\end{tabular} \\
+
+\textbf{Campos em LATEX:} 
+
+\begin{verbatim}
+@Book{atlas2001,
+Title                    = {Atlas ambiental da Bacia do Rio Corumbataí},
+Address                  = {Rio Claro},
+Org-short                = {Atlas},
+Publisher                = {CEAPLA, IGCE, UNESP},
+Year                     = {2001},
+Url                      = {http://www.rc.unesp.br/igce/ceapla/atlas},
+Urlaccessdate            = {8 abr. 2002},
+Owner                    = {apcalabrez},
+Timestamp                = {2015.10.08}
+}
+\end{verbatim}
+
+\subsection{Documentos sonoros}
+
+Discos, CD, fita cassete, fita magnética etc. \\
+\subsubsection{No todo}
+
+\begin{tabular}{|l|c|} \hline
+	COMPOSITOR(ES) OU INTÉRPRETE(S). \textbf{Título}. Local: Gravadora, ano. \\
+	Especificação do suporte. 
+	\\\hline
+\end{tabular} \\
+
+\textbf{Exemplos:} \\
+
+\begin{tabular}{|l|c|} \hline
+	FAGNER, R. \textbf{Revelação}. Rio de Janeiro: CBS, 1988. 1 cassete sonoro (60 \\
+	min), 3 3/4 pps, estéreo.  
+	\\\hline
+\end{tabular} \\
+
+\textbf{Campos em LATEX:} 
+
+\begin{verbatim}
+@Book{Fagner1988,
+Title                    = {Revelação},
+Address                  = {Rio de Janeiro},
+Author                   = {Fagner, R.},
+Note                     = {1 cassete sonoro (60 min), 3 3/4 pps, 
+estéreo},
+Publisher                = {CBS},
+Year                     = {1988},
+Owner                    = {AnaPaula},
+Timestamp                = {2015.10.08}
+}
+\end{verbatim}
+
+\begin{tabular}{|l|c|} \hline
+	DENVER, John. \textbf{Poems, prayers \& promises}. São Paulo: RCA Records,\\
+	1974. 1 disco (38 min): 33 1/3 rpm, microssulco, estéreo. 104.4049. \\\hline
+\end{tabular} \\
+
+\textbf{Campos em LATEX:} 
+
+\begin{verbatim}
+@Book{Denver1974,
+Title                    = {Poems, prayers \& promises},
+Address                  = {São Paulo},
+Author                   = {Denver, John},
+Note                     = {1 disco (38 min): 33 1/3 rpm, microssulco, 
+estéreo. 104.4049},
+Publisher                = {RCA records},
+Year                     = {1974},
+Owner                    = {apcalabrez},
+Timestamp                = {2015.10.08}
+}
+\end{verbatim}
+
+\subsubsection{Em parte}
+%\textbf{4.6.2.2 Em parte} \\
+
+\begin{tabular}{|l|c|} \hline
+	COSTA. S.; SILVA, A. Jura secreta. Intérprete: Simone. \textit{In}: SIMONE. \textbf{Face}\\ \textbf{a face}. [\textit{S.l.}]: Emi-Odeon Brasil, p1977. 1 CD. Faixa 7. 
+	\\\hline
+\end{tabular} \\
+
+\textbf{Campos em LATEX:} 
+
+\begin{verbatim}
+@InCollection{simone1977,
+author       = {Costa, S and Silva, A.},
+title        = {Jura secreta. {Intérprete: Simone}},
+booktitle    = {Face a face},
+year         = {1977},
+note         = {1 CD. Faixa 7},
+publisher    = {Emi-Odeon Brasil},
+org-short    = {Simone},
+organization = {Simone},
+owner        = {apcalabrez},
+timestamp    = {2015.10.08},
+}
+\end{verbatim}
+
+\subsection{Partituras}
+
+\subsubsection{Impressa}
+
+
+\begin{tabular}{|l|c|} \hline
+	SOBRENOME, Prenome do autor. \textbf{Título}: subtítulo. Local: Editora, ano.\\
+	Designação do material (unidades físicas: número de partituras ou de partes,\\
+	páginas e/ou folhas). Instrumento a que se destina. 
+	\\\hline
+\end{tabular} \\
+
+\textbf{Exemplos:} \\
+
+\begin{tabular}{|l|c|} \hline
+	VILLA-LOBOS, H. \textbf{Coleções de quartetos modernos}: cordas. Rio de \\Janeiro: [\textit{s.n}], 1916. 1 partitura [23 p.]. Violoncelo. 
+	\\\hline
+\end{tabular} \\
+
+\textbf{Campos em LATEX:} 
+
+\begin{verbatim}
+@Book{Villa-Lobos1916,
+author    = {Villa-Lobos, H.},
+title     = {Coleções de quartetos modernos},
+year      = {1916},
+address   = {Rio de Janeiro},
+subtitle  = {cordas},
+publisher = {},
+note      = {1 partitura [23 p.]. Violoncelo},
+owner     = {apcalabrez},
+timestamp = {2015.10.08},
+}
+\end{verbatim}
+
+\subsubsection{Em suporte eletrônico}
+
+\begin{tabular}{|l|c|} \hline
+	SOBRENOME, Prenome do autor. \textbf{Título}: subtítulo. Local: Editora,
+	ano. \\Designação do material (unidades físicas: número de
+	partituras ou de partes).\\Instrumento a que se destina. Disponível
+	em: endereço eletrônico. Acesso \\em: dia mês abreviado. Ano. 
+	\\\hline
+\end{tabular} \\
+
+\textbf{Exemplos:} \\
+
+\begin{tabular}{|l|c|} \hline
+	OLIVA, Marcos; MOCOTÓ, Tiago. \textbf{Fervilhar}: frevo. [\textit{s.n}], [19--]. 1 partitura.
+	\\Piano. Disponível em: http://openlink.inter.net/picolino/partitur.htm.
+	\\Acesso: 5 jan. 2002. 
+	\\\hline
+\end{tabular} \\
+
+\textbf{Campos em LATEX:} 
+
+\begin{verbatim}
+@Book{Oliva1900,
+Title                    = {Fervilhar},
+Author                   = {Oliva, M. and Mocot\'o, T.},
+Note                     = {1 partitura. Piano},
+Subtitle                 = {frevo},
+Year                     = {{[19--]}},
+Url                      = {http://openlink.inter.net/picolino/partitur.
+htm},
+Urlaccessdate            = {5 jan. 2002},
+Owner                    = {apcalabrez},
+Timestamp                = {2015.10.08}
+}
+\end{verbatim}
+
+\subsection{Bula de medicamento}
+
+\begin{tabular}{|l|c|} \hline
+	TÍTULO da medicação. Responsável técnico (se houver). Local: Laboratório, \\ano de fabricação. Bula de remédio. 
+	\\\hline
+\end{tabular} \\
+
+\textbf{Exemplos:} \\
+
+\begin{tabular}{|l|c|} \hline
+	RESPRIN: comprimidos. Responsável técnico Delosmar R. Bastos. São José \\dos Campos: Johnson \& Johnson, 1997. Bula de remédio. 
+	\\\hline
+\end{tabular} \\
+
+\textbf{Campos em LATEX:} 
+
+\begin{verbatim}
+@Book{resprin1997,
+Title                    = {Resprin},
+Address                  = {São José dos Campos},
+Furtherresp              = {Responsável técnico Delosmar R. Bastos},
+Note                     = {Bula de remédio},
+Publisher                = {Johnson \& Johnson},
+Subtitle                 = {comprimidos},
+Year                     = {1997},
+Owner                    = {apcalabrez},
+Timestamp                = {2015.09.14}
+}
+\end{verbatim}
+
+\textbf{-- Em suporte eletrônico} \\
+
+\begin{tabular}{|l|c|} \hline
+	BUSCOPAN: composto. Responsável Técnico Dímitra Apostolopoulou.\\ Itacerica da Serra: Boehringer Ingelheim Brasil, 2013. Bula de remédio. \\Disponível em: http://www.buscopan.com.br/content/dam/internet/\\chc/buscopan/pt-BR/documents/bula-buscopan-composto-comprimidos-\\revestidos-paciente.pdf. Acesso em: 14 set. 2015.
+	\\\hline
+\end{tabular} \\
+
+\textbf{Campos em LATEX:} 
+
+\begin{verbatim}
+@Book{buscopan2013,
+Title                    = {Buscopan},
+Address                  = {Itacerica da Serra},
+Furtherresp              = {Responsável Técnico Dímitra 
+Apostolopoulou},
+Note                     = {Bula de remédio},
+Publisher                = {Boehringer Ingelheim Brasil},
+Subtitle                 = {composto},
+Year                     = {2013},
+Url                      = {http://www.buscopan.com.br/
+content/dam/internet/chc/buscopan/pt_BR/documents/bula_
+buscopan_composto_comprimidos_revestidos_paciente.pdf},
+Urlaccessdate            = {14 set. 2015},
+Owner                    = {apcalabrez},
+Timestamp                = {2015.09.14}
+}
+\end{verbatim}
+
+\subsection{Website}
+
+\textbf{Exemplo:} \\
+
+\begin{tabular}{|l|c|} \hline
+	UNIVERSIDADE DE SÃO PAULO. Disponível em: http://www.usp.br.\\ Acesso em: 16 out. 2014
+	\\\hline
+\end{tabular} \\
+
+\textbf{Campos em LATEX:} 
+
+\begin{verbatim}
+@Misc{usp2014,
+Title                    = {UNIVERSIDADE DE SÃO PAULO},
+Org-short                = {Universidade de São Paulo},
+Url                      = {http://www.usp.br},
+Urlaccessdate            = {16 out. 2014},
+Owner                    = {marilza},
+Timestamp                = {2019.10.16}
+}
+\end{verbatim}
+
+\subsection{Artigo ahead of print}
+
+Artigo aceito para publicação e disponível on-line, antes da impressão,
+sem ter um número de fascículo associado. \\
+
+\textbf{Exemplo:} \\
+
+
+\begin{tabular}{|l|c|} \hline
+	TEIXEIRA JÚNIOR, A. L.; CARAMELLI, P. Apatia na doença de \\Alzheimer. \textbf{Revista Brasileira de Psiquiatria}, São Paulo, 2006. No\\ prelo. Disponível em:
+	http://www.scielo.br/pdf/rbp/nahead/ahead1b.\\pdf. Acesso em: 8 ago.
+	2006. 
+	\\\hline
+\end{tabular} \\
+
+\textbf{Campos em LATEX:} 
+
+\begin{verbatim}
+@Article{Teixeira2006,
+Title                    = {Apatia na doença de Alzheimer},
+Author                   = {Teixeira, Junior, A. L. and Caramelli, 
+P.},
+Journal                  = {Revista Brasileira de Psiquiatria},
+Year                     = {2006},
+Address                  = {São Paulo},
+Note                     = {No prelo},
+Url                      = {http://www.scielo.br/pdf/rbp/nahead
+/ahead1b.pdf},
+Urlaccessdate            = {8 ago. 2006},
+Owner                    = {apcalabrez},
+Timestamp                = {2016.04.26}
+}
+\end{verbatim}
+
+\subsection{Digital Object Identifier (DOI)}
+
+Representa um sistema de identificação numérico para localizar e
+acessar materiais na web (publicações em periódicos, livros etc.), muitas
+das quais localizadas em bibliotecas virtuais. Foi desenvolvido pela
+Associação de Publicadores Americanos (AAP) com a finalidade de autenticar a base administrativa de conteúdo digital. Este número de
+identificação da obra é composto por duas sequências: um prefixo (ou
+raiz) que identifica o publicador do documento e um sufixo determinado
+pelo responsável pela publicação do documento. \cite{Doic2016}.
+
+Por exemplo: 34.7111.9 / ISBN (ou ISSN).
+
+O prefixo DOI é nomeado pela International DOI Foundation (IDF),
+garantindo identidade única a cada documento. \\
+
+
+\begin{tabular}{|l|c|} \hline
+	SUKIKARA, M. H. \textit{et al.} Opiate regulation of behavioral selection during \\lactation. \textbf{Pharmacology, Biochemistry and Behavior}, Phoenix, v. 87,\\ p. 315-320, 2007. DOI: 10.1016/j.pbb.2007.05.005. 
+	\\\hline
+\end{tabular} \\
+
+\textbf{Campos em LATEX:} 
+
+\begin{verbatim}
+@Article{Sukikara2007,
+Title                    = {Opiate regulation of behavioral selection 
+during lactation},
+Author                   = {Sukikara, M. H. and Arruda, M. L. and 
+Softova,
+L. G. and Malinowski, J. M},
+Journal                  = {Pharmacology, Biochemistry and Behavior},
+Year                     = {2007},
+Address                  = {Phoenix},
+Note                     = {DOI: 10.1016/j.pbb.2007.05.005},
+Pages                    = {315-320},
+Volume                   = {87},
+Owner                    = {apcalabrez},
+Timestamp                = {2015.10.08}
+}
+\end{verbatim}
+
+\textbf{Documento em suporte eletrônico} 
+
+\begin{tabular}{|l|c|} \hline
+	DANTAS, J. A. \textit{et al.} Regulação da auditoria em sistemas bancários: análise do \\ cenário internacional e fatores determinantes. Revista Contabilidade \& Finanças,\\ São Paulo, v. 25, n. 64, p. 07–18, jan./abr. 2014. DOI: http://dx.doi.org/10.1590/\\S1519-707720140001000002. Disponível em: https://www.scielo.br/scielo.php?pid\\=S1519-70772014000100002\&script=sciarttext. Acesso em: 21 maio 2014.	
+	\\\hline
+\end{tabular} \\
+
+\textbf{Campos em LATEX:} 
+
+\begin{verbatim}
+	@article{dantas2014,
+		Title={Regula{\c{c}}{\~a}o da auditoria em sistemas banc{\'a}rios},
+		Subtitle={an{\'a}lise do cen{\'a}rio internacional e fatores determinantes},
+		Author={Dantas, J. A. and Costa, F. M. and Niyama, J. K. and Medeiros, O. R.},
+		Journal={Revista Contabilidade \& Finan{\c{c}}as},
+		Address={S{\~a}o Paulo},
+		Volume={25},
+		Number={64},
+		Pages={07--18},
+		Month={jan./abr.},
+		year={2014},
+		Note={DOI: http://dx.doi.org/10.1590/S1519-707720140001000002},
+		Url={https://www.scielo.br/scielo.php?pid=S1519-70772014000100002&script=sci_arttext},
+		Urlaccessdate={21 maio 2014},	
+	}
+\end{verbatim}
+
+
+\subsection{CD-ROM e disquete}
+
+\textbf{Exemplo} \\
+
+\begin{tabular}{|l|c|} \hline
+	MICROSOFT Project for Windows 95: project planning software. Version \\4.1. [\textit{S.l.}]: Microsoft Corporation, 1995. 1 CD-ROM. 
+	\\\hline
+\end{tabular} \\
+
+\textbf{Campos em LATEX:} 
+
+\begin{verbatim}
+@Book{microsoft1995,
+Title                    = {Microsoft Project for Windows 95},
+Note                     = {1 CD-ROM},
+Org-short                = {Microsoft},
+Publisher                = {Microsoft Corporation},
+Subtitle                 = {project planning software. Version 4.1.},
+Year                     = {1995},
+Owner                    = {apcalabrez},
+Timestamp                = {2015.10.08}
+}
+\end{verbatim}
+
+\subsection{Mensagens eletrônicas}
+
+\textbf{Exemplo} \\
+
+\begin{tabular}{|l|c|} \hline
+	SCIENCEDIRECT MESSAGE CENTER. \textbf{ScienceDirect Search Alert}: \\34 New articles Available on ScienceDirect [mensagem pessoal]. Mensagem \\recebida por mjkarval@usp.br em 17 nov. 2006. 
+	\\\hline
+\end{tabular} \\
+
+\textbf{Campos em LATEX:} 
+
+\begin{verbatim}
+@Book{science2006,
+Title                    = {ScienceDirect Search Alert},
+Note                     = {Mensagem recebida por mjkarval@usp.br 
+em 17 nov. 2006},
+Org-short                = {Sciencedirect Message Center},
+Organization             = {Sciencedirect Message Center},
+Subtitle                 = {34 New articles Available on 
+ScienceDirect [mensagem pessoal]},
+Owner                    = {apcalabrez},
+Timestamp                = {2015.10.08}
+}
+\end{verbatim}
+
+As referências das citações presentes em \textbf{REFERÊNCIAS} também servem de exemplos para elaboração de bibliografia em BibTeX e constam do arquivo.bib.
+

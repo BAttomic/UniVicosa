@@ -1,0 +1,410 @@
+\chapter{CONDUÇÃO DO PROJETO}
+
+Este capítulo descreve os procedimentos de execução e controle do projeto, detalhando como as atividades planejadas serão conduzidas, monitoradas e ajustadas durante todo o ciclo de desenvolvimento da plataforma de ingressos online. A condução eficaz do projeto requer processos estruturados de gestão que garantam alinhamento entre execução e planejamento \cite{PMI:2021}.
+
+\section{Governança e Estrutura de Gestão}
+
+A governança do projeto estabelece a estrutura de autoridade, responsabilidade e processos decisórios que guiarão a execução \cite{Kerzner:2022}.
+
+\subsection{Estrutura Organizacional}
+
+O projeto adota uma estrutura organizacional matricial balanceada, onde o Gerente de Projeto possui autoridade sobre o planejamento e controle, enquanto os especialistas técnicos mantêm autonomia para decisões técnicas dentro de suas áreas de expertise. Esta estrutura promove equilíbrio entre controle de gestão e flexibilidade técnica, essencial para projetos de desenvolvimento ágil.
+
+\textbf{Comitê de Direcionamento:} Composto pelo orientador acadêmico, Gerente de Projeto e representantes dos stakeholders principais. Reúne-se quinzenalmente para revisão de progresso, aprovação de mudanças de escopo significativas e resolução de impedimentos de alto nível.
+
+\textbf{Equipe de Desenvolvimento:} Auto-organizada para decisões técnicas cotidianas, com autonomia para escolher as melhores abordagens para implementação dentro dos requisitos e restrições estabelecidos.
+
+\subsection{Processos Decisórios}
+
+As decisões são categorizadas em três níveis:
+
+\textbf{Decisões Estratégicas:} Mudanças de escopo, arquitetura fundamental, orçamento e cronograma macro. Requerem aprovação do Comitê de Direcionamento.
+
+\textbf{Decisões Táticas:} Escolhas de tecnologias específicas, abordagens de implementação e priorização de backlog. Decididas pelo Gerente de Projeto em conjunto com especialistas técnicos.
+
+\textbf{Decisões Operacionais:} Detalhes de implementação, estruturas de código e testes. Decididas autonomamente pela equipe de desenvolvimento durante sprints.
+
+\section{Gestão de Comunicação}
+
+A comunicação eficaz é fundamental para o sucesso do projeto, garantindo alinhamento entre stakeholders e transparência sobre progresso e desafios \cite{PMI:2021}.
+
+\subsection{Canais de Comunicação}
+
+\textbf{Reuniões Presenciais/Virtuais:}
+\begin{itemize}
+    \item Daily Standup: Diariamente, 15 minutos, toda a equipe técnica
+    \item Sprint Planning: A cada 2 semanas, 4 horas, toda a equipe
+    \item Sprint Review: A cada 2 semanas, 2 horas, equipe + stakeholders
+    \item Sprint Retrospective: A cada 2 semanas, 1,5 horas, toda a equipe
+    \item Reunião do Comitê: Quinzenalmente, 1 hora, comitê de direcionamento
+\end{itemize}
+
+\textbf{Ferramentas Assíncronas:}
+\begin{itemize}
+    \item Slack ou Microsoft Teams: Comunicação rápida e informal
+    \item Jira ou Azure DevOps: Gestão de backlog, tarefas e bugs
+    \item Confluence ou Notion: Documentação colaborativa
+    \item GitHub/GitLab: Revisões de código e discussões técnicas
+\end{itemize}
+
+\subsection{Relatórios e Documentação}
+
+\textbf{Relatório Semanal de Progresso:} Enviado toda segunda-feira pelo Gerente de Projeto, contendo:
+\begin{itemize}
+    \item Resumo do progresso da semana anterior
+    \item Marcos atingidos e entregas completadas
+    \item Impedimentos identificados e ações de resolução
+    \item Próximos passos e atividades críticas
+    \item Indicadores-chave de projeto (cronograma, orçamento, qualidade)
+\end{itemize}
+
+\textbf{Dashboard de Projeto:} Painel visual atualizado em tempo real com métricas como:
+\begin{itemize}
+    \item Burndown chart do sprint atual
+    \item Velocity da equipe (story points completados por sprint)
+    \item Quantidade de testes passando/falhando
+    \item Cobertura de código
+    \item Dívida técnica acumulada
+\end{itemize}
+
+\textbf{Atas de Reuniões:} Documentação de todas as reuniões formais, incluindo decisões tomadas, ações definidas e responsáveis.
+
+\section{Gestão de Riscos}
+
+A gestão de riscos é um processo contínuo ao longo do projeto, envolvendo identificação, análise, planejamento de respostas e monitoramento \cite{PMI:2021}.
+
+\subsection{Processo de Identificação}
+
+Novos riscos são identificados continuamente através de:
+\begin{itemize}
+    \item Retrospectivas de sprint (lições aprendidas)
+    \item Análise de métricas técnicas (performance degradando, dívida técnica crescendo)
+    \item Feedback de stakeholders
+    \item Monitoramento de tecnologias e dependências externas
+\end{itemize}
+
+\subsection{Registro e Priorização}
+
+Todos os riscos são documentados no Registro de Riscos contendo:
+\begin{itemize}
+    \item Descrição do risco
+    \item Probabilidade de ocorrência (Baixa/Média/Alta)
+    \item Impacto potencial (Baixo/Médio/Alto/Crítico)
+    \item Exposição ao risco (Probabilidade × Impacto)
+    \item Estratégia de resposta (Mitigar/Transferir/Aceitar/Evitar)
+    \item Ações preventivas planejadas
+    \item Responsável pelo monitoramento
+    \item Indicadores de alerta precoce
+\end{itemize}
+
+\subsection{Estratégias de Resposta}
+
+Para os riscos de maior prioridade identificados no Capítulo 3, as seguintes estratégias serão implementadas:
+
+\textbf{R001 - Picos de Demanda Extrema:}
+\begin{itemize}
+    \item \textit{Mitigação:} Implementação de sistema de filas virtuais com Redis desde o início
+    \item \textit{Mitigação:} Configuração agressiva de auto-scaling (escala a 60\% de CPU)
+    \item \textit{Mitigação:} Utilização de CDN para distribuir carga de assets estáticos
+    \item \textit{Monitoramento:} Testes de carga progressivos a cada 3 sprints
+\end{itemize}
+
+\textbf{R002 - Falhas na Integração de Pagamentos:}
+\begin{itemize}
+    \item \textit{Mitigação:} Integração com 2 gateways independentes desde o início
+    \item \textit{Mitigação:} Implementação de circuit breaker e fallback automático
+    \item \textit{Mitigação:} Testes extensivos em ambiente sandbox antes de produção
+    \item \textit{Monitoramento:} Alertas automáticos para taxa de erro > 1\% em transações
+\end{itemize}
+
+\textbf{R003 - Fraudes e Falsificação:}
+\begin{itemize}
+    \item \textit{Mitigação:} QR Codes dinâmicos que se atualizam a cada 30 segundos
+    \item \textit{Mitigação:} Vinculação obrigatória ingresso-usuário com validação de identidade
+    \item \textit{Mitigação:} Logs detalhados de tentativas de validação para análise forense
+    \item \textit{Monitoramento:} Dashboard de detecção de padrões anômalos
+\end{itemize}
+
+\textbf{R004 - Conectividade no Local do Evento:}
+\begin{itemize}
+    \item \textit{Mitigação:} Modo offline robusto com cache local de ingressos válidos
+    \item \textit{Mitigação:} Sincronização inteligente quando conectividade é restaurada
+    \item \textit{Mitigação:} Backup de conectividade via 4G/5G em dispositivos de check-in
+    \item \textit{Monitoramento:} Testes em condições reais em evento piloto
+\end{itemize}
+
+\section{Gestão de Mudanças}
+
+Mudanças de escopo, requisitos ou arquitetura seguem um processo formal de controle para avaliar impactos e garantir decisões informadas \cite{PMI:2021}.
+
+\subsection{Processo de Solicitação de Mudança}
+
+\begin{enumerate}
+    \item \textbf{Solicitação:} Qualquer stakeholder pode solicitar mudança através de formulário padronizado descrevendo a mudança proposta e justificativa
+    
+    \item \textbf{Análise de Impacto:} Gerente de Projeto e equipe técnica analisam:
+    \begin{itemize}
+        \item Impacto no escopo, cronograma e orçamento
+        \item Impacto na arquitetura e integração com componentes existentes
+        \item Riscos introduzidos pela mudança
+        \item Valor agregado versus custo de implementação
+    \end{itemize}
+    
+    \item \textbf{Classificação:}
+    \begin{itemize}
+        \item \textbf{Mudança Menor:} Sem impacto em cronograma/orçamento, aprovada pelo GP
+        \item \textbf{Mudança Moderada:} Impacto < 5\% em cronograma/orçamento, aprovada pelo Comitê
+        \item \textbf{Mudança Maior:} Impacto ≥ 5\%, requer aprovação do orientador acadêmico
+    \end{itemize}
+    
+    \item \textbf{Decisão:} Aprovação ou rejeição com justificativa documentada
+    
+    \item \textbf{Implementação:} Se aprovada, mudança é incorporada ao backlog e priorizada
+    
+    \item \textbf{Comunicação:} Todos os stakeholders são notificados da decisão e impactos
+\end{enumerate}
+
+\subsection{Baseline e Controle de Versão}
+
+O projeto estabelece baselines (linhas de base) formais em marcos importantes:
+\begin{itemize}
+    \item \textbf{Baseline de Requisitos:} Após aprovação do Capítulo 3 (Semana 4)
+    \item \textbf{Baseline de Arquitetura:} Após aprovação do design arquitetural (Semana 6)
+    \item \textbf{Baseline de Escopo:} Antes do início do desenvolvimento core (Semana 8)
+\end{itemize}
+
+Mudanças pós-baseline requerem processo formal de controle. O código-fonte segue versionamento semântico (MAJOR.MINOR.PATCH) para rastreamento claro de mudanças.
+
+\section{Gestão da Qualidade}
+
+A qualidade é assegurada através de processos contínuos de verificação, validação e melhoria \cite{Pressman:2019}.
+
+\subsection{Garantia da Qualidade (QA)}
+
+\textbf{Revisões de Código:} Todo código produzido passa por peer review antes de merge:
+\begin{itemize}
+    \item Revisão de no mínimo 1 desenvolvedor sênior
+    \item Checklist de qualidade: legibilidade, performance, segurança, testes
+    \item Validação automatizada de estilo de código (linters)
+\end{itemize}
+
+\textbf{Definition of Done (DoD):} Critérios obrigatórios para considerar uma funcionalidade completa:
+\begin{itemize}
+    \item Código implementado e revisado
+    \item Testes unitários escritos e passando (cobertura ≥ 80\%)
+    \item Testes de integração escritos e passando
+    \item Documentação técnica atualizada
+    \item Sem vulnerabilidades críticas ou altas detectadas
+    \item Funcionalidade demonstrada e aprovada pelo Product Owner
+\end{itemize}
+
+\textbf{Auditorias de Qualidade:} Realizadas a cada 4 sprints pelo Analista de QA:
+\begin{itemize}
+    \item Revisão de conformidade com padrões de codificação
+    \item Análise de dívida técnica acumulada
+    \item Validação de cobertura de testes
+    \item Verificação de documentação atualizada
+\end{itemize}
+
+\subsection{Controle da Qualidade}
+
+\textbf{Testes Automatizados Contínuos:}
+\begin{itemize}
+    \item Execução automática de testes unitários a cada commit
+    \item Execução de testes de integração a cada push para branch develop
+    \item Testes E2E executados diariamente em ambiente de homologação
+    \item Relatórios de cobertura gerados automaticamente
+\end{itemize}
+
+\textbf{Análise Estática de Código:}
+\begin{itemize}
+    \item SonarQube integrado ao pipeline de CI/CD
+    \item Quality Gates definindo limites aceitáveis de dívida técnica
+    \item Bloqueio automático de merges que introduzam vulnerabilidades críticas
+\end{itemize}
+
+\textbf{Testes de Performance:}
+\begin{itemize}
+    \item Testes de carga progressivos (1k, 5k, 10k usuários) a cada 3 sprints
+    \item Benchmark de tempos de resposta de APIs críticas
+    \item Análise de uso de recursos (CPU, memória, rede)
+\end{itemize}
+
+\section{Gestão de Recursos Humanos}
+
+A gestão eficaz da equipe é essencial para manter motivação, produtividade e qualidade das entregas.
+
+\subsection{Alocação e Nivelamento}
+
+\textbf{Matriz de Habilidades:} Documentação das competências de cada membro, identificando:
+\begin{itemize}
+    \item Especialidades técnicas (linguagens, frameworks, ferramentas)
+    \item Experiência em domínios (pagamentos, segurança, UX)
+    \item Nível de proficiência (iniciante, intermediário, avançado, especialista)
+\end{itemize}
+
+\textbf{Alocação Dinâmica:} Membros da equipe são alocados a tarefas considerando:
+\begin{itemize}
+    \item Match entre habilidades requeridas e disponíveis
+    \item Equilíbrio de carga de trabalho (evitar sobrecarga ou subutilização)
+    \item Oportunidades de desenvolvimento profissional (pair programming)
+    \item Dependências entre tarefas e especialização necessária
+\end{itemize}
+
+\subsection{Desenvolvimento da Equipe}
+
+\textbf{Pair Programming:} Prática encorajada especialmente para:
+\begin{itemize}
+    \item Tarefas complexas ou críticas
+    \item Transferência de conhecimento entre membros
+    \item Onboarding de novos integrantes
+\end{itemize}
+
+\textbf{Tech Talks Internos:} Apresentações quinzenais de 30 minutos onde membros compartilham:
+\begin{itemize}
+    \item Novas tecnologias e ferramentas descobertas
+    \item Soluções criativas para problemas enfrentados
+    \item Lições aprendidas de bugs ou incidentes
+\end{itemize}
+
+\textbf{Retrospectivas Focadas em Time:} Além das retrospectivas técnicas, sessões trimestrais focadas em:
+\begin{itemize}
+    \item Dinâmica e colaboração da equipe
+    \item Identificação de frustrações e impedimentos não técnicos
+    \item Celebração de sucessos e reconhecimento
+\end{itemize}
+
+\section{Gestão de Aquisições e Fornecedores}
+
+O projeto depende de diversos fornecedores e serviços externos que devem ser adequadamente gerenciados.
+
+\subsection{Seleção de Fornecedores}
+
+\textbf{Provedores de Nuvem:} Seleção baseada em critérios como:
+\begin{itemize}
+    \item Custo total de propriedade (TCO) para cargas de trabalho previstas
+    \item Disponibilidade de serviços gerenciados necessários
+    \item Conformidade com regulamentações (LGPD)
+    \item Qualidade de suporte técnico e SLAs oferecidos
+\end{itemize}
+
+\textbf{Gateway de Pagamento:} Avaliação baseada em:
+\begin{itemize}
+    \item Taxa de aprovação de transações (conversion rate)
+    \item Taxas por transação e custos recorrentes
+    \item Certificações de segurança (PCI DSS Level 1)
+    \item Suporte a métodos de pagamento (PIX, cartão)
+    \item Qualidade de documentação e facilidade de integração
+\end{itemize}
+
+\subsection{Contratos e SLAs}
+
+Todos os contratos com fornecedores críticos incluem:
+\begin{itemize}
+    \item Service Level Agreements (SLAs) claros com métricas mensuráveis
+    \item Cláusulas de penalidade por descumprimento de SLA
+    \item Direitos de portabilidade de dados
+    \item Responsabilidades em caso de incidentes de segurança
+    \item Processos de suporte e escalação
+\end{itemize}
+
+\subsection{Monitoramento de Performance}
+
+Performance de fornecedores é monitorada continuamente:
+\begin{itemize}
+    \item Disponibilidade de APIs e serviços externos
+    \item Tempos de resposta de integrações
+    \item Taxa de erro em chamadas a serviços externos
+    \item Custos reais versus estimados
+\end{itemize}
+
+Reuniões trimestrais de revisão com fornecedores principais para:
+\begin{itemize}
+    \item Análise de cumprimento de SLAs
+    \item Discussão de incidentes e melhorias
+    \item Negociação de otimizações de custo
+\end{itemize}
+
+\section{Gestão de Integração}
+
+A gestão de integração garante que todos os componentes do projeto trabalhem de forma coesa e coordenada \cite{PMI:2021}.
+
+\subsection{Coordenação de Atividades}
+
+\textbf{Sincronização de Sprints:} Todas as equipes (quando aplicável) trabalham em sprints sincronizados de 2 semanas, facilitando:
+\begin{itemize}
+    \item Integração contínua de componentes desenvolvidos em paralelo
+    \item Cerimônias compartilhadas (planning, review, retrospective)
+    \item Resolução coordenada de dependências
+\end{itemize}
+
+\textbf{Integração Técnica Contínua:} Pipeline de CI/CD garante que:
+\begin{itemize}
+    \item Código de múltiplos desenvolvedores é integrado diariamente
+    \item Conflitos de integração são detectados rapidamente
+    \item Testes de integração validam comunicação entre componentes
+    \item Builds são gerados automaticamente para ambientes de teste
+\end{itemize}
+
+\subsection{Gestão de Dependências}
+
+\textbf{Matriz de Dependências:} Documentação de todas as dependências entre:
+\begin{itemize}
+    \item Tarefas e atividades do projeto
+    \item Componentes de software (microsserviços)
+    \item Fornecedores e serviços externos
+\end{itemize}
+
+\textbf{Resolução de Bloqueios:} Processo expedito para desbloquear tarefas:
+\begin{itemize}
+    \item Identificação durante daily standup
+    \item Escalação imediata ao Gerente de Projeto
+    \item Mobilização de recursos para resolução prioritária
+    \item Comunicação proativa a stakeholders afetados
+\end{itemize}
+
+\section{Encerramento de Sprints e Fases}
+
+Cada sprint e fase principal do projeto possui procedimentos formais de encerramento.
+
+\subsection{Encerramento de Sprint}
+
+\textbf{Sprint Review:} Demonstração de incremento funcional para stakeholders:
+\begin{itemize}
+    \item Apresentação de funcionalidades completadas
+    \item Coleta de feedback imediato
+    \item Ajuste de prioridades para próximos sprints
+\end{itemize}
+
+\textbf{Sprint Retrospective:} Reflexão da equipe sobre processo:
+\begin{itemize}
+    \item O que funcionou bem (manter)
+    \item O que não funcionou (eliminar)
+    \item O que pode ser melhorado (experimentar)
+    \item Definição de ações concretas de melhoria
+\end{itemize}
+
+\textbf{Atualização de Métricas:} Registro de indicadores do sprint:
+\begin{itemize}
+    \item Velocity alcançada (story points completados)
+    \item Bugs encontrados e corrigidos
+    \item Cobertura de testes final
+    \item Dívida técnica adicionada ou reduzida
+\end{itemize}
+
+\subsection{Encerramento de Fases}
+
+Ao final de cada fase principal (Planejamento, Desenvolvimento Core, Testes, Implantação):
+
+\textbf{Revisão de Entregáveis:} Validação formal de que todos os entregáveis planejados foram completados e atendem aos critérios de aceitação.
+
+\textbf{Lições Aprendidas:} Documentação estruturada de:
+\begin{itemize}
+    \item Práticas que funcionaram bem e devem ser mantidas
+    \item Problemas enfrentados e como foram resolvidos
+    \item Recomendações para fases futuras ou projetos similares
+\end{itemize}
+
+\textbf{Aprovação Formal:} Assinatura de termo de aceite pelo Comitê de Direcionamento autorizando progressão para a próxima fase.
+
+Este conjunto integrado de processos de condução assegura que o projeto seja executado de forma controlada, com visibilidade contínua de progresso, riscos e qualidade, permitindo ajustes proativos para garantir sucesso na entrega.

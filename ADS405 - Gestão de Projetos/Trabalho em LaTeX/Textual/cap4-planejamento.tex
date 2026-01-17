@@ -1,0 +1,418 @@
+\chapter{PLANEJAMENTO DO PROJETO}
+
+O planejamento de projetos de software constitui uma das etapas mais críticas para o sucesso da entrega, estabelecendo as bases para controle, execução e monitoramento eficazes \cite{PMI:2021}. Este capítulo detalha a estrutura analítica do projeto, a decomposição hierárquica do trabalho, a atribuição de responsabilidades e o sequenciamento lógico das atividades necessárias para o desenvolvimento da plataforma de ingressos online.
+
+\section{Estrutura Analítica do Projeto (EAP)}
+
+A Estrutura Analítica do Projeto, conhecida internacionalmente como Work Breakdown Structure (WBS), representa uma decomposição hierárquica orientada às entregas do trabalho a ser executado pela equipe para atingir os objetivos do projeto \cite{PMI:2021}. A EAP organiza e define o escopo total do projeto, subdividindo o trabalho em componentes menores e mais gerenciáveis chamados pacotes de trabalho.
+
+A EAP desenvolvida para a plataforma de ingressos online foi estruturada em quatro níveis hierárquicos, iniciando com o projeto completo (nível 0) e detalhando-se progressivamente até os pacotes de trabalho individuais (nível 3). A estrutura prioriza a modularidade, permitindo desenvolvimento, teste e validação independentes de cada componente.
+
+\begin{figure}[H]
+\centering
+\small
+\begin{verbatim}
+1.0 PLATAFORMA DE INGRESSOS ONLINE
+├── 1.1 INICIAÇÃO E PLANEJAMENTO
+│   ├── 1.1.1 Análise de Requisitos
+│   ├── 1.1.2 Definição de Arquitetura
+│   └── 1.1.3 Planejamento Detalhado
+├── 1.2 INFRAESTRUTURA E SEGURANÇA
+│   ├── 1.2.1 Configuração de Ambiente Cloud
+│   ├── 1.2.2 Implementação de CDN
+│   └── 1.2.3 Configuração de Segurança
+├── 1.3 BACKEND E APIS
+│   ├── 1.3.1 API de Autenticação
+│   ├── 1.3.2 API de Gestão de Eventos
+│   ├── 1.3.3 API de Processamento de Pagamentos
+│   └── 1.3.4 API de Ingressos Digitais
+├── 1.4 FRONTEND
+│   ├── 1.4.1 Interface do Comprador
+│   ├── 1.4.2 Dashboard do Organizador
+│   └── 1.4.3 Aplicação de Check-in
+├── 1.5 INTEGRAÇÕES
+│   ├── 1.5.1 Gateway de Pagamento
+│   ├── 1.5.2 Serviço de E-mail
+│   └── 1.5.3 Sistema de Filas
+├── 1.6 TESTES E QUALIDADE
+│   ├── 1.6.1 Testes Unitários
+│   ├── 1.6.2 Testes de Integração
+│   ├── 1.6.3 Testes de Carga
+│   └── 1.6.4 Testes de Segurança
+└── 1.7 IMPLANTAÇÃO E ENCERRAMENTO
+    ├── 1.7.1 Deploy em Produção
+    ├── 1.7.2 Monitoramento e Observabilidade
+    └── 1.7.3 Documentação e Treinamento
+\end{verbatim}
+\caption{Estrutura Analítica do Projeto (EAP) da plataforma de ingressos online.}
+\label{fig:eap}
+\end{figure}
+
+\subsection{Dicionário da EAP}
+
+O dicionário da EAP fornece descrições detalhadas de cada componente da estrutura, estabelecendo claramente o escopo, as entregas esperadas e os critérios de aceitação para cada pacote de trabalho \cite{Verzuh:2021}.
+
+\textbf{1.1 INICIAÇÃO E PLANEJAMENTO}
+
+Esta fase estabelece as bases para todo o projeto, incluindo análise completa de requisitos, definição da arquitetura de software e microsserviços, e planejamento detalhado de recursos, cronograma e orçamento.
+
+\textbf{1.1.1 Análise de Requisitos:} Levantamento completo de requisitos funcionais e não funcionais através de workshops com stakeholders, análise de concorrentes e documentação de casos de uso. Entrega: Documento de Especificação de Requisitos.
+
+\textbf{1.1.2 Definição de Arquitetura:} Projeto da arquitetura de microsserviços, incluindo diagramas de componentes, definição de tecnologias (linguagens, frameworks, banco de dados) e padrões de comunicação entre serviços. Entrega: Documento de Arquitetura de Software.
+
+\textbf{1.1.3 Planejamento Detalhado:} Elaboração do cronograma detalhado, matriz de responsabilidades RACI, análise de riscos e plano de comunicação. Entrega: Plano de Gerenciamento do Projeto.
+
+\textbf{1.2 INFRAESTRUTURA E SEGURANÇA}
+
+Estabelecimento da infraestrutura de nuvem escalável, implementação de CDN global e configuração de todas as camadas de segurança necessárias para operação em conformidade com padrões PCI DSS \cite{PCIDSS:2022}.
+
+\textbf{1.2.1 Configuração de Ambiente Cloud:} Provisionamento de recursos em nuvem (AWS/Azure/GCP), configuração de auto-scaling, balanceamento de carga e banco de dados gerenciados. Entrega: Ambiente de desenvolvimento, homologação e produção operacionais.
+
+\textbf{1.2.2 Implementação de CDN:} Configuração de Content Delivery Network para distribuição global de conteúdo estático (imagens, CSS, JavaScript), reduzindo latência e melhorando experiência do usuário. Entrega: CDN configurada e testada.
+
+\textbf{1.2.3 Configuração de Segurança:} Implementação de firewall de aplicação web (WAF), criptografia TLS/SSL, políticas de acesso IAM, backup automático e conformidade com LGPD \cite{LGPD:2018}. Entrega: Ambiente seguro e auditado.
+
+\textbf{1.3 BACKEND E APIS}
+
+Desenvolvimento de todos os serviços de backend utilizando arquitetura de microsserviços, garantindo separação de responsabilidades, escalabilidade independente e manutenibilidade \cite{Newman:2021}.
+
+\textbf{1.3.1 API de Autenticação:} Desenvolvimento do serviço de identidade e acesso com suporte a JWT, OAuth 2.0, múltiplos perfis de usuário (comprador, organizador, operador) e recuperação de senha. Entrega: API autenticação testada e documentada.
+
+\textbf{1.3.2 API de Gestão de Eventos:} Implementação do CRUD completo de eventos, incluindo upload de imagens, configuração de lotes de ingressos, categorias de preço e políticas específicas. Entrega: API eventos testada e documentada.
+
+\textbf{1.3.3 API de Processamento de Pagamentos:} Desenvolvimento da lógica de carrinho de compras, integração com gateway de pagamento, controle de estoque de ingressos em tempo real e geração de comprovantes. Entrega: API pagamentos testada e documentada.
+
+\textbf{1.3.4 API de Ingressos Digitais:} Criação do sistema de geração de QR Codes dinâmicos, vinculação segura aos usuários, atualização periódica dos códigos e validação em tempo real. Entrega: API ingressos testada e documentada.
+
+\textbf{1.4 FRONTEND}
+
+Desenvolvimento de todas as interfaces de usuário seguindo princípios de design responsivo, usabilidade e acessibilidade conforme WCAG 2.1 \cite{WCAG:2018}.
+
+\textbf{1.4.1 Interface do Comprador:} Construção da interface web responsiva para pesquisa de eventos, seleção de ingressos, processo de compra, visualização de ingressos adquiridos e histórico de compras. Entrega: Interface comprador funcional e responsiva.
+
+\textbf{1.4.2 Dashboard do Organizador:} Desenvolvimento do painel administrativo para cadastro de eventos, acompanhamento de vendas em tempo real, gestão de ingressos e relatórios. Entrega: Dashboard organizador funcional e responsiva.
+
+\textbf{1.4.3 Aplicação de Check-in:} Criação da interface otimizada para operadores de portaria, com leitura de QR Code, validação instantânea, funcionamento offline e sincronização posterior. Entrega: Aplicação check-in funcional e testada.
+
+\textbf{1.5 INTEGRAÇÕES}
+
+Integração com sistemas e serviços externos essenciais para o funcionamento completo da plataforma.
+
+\textbf{1.5.1 Gateway de Pagamento:} Integração completa com provedor de pagamentos (Stripe, Mercado Pago ou similar) para processamento de PIX e cartão de crédito, incluindo webhooks para confirmação de pagamento. Entrega: Integração testada e homologada.
+
+\textbf{1.5.2 Serviço de E-mail:} Configuração de serviço transacional de e-mail (SendGrid, AWS SES ou similar) para envio de confirmações de compra, ingressos digitais e notificações. Entrega: Serviço e-mail operacional.
+
+\textbf{1.5.3 Sistema de Filas:} Implementação de filas virtuais utilizando Redis ou RabbitMQ para gerenciamento de alta demanda em lançamentos de eventos populares. Entrega: Sistema filas operacional e testado.
+
+\textbf{1.6 TESTES E QUALIDADE}
+
+Execução abrangente de testes em múltiplos níveis para garantir qualidade, performance, segurança e conformidade da solução \cite{Pressman:2019}.
+
+\textbf{1.6.1 Testes Unitários:} Desenvolvimento e execução de testes unitários automatizados para todas as funções e componentes do backend, garantindo cobertura mínima de 80\%. Entrega: Suite de testes unitários aprovada.
+
+\textbf{1.6.2 Testes de Integração:} Execução de testes automatizados validando a comunicação entre microsserviços, integração com APIs externas e fluxos completos de funcionalidades. Entrega: Suite de testes integração aprovada.
+
+\textbf{1.6.3 Testes de Carga:} Realização de testes de carga e estresse simulando 10.000 usuários simultâneos para validar escalabilidade e identificar gargalos de performance. Entrega: Relatório testes carga aprovado.
+
+\textbf{1.6.4 Testes de Segurança:} Execução de análise de vulnerabilidades (SAST/DAST), testes de penetração e validação de conformidade com OWASP Top 10 \cite{OWASP:2021} e PCI DSS. Entrega: Relatório segurança aprovado.
+
+\textbf{1.7 IMPLANTAÇÃO E ENCERRAMENTO}
+
+Deploy em ambiente de produção, configuração de monitoramento contínuo e elaboração de documentação técnica e funcional.
+
+\textbf{1.7.1 Deploy em Produção:} Implantação da plataforma em ambiente de produção com estratégia blue-green deployment para minimizar downtime, incluindo migração de dados e configuração final. Entrega: Sistema em produção operacional.
+
+\textbf{1.7.2 Monitoramento e Observabilidade:} Configuração de ferramentas de APM (Application Performance Monitoring), dashboards de métricas, alertas automáticos e logging centralizado. Entrega: Sistema monitoramento configurado.
+
+\textbf{1.7.3 Documentação e Treinamento:} Elaboração de documentação técnica (API reference, guias de deploy), documentação funcional (manuais de usuário) e treinamento de equipes internas. Entrega: Documentação completa e treinamento realizado.
+
+\section{Lista de Tarefas e Marcos}
+
+A lista de tarefas detalha todas as atividades que devem ser executadas para completar cada pacote de trabalho da EAP, estabelecendo marcos (milestones) que representam pontos significativos de progresso no projeto \cite{Kerzner:2022}.
+
+\begin{table}[H]
+\centering
+\caption{Lista de tarefas e marcos do projeto.}
+\label{tab:tarefas}
+\footnotesize
+\begin{tabular}{|p{0.6cm}|p{6.5cm}|p{6cm}|c|}
+\hline
+\textbf{ID} & \textbf{Nome da Tarefa} & \textbf{Descrição} & \textbf{Marco} \\ \hline
+1.1.1 & Realizar workshops com stakeholders & Conduzir sessões estruturadas de levantamento de requisitos & Não \\ \hline
+1.1.2 & Documentar requisitos funcionais & Elaborar especificação detalhada de todos os RF & Não \\ \hline
+1.1.3 & Documentar requisitos não funcionais & Elaborar especificação detalhada de todos os RNF & Não \\ \hline
+1.1.4 & Validar requisitos com stakeholders & Apresentar e obter aprovação formal dos requisitos & Sim \\ \hline
+1.2.1 & Projetar arquitetura de microsserviços & Definir componentes, responsabilidades e comunicação & Não \\ \hline
+1.2.2 & Selecionar stack tecnológico & Definir linguagens, frameworks e infraestrutura & Não \\ \hline
+1.2.3 & Elaborar diagramas de arquitetura & Criar diagramas C4, sequência e deployment & Não \\ \hline
+1.2.4 & Revisar e aprovar arquitetura & Conduzir revisão técnica e obter aprovação & Sim \\ \hline
+1.3.1 & Provisionar recursos em nuvem & Configurar VPC, subnets, security groups e recursos & Não \\ \hline
+1.3.2 & Configurar auto-scaling & Implementar políticas de escalabilidade automática & Não \\ \hline
+1.3.3 & Configurar banco de dados & Provisionar e configurar instâncias de BD gerenciadas & Não \\ \hline
+1.3.4 & Implementar CDN & Configurar CloudFront, CloudFlare ou similar & Não \\ \hline
+1.3.5 & Configurar WAF e segurança & Implementar firewall, SSL/TLS e políticas de acesso & Não \\ \hline
+1.3.6 & Validar infraestrutura & Executar testes de conectividade e segurança & Sim \\ \hline
+2.1.1 & Desenvolver modelo de dados de identidade & Criar schema de usuários, perfis e permissões & Não \\ \hline
+2.1.2 & Implementar registro de usuários & Desenvolver endpoint de cadastro com validação & Não \\ \hline
+2.1.3 & Implementar autenticação JWT & Desenvolver geração e validação de tokens & Não \\ \hline
+2.1.4 & Implementar OAuth 2.0 & Integrar autenticação com Google/Facebook & Não \\ \hline
+2.1.5 & Desenvolver recuperação de senha & Implementar fluxo de reset via e-mail & Não \\ \hline
+2.1.6 & Testar API de autenticação & Executar suite completa de testes & Sim \\ \hline
+2.2.1 & Desenvolver modelo de dados de eventos & Criar schema de eventos, ingressos e lotes & Não \\ \hline
+2.2.2 & Implementar CRUD de eventos & Desenvolver endpoints de criação, leitura, atualização e exclusão & Não \\ \hline
+2.2.3 & Implementar upload de imagens & Desenvolver upload para S3/Azure Blob com CDN & Não \\ \hline
+2.2.4 & Implementar gestão de lotes & Desenvolver controle de preços e disponibilidade & Não \\ \hline
+2.2.5 & Testar API de eventos & Executar suite completa de testes & Sim \\ \hline
+2.3.1 & Desenvolver modelo de carrinho & Criar schema de itens, sessões e reservas temporárias & Não \\ \hline
+2.3.2 & Implementar lógica de carrinho & Desenvolver adição, remoção e controle de estoque & Não \\ \hline
+2.3.3 & Integrar gateway de pagamento & Implementar API Stripe/Mercado Pago & Não \\ \hline
+2.3.4 & Implementar webhooks de confirmação & Desenvolver processamento de callbacks de pagamento & Não \\ \hline
+2.3.5 & Implementar geração de comprovante & Desenvolver PDF de confirmação de compra & Não \\ \hline
+2.3.6 & Testar API de pagamentos & Executar testes incluindo sandbox do gateway & Sim \\ \hline
+2.4.1 & Desenvolver modelo de ingressos digitais & Criar schema de ingressos, QR Codes e validações & Não \\ \hline
+2.4.2 & Implementar geração de QR Code & Desenvolver criação de códigos únicos e criptografados & Não \\ \hline
+2.4.3 & Implementar atualização dinâmica & Desenvolver rotação periódica dos QR Codes & Não \\ \hline
+2.4.4 & Implementar API de validação & Desenvolver endpoint de check-in com controle de duplicidade & Não \\ \hline
+2.4.5 & Testar API de ingressos & Executar suite completa de testes & Sim \\ \hline
+3.1.1 & Desenvolver interface de pesquisa & Criar tela de listagem e busca de eventos & Não \\ \hline
+3.1.2 & Desenvolver fluxo de compra & Criar páginas de seleção, carrinho e checkout & Não \\ \hline
+3.1.3 & Desenvolver portal do cliente & Criar área logada com ingressos e histórico & Não \\ \hline
+3.1.4 & Implementar responsividade mobile & Adaptar interface para smartphones e tablets & Não \\ \hline
+3.1.5 & Validar usabilidade com usuários & Conduzir testes de usabilidade & Sim \\ \hline
+3.2.1 & Desenvolver tela de login organizador & Criar autenticação para perfil organizador & Não \\ \hline
+3.2.2 & Desenvolver cadastro de eventos & Criar formulário completo com upload de imagens & Não \\ \hline
+3.2.3 & Desenvolver dashboard de vendas & Criar painéis com métricas em tempo real & Não \\ \hline
+3.2.4 & Desenvolver relatórios exportáveis & Implementar geração de CSV/PDF de vendas & Não \\ \hline
+3.2.5 & Validar dashboard com organizadores & Conduzir testes com usuários reais & Sim \\ \hline
+3.3.1 & Desenvolver interface de scanner & Criar tela de leitura de QR Code otimizada & Não \\ \hline
+3.3.2 & Implementar modo offline & Desenvolver cache local e sincronização posterior & Não \\ \hline
+3.3.3 & Desenvolver feedback visual & Criar indicadores claros de sucesso/erro na validação & Não \\ \hline
+3.3.4 & Validar aplicação em evento piloto & Testar em condições reais de uso & Sim \\ \hline
+4.1.1 & Configurar conta no gateway & Criar e validar conta de produção & Não \\ \hline
+4.1.2 & Implementar processamento PIX & Integrar API de QR Code PIX & Não \\ \hline
+4.1.3 & Implementar processamento cartão & Integrar API de tokenização e cobrança & Não \\ \hline
+4.1.4 & Homologar integração & Executar testes completos em sandbox & Sim \\ \hline
+4.2.1 & Configurar provedor de e-mail & Criar e validar conta SendGrid/AWS SES & Não \\ \hline
+4.2.2 & Desenvolver templates de e-mail & Criar layouts HTML responsivos & Não \\ \hline
+4.2.3 & Implementar disparo de confirmação & Desenvolver envio automático pós-compra & Não \\ \hline
+4.2.4 & Implementar disparo de ingresso & Desenvolver envio de PDF com QR Code & Não \\ \hline
+4.2.5 & Testar entrega de e-mails & Validar taxa de entrega e renderização & Sim \\ \hline
+4.3.1 & Implementar Redis para filas & Configurar cluster Redis ou ElastiCache & Não \\ \hline
+4.3.2 & Desenvolver lógica de fila virtual & Implementar controle de posição e tempo de espera & Não \\ \hline
+4.3.3 & Integrar fila no fluxo de compra & Adicionar middleware de controle de acesso & Não \\ \hline
+4.3.4 & Testar sistema sob alta carga & Simular 10.000 usuários simultâneos & Sim \\ \hline
+5.1.1 & Configurar framework de testes & Instalar Jest, Pytest ou equivalente & Não \\ \hline
+5.1.2 & Desenvolver testes de autenticação & Criar testes para todos os endpoints & Não \\ \hline
+5.1.3 & Desenvolver testes de eventos & Criar testes para CRUD completo & Não \\ \hline
+5.1.4 & Desenvolver testes de pagamentos & Criar testes incluindo mocks de gateway & Não \\ \hline
+5.1.5 & Atingir cobertura de 80\% & Executar e validar cobertura de código & Sim \\ \hline
+5.2.1 & Configurar ambiente de testes E2E & Instalar Cypress, Selenium ou similar & Não \\ \hline
+5.2.2 & Desenvolver cenários de teste & Criar scripts de fluxos completos de usuário & Não \\ \hline
+5.2.3 & Executar testes de integração & Validar comunicação entre serviços & Não \\ \hline
+5.2.4 & Aprovar suite de testes & Revisar e validar resultados & Sim \\ \hline
+5.3.1 & Configurar ferramenta de carga & Instalar K6, JMeter ou similar & Não \\ \hline
+5.3.2 & Desenvolver cenários de carga & Criar scripts de simulação de usuários & Não \\ \hline
+5.3.3 & Executar testes progressivos & Testar com 1k, 5k e 10k usuários & Não \\ \hline
+5.3.4 & Analisar e otimizar gargalos & Identificar e corrigir problemas de performance & Não \\ \hline
+5.3.5 & Validar metas de performance & Confirmar tempo de resposta < 2s & Sim \\ \hline
+5.4.1 & Executar análise SAST & Usar SonarQube ou similar para análise estática & Não \\ \hline
+5.4.2 & Executar análise DAST & Usar OWASP ZAP para testes dinâmicos & Não \\ \hline
+5.4.3 & Executar teste de penetração & Contratar auditoria externa especializada & Não \\ \hline
+5.4.4 & Remediar vulnerabilidades & Corrigir todas as vulnerabilidades críticas & Não \\ \hline
+5.4.5 & Obter certificação de segurança & Validar conformidade com PCI DSS & Sim \\ \hline
+6.1.1 & Preparar ambiente de produção & Validar configurações finais de infra & Não \\ \hline
+6.1.2 & Executar deploy blue-green & Implantar nova versão sem downtime & Não \\ \hline
+6.1.3 & Migrar dados iniciais & Executar scripts de seed de dados & Não \\ \hline
+6.1.4 & Validar funcionamento produção & Executar smoke tests em produção & Não \\ \hline
+6.1.5 & Realizar go-live oficial & Anunciar lançamento da plataforma & Sim \\ \hline
+6.2.1 & Configurar APM & Instalar New Relic, DataDog ou similar & Não \\ \hline
+6.2.2 & Configurar dashboards & Criar painéis de métricas de negócio e técnicas & Não \\ \hline
+6.2.3 & Configurar alertas & Definir thresholds e notificações & Não \\ \hline
+6.2.4 & Configurar logging centralizado & Implementar ELK Stack ou CloudWatch & Sim \\ \hline
+6.3.1 & Elaborar documentação técnica & Criar API reference, diagramas e guias & Não \\ \hline
+6.3.2 & Elaborar documentação funcional & Criar manuais de usuário para cada perfil & Não \\ \hline
+6.3.3 & Realizar treinamento interno & Capacitar equipe de suporte e operação & Não \\ \hline
+6.3.4 & Realizar treinamento organizadores & Capacitar primeiros clientes da plataforma & Não \\ \hline
+6.3.5 & Finalizar projeto oficialmente & Conduzir retrospectiva e encerramento & Sim \\ \hline
+\end{tabular}
+\end{table}
+
+Os marcos identificados representam pontos de controle críticos onde entregas significativas são concluídas e validadas, permitindo a progressão segura para as próximas fases do projeto.
+
+\section{Matriz de Responsabilidades (RACI)}
+
+A matriz RACI é uma ferramenta de gestão de projetos que define claramente os papéis e responsabilidades de cada membro da equipe para cada atividade do projeto \cite{PMI:2021}. A sigla RACI representa:
+
+\begin{itemize}
+    \item \textbf{R (Responsible):} Responsável pela execução da tarefa
+    \item \textbf{A (Accountable):} Autoridade final, responsável pela aprovação
+    \item \textbf{C (Consulted):} Consultado durante a execução (comunicação bidirecional)
+    \item \textbf{I (Informed):} Informado sobre progresso ou decisões (comunicação unidirecional)
+\end{itemize}
+
+\begin{table}[H]
+\centering
+\caption{Matriz de responsabilidades RACI para atividades principais do projeto.}
+\label{tab:raci}
+\footnotesize
+\begin{tabular}{|p{5cm}|c|c|c|c|c|}
+\hline
+\textbf{Atividade} & \textbf{GP} & \textbf{Dev} & \textbf{Seg} & \textbf{UX} & \textbf{QA} \\ \hline
+Análise de Requisitos & A & C & C & R & I \\ \hline
+Definição de Arquitetura & C & R/A & C & I & I \\ \hline
+Planejamento Detalhado & R/A & C & C & C & C \\ \hline
+Configuração Cloud & I & R & C & I & I \\ \hline
+Implementação CDN & I & R & I & I & I \\ \hline
+Configuração Segurança & C & C & R/A & I & C \\ \hline
+Desenvolvimento API Autenticação & I & R & C & I & C \\ \hline
+Desenvolvimento API Eventos & I & R & I & I & C \\ \hline
+Desenvolvimento API Pagamentos & C & R & R & I & C \\ \hline
+Desenvolvimento API Ingressos & I & R & C & I & C \\ \hline
+Interface do Comprador & C & C & I & R/A & C \\ \hline
+Dashboard Organizador & C & C & I & R/A & C \\ \hline
+Aplicação Check-in & C & C & I & R/A & C \\ \hline
+Integração Gateway Pagamento & C & R & R & I & C \\ \hline
+Integração Serviço E-mail & I & R & I & I & I \\ \hline
+Implementação Filas & C & R & C & I & C \\ \hline
+Testes Unitários & I & R & I & I & C \\ \hline
+Testes Integração & C & C & I & I & R/A \\ \hline
+Testes Carga & C & C & I & I & R/A \\ \hline
+Testes Segurança & C & C & R & I & R/A \\ \hline
+Deploy Produção & A & R & C & I & C \\ \hline
+Configuração Monitoramento & C & R & C & I & C \\ \hline
+Documentação Técnica & C & R/A & C & I & C \\ \hline
+Treinamento Usuários & R & C & I & C & I \\ \hline
+\end{tabular}
+\end{table}
+
+\textbf{Legenda de Papéis:}
+\begin{itemize}
+    \item \textbf{GP:} Gerente de Projeto
+    \item \textbf{Dev:} Desenvolvedores Full-Stack (2 recursos)
+    \item \textbf{Seg:} Especialista em Segurança e Pagamentos
+    \item \textbf{UX:} Designer UX/UI
+    \item \textbf{QA:} Analista de Testes e Qualidade
+\end{itemize}
+
+A matriz RACI garante que não haja ambiguidade sobre responsabilidades, evitando tanto lacunas (tarefas sem responsável) quanto sobreposições (múltiplos responsáveis pela mesma decisão), contribuindo significativamente para a eficiência da execução do projeto.
+
+\section{Sequenciamento de Tarefas}
+
+O sequenciamento de tarefas estabelece a ordem lógica e as dependências entre as atividades do projeto, identificando predecessoras obrigatórias e relacionamentos de lead/lag quando aplicáveis \cite{Kerzner:2022}.
+
+\begin{table}[H]
+\centering
+\caption{Sequenciamento de tarefas com dependências.}
+\label{tab:sequenciamento}
+\footnotesize
+\begin{tabular}{|p{1cm}|p{5cm}|p{2cm}|p{1.5cm}|p{3cm}|}
+\hline
+\textbf{ID} & \textbf{Tarefa} & \textbf{Duração} & \textbf{Predec.} & \textbf{Tipo Depend.} \\ \hline
+1.1.1 & Workshops stakeholders & 1 semana & - & - \\ \hline
+1.1.2 & Documentar RF & 1 semana & 1.1.1 & Término-Início (TI) \\ \hline
+1.1.3 & Documentar RNF & 1 semana & 1.1.1 & Término-Início (TI) \\ \hline
+1.1.4 & Validar requisitos & 3 dias & 1.1.2, 1.1.3 & Término-Início (TI) \\ \hline
+1.2.1 & Projetar arquitetura & 1 semana & 1.1.4 & Término-Início (TI) \\ \hline
+1.2.2 & Selecionar stack & 3 dias & 1.2.1 & Término-Início (TI) \\ \hline
+1.2.3 & Elaborar diagramas & 1 semana & 1.2.2 & Término-Início (TI) \\ \hline
+1.2.4 & Revisar arquitetura & 2 dias & 1.2.3 & Término-Início (TI) \\ \hline
+1.3.1 & Provisionar cloud & 1 semana & 1.2.4 & Término-Início (TI) \\ \hline
+1.3.2 & Configurar auto-scaling & 3 dias & 1.3.1 & Término-Início (TI) \\ \hline
+1.3.3 & Configurar BD & 3 dias & 1.3.1 & Término-Início (TI) \\ \hline
+1.3.4 & Implementar CDN & 2 dias & 1.3.1 & Término-Início (TI) \\ \hline
+1.3.5 & Configurar segurança & 1 semana & 1.3.1 & Término-Início (TI) \\ \hline
+1.3.6 & Validar infraestrutura & 2 dias & 1.3.5 & Término-Início (TI) \\ \hline
+2.1.1 & Modelo dados identidade & 3 dias & 1.3.3 & Término-Início (TI) \\ \hline
+2.1.2 & Registro usuários & 1 semana & 2.1.1 & Término-Início (TI) \\ \hline
+2.1.3 & Autenticação JWT & 1 semana & 2.1.1 & Término-Início (TI) \\ \hline
+2.1.4 & OAuth 2.0 & 1 semana & 2.1.3 & Término-Início (TI) \\ \hline
+2.1.5 & Recuperação senha & 3 dias & 2.1.3 & Término-Início (TI) \\ \hline
+2.1.6 & Testar API auth & 1 semana & 2.1.5 & Término-Início (TI) \\ \hline
+2.2.1 & Modelo dados eventos & 3 dias & 1.3.3 & Término-Início (TI) \\ \hline
+2.2.2 & CRUD eventos & 2 semanas & 2.2.1 & Término-Início (TI) \\ \hline
+2.2.3 & Upload imagens & 1 semana & 2.2.1, 1.3.4 & Término-Início (TI) \\ \hline
+2.2.4 & Gestão lotes & 1 semana & 2.2.2 & Término-Início (TI) \\ \hline
+2.2.5 & Testar API eventos & 1 semana & 2.2.4 & Término-Início (TI) \\ \hline
+2.3.1 & Modelo carrinho & 3 dias & 1.3.3 & Término-Início (TI) \\ \hline
+2.3.2 & Lógica carrinho & 1 semana & 2.3.1, 2.2.5 & Término-Início (TI) \\ \hline
+2.3.3 & Integrar gateway & 2 semanas & 2.3.2 & Término-Início (TI) \\ \hline
+2.3.4 & Webhooks confirmação & 1 semana & 2.3.3 & Término-Início (TI) \\ \hline
+2.3.5 & Geração comprovante & 3 dias & 2.3.4 & Término-Início (TI) \\ \hline
+2.3.6 & Testar API pagamentos & 1 semana & 2.3.5 & Término-Início (TI) \\ \hline
+2.4.1 & Modelo ingressos & 3 dias & 1.3.3 & Término-Início (TI) \\ \hline
+2.4.2 & Geração QR Code & 1 semana & 2.4.1 & Término-Início (TI) \\ \hline
+2.4.3 & Atualização dinâmica & 1 semana & 2.4.2 & Término-Início (TI) \\ \hline
+2.4.4 & API validação & 1 semana & 2.4.3 & Término-Início (TI) \\ \hline
+2.4.5 & Testar API ingressos & 1 semana & 2.4.4 & Término-Início (TI) \\ \hline
+3.1.1 & Interface pesquisa & 1 semana & 2.2.5 & Início-Início+5d (II) \\ \hline
+3.1.2 & Fluxo compra & 2 semanas & 2.3.6 & Término-Início (TI) \\ \hline
+3.1.3 & Portal cliente & 1 semana & 2.4.5 & Término-Início (TI) \\ \hline
+3.1.4 & Responsividade mobile & 1 semana & 3.1.3 & Término-Início (TI) \\ \hline
+3.1.5 & Validar usabilidade & 3 dias & 3.1.4 & Término-Início (TI) \\ \hline
+3.2.1 & Login organizador & 3 dias & 2.1.6 & Término-Início (TI) \\ \hline
+3.2.2 & Cadastro eventos & 1 semana & 2.2.5 & Término-Início (TI) \\ \hline
+3.2.3 & Dashboard vendas & 2 semanas & 2.3.6 & Término-Início (TI) \\ \hline
+3.2.4 & Relatórios export & 1 semana & 3.2.3 & Término-Início (TI) \\ \hline
+3.2.5 & Validar dashboard & 3 dias & 3.2.4 & Término-Início (TI) \\ \hline
+3.3.1 & Interface scanner & 1 semana & 2.4.5 & Término-Início (TI) \\ \hline
+3.3.2 & Modo offline & 1 semana & 3.3.1 & Término-Início (TI) \\ \hline
+3.3.3 & Feedback visual & 3 dias & 3.3.2 & Término-Início (TI) \\ \hline
+3.3.4 & Validar evento piloto & 1 semana & 3.3.3 & Término-Início (TI) \\ \hline
+4.1.1 & Configurar gateway & 2 dias & 1.2.4 & Término-Início (TI) \\ \hline
+4.1.2 & Processar PIX & 1 semana & 4.1.1 & Término-Início (TI) \\ \hline
+4.1.3 & Processar cartão & 1 semana & 4.1.1 & Término-Início (TI) \\ \hline
+4.1.4 & Homologar integração & 3 dias & 4.1.3 & Término-Início (TI) \\ \hline
+4.2.1 & Configurar e-mail & 2 dias & 1.2.4 & Término-Início (TI) \\ \hline
+4.2.2 & Templates e-mail & 1 semana & 4.2.1 & Término-Início (TI) \\ \hline
+4.2.3 & Disparo confirmação & 3 dias & 4.2.2, 2.3.6 & Término-Início (TI) \\ \hline
+4.2.4 & Disparo ingresso & 3 dias & 4.2.2, 2.4.5 & Término-Início (TI) \\ \hline
+4.2.5 & Testar e-mails & 2 dias & 4.2.4 & Término-Início (TI) \\ \hline
+4.3.1 & Implementar Redis & 3 dias & 1.3.1 & Término-Início (TI) \\ \hline
+4.3.2 & Lógica fila virtual & 1 semana & 4.3.1 & Término-Início (TI) \\ \hline
+4.3.3 & Integrar fila compra & 3 dias & 4.3.2, 3.1.2 & Término-Início (TI) \\ \hline
+4.3.4 & Testar alta carga & 1 semana & 4.3.3 & Término-Início (TI) \\ \hline
+5.1.1 & Config framework teste & 2 dias & 1.2.4 & Término-Início (TI) \\ \hline
+5.1.2 & Testes autenticação & 3 dias & 2.1.6 & Término-Início (TI) \\ \hline
+5.1.3 & Testes eventos & 3 dias & 2.2.5 & Término-Início (TI) \\ \hline
+5.1.4 & Testes pagamentos & 3 dias & 2.3.6 & Término-Início (TI) \\ \hline
+5.1.5 & Cobertura 80\% & 1 semana & 5.1.4 & Término-Início (TI) \\ \hline
+5.2.1 & Config testes E2E & 2 dias & 3.1.5 & Término-Início (TI) \\ \hline
+5.2.2 & Cenários teste & 1 semana & 5.2.1 & Término-Início (TI) \\ \hline
+5.2.3 & Executar integração & 1 semana & 5.2.2 & Término-Início (TI) \\ \hline
+5.2.4 & Aprovar suite & 2 dias & 5.2.3 & Término-Início (TI) \\ \hline
+5.3.1 & Config ferramenta carga & 2 dias & 1.3.6 & Término-Início (TI) \\ \hline
+5.3.2 & Cenários carga & 3 dias & 5.3.1, 4.3.4 & Término-Início (TI) \\ \hline
+5.3.3 & Executar progressivos & 1 semana & 5.3.2 & Término-Início (TI) \\ \hline
+5.3.4 & Otimizar gargalos & 1 semana & 5.3.3 & Término-Início (TI) \\ \hline
+5.3.5 & Validar performance & 2 dias & 5.3.4 & Término-Início (TI) \\ \hline
+5.4.1 & Análise SAST & 3 dias & 5.1.5 & Término-Início (TI) \\ \hline
+5.4.2 & Análise DAST & 3 dias & 5.2.4 & Término-Início (TI) \\ \hline
+5.4.3 & Teste penetração & 1 semana & 5.4.2 & Término-Início (TI) \\ \hline
+5.4.4 & Remediar vulnerab. & 1 semana & 5.4.3 & Término-Início (TI) \\ \hline
+5.4.5 & Certificação segurança & 1 semana & 5.4.4 & Término-Início (TI) \\ \hline
+6.1.1 & Preparar produção & 3 dias & 5.3.5, 5.4.5 & Término-Início (TI) \\ \hline
+6.1.2 & Deploy blue-green & 1 dia & 6.1.1 & Término-Início (TI) \\ \hline
+6.1.3 & Migrar dados & 1 dia & 6.1.2 & Término-Início (TI) \\ \hline
+6.1.4 & Validar produção & 1 dia & 6.1.3 & Término-Início (TI) \\ \hline
+6.1.5 & Go-live oficial & 1 dia & 6.1.4 & Término-Início (TI) \\ \hline
+6.2.1 & Configurar APM & 3 dias & 1.3.6 & Término-Início (TI) \\ \hline
+6.2.2 & Config dashboards & 1 semana & 6.2.1 & Término-Início (TI) \\ \hline
+6.2.3 & Config alertas & 3 dias & 6.2.2 & Término-Início (TI) \\ \hline
+6.2.4 & Logging centralizado & 3 dias & 6.2.3 & Término-Início (TI) \\ \hline
+6.3.1 & Doc técnica & 2 semanas & 6.1.5 & Término-Início (TI) \\ \hline
+6.3.2 & Doc funcional & 2 semanas & 6.1.5 & Término-Início (TI) \\ \hline
+6.3.3 & Treinamento interno & 1 semana & 6.3.1 & Término-Início (TI) \\ \hline
+6.3.4 & Treinamento organiz. & 1 semana & 6.3.2 & Término-Início (TI) \\ \hline
+6.3.5 & Finalizar projeto & 1 dia & 6.3.4 & Término-Início (TI) \\ \hline
+\end{tabular}
+\end{table}
+
+Os principais tipos de dependência utilizados são:
+
+\begin{itemize}
+    \item \textbf{Término-Início (TI):} A tarefa sucessora só pode iniciar após o término da predecessora (tipo mais comum)
+    \item \textbf{Início-Início (II):} As tarefas podem iniciar simultaneamente, com possível lag entre elas
+\end{itemize}
+
+O sequenciamento adequado das atividades permite identificar o caminho crítico do projeto, que será detalhado no capítulo de cronograma, e possibilita a alocação eficiente de recursos ao longo de todas as fases de desenvolvimento.
+
