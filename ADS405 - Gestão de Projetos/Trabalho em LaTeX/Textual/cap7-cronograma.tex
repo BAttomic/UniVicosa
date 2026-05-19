@@ -1,14 +1,14 @@
 \chapter{ESTIMAR DURAÇÃO E ELABORAR CRONOGRAMA}
 
-A estimativa de duração e elaboração do cronograma são processos fundamentais na gestão de projetos, estabelecendo as bases temporais para planejamento, execução e controle \cite{PMI:2021}. Este capítulo apresenta a análise de rede de atividades, a identificação do caminho crítico e o cronograma sumarizado do projeto de desenvolvimento da plataforma de ingressos online.
+A estimativa de duração e elaboração do cronograma são processos fundamentais na gestão de projetos, estabelecendo as bases temporais para planejamento, execução e controle~\cite{PMI:2021}. Este capítulo apresenta a análise de rede de atividades, a identificação do caminho crítico e o cronograma sumarizado do projeto de desenvolvimento da plataforma de ingressos online.
 
 \section{Diagrama de Rede e Análise do Caminho Crítico}
 
-O diagrama de rede representa graficamente a sequência lógica das atividades do projeto e suas interdependências, permitindo a identificação do caminho crítico \cite{Kerzner:2022}.
+O diagrama de rede representa graficamente a sequência lógica das atividades do projeto e suas interdependências, permitindo a identificação do caminho crítico~\cite{Kerzner:2022}.
 
 \subsection{Método do Caminho Crítico (CPM)}
 
-O Método do Caminho Crítico (Critical Path Method - CPM) é uma técnica de análise de rede que identifica a sequência de atividades que determina a duração mínima do projeto. O caminho crítico representa a série de atividades sem folga, onde qualquer atraso impacta diretamente a data de conclusão do projeto \cite{PMI:2021}.
+O Método do Caminho Crítico (Critical Path Method - CPM) é uma técnica de análise de rede que identifica a sequência de atividades que determina a duração mínima do projeto. O caminho crítico representa a série de atividades sem folga, onde qualquer atraso impacta diretamente a data de conclusão do projeto~\cite{PMI:2021}.
 
 Para a plataforma de ingressos online, a análise do caminho crítico foi realizada considerando todas as tarefas detalhadas no Capítulo 4, suas durações estimadas e dependências identificadas. A aplicação do método CPM envolve:
 
@@ -25,7 +25,7 @@ A análise revelou o seguinte caminho crítico do projeto, com duração total d
 
 \begin{table}[H]
 \centering
-\caption{Atividades do caminho crítico do projeto.}
+\caption{Atividades do caminho crítico do projeto.}%
 \label{tab:caminho-critico}
 \footnotesize
 \begin{tabular}{|p{1cm}|p{6cm}|p{2cm}|p{2cm}|p{2cm}|}
@@ -34,7 +34,7 @@ A análise revelou o seguinte caminho crítico do projeto, com duração total d
 1.1.1 & Workshops com stakeholders & 1 semana & Sem. 1 & Sem. 1 \\ \hline
 1.1.2 & Documentar requisitos funcionais & 1 semana & Sem. 2 & Sem. 2 \\ \hline
 1.1.4 & Validar requisitos & 3 dias & Sem. 3 & Sem. 3 \\ \hline
-1.2.1 & Projetar arquitetura microsserviços & 1 semana & Sem. 3 & Sem. 3 \\ \hline
+1.2.1 & Projetar arquitetura Next.js + MongoDB & 1 semana & Sem. 3 & Sem. 3 \\ \hline
 1.2.2 & Selecionar stack tecnológico & 3 dias & Sem. 4 & Sem. 4 \\ \hline
 1.2.3 & Elaborar diagramas arquitetura & 1 semana & Sem. 4 & Sem. 4 \\ \hline
 1.2.4 & Revisar e aprovar arquitetura & 2 dias & Sem. 5 & Sem. 5 \\ \hline
@@ -83,10 +83,10 @@ As atividades que não estão no caminho crítico possuem folgas que podem ser a
 
 \textbf{Atividades com Folga Significativa (> 1 semana):}
 \begin{itemize}
-    \item \textbf{API de Autenticação (2.1.*):} Folga total de 2 semanas. Pode ser desenvolvida em paralelo com API de eventos sem impacto no cronograma.
-    \item \textbf{API de Ingressos Digitais (2.4.*):} Folga total de 3 semanas. Permite refinamento e otimização sem pressão de prazo.
-    \item \textbf{Dashboard Organizador (3.2.*):} Folga total de 2 semanas. Interface pode ser desenvolvida de forma mais elaborada.
-    \item \textbf{Aplicação Check-in (3.3.*):} Folga total de 4 semanas. Permite testes extensivos em múltiplos eventos piloto.
+    \item \textbf{Autenticacao e perfil (2.1.*):} Folga total de 2 semanas. Pode ser desenvolvida em paralelo com eventos sem impacto no cronograma.
+    \item \textbf{Ingressos digitais (2.4.*):} Folga total de 3 semanas. Permite refinamento e otimização sem pressão de prazo.
+    \item \textbf{Dashboard organizador (3.2.*):} Folga total de 2 semanas. Interface pode ser desenvolvida de forma mais elaborada.
+    \item \textbf{Aplicacao Check-in (3.3.*):} Folga total de 4 semanas. Permite testes extensivos em um evento piloto.
 \end{itemize}
 
 \textbf{Estratégia de Gestão de Folgas:}
@@ -102,7 +102,7 @@ O projeto estabelece 8 marcos principais que funcionam como gates de qualidade:
 
 \begin{table}[H]
 \centering
-\caption{Marcos principais do projeto e critérios de aprovação.}
+\caption{Marcos principais do projeto e critérios de aprovação.}%
 \label{tab:marcos}
 \small
 \begin{tabular}{|p{1.5cm}|p{5cm}|p{7cm}|}
@@ -127,7 +127,7 @@ O cronograma sumarizado apresenta a organização temporal do projeto em fases e
 
 \begin{table}[H]
 \centering
-\caption{Cronograma sumarizado por fases do projeto.}
+\caption{Cronograma sumarizado por fases do projeto.}%
 \label{tab:cronograma-fases}
 \small
 \begin{tabular}{|p{4cm}|p{2cm}|p{2.5cm}|p{5cm}|}
@@ -151,48 +151,50 @@ O gráfico de Gantt apresenta visualmente a distribuição temporal das fases e 
 
 \begin{table}[H]
 \centering
-\caption{Gráfico de Gantt sumarizado - Fases principais do projeto (semanas).}
+\caption{Gráfico de Gantt sumarizado - Fases principais do projeto (semanas).}%
 \label{tab:gantt}
 \tiny
+\resizebox{\textwidth}{!}{%
 \begin{tabular}{|p{3.5cm}|*{30}{c|}}
 \hline
 \textbf{Fase/Atividade} & \multicolumn{30}{c|}{\textbf{Semanas}} \\ \hline
  & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 & 10 & 11 & 12 & 13 & 14 & 15 & 16 & 17 & 18 & 19 & 20 & 21 & 22 & 23 & 24 & 25 & 26 & 27 & 28 & 29 & 30 \\ \hline
-\textbf{1. Iniciação e Planejamento} & █ & █ & █ & █ &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  \\ \hline
-Workshops e requisitos & █ & █ & █ &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  \\ \hline
-Arquitetura e stack &  &  & █ & █ &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  \\ \hline
-\textbf{2. Infraestrutura} &  &  &  &  & █ & █ & █ &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  \\ \hline
-Provisionar cloud &  &  &  &  & █ & █ &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  \\ \hline
-Segurança e CDN &  &  &  &  &  & █ & █ &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  \\ \hline
-\textbf{3. Backend APIs} &  &  &  &  &  &  & █ & █ & █ & █ & █ & █ & █ & █ &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  \\ \hline
-API Autenticação &  &  &  &  &  &  & █ & █ & █ &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  \\ \hline
-API Eventos &  &  &  &  &  &  & █ & █ & █ & █ &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  \\ \hline
-API Pagamentos &  &  &  &  &  &  &  &  &  &  & █ & █ & █ & █ &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  \\ \hline
-API Ingressos &  &  &  &  &  &  &  &  & █ & █ & █ & █ &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  \\ \hline
-\textbf{4. Frontend} &  &  &  &  &  &  &  &  &  &  &  &  &  &  & █ & █ & █ & █ & █ &  &  &  &  &  &  &  &  &  &  &  \\ \hline
-Interface Comprador &  &  &  &  &  &  &  &  &  &  &  &  &  &  & █ & █ & █ & █ &  &  &  &  &  &  &  &  &  &  &  &  \\ \hline
-Dashboard Organizador &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  & █ & █ & █ &  &  &  &  &  &  &  &  &  &  &  &  \\ \hline
-App Check-in &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  & █ & █ & █ &  &  &  &  &  &  &  &  &  &  &  \\ \hline
-\textbf{5. Integrações} &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  & █ & █ & █ & █ &  &  &  &  &  &  &  &  &  &  &  \\ \hline
-Gateway Pagamento &  &  &  &  &  &  &  &  &  &  & █ & █ & █ & █ &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  \\ \hline
-E-mail e Filas &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  & █ & █ & █ &  &  &  &  &  &  &  &  &  &  &  &  \\ \hline
-\textbf{6. Testes e QA} &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  & █ & █ & █ & █ & █ & █ & █ &  &  &  &  &  \\ \hline
-Testes Unitários &  &  &  &  &  &  &  & █ & █ & █ & █ & █ & █ & █ & █ &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  \\ \hline
-Testes Integração &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  & █ & █ & █ & █ &  &  &  &  &  &  &  &  \\ \hline
-Testes Carga &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  & █ & █ & █ & █ &  &  &  &  &  \\ \hline
-Testes Segurança &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  & █ & █ & █ & █ &  &  \\ \hline
-\textbf{7. Implantação} &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  & █ & █ \\ \hline
-Deploy Produção &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  & █ &  \\ \hline
-Documentação &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  & █ & █ \\ \hline
-Treinamento &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  & █ \\ \hline
-\textbf{MARCOS} & ▼ &  & ▼ &  & ▼ &  & ▼ &  &  &  &  &  &  & ▼ &  &  &  &  & ▼ &  &  &  &  &  & ▼ &  &  &  & ▼ & ▼ \\ \hline
-\end{tabular}
+\textbf{1. Iniciação e Planejamento} & X & X & X & X &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  \\ \hline
+Workshops e requisitos & X & X & X &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  \\ \hline
+Arquitetura e stack &  &  & X & X &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  \\ \hline
+\textbf{2. Infraestrutura} &  &  &  &  & X & X & X &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  \\ \hline
+Provisionar cloud &  &  &  &  & X & X &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  \\ \hline
+Segurança e CDN &  &  &  &  &  & X & X &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  \\ \hline
+\textbf{3. Backend APIs} &  &  &  &  &  &  & X & X & X & X & X & X & X & X &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  \\ \hline
+API Autenticação &  &  &  &  &  &  & X & X & X &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  \\ \hline
+API Eventos &  &  &  &  &  &  & X & X & X & X &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  \\ \hline
+API Pagamentos &  &  &  &  &  &  &  &  &  &  & X & X & X & X &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  \\ \hline
+API Ingressos &  &  &  &  &  &  &  &  & X & X & X & X &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  \\ \hline
+\textbf{4. Frontend} &  &  &  &  &  &  &  &  &  &  &  &  &  &  & X & X & X & X & X &  &  &  &  &  &  &  &  &  &  &  \\ \hline
+Interface Comprador &  &  &  &  &  &  &  &  &  &  &  &  &  &  & X & X & X & X &  &  &  &  &  &  &  &  &  &  &  &  \\ \hline
+Dashboard Organizador &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  & X & X & X &  &  &  &  &  &  &  &  &  &  &  &  \\ \hline
+App Check-in &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  & X & X & X &  &  &  &  &  &  &  &  &  &  &  \\ \hline
+\textbf{5. Integrações} &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  & X & X & X & X &  &  &  &  &  &  &  &  &  &  &  \\ \hline
+Gateway Pagamento &  &  &  &  &  &  &  &  &  &  & X & X & X & X &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  \\ \hline
+E-mail e Filas &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  & X & X & X &  &  &  &  &  &  &  &  &  &  &  &  \\ \hline
+\textbf{6. Testes e QA} &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  & X & X & X & X & X & X & X &  &  &  &  &  \\ \hline
+Testes Unitários &  &  &  &  &  &  &  & X & X & X & X & X & X & X & X &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  \\ \hline
+Testes Integração &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  & X & X & X & X &  &  &  &  &  &  &  &  \\ \hline
+Testes Carga &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  & X & X & X & X &  &  &  &  &  \\ \hline
+Testes Segurança &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  & X & X & X & X &  &  \\ \hline
+\textbf{7. Implantação} &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  & X & X \\ \hline
+Deploy Produção &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  & X &  \\ \hline
+Documentação &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  & X & X \\ \hline
+Treinamento &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  & X \\ \hline
+\textbf{MARCOS} & v &  & v &  & v &  & v &  &  &  &  &  &  & v &  &  &  &  & v &  &  &  &  &  & v &  &  &  & v & v \\ \hline
+\end{tabular}%
+}
 \end{table}
 
-\textbf{Legenda:} 
+\textbf{Legenda:}
 \begin{itemize}
-    \item █ = Período de execução da atividade
-    \item ▼ = Marco do projeto (gate de qualidade)
+    \item X = Período de execução da atividade
+    \item v = Marco do projeto (gate de qualidade)
 \end{itemize}
 
 \subsection{Distribuição de Esforço por Fase}
@@ -201,7 +203,7 @@ A distribuição de esforço da equipe ao longo do projeto segue um padrão típ
 
 \begin{table}[H]
 \centering
-\caption{Distribuição de esforço por fase (pessoa-semana).}
+\caption{Distribuição de esforço por fase (pessoa-semana).}%
 \label{tab:esforco}
 \small
 \begin{tabular}{|p{4.5cm}|p{2cm}|p{2.5cm}|p{4cm}|}

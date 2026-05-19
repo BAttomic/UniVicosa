@@ -1,10 +1,10 @@
 \chapter{PLANEJAMENTO DO PROJETO}
 
-O planejamento de projetos de software constitui uma das etapas mais críticas para o sucesso da entrega, estabelecendo as bases para controle, execução e monitoramento eficazes \cite{PMI:2021}. Este capítulo detalha a estrutura analítica do projeto, a decomposição hierárquica do trabalho, a atribuição de responsabilidades e o sequenciamento lógico das atividades necessárias para o desenvolvimento da plataforma de ingressos online.
+O planejamento de projetos de software constitui uma das etapas mais críticas para o sucesso da entrega, estabelecendo as bases para controle, execução e monitoramento eficazes~\cite{PMI:2021}. Este capítulo detalha a estrutura analítica do projeto, a decomposição hierárquica do trabalho, a atribuição de responsabilidades e o sequenciamento lógico das atividades necessárias para o desenvolvimento da plataforma de ingressos online.
 
 \section{Estrutura Analítica do Projeto (EAP)}
 
-A Estrutura Analítica do Projeto, conhecida internacionalmente como Work Breakdown Structure (WBS), representa uma decomposição hierárquica orientada às entregas do trabalho a ser executado pela equipe para atingir os objetivos do projeto \cite{PMI:2021}. A EAP organiza e define o escopo total do projeto, subdividindo o trabalho em componentes menores e mais gerenciáveis chamados pacotes de trabalho.
+A Estrutura Analítica do Projeto, conhecida internacionalmente como Work Breakdown Structure (WBS), representa uma decomposição hierárquica orientada às entregas do trabalho a ser executado pela equipe para atingir os objetivos do projeto~\cite{PMI:2021}. A EAP organiza e define o escopo total do projeto, subdividindo o trabalho em componentes menores e mais gerenciáveis chamados pacotes de trabalho.
 
 A EAP desenvolvida para a plataforma de ingressos online foi estruturada em quatro níveis hierárquicos, iniciando com o projeto completo (nível 0) e detalhando-se progressivamente até os pacotes de trabalho individuais (nível 3). A estrutura prioriza a modularidade, permitindo desenvolvimento, teste e validação independentes de cada componente.
 
@@ -13,68 +13,68 @@ A EAP desenvolvida para a plataforma de ingressos online foi estruturada em quat
 \small
 \begin{verbatim}
 1.0 PLATAFORMA DE INGRESSOS ONLINE
-├── 1.1 INICIAÇÃO E PLANEJAMENTO
-│   ├── 1.1.1 Análise de Requisitos
-│   ├── 1.1.2 Definição de Arquitetura
-│   └── 1.1.3 Planejamento Detalhado
-├── 1.2 INFRAESTRUTURA E SEGURANÇA
-│   ├── 1.2.1 Configuração de Ambiente Cloud
-│   ├── 1.2.2 Implementação de CDN
-│   └── 1.2.3 Configuração de Segurança
-├── 1.3 BACKEND E APIS
-│   ├── 1.3.1 API de Autenticação
-│   ├── 1.3.2 API de Gestão de Eventos
-│   ├── 1.3.3 API de Processamento de Pagamentos
-│   └── 1.3.4 API de Ingressos Digitais
-├── 1.4 FRONTEND
-│   ├── 1.4.1 Interface do Comprador
-│   ├── 1.4.2 Dashboard do Organizador
-│   └── 1.4.3 Aplicação de Check-in
-├── 1.5 INTEGRAÇÕES
-│   ├── 1.5.1 Gateway de Pagamento
-│   ├── 1.5.2 Serviço de E-mail
-│   └── 1.5.3 Sistema de Filas
-├── 1.6 TESTES E QUALIDADE
-│   ├── 1.6.1 Testes Unitários
-│   ├── 1.6.2 Testes de Integração
-│   ├── 1.6.3 Testes de Carga
-│   └── 1.6.4 Testes de Segurança
-└── 1.7 IMPLANTAÇÃO E ENCERRAMENTO
-    ├── 1.7.1 Deploy em Produção
-    ├── 1.7.2 Monitoramento e Observabilidade
-    └── 1.7.3 Documentação e Treinamento
+|-- 1.1 INICIAÇÃO E PLANEJAMENTO
+|   |-- 1.1.1 Análise de Requisitos
+|   |-- 1.1.2 Definição de Arquitetura
+|   `-- 1.1.3 Planejamento Detalhado
+|-- 1.2 INFRAESTRUTURA E SEGURANÇA
+|   |-- 1.2.1 Configuração de Ambiente Cloud
+|   |-- 1.2.2 Implementação de CDN
+|   `-- 1.2.3 Configuração de Segurança
+|-- 1.3 BACKEND E APIS
+|   |-- 1.3.1 API de Autenticação
+|   |-- 1.3.2 API de Gestão de Eventos
+|   |-- 1.3.3 API de Processamento de Pagamentos
+|   `-- 1.3.4 API de Ingressos Digitais
+|-- 1.4 FRONTEND
+|   |-- 1.4.1 Interface do Comprador
+|   |-- 1.4.2 Dashboard do Organizador
+|   `-- 1.4.3 Aplicação de Check-in
+|-- 1.5 INTEGRAÇÕES
+|   |-- 1.5.1 Gateway de Pagamento
+|   |-- 1.5.2 Serviço de E-mail
+|   `-- 1.5.3 Sistema de Filas
+|-- 1.6 TESTES E QUALIDADE
+|   |-- 1.6.1 Testes Unitários
+|   |-- 1.6.2 Testes de Integração
+|   |-- 1.6.3 Testes de Carga
+|   `-- 1.6.4 Testes de Segurança
+`-- 1.7 IMPLANTAÇÃO E ENCERRAMENTO
+    |-- 1.7.1 Deploy em Produção
+    |-- 1.7.2 Monitoramento e Observabilidade
+    `-- 1.7.3 Documentação e Treinamento
 \end{verbatim}
-\caption{Estrutura Analítica do Projeto (EAP) da plataforma de ingressos online.}
+\caption{Estrutura Analítica do Projeto (EAP) da plataforma de ingressos online.}%
 \label{fig:eap}
 \end{figure}
 
 \subsection{Dicionário da EAP}
 
-O dicionário da EAP fornece descrições detalhadas de cada componente da estrutura, estabelecendo claramente o escopo, as entregas esperadas e os critérios de aceitação para cada pacote de trabalho \cite{Verzuh:2021}.
+O dicionário da EAP fornece descrições detalhadas de cada componente da estrutura, estabelecendo claramente o escopo, as entregas esperadas e os critérios de aceitação para cada pacote de trabalho~\cite{Verzuh:2021}.
 
 \textbf{1.1 INICIAÇÃO E PLANEJAMENTO}
 
-Esta fase estabelece as bases para todo o projeto, incluindo análise completa de requisitos, definição da arquitetura de software e microsserviços, e planejamento detalhado de recursos, cronograma e orçamento.
+Esta fase estabelece as bases para todo o projeto, incluindo analise completa de requisitos, definicao da arquitetura de software com Next.js e MongoDB, e planejamento detalhado de recursos, cronograma e orcamento.
 
 \textbf{1.1.1 Análise de Requisitos:} Levantamento completo de requisitos funcionais e não funcionais através de workshops com stakeholders, análise de concorrentes e documentação de casos de uso. Entrega: Documento de Especificação de Requisitos.
 
-\textbf{1.1.2 Definição de Arquitetura:} Projeto da arquitetura de microsserviços, incluindo diagramas de componentes, definição de tecnologias (linguagens, frameworks, banco de dados) e padrões de comunicação entre serviços. Entrega: Documento de Arquitetura de Software.
+\textbf{1.1.2 Definicao de Arquitetura:} Projeto da arquitetura full-stack com Next.js e MongoDB, incluindo diagramas de componentes, definicao de tecnologias (linguagens, frameworks, banco de dados) e padroes de comunicacao entre modulos. Entrega: Documento de Arquitetura de Software.
 
 \textbf{1.1.3 Planejamento Detalhado:} Elaboração do cronograma detalhado, matriz de responsabilidades RACI, análise de riscos e plano de comunicação. Entrega: Plano de Gerenciamento do Projeto.
 
 \textbf{1.2 INFRAESTRUTURA E SEGURANÇA}
 
-Estabelecimento da infraestrutura de nuvem escalável, implementação de CDN global e configuração de todas as camadas de segurança necessárias para operação em conformidade com padrões PCI DSS \cite{PCIDSS:2022}.
+Estabelecimento da infraestrutura de nuvem escalável, implementação de CDN global e configuração de todas as camadas de segurança necessárias para operação em conformidade com padrões PCI DSS~\cite{PCIDSS:2022}.
 
 \textbf{1.2.1 Configuração de Ambiente Cloud:} Provisionamento de recursos em nuvem (AWS/Azure/GCP), configuração de auto-scaling, balanceamento de carga e banco de dados gerenciados. Entrega: Ambiente de desenvolvimento, homologação e produção operacionais.
 
 \textbf{1.2.2 Implementação de CDN:} Configuração de Content Delivery Network para distribuição global de conteúdo estático (imagens, CSS, JavaScript), reduzindo latência e melhorando experiência do usuário. Entrega: CDN configurada e testada.
 
-\textbf{1.2.3 Configuração de Segurança:} Implementação de firewall de aplicação web (WAF), criptografia TLS/SSL, políticas de acesso IAM, backup automático e conformidade com LGPD \cite{LGPD:2018}. Entrega: Ambiente seguro e auditado.
+\textbf{1.2.3 Configuração de Segurança:} Implementação de firewall de aplicação web (WAF), criptografia TLS/SSL, políticas de acesso IAM, backup automático e conformidade com LGPD~\cite{LGPD:2018}. Entrega: Ambiente seguro e auditado.
 
 \textbf{1.3 BACKEND E APIS}
 
-Desenvolvimento de todos os serviços de backend utilizando arquitetura de microsserviços, garantindo separação de responsabilidades, escalabilidade independente e manutenibilidade \cite{Newman:2021}.
+Desenvolvimento do backend e APIs do Next.js com modulos de dominio, garantindo separacao de responsabilidades, escalabilidade horizontal e manutenibilidade.
 
 \textbf{1.3.1 API de Autenticação:} Desenvolvimento do serviço de identidade e acesso com suporte a JWT, OAuth 2.0, múltiplos perfis de usuário (comprador, organizador, operador) e recuperação de senha. Entrega: API autenticação testada e documentada.
 
@@ -86,7 +86,7 @@ Desenvolvimento de todos os serviços de backend utilizando arquitetura de micro
 
 \textbf{1.4 FRONTEND}
 
-Desenvolvimento de todas as interfaces de usuário seguindo princípios de design responsivo, usabilidade e acessibilidade conforme WCAG 2.1 \cite{WCAG:2018}.
+Desenvolvimento de todas as interfaces de usuário seguindo princípios de design responsivo, usabilidade e acessibilidade conforme WCAG 2.1~\cite{WCAG:2018}.
 
 \textbf{1.4.1 Interface do Comprador:} Construção da interface web responsiva para pesquisa de eventos, seleção de ingressos, processo de compra, visualização de ingressos adquiridos e histórico de compras. Entrega: Interface comprador funcional e responsiva.
 
@@ -106,15 +106,15 @@ Integração com sistemas e serviços externos essenciais para o funcionamento c
 
 \textbf{1.6 TESTES E QUALIDADE}
 
-Execução abrangente de testes em múltiplos níveis para garantir qualidade, performance, segurança e conformidade da solução \cite{Pressman:2019}.
+Execução abrangente de testes em múltiplos níveis para garantir qualidade, performance, segurança e conformidade da solução~\cite{Pressman:2019}.
 
 \textbf{1.6.1 Testes Unitários:} Desenvolvimento e execução de testes unitários automatizados para todas as funções e componentes do backend, garantindo cobertura mínima de 80\%. Entrega: Suite de testes unitários aprovada.
 
-\textbf{1.6.2 Testes de Integração:} Execução de testes automatizados validando a comunicação entre microsserviços, integração com APIs externas e fluxos completos de funcionalidades. Entrega: Suite de testes integração aprovada.
+\textbf{1.6.2 Testes de Integracao:} Execucao de testes automatizados validando a comunicacao entre modulos internos, integracao com APIs externas e fluxos completos de funcionalidades. Entrega: Suite de testes integracao aprovada.
 
 \textbf{1.6.3 Testes de Carga:} Realização de testes de carga e estresse simulando 10.000 usuários simultâneos para validar escalabilidade e identificar gargalos de performance. Entrega: Relatório testes carga aprovado.
 
-\textbf{1.6.4 Testes de Segurança:} Execução de análise de vulnerabilidades (SAST/DAST), testes de penetração e validação de conformidade com OWASP Top 10 \cite{OWASP:2021} e PCI DSS. Entrega: Relatório segurança aprovado.
+\textbf{1.6.4 Testes de Segurança:} Execução de análise de vulnerabilidades (SAST/DAST), testes de penetração e validação de conformidade com OWASP Top 10~\cite{OWASP:2021} e PCI DSS. Entrega: Relatório segurança aprovado.
 
 \textbf{1.7 IMPLANTAÇÃO E ENCERRAMENTO}
 
@@ -128,21 +128,21 @@ Deploy em ambiente de produção, configuração de monitoramento contínuo e el
 
 \section{Lista de Tarefas e Marcos}
 
-A lista de tarefas detalha todas as atividades que devem ser executadas para completar cada pacote de trabalho da EAP, estabelecendo marcos (milestones) que representam pontos significativos de progresso no projeto \cite{Kerzner:2022}.
+A lista de tarefas detalha todas as atividades que devem ser executadas para completar cada pacote de trabalho da EAP, estabelecendo marcos (milestones) que representam pontos significativos de progresso no projeto~\cite{Kerzner:2022}.
 
 \begin{table}[H]
 \centering
-\caption{Lista de tarefas e marcos do projeto.}
+\caption{Lista de tarefas e marcos do projeto.}%
 \label{tab:tarefas}
 \footnotesize
-\begin{tabular}{|p{0.6cm}|p{6.5cm}|p{6cm}|c|}
+\begin{tabular}{|p{0.9cm}|p{6.2cm}|p{5.7cm}|c|}
 \hline
 \textbf{ID} & \textbf{Nome da Tarefa} & \textbf{Descrição} & \textbf{Marco} \\ \hline
 1.1.1 & Realizar workshops com stakeholders & Conduzir sessões estruturadas de levantamento de requisitos & Não \\ \hline
 1.1.2 & Documentar requisitos funcionais & Elaborar especificação detalhada de todos os RF & Não \\ \hline
 1.1.3 & Documentar requisitos não funcionais & Elaborar especificação detalhada de todos os RNF & Não \\ \hline
 1.1.4 & Validar requisitos com stakeholders & Apresentar e obter aprovação formal dos requisitos & Sim \\ \hline
-1.2.1 & Projetar arquitetura de microsserviços & Definir componentes, responsabilidades e comunicação & Não \\ \hline
+1.2.1 & Projetar arquitetura Next.js + MongoDB & Definir camadas, modulos e modelagem do banco & Não \\ \hline
 1.2.2 & Selecionar stack tecnológico & Definir linguagens, frameworks e infraestrutura & Não \\ \hline
 1.2.3 & Elaborar diagramas de arquitetura & Criar diagramas C4, sequência e deployment & Não \\ \hline
 1.2.4 & Revisar e aprovar arquitetura & Conduzir revisão técnica e obter aprovação & Sim \\ \hline
@@ -241,7 +241,7 @@ Os marcos identificados representam pontos de controle críticos onde entregas s
 
 \section{Matriz de Responsabilidades (RACI)}
 
-A matriz RACI é uma ferramenta de gestão de projetos que define claramente os papéis e responsabilidades de cada membro da equipe para cada atividade do projeto \cite{PMI:2021}. A sigla RACI representa:
+A matriz RACI é uma ferramenta de gestão de projetos que define claramente os papéis e responsabilidades de cada membro da equipe para cada atividade do projeto~\cite{PMI:2021}. A sigla RACI representa:
 
 \begin{itemize}
     \item \textbf{R (Responsible):} Responsável pela execução da tarefa
@@ -252,7 +252,7 @@ A matriz RACI é uma ferramenta de gestão de projetos que define claramente os 
 
 \begin{table}[H]
 \centering
-\caption{Matriz de responsabilidades RACI para atividades principais do projeto.}
+\caption{Matriz de responsabilidades RACI para atividades principais do projeto.}%
 \label{tab:raci}
 \footnotesize
 \begin{tabular}{|p{5cm}|c|c|c|c|c|}
@@ -298,11 +298,11 @@ A matriz RACI garante que não haja ambiguidade sobre responsabilidades, evitand
 
 \section{Sequenciamento de Tarefas}
 
-O sequenciamento de tarefas estabelece a ordem lógica e as dependências entre as atividades do projeto, identificando predecessoras obrigatórias e relacionamentos de lead/lag quando aplicáveis \cite{Kerzner:2022}.
+O sequenciamento de tarefas estabelece a ordem lógica e as dependências entre as atividades do projeto, identificando predecessoras obrigatórias e relacionamentos de lead/lag quando aplicáveis~\cite{Kerzner:2022}.
 
 \begin{table}[H]
 \centering
-\caption{Sequenciamento de tarefas com dependências.}
+\caption{Sequenciamento de tarefas com dependências.}%
 \label{tab:sequenciamento}
 \footnotesize
 \begin{tabular}{|p{1cm}|p{5cm}|p{2cm}|p{1.5cm}|p{3cm}|}

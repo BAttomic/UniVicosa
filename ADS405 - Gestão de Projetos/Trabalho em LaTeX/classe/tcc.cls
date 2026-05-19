@@ -1,36 +1,13 @@
-%% USPSC1.cls v3.2
-%% A Classe USPSC 16/06/2016 é uma derivada da abntex2.cls, v-1.9.5 para as Unidades do %% Campus USP de São Carlos:
-%% EESC - Escola de Engenharia de São Carlos
-%% IAU - Instituto de Arquitetura e Urbanismo
-%% ICMC - Instituto de Ciências Matemáticas e de Computação
-%% IFSC - Instituto de Física de São Carlos
-%% IQSC - Instituto de Química de São Carlos
-%%
-%% A classe USPSC consiste dos arquivos USPSC.cls e USPSC1.cls, integra o 
-%% Pacote USPSC que é mantido pela seguinte equipe:
-%% Programação:
-%%   - Marilza Aparecida Rodrigues Tognetti - marilza@sc.usp.br (PUSP-SC)
-%%   - Ana Paula Aparecida Calabrez - aninha@sc.usp.br (PUSP-SC)
-%% Normalização:
-%%   - Brianda de Oliveira Ordonho Sigolo - brianda@usp.br (IAU)
-%%   - Eduardo Graziosi Silva - edu.gs@sc.usp.br (EESC)
-%%   - Eliana de Cássia Aquareli Cordeiro - eliana@iqsc.usp.br (IQSC)
-%%   - Flávia Helena Cassin - cassinp@sc.usp.br (EESC)
-%%   - Maria Cristina Cavarette Dziabas - mcdziaba@ifsc.usp.br (IFSC)
-%%   - Regina Célia Vidal Medeiros - rcvmat@icmc.usp.br (ICMC)
-%%
-%% Sobre a classe abntex2.cls:
-%% abntex2.cls, v-1.9.5 laurocesar
-%% Copyright 2012-2015 by abnTeX2 group at https://www.abntex.net.br/ 
-%%
+%% tcc.cls
+%% Classe para trabalhos academicos baseada em abntex2
 
 % ------------------------------------------------------------------------
 % ------------------------------------------------------------------------
-% Declaracao da classe USPSC como uma extensao da classe memoir (extensão da abntex2)
+% Declaracao da classe como uma extensao da classe memoir (extensão da abntex2)
 % ------------------------------------------------------------------------
 % ------------------------------------------------------------------------
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{USPSC-classe/USPSC}[01/06/2021 v3.1 USPSC]
+\ProvidesClass{classe/tcc}[01/06/2021 v3.1]
 \RequirePackage{ifthen}
 %
 % Captura as options article e twocolumn
@@ -42,8 +19,8 @@
 }
 \providecommand{\ABNTEXistwocolumn}{false}
 \DeclareOption{twocolumn}{
-\renewcommand{\ABNTEXistwocolumn}{true}
-\PassOptionsToClass{twocolumn}{memoir}%}
+	\renewcommand{\ABNTEXistwocolumn}{true}
+	\PassOptionsToClass{twocolumn}{memoir}%}
 }
 %	
 % Opcoes chapter=TITLE, section=TITLE, subsection=TITLE e
@@ -73,16 +50,16 @@
 \setboolean{ABNTEXsumario-tradicional}{false}
 \setboolean{ABNTEXsumario-abnt-6027-2012}{true}
 \DeclareOption{sumario=tradicional}{%
-\setboolean{ABNTEXsumario-tradicional}{true}%
-\setboolean{ABNTEXsumario-abnt-6027-2012}{false}}
+  \setboolean{ABNTEXsumario-tradicional}{true}%
+  \setboolean{ABNTEXsumario-abnt-6027-2012}{false}}
 \DeclareOption{sumario=abnt-6027-2012}{%
-\setboolean{ABNTEXsumario-abnt-6027-2012}{true}
-\setboolean{ABNTEXsumario-tradicional}{false}}
+  \setboolean{ABNTEXsumario-abnt-6027-2012}{true}
+  \setboolean{ABNTEXsumario-tradicional}{false}}
 %
 % Repassa demais opcoes a memoir	
 %
 \DeclareOption*{%
-\PassOptionsToClass{\CurrentOption}{memoir}%
+  \PassOptionsToClass{\CurrentOption}{memoir}%
 }
 \ProcessOptions\relax
 \LoadClass{memoir}
@@ -92,8 +69,8 @@
 %    \settocpreprocessor \changes{v3.6k}{2012/09/18}{Added}
 \ifdefined\settocpreprocessor
 \else
-\setboolean{ABNTEXsumario-tradicional}{true}
-\setboolean{ABNTEXsumario-abnt-6027-2012}{false}
+  \setboolean{ABNTEXsumario-tradicional}{true}
+  \setboolean{ABNTEXsumario-abnt-6027-2012}{false}
 \fi
 
 
@@ -147,7 +124,7 @@
 % ---
 % Hifenizacao e caracteres especiais portugues-brasil por padrao
 % ---
-\RequirePackage[brazil]{babel}
+\RequirePackage[brazilian]{babel}
 %
 % Nomes constantes do abnTeX2 em portugues (definicoes padroes)
 \newcommand{\folhaderostoname}{Folha de rosto}
@@ -176,61 +153,61 @@
 \newcommand{\fontename}{Fonte}
 \newcommand{\notaname}{Nota}
 %
-\addto\captionsbrazil{% portugues-brasil
-%% ajusta nomes padroes do babel
-\renewcommand{\bibname}{Refer\^encias}
-%\renewcommand{\indexname}{\'Indice}
-\renewcommand{\indexname}{\'INDICE}
-\renewcommand{\listfigurename}{Lista de figuras}
-\renewcommand{\listtablename}{Lista de tabelas}
-%% ajusta nomes usados com a macro \autoref
-\renewcommand{\pageautorefname}{p\'agina}
-\renewcommand{\sectionautorefname}{se{\c c}\~ao}
-\renewcommand{\subsectionautorefname}{subse{\c c}\~ao}
-\renewcommand{\subsubsectionautorefname}{subse{\c c}\~ao}
-\renewcommand{\paragraphautorefname}{subse{\c c}\~ao}
+\addto\captionsbrazilian{% portugues-brasil
+	%% ajusta nomes padroes do babel
+	\renewcommand{\bibname}{Refer\^encias}
+	%\renewcommand{\indexname}{\'Indice}
+	\renewcommand{\indexname}{\'INDICE}
+	\renewcommand{\listfigurename}{Lista de figuras}
+	\renewcommand{\listtablename}{Lista de tabelas}
+	%% ajusta nomes usados com a macro \autoref
+	\renewcommand{\pageautorefname}{p\'agina}
+	\renewcommand{\sectionautorefname}{se{\c c}\~ao}
+	\renewcommand{\subsectionautorefname}{subse{\c c}\~ao}
+	\renewcommand{\subsubsectionautorefname}{subse{\c c}\~ao}
+	\renewcommand{\paragraphautorefname}{subse{\c c}\~ao}
 }
 
 % ---
 \addto\captionsenglish{% ingles
-%% adjusts names from abnTeX2 
-\renewcommand{\bibname}{References}
-\renewcommand{\folhaderostoname}{Title page}
-\renewcommand{\folhaderostonamem}{Title page}
-\renewcommand{\folhaderostoaltname}{Title page}
-%\renewcommand{\folhaderostoaltnamem}{Title page}
-\renewcommand{\folhaderostoadicname}{Title page additional}
-\renewcommand{\epigraphname}{Epigraph}
-\renewcommand{\dedicatorianame}{Dedication}
-\renewcommand{\errataname}{Errata}
-\renewcommand{\agradecimentosname}{Acknowledgements}
-\renewcommand{\indexname}{INDEX}
-\renewcommand{\anexoname}{ANNEX}
-\renewcommand{\anexosname}{ANNEX}
-\renewcommand{\apendicename}{APPENDIX}
-\renewcommand{\apendicesname}{APPENDIX}
-\renewcommand{\orientadorname}{Advisor:}
-\renewcommand{\coorientadorname}{Coadvisor:}
-\renewcommand{\folhadeaprovacaoname}{Approval}
-%\renewcommand{\resumoname}{Abstract} 
-\renewcommand{\resumoname}{Resumo} 
-\renewcommand{\listadesiglasname}{List of abbreviations and acronyms}
-\renewcommand{\listadesimbolosname}{List of symbols}
-\renewcommand{\quadroname}{Frame}
-\renewcommand{\listofquadroname}{List of frames}
-\renewcommand{\fontename}{Source}
-\renewcommand{\notaname}{Note}
-%% adjusts names used by \autoref
-\renewcommand{\pageautorefname}{page}
-\renewcommand{\sectionautorefname}{section}
-\renewcommand{\subsectionautorefname}{subsection}
-\renewcommand{\subsubsectionautorefname}{subsubsection}
-\renewcommand{\paragraphautorefname}{subsubsubsection}
+	%% adjusts names from abnTeX2 
+	\renewcommand{\bibname}{References}
+	\renewcommand{\folhaderostoname}{Title page}
+	\renewcommand{\folhaderostonamem}{Title page}
+	\renewcommand{\folhaderostoaltname}{Title page}
+	%\renewcommand{\folhaderostoaltnamem}{Title page}
+	\renewcommand{\folhaderostoadicname}{Title page additional}
+	\renewcommand{\epigraphname}{Epigraph}
+	\renewcommand{\dedicatorianame}{Dedication}
+	\renewcommand{\errataname}{Errata}
+	\renewcommand{\agradecimentosname}{Acknowledgements}
+	\renewcommand{\indexname}{INDEX}
+	\renewcommand{\anexoname}{ANNEX}
+	\renewcommand{\anexosname}{ANNEX}
+	\renewcommand{\apendicename}{APPENDIX}
+	\renewcommand{\apendicesname}{APPENDIX}
+	\renewcommand{\orientadorname}{Advisor:}
+	\renewcommand{\coorientadorname}{Coadvisor:}
+	\renewcommand{\folhadeaprovacaoname}{Approval}
+	%\renewcommand{\resumoname}{Abstract} 
+	\renewcommand{\resumoname}{Resumo} 
+	\renewcommand{\listadesiglasname}{List of abbreviations and acronyms}
+	\renewcommand{\listadesimbolosname}{List of symbols}
+	\renewcommand{\quadroname}{Frame}
+	\renewcommand{\listofquadroname}{List of frames}
+	\renewcommand{\fontename}{Source}
+	\renewcommand{\notaname}{Note}
+	%% adjusts names used by \autoref
+	\renewcommand{\pageautorefname}{page}
+	\renewcommand{\sectionautorefname}{section}
+	\renewcommand{\subsectionautorefname}{subsection}
+	\renewcommand{\subsubsectionautorefname}{subsubsection}
+	\renewcommand{\paragraphautorefname}{subsubsubsection}
 }
 % ---
 
 % ---
-%Constantes USPSC
+% Constantes
 %
 % Comando para definição da autor abreviado
 \providecommand{\imprimirautorabr}{}
@@ -247,7 +224,7 @@
 % Comando para definição do idioma do texto
 %\providecommand{\imprimiridiomatexto}{}
 %\newcommand{\idiomatexto}[1]{\renewcommand{\imprimiridiomatexto}{#1}}
-
+	
 % Comando para definição da Unidade
 \providecommand{\imprimirunidade}{}
 \newcommand{\unidade}[1]{\renewcommand{\imprimirunidade}{#1}}
@@ -330,28 +307,9 @@
 \providecommand{\imprimirdisciplina}{}
 \newcommand{\disciplina}[1]{\renewcommand{\imprimirdisciplina}{#1}}
 
-% Background da capa do ICMC
-% 26/03/2021 ----------------
-\newcommand\BackgroundPic{
-\put(0,0){
-\parbox[b][\paperheight]{\paperwidth}{
-	\vfill
-	\centering
-	\includegraphics[width=\paperwidth,height=\paperheight,keepaspectratio]{USPSC-img/CapaICMC.jpg}
-	\vfill
-}}}
-\makeatother
-% Background branco
-% 26/03/2021 ----------------
-\newcommand\BackgroundBranco{
-\put(0,0){
-\parbox[b][\paperheight]{\paperwidth}{
-	\vfill
-	\centering
-	\includegraphics[width=\paperwidth,height=\paperheight,keepaspectratio]{USPSC-img/USPSC-PaginaEmBranco.jpg}
-	\vfill
-}}}		
-\makeatother				
+% Backgrounds (desabilitados por padrao)
+\newcommand\BackgroundPic{}
+\newcommand\BackgroundBranco{}
 % Customiza listas
 \RequirePackage{enumitem}
 % ---
@@ -428,8 +386,8 @@
 \newcounter{abntex@bookmarkcounter}
 \setcounter{abntex@bookmarkcounter}{0}
 \newcommand{\PRIVATEbookmarkthis}[1]{%
-\addtocounter{abntex@bookmarkcounter}{1}%
-\phantomsection\pdfbookmark[0]{#1}{chapterb\arabic{abntex@bookmarkcounter}}
+  \addtocounter{abntex@bookmarkcounter}{1}%
+  \phantomsection\pdfbookmark[0]{#1}{chapterb\arabic{abntex@bookmarkcounter}}
 }
 % ---
 
@@ -437,10 +395,10 @@
 % Comando que cria capitulos nao numerados ja com bookmark anotado
 % ---
 \newcommand{\pretextualchapter}[1]{%
-\addtocounter{abntex@bookmarkcounter}{1}%
-\PRIVATEbookmarkthis{#1}%
-\chapter*[#1]{#1}%
-}
+  \addtocounter{abntex@bookmarkcounter}{1}%
+  \PRIVATEbookmarkthis{#1}%
+  \chapter*[#1]{#1}%
+  }
 \provideboolean{abntex@apendiceousecao}
 \setboolean{abntex@apendiceousecao}{false}
 % ---
@@ -449,11 +407,11 @@
 % cleardoublepage se este documento nao for article
 % ---
 \newcommand{\PRIVATEclearpageifneeded}{%
-\ifthenelse{\equal{\ABNTEXisarticle}{true}}{%
-%
-}{ % else
-\cleardoublepage%
-}
+  \ifthenelse{\equal{\ABNTEXisarticle}{true}}{%
+    %
+  }{ % else
+    \cleardoublepage%
+  }
 }  
 
 % Comandos utilizados para referenciar corpos flutuantes no texto - 21/09/2015
@@ -483,20 +441,20 @@
 \let\oldFootnote\footnote
 \newcommand\nextToken\relax
 \renewcommand\footnote[1]{%
-\oldFootnote{#1}\futurelet\nextToken\isFootnote}
+    \oldFootnote{#1}\futurelet\nextToken\isFootnote}
 \newcommand\isFootnote{%
-\ifx\footnote\nextToken\textsuperscript{,}\fi}
+    \ifx\footnote\nextToken\textsuperscript{,}\fi}
 % ---
 
 % ---
 % Numeracao continua das figuras
 \ifthenelse{\equal{\ABNTEXisarticle}{true}}{%
-\counterwithout{section}{chapter}
-\counterwithout{figure}{section}
-\counterwithout{table}{section}
+  \counterwithout{section}{chapter}
+  \counterwithout{figure}{section}
+  \counterwithout{table}{section}
 }{%else
-\counterwithout{figure}{chapter}
-\counterwithout{table}{chapter}
+  \counterwithout{figure}{chapter}
+  \counterwithout{table}{chapter}
 }
 % ---
 
@@ -516,32 +474,32 @@
 % independente do carregamento de pacotes externos ao memoir que tratam captions.
 \newcommand{\IBGEtabfontsize}{\ABNTEXfontereduzida}
 \AtBeginDocument{%
-% comandos auxiliares para manipular os captions dentro do comando \IBGEtab.
-\newcommand{\configurecaptions}{\captionstyle[\raggedright]{}}
-\newcommand{\configureseparator}{\captiondelim{\ABNTEXcaptiondelim}}
-% Para fonte, nota, anotações
-%\newcommand{\configureseparator}{\captiondelim{: }}
-
-
-% Define o comando \IBGEtab{}{}{} com caption e legenda da largura do conteúdo tabular, tabular*, etc
-% Parece funcionar com qualque pacote
-\newsavebox{\myptabbox}
-\newlength{\myptabboxwidth}
-\newcommand{\IBGEtab}[3]{%
-\savebox{\myptabbox}{{\IBGEtabfontsize #2}}%
-\settowidth{\myptabboxwidth}{\usebox{\myptabbox}}%
-\centering%
-\parbox{\myptabboxwidth}{%
-	\configurecaptions
-	#1%
-	\par%
-	{\IBGEtabfontsize%
-		#2%
-	}%
-	\par%
-	#3}%
-}
-\let\ibgetab\IBGEtab  
+  % comandos auxiliares para manipular os captions dentro do comando \IBGEtab.
+  \newcommand{\configurecaptions}{\captionstyle[\raggedright]{}}
+  \newcommand{\configureseparator}{\captiondelim{\ABNTEXcaptiondelim}}
+  % Para fonte, nota, anotações
+  %\newcommand{\configureseparator}{\captiondelim{: }}
+ 
+ 
+  % Define o comando \IBGEtab{}{}{} com caption e legenda da largura do conteúdo tabular, tabular*, etc
+  % Parece funcionar com qualque pacote
+  \newsavebox{\myptabbox}
+  \newlength{\myptabboxwidth}
+  \newcommand{\IBGEtab}[3]{%
+    \savebox{\myptabbox}{{\IBGEtabfontsize #2}}%
+    \settowidth{\myptabboxwidth}{\usebox{\myptabbox}}%
+    \centering%
+    \parbox{\myptabboxwidth}{%
+    \configurecaptions
+    #1%
+    \par%
+    {\IBGEtabfontsize%
+    #2%
+    }%
+    \par%
+    #3}%
+  }
+  \let\ibgetab\IBGEtab  
 }
 
 
@@ -549,19 +507,19 @@
 % Define o comando \fonte que respeita as configurações de caption do memoir ou do caption
 \makeatletter
 \newcommand{\fonte}[2][\fontename]{%
-\M@gettitle{#2}%
-\memlegendinfo{#2}%
-\par
-\begingroup
-\@parboxrestore
-\if@minipage
-\@setminipage
-\fi
-\ABNTEXfontereduzida
-%\configureseparator
-\captiondelim{\ABNTEXcaptionfontedelim}
-\@makecaption{\ABNTEXfontereduzida #1}{\ignorespaces\ABNTEXfontereduzida #2}\par
-\endgroup}
+	\M@gettitle{#2}%
+	\memlegendinfo{#2}%
+	\par
+	\begingroup
+	\@parboxrestore
+	\if@minipage
+	\@setminipage
+	\fi
+	\ABNTEXfontereduzida
+	%\configureseparator
+	\captiondelim{\ABNTEXcaptionfontedelim}
+	\@makecaption{\ABNTEXfontereduzida #1}{\ignorespaces\ABNTEXfontereduzida #2}\par
+	\endgroup}
 \makeatother
 
 % Define o comando \notas que respeita as configurações de caption do memoir ou do caption
@@ -572,23 +530,23 @@
 % Altera os comandos \configurecaptions e \configureseparator para trabalhar com 
 % o pacote caption e amigos.
 \AtEndPackage{caption}{
-\AtBeginDocument{%
-\DeclareCaptionLabelSeparator{barr}{\ABNTEXcaptiondelim}
-\DeclareCaptionFont{ABNTEXfontereduzida}{\ABNTEXfontereduzida}
-\captionsetup{format=hang,
-	labelseparator=barr,
-	%labelfont=ABNTEXfontereduzida,
-	%font=ABNTEXfontereduzida
-}
-\renewcommand{\configurecaptions}{%
-	\captionsetup{justification=justified,%
-		singlelinecheck=false}}
-\renewcommand{\configureseparator}{\captionsetup{labelsep=colon}}
-}
+	\AtBeginDocument{%
+		\DeclareCaptionLabelSeparator{barr}{\ABNTEXcaptiondelim}
+		\DeclareCaptionFont{ABNTEXfontereduzida}{\ABNTEXfontereduzida}
+		\captionsetup{format=hang,
+			labelseparator=barr,
+			%labelfont=ABNTEXfontereduzida,
+			%font=ABNTEXfontereduzida
+		}
+		\renewcommand{\configurecaptions}{%
+			\captionsetup{justification=justified,%
+				singlelinecheck=false}}
+		\renewcommand{\configureseparator}{\captionsetup{labelsep=colon}}
+	}
 }
 
 \AtBeginDocument{
-\captiondelim{\ABNTEXcaptiondelim}
+	\captiondelim{\ABNTEXcaptiondelim}
 }
 % ---
 
@@ -615,17 +573,17 @@
 % lista de ilustracoes
 \renewcommand{\cftfigurename}{\figurename\space} 
 \renewcommand*{\cftfigureaftersnum}{\hfill\textendash\hfill}
-
+ 
 % lista de tabelas  
 %\renewcommand{\cfttablename}{\tablename\space}
 %\renewcommand*{\cfttableaftersnum}{\hfill\textendash\hfill}	
 \renewcommand{\cfttablename}{\tablename\space}
 \renewcommand*{\cfttableaftersnum}{\hfill\textendash\hfill}
-
+ 
 % lista de quadros  - 23/05/2016
 \newcommand{\quadroname}{Quadro}
 \newcommand{\listofquadroname}{Lista de quadros}
-
+ 
 \newfloat[chapter]{quadro}{loq}{\quadroname}
 \newlistof{listofquadro}{loq}{\listofquadroname}
 \newlistentry{quadro}{loq}{0}
@@ -636,7 +594,7 @@
 \renewcommand{\cftquadroname}{\quadroname\space} 
 \renewcommand*{\cftquadroaftersnum}{\hfill--\hfill}
 % Fim lista de quadros  - 23/05/2016
-
+ 
 % fonte das partes e do capitulo do TOC
 \renewcommand{\tocheadstart}{\ABNTEXchapterfont}
 
@@ -667,97 +625,86 @@
 
 % No caso de Sumario (TOC) tradicional
 \ifthenelse{\boolean{ABNTEXsumario-tradicional}}{}{} % essa linha não faz nada,
-% mas se houver necessidade de alterar o comportamento
-% do sumário tradicional altere aqui.
+                                                     % mas se houver necessidade de alterar o comportamento
+                                                     % do sumário tradicional altere aqui.
 
 % No caso de Sumario (TOC) especifico da ABNT-6027-2012
 
 \makeatletter
-\ifthenelse{\boolean{ABNTEXsumario-abnt-6027-2012}}{
-\settocpreprocessor{chapter}{%
-\let\tempf@rtoc\f@rtoc%
-\def\f@rtoc{%
-	\texorpdfstring{\MakeTextUppercase{\tempf@rtoc}}{\tempf@rtoc}}%
-}
-\settocpreprocessor{part}{%
-\let\tempf@rtoc\f@rtoc%
-\def\f@rtoc{%
-	\texorpdfstring{\MakeTextUppercase{\tempf@rtoc}}{\tempf@rtoc}}%
-}
-}{}
+\ifthenelse{\boolean{ABNTEXsumario-abnt-6027-2012}}{}{}
 \makeatother
 %
 \ifthenelse{\boolean{ABNTEXsumario-abnt-6027-2012}}{%
-
-\cftsetindents{part}{0em}{\cftlastnumwidth}
-\cftsetindents{chapter}{0em}{\cftlastnumwidth}
-\cftsetindents{section}{0em}{\cftlastnumwidth}
-\cftsetindents{subsection}{0em}{\cftlastnumwidth}
-\cftsetindents{subsubsection}{0em}{\cftlastnumwidth}
-\cftsetindents{paragraph}{0em}{\cftlastnumwidth}
-\cftsetindents{subparagraph}{0em}{\cftlastnumwidth}
-%
-\renewcommand{\tocprintchapter}{%
-\addtocontents{toc}{\cftsetindents{chapter}{0em}{\cftlastnumwidth}}}
-%
-\renewcommand{\tocinnonumchapter}{%
-\addtocontents{toc}{\cftsetindents{chapter}{\cftlastnumwidth}{2em}}%
-\cftinserthook{toc}{A}}
-%
-\renewcommand{\tocprintchapternonum}{%
-\addtocontents{toc}{\cftsetindents{chapter}{\cftlastnumwidth}{2em}}}
-%
-\renewcommand{\tocpartapendices}{%
-\addtocontents{toc}{\cftsetindents{part}{\cftlastnumwidth}{2em}}
-\cftinserthook{toc}{A}}
-%
-\renewcommand{\tocpartanexos}{%
-\addtocontents{toc}{\cftsetindents{part}{\cftlastnumwidth}{2em}}
-\cftinserthook{toc}{A}}
-%
-\setlength{\cftbeforechapterskip}{1em}
-%
-% Fontes das entradas do sumario
-%
-\renewcommand{\cftpartfont}{\fontsize{12}{12}\bfseries}
-%
-\renewcommand{\cftchapterfont}{\fontsize{12}{12}\bfseries}
-\renewcommand{\cftchapterpagefont}{\normalsize\cftchapterfont}
-%
-\renewcommand{\cftsectionfont}{\fontsize{12}{12}\bfseries}
-\renewcommand{\cftsectionpagefont}{\cftsectionfont}
-%
-\renewcommand{\cftsubsectionfont}{\fontsize{12}{12}\normalsize}
-\renewcommand{\cftsubsectionpagefont}{\cftsubsectionfont}
-%
-\renewcommand{\cftsubsubsectionfont}{\fontsize{12}{12}\normalsize}
-\renewcommand{\cftsubsubsectionpagefont}{\cftsubsubsectionfont}
-%
-\renewcommand{\cftparagraphfont}{\fontsize{12}{12}\normalsize}
-\renewcommand{\cftparagraphpagefont}{\cftparagraphfont}
-%
-% Ajusta entrada Referencias
-%
-\renewcommand{\bibsection}{%
-\chapter*{\bibname}
-\bibmark
-\ifnobibintoc\else
-\phantomsection
-\addcontentsline{toc}{chapter}{\uppercase{\bibname}}
-\fi
-\prebibhook
+  
+  \cftsetindents{part}{0em}{\cftlastnumwidth}
+  \cftsetindents{chapter}{0em}{\cftlastnumwidth}
+  \cftsetindents{section}{0em}{\cftlastnumwidth}
+  \cftsetindents{subsection}{0em}{\cftlastnumwidth}
+  \cftsetindents{subsubsection}{0em}{\cftlastnumwidth}
+  \cftsetindents{paragraph}{0em}{\cftlastnumwidth}
+  \cftsetindents{subparagraph}{0em}{\cftlastnumwidth}
+  %
+  \renewcommand{\tocprintchapter}{%
+    \addtocontents{toc}{\cftsetindents{chapter}{0em}{\cftlastnumwidth}}}
+  %
+  \renewcommand{\tocinnonumchapter}{%
+    \addtocontents{toc}{\cftsetindents{chapter}{\cftlastnumwidth}{2em}}%
+    \cftinserthook{toc}{A}}
+  %
+  \renewcommand{\tocprintchapternonum}{%
+    \addtocontents{toc}{\cftsetindents{chapter}{\cftlastnumwidth}{2em}}}
+  %
+  \renewcommand{\tocpartapendices}{%
+    \addtocontents{toc}{\cftsetindents{part}{\cftlastnumwidth}{2em}}
+    \cftinserthook{toc}{A}}
+  %
+  \renewcommand{\tocpartanexos}{%
+    \addtocontents{toc}{\cftsetindents{part}{\cftlastnumwidth}{2em}}
+    \cftinserthook{toc}{A}}
+  %
+  \setlength{\cftbeforechapterskip}{1em}
+  %
+    % Fontes das entradas do sumario
+  %
+  \renewcommand{\cftpartfont}{\fontsize{12}{12}\bfseries}
+  %
+  \renewcommand{\cftchapterfont}{\fontsize{12}{12}\bfseries}
+  \renewcommand{\cftchapterpagefont}{\normalsize\cftchapterfont}
+  %
+  \renewcommand{\cftsectionfont}{\fontsize{12}{12}\bfseries}
+  \renewcommand{\cftsectionpagefont}{\cftsectionfont}
+  %
+  \renewcommand{\cftsubsectionfont}{\fontsize{12}{12}\normalsize}
+  \renewcommand{\cftsubsectionpagefont}{\cftsubsectionfont}
+  %
+  \renewcommand{\cftsubsubsectionfont}{\fontsize{12}{12}\normalsize}
+  \renewcommand{\cftsubsubsectionpagefont}{\cftsubsubsectionfont}
+  %
+  \renewcommand{\cftparagraphfont}{\fontsize{12}{12}\normalsize}
+  \renewcommand{\cftparagraphpagefont}{\cftparagraphfont}
+  %
+  % Ajusta entrada Referencias
+  %
+  \renewcommand{\bibsection}{%
+    \chapter*{\bibname}
+    \bibmark
+    \ifnobibintoc\else
+    \phantomsection
+    \addcontentsline{toc}{chapter}{\uppercase{\bibname}}
+    \fi
+    \prebibhook
 }
-
+  
 }{}
 
 % Comando que simula a finalizacao de uma parte no bookmark e
 % adiciona espaco de \part no sumario
 \newcommand{\phantompart}{%
-\bookmarksetup{startatroot}%
-\phantomsection%
-\ifthenelse{\boolean{ABNTEXsumario-abnt-6027-2012}}{%
-\addtocontents{toc}{\vspace{\cftbeforechapterskip}}}{%
-\addtocontents{toc}{\vspace{\cftbeforepartskip}}}%
+  \bookmarksetup{startatroot}%
+  \phantomsection%
+  \ifthenelse{\boolean{ABNTEXsumario-abnt-6027-2012}}{%
+    \addtocontents{toc}{\vspace{\cftbeforechapterskip}}}{%
+    \addtocontents{toc}{\vspace{\cftbeforepartskip}}}%
 }
 % -----
 
@@ -768,73 +715,73 @@
 \provideboolean{abntex@innonumchapter}
 \setboolean{abntex@innonumchapter}{true}
 \makechapterstyle{abnt}{%
-\renewcommand{\chapterheadstart}{} 
+  \renewcommand{\chapterheadstart}{} 
 
-\ifx \chapternamenumlength \undefined
-\newlength{\chapternamenumlength}
-\fi
+  \ifx \chapternamenumlength \undefined
+    \newlength{\chapternamenumlength}
+  \fi
 
-% tamanhos de fontes de chapter e part	
-\ifthenelse{\equal{\ABNTEXisarticle}{true}}{%
-\setlength\beforechapskip{\baselineskip}
-\renewcommand{\chaptitlefont}{\ABNTEXsectionfont\ABNTEXsectionfontsize}
-}{%else
-\setlength{\beforechapskip}{0pt}
-\renewcommand{\chaptitlefont}{\ABNTEXchapterfont\ABNTEXchapterfontsize}
-}
-
-\renewcommand{\chapnumfont}{\chaptitlefont}
-\renewcommand{\parttitlefont}{\ABNTEXpartfont\ABNTEXpartfontsize}
-\renewcommand{\partnumfont}{\ABNTEXpartfont\ABNTEXpartfontsize}
-\renewcommand{\partnamefont}{\ABNTEXpartfont\ABNTEXpartfontsize}
-
-% tamanhos de fontes de section, subsection, subsubsection e subsubsubsection
-\setsecheadstyle{\ABNTEXsectionfont\ABNTEXsectionfontsize\ABNTEXsectionupperifneeded}
-\setsubsecheadstyle{\ABNTEXsubsectionfont\ABNTEXsubsectionfontsize\ABNTEXsubsectionupperifneeded}
-\setsubsubsecheadstyle{\ABNTEXsubsubsectionfont\ABNTEXsubsubsectionfontsize\ABNTEXsubsubsectionupperifneeded}
-\setsubsubsubsecheadstyle{\ABNTEXsubsubsubsectionfont\ABNTEXsubsubsubsectionfontsize\ABNTEXsubsubsubsectionupperifneeded}
-
-% impressao do numero do capitulo
-\renewcommand{\chapternamenum}{}
-
-% impressao do nome do capitulo
-\renewcommand{\printchaptername}{%
-\chaptitlefont
-\ifthenelse{\boolean{abntex@apendiceousecao}}{\appendixname}{}%
-}
-
-% impressao do titulo do capitulo
-\def\printchaptertitle##1{%
-\chaptitlefont%
-\ifthenelse{\boolean{abntex@innonumchapter}}{\centering\ABNTEXchapterupperifneeded{##1}}{%
-	\ifthenelse{\boolean{abntex@apendiceousecao}}{%
-		\centering%
-		\settowidth{\chapternamenumlength}{\printchaptername\printchapternum\afterchapternum}%
-		\ABNTEXchapterupperifneeded{##1}%
-	}{%
-		\settowidth{\chapternamenumlength}{\printchaptername\printchapternum\afterchapternum}%
-		\parbox[t]{\columnwidth-\chapternamenumlength}{\ABNTEXchapterupperifneeded{##1}}}%
-}    
-}
-
-% impressao do numero do capitulo     	
-\renewcommand{\printchapternum}{%
-\tocprintchapter
-\setboolean{abntex@innonumchapter}{false}
-\chapnumfont%
-\space\thechapter\space%
-\ifthenelse{\boolean{abntex@apendiceousecao}}{%
-	\tocinnonumchapter
-	~\textendash~%
-}{} % else
-}
-\renewcommand{\afterchapternum}{}
-
-% impressao do capitulo nao numerado
-\renewcommand\printchapternonum{%
-\tocprintchapternonum
-\setboolean{abntex@innonumchapter}{true}%
-}
+  % tamanhos de fontes de chapter e part	
+   \ifthenelse{\equal{\ABNTEXisarticle}{true}}{%
+     \setlength\beforechapskip{\baselineskip}
+     \renewcommand{\chaptitlefont}{\ABNTEXsectionfont\ABNTEXsectionfontsize}
+   }{%else
+     \setlength{\beforechapskip}{0pt}
+     \renewcommand{\chaptitlefont}{\ABNTEXchapterfont\ABNTEXchapterfontsize}
+   }
+  
+  \renewcommand{\chapnumfont}{\chaptitlefont}
+  \renewcommand{\parttitlefont}{\ABNTEXpartfont\ABNTEXpartfontsize}
+  \renewcommand{\partnumfont}{\ABNTEXpartfont\ABNTEXpartfontsize}
+  \renewcommand{\partnamefont}{\ABNTEXpartfont\ABNTEXpartfontsize}
+  
+  % tamanhos de fontes de section, subsection, subsubsection e subsubsubsection
+  \setsecheadstyle{\ABNTEXsectionfont\ABNTEXsectionfontsize\ABNTEXsectionupperifneeded}
+  \setsubsecheadstyle{\ABNTEXsubsectionfont\ABNTEXsubsectionfontsize\ABNTEXsubsectionupperifneeded}
+  \setsubsubsecheadstyle{\ABNTEXsubsubsectionfont\ABNTEXsubsubsectionfontsize\ABNTEXsubsubsectionupperifneeded}
+  \setsubsubsubsecheadstyle{\ABNTEXsubsubsubsectionfont\ABNTEXsubsubsubsectionfontsize\ABNTEXsubsubsubsectionupperifneeded}
+  
+  % impressao do numero do capitulo
+  \renewcommand{\chapternamenum}{}
+  
+  % impressao do nome do capitulo
+  \renewcommand{\printchaptername}{%
+   \chaptitlefont
+   \ifthenelse{\boolean{abntex@apendiceousecao}}{\appendixname}{}%
+  }
+    
+  % impressao do titulo do capitulo
+  \def\printchaptertitle##1{%
+    \chaptitlefont%
+    \ifthenelse{\boolean{abntex@innonumchapter}}{\centering\ABNTEXchapterupperifneeded{##1}}{%
+    \ifthenelse{\boolean{abntex@apendiceousecao}}{%
+        \centering%
+        \settowidth{\chapternamenumlength}{\printchaptername\printchapternum\afterchapternum}%
+        \ABNTEXchapterupperifneeded{##1}%
+      }{%
+        \settowidth{\chapternamenumlength}{\printchaptername\printchapternum\afterchapternum}%
+        \parbox[t]{\columnwidth-\chapternamenumlength}{\ABNTEXchapterupperifneeded{##1}}}%
+     }    
+  }
+       
+  % impressao do numero do capitulo     	
+  \renewcommand{\printchapternum}{%
+     \tocprintchapter
+     \setboolean{abntex@innonumchapter}{false}
+     \chapnumfont%
+     \space\thechapter\space%
+     \ifthenelse{\boolean{abntex@apendiceousecao}}{%
+       \tocinnonumchapter
+       ~\textendash~%
+     }{} % else
+  }
+  \renewcommand{\afterchapternum}{}
+  
+  % impressao do capitulo nao numerado
+  \renewcommand\printchapternonum{%
+     \tocprintchapternonum
+     \setboolean{abntex@innonumchapter}{true}%
+    }
 }
 \chapterstyle{abnt}
 % ---
@@ -845,18 +792,18 @@
 % Cabecalho padrao
 \makepagestyle{abntheadings}
 %Cabeçalho contendo apenas o número da página
-%\makeevenhead{abntheadings}{\ABNTEXfontereduzida\thepage}{}{}
-%\makeoddhead{abntheadings}{}{}{\ABNTEXfontereduzida\thepage}
+\makeevenhead{abntheadings}{\ABNTEXfontereduzida\thepage}{}{}
+\makeoddhead{abntheadings}{}{}{\ABNTEXfontereduzida\thepage}
 
 %Cabeçalho com a seções ou subseções  e o número da página nas páginas ímpares
 %Cabeçalho com o o número da página e o título do capítulo e nas páginas pares
 %Tira o ponto depois do Capítulo
-\renewcommand{\chaptermark}[1]{\markboth{\chaptername\ \thechapter \ #1}{}} % 
+%\renewcommand{\chaptermark}[1]{\markboth{\chaptername\ \thechapter \ #1}{}} % 
 %Tira o ponto depois da Seção
-\renewcommand{\sectionmark}[1]{\markright{\thesection \ #1}} 
+%\renewcommand{\sectionmark}[1]{\markright{\thesection \ #1}} 
 %
-\makeevenhead{abntheadings}{\ABNTEXfontereduzida\thepage}{}{\ABNTEXfontereduzida\textit\leftmark}
-\makeoddhead{abntheadings}{\ABNTEXfontereduzida\textit\rightmark}{}{\ABNTEXfontereduzida\thepage}
+%\makeevenhead{abntheadings}{\ABNTEXfontereduzida\thepage}{}{\ABNTEXfontereduzida\textit\leftmark}
+%\makeoddhead{abntheadings}{\ABNTEXfontereduzida\textit\rightmark}{}{\ABNTEXfontereduzida\thepage}
 \makeheadrule{abntheadings}{\textwidth}{\normalrulethickness}
 
 % Cabecalho do inicio do capitulo
@@ -867,10 +814,10 @@
 % ---
 % Configura layout para elementos pre-textuais
 \newcommand{\pretextual}{%
-	\aliaspagestyle{chapter}{empty}% customizing chapter pagestyle
-	\pagestyle{empty}
-	\aliaspagestyle{cleared}{empty}
-	\aliaspagestyle{part}{empty}
+  \aliaspagestyle{chapter}{empty}% customizing chapter pagestyle
+  \pagestyle{empty}
+  \aliaspagestyle{cleared}{empty}
+  \aliaspagestyle{part}{empty}
 }
 \renewcommand{\frontmatter}{\pretextual} 
 
@@ -881,14 +828,14 @@
 % ---
 % Configura layout para elementos textuais
 \newcommand{\textual}{%
-	\ifthenelse{\equal{\ABNTEXisarticle}{true}}{%
-		\pagestyle{plain}%
-	}{%else  
-		\pagestyle{abntheadings}%
-		\aliaspagestyle{chapter}{abntchapfirst}% customizing chapter pagestyle
-	}  
-	\nouppercaseheads%
-	\bookmarksetup{startatroot}% 
+  \ifthenelse{\equal{\ABNTEXisarticle}{true}}{%
+    \pagestyle{plain}%
+  }{%else  
+    \pagestyle{abntheadings}%
+    \aliaspagestyle{chapter}{abntchapfirst}% customizing chapter pagestyle
+  }  
+  \nouppercaseheads%
+  \bookmarksetup{startatroot}% 
 }
 \renewcommand{\mainmatter}{\textual}
 % ---
@@ -939,22 +886,22 @@
 \providecommand{\imprimirareaRotulo}{}
 \providecommand{\imprimirarea}{}
 \newcommand{\area}[2][\areaname]%
-{\renewcommand{\imprimirareaRotulo}{#1}%
-	\renewcommand{\imprimirarea}{#2}}
+  {\renewcommand{\imprimirareaRotulo}{#1}%
+   \renewcommand{\imprimirarea}{#2}}
 
 % Comandos de dados - opção
 \providecommand{\imprimiropcaoRotulo}{}
 \providecommand{\imprimiropcao}{}
 \newcommand{\opcao}[2][\opcaoname]%
-{\renewcommand{\imprimiropcaoRotulo}{#1}%
-	\renewcommand{\imprimiropcao}{#2}}
-
+  {\renewcommand{\imprimiropcaoRotulo}{#1}%
+   \renewcommand{\imprimiropcao}{#2}}
+	
 % Comandos de dados - orientador
 \providecommand{\imprimirorientadorRotulo}{}
 \providecommand{\imprimirorientador}{}
 \newcommand{\orientador}[2][\orientadorname]%
-{\renewcommand{\imprimirorientadorRotulo}{#1}%
-	\renewcommand{\imprimirorientador}{#2}}
+  {\renewcommand{\imprimirorientadorRotulo}{#1}%
+   \renewcommand{\imprimirorientador}{#2}}
 
 % Comandos de dados - orientadorficha
 \providecommand{\imprimirorientadorficha}{}
@@ -981,8 +928,8 @@
 \providecommand{\imprimircoorientador}{}
 \providecommand{\imprimircoorientadoradic}{}
 \newcommand{\coorientador}[2][\coorientadorname]%
-{\renewcommand{\imprimircoorientadorRotulo}{#1}%
-	\renewcommand{\imprimircoorientador}{#2}}
+  {\renewcommand{\imprimircoorientadorRotulo}{#1}%
+   \renewcommand{\imprimircoorientador}{#2}}
 
 % Comandos de dados - tipo de trabalho
 \providecommand{\imprimirtipotrabalho}{}
@@ -1008,53 +955,53 @@
 % Ficha catalografica (Dados internacionais de
 % catalogação-na-publicacao)
 \newenvironment{fichacatalografica}{%
-	\thispagestyle{empty}
-	\begin{SingleSpacing}
-		\ABNTEXfontereduzida
-	}{%   
-	\end{SingleSpacing}%
+    \thispagestyle{empty}
+    \begin{SingleSpacing}
+      \ABNTEXfontereduzida
+}{%   
+    \end{SingleSpacing}%
 }%
 % ---
 
 % ---
 % Errata
 \newenvironment{errata}[1][\errataname]{%
-	\pretextualchapter{#1}
-}{\PRIVATEclearpageifneeded}
+   \pretextualchapter{#1}
+  }{\PRIVATEclearpageifneeded}
 % ---
 
 % ---
 % Folha de aprovacao - NBR 14724/2011 - 4.2.1.3
 \newenvironment{folhadeaprovacao}[1][\folhadeaprovacaoname]{%
-	\clearpage%
-	\PRIVATEbookmarkthis{#1}%
-	\begin{Spacing}{1.0}
-	}{\end{Spacing}\PRIVATEclearpageifneeded}   
+   \clearpage%
+   \PRIVATEbookmarkthis{#1}%
+   \begin{Spacing}{1.0}
+}{\end{Spacing}\PRIVATEclearpageifneeded}   
 % ---
 
 % ---
 % Dedicatoria
 \newenvironment{dedicatoria}[1][]{%
-	\ifthenelse{\equal{#1}{}}{%
-		\PRIVATEbookmarkthis{\dedicatorianame}
-	}{\pretextualchapter{#1}}
-}{\PRIVATEclearpageifneeded}
+   \ifthenelse{\equal{#1}{}}{%
+    \PRIVATEbookmarkthis{\dedicatorianame}
+    }{\pretextualchapter{#1}}
+  }{\PRIVATEclearpageifneeded}
 % ---
 
 % ---
 % Agradecimentos
 \newenvironment{agradecimentos}[1][\agradecimentosname]{%
-	\pretextualchapter{#1}
-}{\PRIVATEclearpageifneeded}
+   \pretextualchapter{#1}
+  }{\PRIVATEclearpageifneeded}
 % ---
 
 % ---
 % Epigrafe
 \newenvironment{epigrafe}[1][]{%
-	\ifthenelse{\equal{#1}{}}{%
-		\PRIVATEbookmarkthis{\epigraphname}
-	}{\pretextualchapter{#1}}
-}{\PRIVATEclearpageifneeded}
+   \ifthenelse{\equal{#1}{}}{%
+    \PRIVATEbookmarkthis{\epigraphname}
+    }{\pretextualchapter{#1}}
+  }{\PRIVATEclearpageifneeded}
 % ---
 
 % ---
@@ -1062,56 +1009,56 @@
 
 % altera as margens padrões do memoir para abstract caso nao seja article
 \ifthenelse{\equal{\ABNTEXisarticle}{true}}{%
-	% em artigos, margens e fontes são as mesmas de memoir
-}{ % else
-	% Ajusta as margens para serem a mesma do documento
-	\setlength\absleftindent{0cm}
-	\setlength\absrightindent{0cm}
-	% Garante que a fonte do texto do abstract será a mesma do documento, pois
-	% na classe memoir está \small
-	\renewcommand{\abstracttextfont}{\normalfont\normalsize}
-}
-
+    % em artigos, margens e fontes são as mesmas de memoir
+  }{ % else
+  	% Ajusta as margens para serem a mesma do documento
+    \setlength\absleftindent{0cm}
+    \setlength\absrightindent{0cm}
+    % Garante que a fonte do texto do abstract será a mesma do documento, pois
+    % na classe memoir está \small
+    \renewcommand{\abstracttextfont}{\normalfont\normalsize}
+  }
+  
 % A norma não diz nada sobre identação e separação entre parágrafos no abstract,
 % porém o uso mostra que muitos abstracts são montados sem identação.
 \AtBeginDocument{%
-	\setlength{\absparindent}{0pt}
+   \setlength{\absparindent}{0pt}
 }
 
 \newenvironment{resumo}[1][\resumoname]{%
-	\PRIVATEbookmarkthis{#1}
-	\renewcommand{\abstractnamefont}{\chaptitlefont}
-	\renewcommand{\abstractname}{\ABNTEXchapterupperifneeded{#1}}
-	\begin{abstract}
-	}{\end{abstract}\PRIVATEclearpageifneeded}
-
+   \PRIVATEbookmarkthis{#1}
+   \renewcommand{\abstractnamefont}{\chaptitlefont}
+   \renewcommand{\abstractname}{\ABNTEXchapterupperifneeded{#1}}
+   \begin{abstract}
+  }{\end{abstract}\PRIVATEclearpageifneeded}
+  
 \newenvironment{resumoumacoluna}[1][\resumoname]{%
-	\PRIVATEbookmarkthis{#1}
-	\renewcommand{\abstractnamefont}{\chaptitlefont}
-	\renewcommand{\abstractname}{\ABNTEXchapterupperifneeded{#1}}
-	\begin{onecolabstract}
-	}{\end{onecolabstract}\PRIVATEclearpageifneeded}
+   \PRIVATEbookmarkthis{#1}
+   \renewcommand{\abstractnamefont}{\chaptitlefont}
+   \renewcommand{\abstractname}{\ABNTEXchapterupperifneeded{#1}}
+   \begin{onecolabstract}
+}{\end{onecolabstract}\PRIVATEclearpageifneeded}
 % ---
 
 % ---
 % Lista de abreviaturas e siglas
 \newenvironment{siglas}{%
-	\pretextualchapter{\listadesiglasname}
-	\begin{symbols}
-	}{%
-	\end{symbols}
-	\cleardoublepage
+  \pretextualchapter{\listadesiglasname}
+  \begin{symbols}
+}{%
+  \end{symbols}
+  \cleardoublepage
 }
 % ---
 
 % ---
 % Lista de simbolos
 \newenvironment{simbolos}{%
-	\pretextualchapter{\listadesimbolosname}
-	\begin{symbols}
-	}{%
-	\end{symbols}
-	\cleardoublepage
+  \pretextualchapter{\listadesimbolosname}
+  \begin{symbols}
+}{%
+  \end{symbols}
+  \cleardoublepage
 }
 % ---
 
@@ -1130,76 +1077,76 @@
 \makeatother
 
 \newcommand{\PRIVATEapendiceconfig}[2]{%
-	\setboolean{abntex@apendiceousecao}{true}%
-	\renewcommand{\appendixname}{#1}
-	\ifthenelse{\boolean{ABNTEXsumario-abnt-6027-2012}}{
-		\renewcommand{\appendixtocname}{\uppercase{#2}}
-	}{%
-		\renewcommand{\appendixtocname}{#2}} 
-	\renewcommand{\appendixpagename}{#2}
-	\switchchapname{#1}% Corrected from \switchapname -> \switchchapname
-	\renewcommand*{\cftappendixname}{#1 \space}
+ \setboolean{abntex@apendiceousecao}{true}%
+ \renewcommand{\appendixname}{#1}
+ \ifthenelse{\boolean{ABNTEXsumario-abnt-6027-2012}}{
+   \renewcommand{\appendixtocname}{\uppercase{#2}}
+  }{%
+  \renewcommand{\appendixtocname}{#2}} 
+ \renewcommand{\appendixpagename}{#2}
+ \switchchapname{#1}% Corrected from \switchapname -> \switchchapname
+ \renewcommand*{\cftappendixname}{#1 \space}
 }
 % ---
 
 % ---
 % Apendices - comando 
 \newcommand{\apendices}{%
-	\PRIVATEapendiceconfig{\apendicename}{\apendicesname}
-	\appendix
+ \PRIVATEapendiceconfig{\apendicename}{\apendicesname}
+ \appendix
 }
 % Apendices - ambiente
 \newenvironment{apendicesenv}{%
-	\PRIVATEapendiceconfig{\apendicename}{\apendicesname}
-	\begin{appendix}
-	}{
-	\end{appendix}
-	\setboolean{abntex@apendiceousecao}{false}
-	\bookmarksetup{startatroot}
+ \PRIVATEapendiceconfig{\apendicename}{\apendicesname}
+ \begin{appendix}
+}{
+ \end{appendix}
+ \setboolean{abntex@apendiceousecao}{false}
+ \bookmarksetup{startatroot}
 }
 % ---
 
 % ---
 % Anexos - comando
 \newcommand{\anexos}{%
-	\cftinserthook{toc}{AAA}
-	
-	\PRIVATEapendiceconfig{\anexoname}{\anexosname}
-	\appendix
-	\renewcommand\theHchapter{anexochapback.\arabic{chapter}}
+ \cftinserthook{toc}{AAA}
+ 
+ \PRIVATEapendiceconfig{\anexoname}{\anexosname}
+ \appendix
+ \renewcommand\theHchapter{anexochapback.\arabic{chapter}}
 }
 % Anexos - ambiente
 \newenvironment{anexosenv}{%
-	\cftinserthook{toc}{AAA}
-	
-	\PRIVATEapendiceconfig{\anexoname}{\anexosname}
-	\begin{appendix}
-		\renewcommand\theHchapter{anexochapback.\arabic{chapter}}
-	}{
-	\end{appendix}
-	\setboolean{abntex@apendiceousecao}{false}
-	\bookmarksetup{startatroot}
+ \cftinserthook{toc}{AAA}
+ 
+ \PRIVATEapendiceconfig{\anexoname}{\anexosname}
+ \begin{appendix}
+ \renewcommand\theHchapter{anexochapback.\arabic{chapter}}
+}{
+ \end{appendix}
+ \setboolean{abntex@apendiceousecao}{false}
+ \bookmarksetup{startatroot}
 }
 % ---
 
 % ---
 % Imprime uma pagina de divisao no estilo parte
 \newcommand{\partpage}{%
-	\cleardoublepage
-	\phantomsection
-	\addcontentsline{toc}{part}{\appendixtocname}%
-	\appendixpage*
+  \cleardoublepage
+  \phantomsection
+  \addcontentsline{toc}{part}{\appendixtocname}%
+  \appendixpage*
 }
 
 % atalhos para \partpage ou \appendixpage* 
 \makeatletter
 \newcommand{\partapendices}{%
-	\tocpartapendices%
-	\@ifstar{\appendixpage*}{\partpage}}
+\tocpartapendices%
+\@ifstar{\appendixpage*}{\partpage}}
 
 \newcommand{\partanexos}{%
-	\tocpartanexos%
-	\@ifstar{\appendixpage*}{\partpage}}
+\tocpartanexos%
+\@ifstar{\appendixpage*}{\partpage}}
 \makeatother
 % ---
 
@@ -1214,20 +1161,20 @@
 % Citacao direta com mais de 3 linhas - ABNT NBR 10520/2002 - 5.3
 \newlength{\ABNTEXcitacaorecuo}% recuo de 4 cm da margem esquerda
 \ifthenelse{\equal{\ABNTEXistwocolumn}{true}}{%
-	\setlength{\ABNTEXcitacaorecuo}{1.8cm}
+  \setlength{\ABNTEXcitacaorecuo}{1.8cm}
 }{% else
-	\setlength{\ABNTEXcitacaorecuo}{4cm}
+  \setlength{\ABNTEXcitacaorecuo}{4cm}
 }
 \newenvironment*{citacao}[1][default]{%
-	\list{}%
-	\ABNTEXfontereduzida%
-	\addtolength{\leftskip}{\ABNTEXcitacaorecuo}%
-	\item[]%
-	\begin{SingleSpace}%
-		\ifthenelse{\not\equal{#1}{default}}{\itshape\selectlanguage{#1}}{}%
-	}{%
-	\end{SingleSpace}%
-	\endlist}%
+   \list{}%
+   \ABNTEXfontereduzida%
+   \addtolength{\leftskip}{\ABNTEXcitacaorecuo}%
+   \item[]%
+   \begin{SingleSpace}%
+   \ifthenelse{\not\equal{#1}{default}}{\itshape\selectlanguage{#1}}{}%
+ }{%
+   \end{SingleSpace}%
+   \endlist}%
 % ---
 
 % ---
@@ -1241,38 +1188,38 @@
 \newlist{incisos}{enumerate}{1}
 \setlist[incisos,1]{label={--},topsep=0pt,itemsep=0pt,leftmargin=*}%
 % ---
-
+  
 % ---
 % Comando \assinatura for signature
-% width of the line and text under the line
+   % width of the line and text under the line
 \newlength{\ABNTEXsignwidth}
 \setlength{\ABNTEXsignwidth}{8cm}
-% thickness of the line
+   % thickness of the line
 \newlength{\ABNTEXsignthickness}
 \setlength{\ABNTEXsignthickness}{1pt}
-% ammount of space left between previous text and th signature line
+   % ammount of space left between previous text and th signature line
 \newlength{\ABNTEXsignskip}
 \setlength{\ABNTEXsignskip}{0.7cm}
-% \assinatura{name} -> types a line with name under the line, centralized
-% \assinatura*{name} -> Creates the box with the line and name under
-%     it, but the box has no position assigned. However the line and the
-%     name are centralized with respect to each other.
+   % \assinatura{name} -> types a line with name under the line, centralized
+   % \assinatura*{name} -> Creates the box with the line and name under
+   %     it, but the box has no position assigned. However the line and the
+   %     name are centralized with respect to each other.
 \makeatletter
 \newcommand{\assinatura}{\@ifstar{\ABNTEXsign}{\ABNTEXcsign}}
 \makeatother
-% assinatura com estrela
+   % assinatura com estrela
 \newcommand{\ABNTEXsign}[1]{%
-	\parbox[t]{\ABNTEXsignwidth}{\SingleSpacing\vspace*{\ABNTEXsignskip}\centering%
-		\rule{\ABNTEXsignwidth}{\ABNTEXsignthickness}\\%
-		\nopagebreak #1\par}%
+  \parbox[t]{\ABNTEXsignwidth}{\SingleSpacing\vspace*{\ABNTEXsignskip}\centering%
+  \rule{\ABNTEXsignwidth}{\ABNTEXsignthickness}\\%
+  \nopagebreak #1\par}%
 }
-% assinatura sem estrela
+   % assinatura sem estrela
 \newcommand{\ABNTEXcsign}[1]%
-{\begingroup\par\centering\ABNTEXsign{#1}\par\endgroup}  
+  {\begingroup\par\centering\ABNTEXsign{#1}\par\endgroup}  
 % ---
 
-% Chamanda para dados pre-textuais
-\include{USPSC-unidades}  
+% Chamada para dados pre-textuais
+\input{pretextual-config}
 %
 
 % ------------------------------------------------------------------------
@@ -1283,30 +1230,30 @@
 % ---
 % Impressão da Capa de Trabalhos Acadêmiocos
 \newcommand{\imprimircapa}{%
-	\begin{capa}%
-		\center
-		\ABNTEXchapterfont\bfseries\large\imprimiruniversidade \\
+  \begin{capa}%
+    \center
+	  \ABNTEXchapterfont\bfseries\large\imprimiruniversidade \\
 		\ABNTEXchapterfont\bfseries\large\imprimirunidade \\
-		%\vfill
-		\vspace*{5,5cm}
-		\ABNTEXchapterfont\bfseries\large\imprimirautor
-		
-		%\vfill
-		\vspace*{1cm}
+    %\vfill
+    \vspace*{5,5cm}
+  	\ABNTEXchapterfont\bfseries\large\imprimirautor
+
+    %\vfill
+    \vspace*{1cm}
 		\begin{center}
-			\ABNTEXchapterfont\bfseries\Large\imprimirtitulo
-			
-		\end{center}
-		\vfill
-		
-		%\large\imprimirlocal
+    \ABNTEXchapterfont\bfseries\Large\imprimirtitulo
+
+    \end{center}
+    \vfill
+    
+    %\large\imprimirlocal
 		\imprimirlocal
+
+    %\large\imprimirdata
+    \imprimirdata
 		
-		%\large\imprimirdata
-		\imprimirdata
-		
-		\vspace*{0,5cm}
-	\end{capa}
+    \vspace*{0,5cm}
+  \end{capa}
 }
 % ---
 
@@ -1351,21 +1298,21 @@
 		\hspace{.45\textwidth}
 		\begin{minipage}{.5\textwidth}
 			\SingleSpacing
-			% Se no arquivo USPSC-modelo.tex a fonte for \usepackage{lmodern}	
+			% Se no arquivo principal a fonte for \usepackage{lmodern}	
 			{\nohyphens{{\vspace*{0,5cm}\imprimirpreambulo\par}}}
-			% Se no arquivo USPSC-modelo.tex a fonte for \usepackage{times}	
+			% Se no arquivo principal a fonte for \usepackage{times}	
 			% insira uma % no início do comando acima e tire a % do comando abaixo
-			%\ABNTEXchapterfont\small\imprimirpreambulo	
-			%\vspace*{\fill}
-			{\vspace*{0,3cm}\nohyphens{\imprimirareaRotulo~\imprimirarea\par}}
-			\abntex@ifnotempty{\imprimiropcao}{%
+		    %\ABNTEXchapterfont\small\imprimirpreambulo	
+		    %\vspace*{\fill}
+		    {\vspace*{0,3cm}\nohyphens{\imprimirareaRotulo~\imprimirarea\par}}
+		    \abntex@ifnotempty{\imprimiropcao}{%
 				{\nohyphens{{\vspace*{0,3cm}\imprimiropcaoRotulo~\imprimiropcao\par}}}
 			}%
 			\vspace*{\fill}
 			{\nohyphens{{\vspace*{0,3cm}\imprimirorientadorRotulo~\imprimirorientador\par}}}
 			\vspace*{\fill}
 			{\nohyphens{{\vspace*{0,3cm}\imprimircoorientadorRotulo~\imprimircoorientador\par}}}
-		\end{minipage}%	
+	   	\end{minipage}%	
 	\end{center}
 	\vspace*{\fill}
 	\begin{center}
@@ -1382,18 +1329,18 @@
 \newcommand{\imprimirfolharostocarstar}[1]{%
 	\begin{folharostocar*}{#1}
 		\folharostocarcontent
-\end{folharostocar*}}
-
+	\end{folharostocar*}}
+	
 \newcommand{\imprimirfolharostocarnostar}[1]{%
-	\begin{folharostocar}{#1}
-		\folharostocarcontent
-\end{folharostocar}}
+		\begin{folharostocar}{#1}
+			\folharostocarcontent
+		\end{folharostocar}}
 
 \makeatletter
 \newcommand{\imprimirfolharostocar}[1][\folharostoccarname]{%
-	\@ifstar
-	\imprimirfolharostocarstar  
-	\imprimirfolharostocarnostar
+			\@ifstar
+			\imprimirfolharostocarstar  
+			\imprimirfolharostocarnostar
 }
 \makeatother
 % ---
@@ -1421,9 +1368,9 @@
 		\hspace{.45\textwidth}
 		\begin{minipage}{.5\textwidth}
 			\SingleSpacing
-			% Se no arquivo USPSC-modelo.tex a fonte for \usepackage{lmodern}	
+			% Se no arquivo principal a fonte for \usepackage{lmodern}	
 			{\nohyphens{{\vspace*{0,5cm}\imprimirpreambulo\par}}}
-			% Se no arquivo USPSC-modelo.tex a fonte for \usepackage{times}	
+			% Se no arquivo principal a fonte for \usepackage{times}	
 			% insira uma % no início do comando acima e tire a % do comando abaixo
 			%\ABNTEXchapterfont\small\imprimirpreambulo	
 			%\vspace*{\fill}
@@ -1492,9 +1439,9 @@
 		\hspace{.45\textwidth}
 		\begin{minipage}{.5\textwidth}
 			\SingleSpacing
-			% Se no arquivo USPSC-modelo.tex a fonte for \usepackage{lmodern}	
+			% Se no arquivo principal a fonte for \usepackage{lmodern}	
 			{\nohyphens{{\vspace*{0,5cm}\imprimirpreambuloadic\par}}}
-			% Se no arquivo USPSC-modelo.tex a fonte for \usepackage{times}	
+			% Se no arquivo principal a fonte for \usepackage{times}	
 			% insira uma % no início do comando acima e tire a % do comando abaixo
 			%\ABNTEXchapterfont\small\imprimirpreambulo	
 			%\vspace*{\fill}
@@ -1545,11 +1492,11 @@
 % ---
 % Impressão da Capa de Monografias (Livros, tutoriais, etc.)
 \newcommand{\imprimircapam}{%
-	\begin{capam}%
-		\begin{center}
-			%\footnotesize\bfseries\tiny\imprimirunidade \\
-			\ABNTEXchapterfont\bfseries\imprimirunidade \\
-		\end{center}
+	 \begin{capam}%
+	 	\begin{center}
+	 		%\footnotesize\bfseries\tiny\imprimirunidade \\
+	 		\ABNTEXchapterfont\bfseries\imprimirunidade \\
+	 	\end{center}
 		%\vfill
 		\vspace*{5,5cm}
 		%\ABNTEXchapterfont\bfseries\large\imprimirautor
@@ -1559,8 +1506,8 @@
 		\begin{center}
 			\ABNTEXchapterfont\bfseries\Large\imprimirtitulo
 		\end{center}
-		\vfill
-		\vfill
+			\vfill
+			\vfill
 		\begin{center}
 			\ABNTEXchapterfont\bfseries\large\imprimirlocal \\
 			\ABNTEXchapterfont\bfseries\large\imprimiruniversidademin \\
@@ -1594,22 +1541,22 @@
 		\ABNTEXchapterfont\bfseries\Large\imprimirtitulo
 	\end{center}
 	\vspace*{\fill}
-	
-	\begin{flushright}
-		\abntex@ifnotempty{\imprimirpreambulo}{%
+		
+    \begin{flushright}
+            \abntex@ifnotempty{\imprimirpreambulo}{%
 			\hspace{.45\textwidth}
 			\begin{minipage}{.6\textwidth}
 				\SingleSpacing
-				% Se no arquivo USPSC-modelo.tex a fonte for \usepackage{lmodern}
+				% Se no arquivo principal a fonte for \usepackage{lmodern}
 				\imprimirpreambulo
-				% Se no arquivo USPSC-modelo.tex a fonte for \usepackage{times}	
+				% Se no arquivo principal a fonte for \usepackage{times}	
 				% insira uma % no início do comando acima e tire a % do comando abaixo
 				%\ABNTEXchapterfont\small\imprimirpreambulo				
 			\end{minipage}%
 			\vspace*{\fill}
 		}%
-	\end{flushright}	
-	\begin{center}
+   \end{flushright}	
+   \begin{center}
 		{\ABNTEXchapterfont\bfseries\large\imprimirlocal}
 		\par
 		{\ABNTEXchapterfont\bfseries\large\imprimiruniversidademin}
@@ -1623,19 +1570,19 @@
 \newcommand{\imprimirfolhaderostostarm}[1]{%
 	\begin{folhaderostom*}{#1}
 		\folhaderostocontentm
-\end{folhaderostom*}}
-
-\newcommand{\imprimirfolhaderostonostarm}[1]{%
-	\begin{folhaderostom}{#1}
-		\folhaderostocontentm
-\end{folhaderostom}}
-
-\makeatletter
-\newcommand{\imprimirfolhaderostom}[1][\folhaderostonamem]{%
-	\@ifstar
-	\imprimirfolhaderostostarm  
-	\imprimirfolhaderostonostarm
-}
+	\end{folhaderostom*}}
+	
+	\newcommand{\imprimirfolhaderostonostarm}[1]{%
+		\begin{folhaderostom}{#1}
+			\folhaderostocontentm
+		\end{folhaderostom}}
+		
+		\makeatletter
+		\newcommand{\imprimirfolhaderostom}[1][\folhaderostonamem]{%
+			\@ifstar
+			\imprimirfolhaderostostarm  
+			\imprimirfolhaderostonostarm
+		}
 \makeatother
 
 %%%%%
@@ -1667,9 +1614,9 @@
 		\hspace{.45\textwidth}
 		\begin{minipage}{.5\textwidth}
 			\SingleSpacing
-			% Se no arquivo USPSC-modelo.tex a fonte for \usepackage{lmodern}	
+			% Se no arquivo principal a fonte for \usepackage{lmodern}	
 			{\nohyphens{{\vspace*{0,5cm}\imprimirpreambulo\par}}}
-			% Se no arquivo USPSC-modelo.tex a fonte for \usepackage{times}	
+			% Se no arquivo principal a fonte for \usepackage{times}	
 			% insira uma % no início do comando acima e tire a % do comando abaixo
 			%\ABNTEXchapterfont\small\imprimirpreambulo	
 			%\vspace*{\fill}
@@ -1705,5 +1652,4 @@
 }
 \makeatother
 %%%%%
-%\bibliographystyle{USPSC-classe/abntex2-num-USPSC}
 %\makeatother

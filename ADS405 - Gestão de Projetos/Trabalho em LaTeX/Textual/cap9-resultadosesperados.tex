@@ -1,6 +1,6 @@
 \chapter{RESULTADOS ESPERADOS}
 
-Este capítulo apresenta os resultados esperados ao término do projeto de desenvolvimento da plataforma de ingressos online, estabelecendo as entregas concretas, as melhorias proporcionadas aos stakeholders e os impactos projetados nas dimensões técnica, operacional e de negócio. Os resultados estão alinhados aos objetivos específicos definidos no Capítulo 1 e fundamentados nas melhores práticas de engenharia de software \cite{Pressman:2019, Sommerville:2016}.
+Este capítulo apresenta os resultados esperados ao término do projeto de desenvolvimento da plataforma de ingressos online, estabelecendo as entregas concretas, as melhorias proporcionadas aos stakeholders e os impactos projetados nas dimensões técnica, operacional e de negócio. Os resultados estão alinhados aos objetivos específicos definidos no Capítulo 1 e fundamentados nas melhores práticas de engenharia de software~\cite{Pressman:2019, Sommerville:2016}.
 
 \section{Entregas Técnicas}
 
@@ -16,7 +16,7 @@ O sistema permitirá que usuários se cadastrem e autentiquem de forma segura, c
     \item Tempo de resposta inferior a 500ms para autenticação
     \item Taxa de sucesso superior a 99,9\% em processos de login
     \item Zero vulnerabilidades críticas relacionadas a autenticação e autorização
-    \item Conformidade total com requisitos de proteção de credenciais do OWASP \cite{OWASP:2021}
+    \item Conformidade total com requisitos de proteção de credenciais do OWASP~\cite{OWASP:2021}
 \end{itemize}
 
 \textbf{2. Módulo de Gestão de Eventos}
@@ -69,15 +69,14 @@ Interface otimizada para operadores de portaria, com capacidade de validar ingre
 
 \subsection{Arquitetura e Infraestrutura}
 
-A plataforma será construída sobre uma arquitetura de microsserviços moderna e escalável, implantada em infraestrutura de nuvem com as seguintes características:
+A plataforma será construída sobre uma arquitetura full-stack baseada em Next.js e MongoDB, implantada em infraestrutura de nuvem com as seguintes caracteristicas:
 
-\textbf{Arquitetura de Microsserviços:}
+\textbf{Arquitetura Full-Stack:}
 \begin{itemize}
-    \item 8 microsserviços independentes e fracamente acoplados
-    \item Comunicação via APIs REST com documentação OpenAPI/Swagger
-    \item Database per service pattern para independência de dados
-    \item Event-driven architecture para processamentos assíncronos
-    \item Containerização com Docker para portabilidade
+    \item Aplicacao Next.js com renderizacao no servidor e rotas de API integradas
+    \item Modulos de dominio para identidade, eventos, ingressos, pedidos, pagamentos, notificacoes e check-in
+    \item Banco de dados MongoDB com colecoes e indices otimizados
+    \item Containerizacao com Docker quando necessario, com deploy simplificado
 \end{itemize}
 
 \textbf{Infraestrutura Cloud:}
@@ -92,10 +91,10 @@ A plataforma será construída sobre uma arquitetura de microsserviços moderna 
 \textbf{Segurança e Conformidade:}
 \begin{itemize}
     \item Certificação PCI DSS Level 1 para processamento de pagamentos
-    \item Conformidade total com LGPD para proteção de dados pessoais \cite{LGPD:2018}
+    \item Conformidade total com LGPD para proteção de dados pessoais~\cite{LGPD:2018}
     \item Criptografia TLS 1.3 para dados em trânsito
     \item Criptografia AES-256 para dados sensíveis em repouso
-    \item Proteção contra todas as vulnerabilidades do OWASP Top 10 \cite{OWASP:2021}
+    \item Proteção contra todas as vulnerabilidades do OWASP Top 10~\cite{OWASP:2021}
     \item Web Application Firewall (WAF) configurado e operacional
 \end{itemize}
 
@@ -250,7 +249,7 @@ Do ponto de vista acadêmico, o projeto contribui significativamente para o conh
 
 \textbf{Aplicação Prática de Conhecimentos:}
 \begin{itemize}
-    \item Consolidação de conceitos de arquitetura de software, microsserviços e cloud computing
+    \item Consolidacao de conceitos de arquitetura full-stack, Next.js, MongoDB e cloud computing
     \item Aplicação real de metodologias ágeis e gestão de projetos
     \item Experiência prática com padrões de segurança e conformidade regulatória
     \item Desenvolvimento de competências em engenharia de requisitos e design centrado no usuário
@@ -278,7 +277,7 @@ Embora seja primariamente um projeto tecnológico, a plataforma traz benefícios
 
 \textbf{Acessibilidade:}
 \begin{itemize}
-    \item Interface desenvolvida seguindo diretrizes WCAG 2.1 nível AA \cite{WCAG:2018}
+    \item Interface desenvolvida seguindo diretrizes WCAG 2.1 nível AA~\cite{WCAG:2018}
     \item Possibilidade de participação em eventos para pessoas com limitações de mobilidade (compra online, sem necessidade de deslocamento a bilheteria)
     \item Democratização do acesso a informações sobre eventos culturais
 \end{itemize}
@@ -306,13 +305,13 @@ O sucesso do projeto será mensurado através dos seguintes indicadores-chave:
 
 \begin{table}[H]
 \centering
-\caption{Indicadores técnicos de sucesso do projeto.}
+\caption{Indicadores técnicos de sucesso do projeto.}%
 \label{tab:kpi-tecnicos}
 \small
 \begin{tabular}{|p{5cm}|p{2.5cm}|p{3cm}|p{2cm}|}
 \hline
 \textbf{Indicador} & \textbf{Meta} & \textbf{Método Medição} & \textbf{Período} \\ \hline
-Disponibilidade do sistema & > 99,9\% & APM/Monitoramento & Contínuo \\ \hline
+Disponibilidade do sistema & > 99,9\% & APM e logs & Contínuo \\ \hline
 Tempo resposta P95 APIs & < 500ms & APM & Contínuo \\ \hline
 Tempo carregamento páginas & < 2s & Lighthouse & Semanal \\ \hline
 Cobertura testes unitários & > 80\% & SonarQube & Sprint \\ \hline
@@ -326,7 +325,7 @@ Capacidade concorrência & 10.000 users & Testes carga & Mensal \\ \hline
 
 \begin{table}[H]
 \centering
-\caption{Indicadores de experiência do usuário.}
+\caption{Indicadores de experiência do usuário.}%
 \label{tab:kpi-ux}
 \small
 \begin{tabular}{|p{5cm}|p{2.5cm}|p{3cm}|p{2cm}|}
@@ -346,7 +345,7 @@ Conformidade WCAG 2.1 AA & 100\% & Auditoria & Mensal \\ \hline
 
 \begin{table}[H]
 \centering
-\caption{Indicadores de negócio e adoção.}
+\caption{Indicadores de negócio e adoção.}%
 \label{tab:kpi-negocio}
 \small
 \begin{tabular}{|p{5cm}|p{2.5cm}|p{3cm}|p{2cm}|}
