@@ -7,16 +7,19 @@ Com base na análise dos stakeholders e no Termo de Abertura, foram identificado
 \textbf{RF001 - Sistema de Autenticação e Autorização}
 \begin{itemize}
     \item Cadastro de usuários com validação de e-mail
-    \item Suporte a perfis: Organizador, Comprador e Operador de Portaria
-    \item Autenticação segura com JWT e OAuth 2.0
+    \item Modelo de autorização com papéis por evento: qualquer usuário autenticado pode criar eventos (tornando-se o organizador deles) e designar outros usuários como operadores de um evento específico
+    \item Perfil global de administrador, com acesso de gestão a todos os eventos e usuários da plataforma
+    \item Autenticação segura baseada em JWT, com proteção de rotas e ações por papel
 \end{itemize}
 
 \textbf{RF002 - Gestão de Eventos}
 \begin{itemize}
     \item Cadastro completo de eventos com informações detalhadas
     \item Configuração de múltiplos tipos de ingressos e lotes promocionais
-    \item Upload de imagens e descrições dos eventos
+    \item Imagem de capa e descrições dos eventos
     \item Definição de capacidade e políticas específicas
+    \item Marcação de evento em destaque (patrocinado), priorizando a exibição na página inicial e na listagem pública
+    \item Gestão da equipe do evento (operadores) e distribuição de ingressos de cortesia a usuários por e-mail
 \end{itemize}
 
 \textbf{RF003 - Processo de Compra}
@@ -39,6 +42,8 @@ Com base na análise dos stakeholders e no Termo de Abertura, foram identificado
 \begin{itemize}
     \item Aplicação para validação rápida via leitura de QR Code
     \item Funcionamento offline com sincronização posterior
+    \item Exportação da lista de compradores do evento em CSV para conferência offline
+    \item Validação restrita ao organizador e aos operadores do evento; o administrador não realiza check-in
     \item Registro de entrada e controle de capacidade em tempo real
     \item Interface otimizada para uso em dispositivos móveis
 \end{itemize}
@@ -49,6 +54,14 @@ Com base na análise dos stakeholders e no Termo de Abertura, foram identificado
     \item Histórico completo de compras
     \item Reenvio de comprovantes e ingressos por e-mail
     \item Gestão de dados pessoais e preferências
+    \item Central de privacidade com consentimento de cookies, exportação e exclusão de dados pessoais (LGPD)
+\end{itemize}
+
+\textbf{RF007 - Monetização da Plataforma}
+\begin{itemize}
+    \item Cobrança de taxa de serviço de 5\% sobre as vendas, somada ao valor pago pelo comprador no \textit{checkout}, com repasse integral do preço do ingresso ao organizador
+    \item Detalhamento da taxa no \textit{checkout}, no pedido e no painel de \textit{analytics} do organizador
+    \item Promoção de eventos em destaque (patrocinados) como canal adicional de receita
 \end{itemize}
 
 \section{Requisitos Não Funcionais}
@@ -95,14 +108,26 @@ Com base na análise dos stakeholders e no Termo de Abertura, foram identificado
 
 \textbf{US002 - Validar Entrada}
 \begin{itemize}
-    \item \textbf{Como} operador de portaria, \textbf{quero} escanear QR Codes rapidamente, \textbf{para} evitar filas na entrada do evento.
-    \item \textbf{Critérios de Aceitação:} Validação em menos de 2 segundos, funcionamento offline, informações claras na tela.
+    \item \textbf{Como} operador designado para um evento, \textbf{quero} escanear QR Codes rapidamente e dispor da lista de compradores para conferência offline, \textbf{para} evitar filas na entrada do evento.
+    \item \textbf{Critérios de Aceitação:} Validação em menos de 2 segundos, funcionamento offline, acesso apenas aos eventos atribuídos, informações claras na tela.
 \end{itemize}
 
 \textbf{US003 - Gerenciar Evento}
 \begin{itemize}
     \item \textbf{Como} organizador, \textbf{quero} acompanhar vendas em tempo real, \textbf{para} tomar decisões estratégicas durante a comercialização.
     \item \textbf{Critérios de Aceitação:} Dashboard atualizado a cada 5 minutos, relatórios exportáveis, alertas de capacidade.
+\end{itemize}
+
+\textbf{US004 - Gerenciar Equipe do Evento}
+\begin{itemize}
+    \item \textbf{Como} organizador, \textbf{quero} adicionar operadores ao meu evento e distribuir ingressos de cortesia por e-mail, \textbf{para} delegar o check-in e conceder cortesias sem expor o controle dos demais eventos.
+    \item \textbf{Critérios de Aceitação:} Operadores acessam apenas os eventos atribuídos; os ingressos de cortesia aparecem na conta do destinatário.
+\end{itemize}
+
+\textbf{US005 - Administrar a Plataforma}
+\begin{itemize}
+    \item \textbf{Como} administrador, \textbf{quero} gerenciar todos os eventos e usuários (editar, excluir, analisar e distribuir ingressos), \textbf{para} garantir a governança e o suporte à operação da plataforma.
+    \item \textbf{Critérios de Aceitação:} Acesso a todos os eventos e à gestão de usuários, sem participação no check-in.
 \end{itemize}
 
 \section{Riscos do Projeto}

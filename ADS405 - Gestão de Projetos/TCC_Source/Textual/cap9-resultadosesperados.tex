@@ -10,7 +10,7 @@ Ao término do projeto, espera-se a entrega de uma plataforma web completa, resp
 
 \textbf{1. Sistema de Autenticação e Gestão de Identidades}
 
-O sistema permitirá que usuários se cadastrem e autentiquem de forma segura, com suporte a múltiplos perfis (comprador, organizador, operador de portaria). A implementação utilizará JSON Web Tokens (JWT) para gestão de sessões e OAuth 2.0 para integração opcional com provedores externos (Google, Facebook). Espera-se que o sistema atinja:
+O sistema permitirá que usuários se cadastrem e autentiquem de forma segura, com modelo de papéis por evento: qualquer usuário pode organizar eventos e designar operadores para um evento específico, havendo ainda um perfil global de administrador. A implementação utilizará JSON Web Tokens (JWT) para gestão de sessões, com proteção de rotas e ações por papel. Espera-se que o sistema atinja:
 
 \begin{itemize}
     \item Tempo de resposta inferior a 500ms para autenticação
@@ -74,7 +74,7 @@ A plataforma será construída sobre uma arquitetura full-stack baseada em Next.
 \textbf{Arquitetura Full-Stack:}
 \begin{itemize}
     \item Aplicacao Next.js com renderizacao no servidor e rotas de API integradas
-    \item Modulos de dominio para identidade, eventos, ingressos, pedidos, pagamentos, notificacoes e check-in
+    \item Modulos de dominio para identidade, eventos, equipe por evento, ingressos, pedidos, pagamentos, monetizacao, notificacoes, check-in e privacidade (LGPD)
     \item Banco de dados MongoDB com colecoes e indices otimizados
     \item Containerizacao com Docker quando necessario, com deploy simplificado
 \end{itemize}
@@ -140,7 +140,8 @@ Os organizadores de eventos obterão uma plataforma confiável e profissional qu
     \item Redução de 70\% no tempo gasto com gestão manual de ingressos
     \item Eliminação de processos manuais de controle de estoque e vendas
     \item Dashboard centralizado com visibilidade em tempo real de todas as métricas
-    \item Relatórios automatizados de vendas, público e receita
+    \item Relatórios automatizados de vendas, público e receita, com detalhamento da taxa de serviço e do repasse ao organizador
+    \item Repasse integral do preço do ingresso, com taxa de serviço de 5\% (uma das menores do mercado) somada ao comprador
     \item Redução estimada de 50\% em custos operacionais versus bilheteria física
 \end{itemize}
 
@@ -368,7 +369,7 @@ Embora o projeto tenha prazo definido de 30 semanas, espera-se que a plataforma 
 \textbf{Documentação Completa:}
 \begin{itemize}
     \item Documentação técnica detalhada de arquitetura, APIs e deploy
-    \item Manuais de usuário para cada perfil (comprador, organizador, operador)
+    \item Manuais de usuário para cada perfil (comprador, organizador, operador e administrador)
     \item Runbooks para operação, troubleshooting e resolução de incidentes
     \item Base de conhecimento para suporte e manutenção
 \end{itemize}
