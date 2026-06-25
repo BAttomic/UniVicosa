@@ -144,22 +144,31 @@ O projeto adota uma abordagem ágil baseada no framework Scrum, com adaptações
 
 \subsection{Arquitetura Full-Stack com Next.js e MongoDB}
 
-A arquitetura do sistema segue o padrao de aplicacao web full-stack baseada em Next.js, combinando camada de apresentacao e backend no mesmo codigo-fonte, com separacao por camadas e modulos de dominio. A solucao organiza-se em modulos coesos, expostos por rotas de API e server actions, mantendo a aplicacao stateless para permitir escalabilidade horizontal.
+A arquitetura do sistema segue o padrao de aplicacao web full-stack baseada em Next.js, combinando camada de apresentacao e backend no mesmo codigo-fonte, com separacao por camadas e modulos de dominio. A solucao organiza-se em modulos coesos, expostos por rotas de API e \textit{server actions}, mantendo a aplicacao \textit{stateless} para permitir escalabilidade horizontal.
+
+A pilha tecnologica efetivamente empregada na implementacao do prototipo e a seguinte: \textbf{Next.js 16} (App Router, React \textit{Server Components} e \textit{server actions}) com \textbf{TypeScript} em modo estrito; \textbf{MongoDB} acessado via \textbf{Mongoose} (modelagem por esquema, colecoes e indices por dominio); autenticacao com \textbf{NextAuth v5} (estrategia \textit{Credentials} com sessao em \textit{JSON Web Token}); estilizacao com \textbf{TailwindCSS}; \textit{middleware} de borda com cabecalhos de seguranca e protecao de rotas; e geracao de ingressos com codigo \textbf{QR dinamico} assinado por \textbf{HMAC} e renovado a cada 30 segundos. A camada de dominio e organizada em repositorios e modelos, e as mutacoes sao realizadas por \textit{server actions} validadas com \textbf{Zod}.
 
 O MongoDB e utilizado como banco de dados principal, com colecoes bem definidas, indices para consultas de alto volume e flexibilidade para acomodar diferentes tipos de eventos e ingressos.
 
 Os principais modulos identificados sao:
 \begin{enumerate}
     \item \textbf{Identidade e Acesso:} Autenticacao, autorizacao por papeis por evento (organizador/operador), perfil global de administrador e gestao de usuarios
-    \item \textbf{Eventos:} Cadastro, categorias, lotes, eventos em destaque e informacoes publicas
-    \item \textbf{Equipe e Cortesias:} Designacao de operadores por evento e distribuicao de ingressos de cortesia
-    \item \textbf{Ingressos:} Tipos, disponibilidade e geracao de QR Codes
-    \item \textbf{Pedidos e Carrinho:} Reserva, itens e fluxo de compra
-    \item \textbf{Pagamentos e Monetizacao:} Integracao com gateway, confirmacoes e taxa de servico de 5\%
+    \item \textbf{Eventos:} Cadastro, categorias, lotes, eventos em destaque, busca unificada (titulo, cidade e descricao) com filtro por intervalo de datas e destaque de proximidade
+    \item \textbf{Equipe e Cortesias:} Designacao de operadores por evento e emissao de ingressos de cortesia (gratuitos, sem valor monetario para o faturamento)
+    \item \textbf{Ingressos:} Tipos, lotes, disponibilidade e geracao de QR Codes; ingresso nominal com titular e CPF protegido por ocultar/mostrar
+    \item \textbf{Pedidos e Carrinho:} Reserva, itens, fluxo de compra e historico de pedidos com busca e filtros
+    \item \textbf{Pagamentos e Monetizacao:} \textbf{Pagamento simulado} (prototipo), taxa de servico de 5\% e impulsionamento pago de eventos
     \item \textbf{Notificacoes:} Envios de e-mail e comunicacoes transacionais
-    \item \textbf{Check-in:} Validacao de ingressos, modo offline e exportacao da lista de compradores
+    \item \textbf{Check-in:} Validacao de ingressos, modo offline com fila/sincronizacao e exportacao da lista de compradores
+    \item \textbf{Analytics:} Faturamento por intervalo (semana/mes/ano/total e periodo personalizado), comparativos de crescimento e tendencia
     \item \textbf{Privacidade e Conformidade (LGPD):} Consentimento de cookies, central de privacidade e exportacao/exclusao de dados pessoais
 \end{enumerate}
+
+\subsection{Funcionalidades Implementadas e Escopo do Prototipo}
+
+A versao implementada da plataforma materializa os requisitos centrais em um produto funcional. Em conformidade com o carater academico do trabalho, o \textbf{modulo de pagamento e simulado}: o \textit{checkout} registra o pedido com a taxa de servico de 5\% e o aprova automaticamente apos um curto intervalo, emitindo os ingressos, sem integracao a um \textit{gateway} financeiro real ou trafego de dados de cartao. Essa decisao preserva o foco arquitetural em seguranca, escalabilidade e usabilidade, evitando os custos e a complexidade de certificacao PCI~DSS, que permanece como evolucao futura.
+
+Entre as funcionalidades efetivamente entregues destacam-se: cadastro e gestao de eventos com tipos de ingresso e lotes programados; vitrine publica com busca unificada e destaque para eventos proximos, ao vivo e encerrados; \textit{checkout} simulado com captura de titular e CPF; carteira de ingressos com QR dinamico e detalhamento (tipo, lote, valor, titular e CPF com ocultar/mostrar); historico de pedidos com busca e filtros; check-in por leitura de QR com modo \textit{offline}; cortesias; gestao administrativa de usuarios (com data de criacao e valores gastos); perfil estendido com alteracao de e-mail; e o painel de \textit{Analytics} com intervalos temporais e comparativos. O sistema foi validado por verificacao de tipos, \textit{lint}, testes unitarios automatizados e \textit{build} de producao.
 
 \subsection{Controle de Qualidade e Testes}
 

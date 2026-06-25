@@ -19,23 +19,24 @@ Com base na análise dos stakeholders e no Termo de Abertura, foram identificado
     \item Imagem de capa e descrições dos eventos
     \item Definição de capacidade e políticas específicas
     \item Marcação de evento em destaque (patrocinado), priorizando a exibição na página inicial e na listagem pública
-    \item Gestão da equipe do evento (operadores) e distribuição de ingressos de cortesia a usuários por e-mail
+    \item Busca pública unificada por título, cidade e descrição, com filtro por intervalo de datas e destaque visual para eventos próximos, em andamento e encerrados
+    \item Gestão da equipe do evento (operadores) e emissão de ingressos de cortesia a usuários por e-mail; o operador visualiza, em ``Meus eventos'', os eventos em que atua
 \end{itemize}
 
-\textbf{RF003 - Processo de Compra}
+\textbf{RF003 - Processo de Compra (Pagamento Simulado)}
 \begin{itemize}
-    \item Carrinho de compras com seleção de quantidade e tipos
-    \item Integração com gateway de pagamento (PIX e cartão de crédito)
-    \item Sistema de filas virtuais para gerenciar alta demanda
-    \item Confirmação automática por e-mail
+    \item Seleção de tipo de ingresso, lote ativo e quantidade
+    \item Captura dos dados do titular (nome e CPF) e da forma de pagamento simulada (PIX, cartão ou boleto)
+    \item \textbf{Pagamento simulado}: o pedido é registrado como pendente e aprovado automaticamente após curto intervalo, emitindo os ingressos, sem integração a \textit{gateway} financeiro real (decisão de escopo do protótipo acadêmico)
+    \item Histórico de pedidos com busca e filtros por status e período
 \end{itemize}
 
 \textbf{RF004 - Ingressos Digitais Seguros}
 \begin{itemize}
     \item Geração de QR Code único e dinâmico para cada ingresso
     \item Vinculação direta à conta do usuário comprador
-    \item Prevenção de screenshots e compartilhamento indevido
-    \item Atualização periódica do código para evitar clonagem
+    \item Atualização do código a cada 30 segundos (assinatura HMAC no servidor), invalidando \textit{prints} e PDFs estáticos
+    \item Ingresso nominal com detalhamento de tipo, lote, valor, data de compra, data do evento, titular e CPF protegido por ocultar/mostrar
 \end{itemize}
 
 \textbf{RF005 - Controle de Acesso}
@@ -43,7 +44,7 @@ Com base na análise dos stakeholders e no Termo de Abertura, foram identificado
     \item Aplicação para validação rápida via leitura de QR Code
     \item Funcionamento offline com sincronização posterior
     \item Exportação da lista de compradores do evento em CSV para conferência offline
-    \item Validação restrita ao organizador e aos operadores do evento; o administrador não realiza check-in
+    \item Validação pelo organizador e pelos operadores do evento (atalho no cabeçalho) e pelo administrador por meio do gerenciador de eventos; o check-in admite pré-seleção do evento
     \item Registro de entrada e controle de capacidade em tempo real
     \item Interface otimizada para uso em dispositivos móveis
 \end{itemize}
@@ -64,6 +65,14 @@ Com base na análise dos stakeholders e no Termo de Abertura, foram identificado
     \item Promoção de eventos em destaque (patrocinados) como canal adicional de receita
 \end{itemize}
 
+\textbf{RF008 - Inteligência de Negócio (Analytics)}
+\begin{itemize}
+    \item Painel administrativo de faturamento da plataforma (taxa de serviço e impulsionamentos)
+    \item Seleção do intervalo de análise por atalhos (semana, mês, ano e total) e por período personalizado
+    \item Métricas comparativas com o período anterior (crescimento de receita, de pedidos e de ingressos) e tendência de faturamento por dia/mês
+    \item Cortesias contabilizadas à parte, sem impacto na receita
+\end{itemize}
+
 \section{Requisitos Não Funcionais}
 
 \textbf{RNF001 - Performance e Escalabilidade}
@@ -76,7 +85,7 @@ Com base na análise dos stakeholders e no Termo de Abertura, foram identificado
 
 \textbf{RNF002 - Segurança}
 \begin{itemize}
-    \item Conformidade com padrões PCI DSS para processamento de pagamentos~\cite{PCIDSS:2022}
+    \item Conformidade com os padrões PCI DSS prevista para a futura integração a um \textit{gateway} de pagamento real; no protótipo o pagamento é simulado e não há tráfego de dados de cartão~\cite{PCIDSS:2022}
     \item Criptografia de dados sensíveis em trânsito e em repouso
     \item Proteção contra ataques do OWASP Top 10~\cite{OWASP:2021}
     \item Auditoria completa de todas as transações financeiras
@@ -126,8 +135,8 @@ Com base na análise dos stakeholders e no Termo de Abertura, foram identificado
 
 \textbf{US005 - Administrar a Plataforma}
 \begin{itemize}
-    \item \textbf{Como} administrador, \textbf{quero} gerenciar todos os eventos e usuários (editar, excluir, analisar e distribuir ingressos), \textbf{para} garantir a governança e o suporte à operação da plataforma.
-    \item \textbf{Critérios de Aceitação:} Acesso a todos os eventos e à gestão de usuários, sem participação no check-in.
+    \item \textbf{Como} administrador, \textbf{quero} gerenciar todos os eventos e usuários (editar, excluir, emitir cortesias e analisar o faturamento por período), \textbf{para} garantir a governança e o suporte à operação da plataforma.
+    \item \textbf{Critérios de Aceitação:} Acesso a todos os eventos e à gestão de usuários (com data de criação e valores gastos); o check-in é realizado pelo gerenciador de eventos, sem atalho no cabeçalho.
 \end{itemize}
 
 \section{Riscos do Projeto}

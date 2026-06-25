@@ -30,7 +30,7 @@ Para a consecução do objetivo geral, as seguintes metas específicas serão cu
 \begin{itemize}
     \item Desenvolver um módulo de identidade e acesso seguro com modelo de papéis por evento, no qual qualquer usuário autenticado pode organizar eventos e designar operadores específicos para cada um, além de um perfil global de administrador;
     \item Implementar uma interface administrativa para que organizadores de eventos possam cadastrar, configurar e gerenciar seus eventos de forma autônoma, definindo informações como local, data, capacidade, lotes e categorias de preço dos ingressos, bem como a equipe de operadores e a distribuição de cortesias;
-    \item Construir um fluxo de compra otimizado, incluindo um carrinho de compras resiliente e a integração com um gateway de pagamento moderno que suporte múltiplos métodos, como Pix e cartão de crédito;
+    \item Construir um fluxo de compra otimizado com \textbf{pagamento simulado} (protótipo acadêmico), capturando os dados do titular e mantendo a arquitetura preparada para a futura integração a um gateway com múltiplos métodos, como Pix e cartão de crédito;
     \item Projetar e implementar um sistema de geração de ingressos digitais seguros, utilizando QR Codes únicos, dinâmicos e intransferíveis, associados diretamente à conta do comprador para coibir fraudes;
     \item Criar um portal do cliente, onde o usuário possa visualizar, gerenciar e acessar facilmente todos os ingressos adquiridos, bem como seu histórico de compras;
     \item Desenvolver uma solução de controle de acesso (check-in) eficiente e de baixa latência, que permita a validação rápida e segura dos ingressos na portaria dos eventos através da leitura do QR Code, com modo offline e exportação da lista de compradores;
@@ -44,9 +44,9 @@ O escopo do projeto engloba todas as funcionalidades e entregáveis que serão d
 \begin{itemize}
     \item Desenvolvimento de uma plataforma web responsiva, garantindo uma experiência consistente em navegadores de desktops, tablets e smartphones;
     \item Sistema de cadastro de eventos detalhado, permitindo a inclusão de imagens, descrições, políticas do evento e diferentes tipos de ingressos (ex: Pista, VIP, Meia-entrada);
-    \item Implementação de um sistema de filas virtuais para gerenciar o tráfego em eventos de altíssima demanda, garantindo a estabilidade da plataforma;
-    \item Processo de compra completo, desde a seleção dos ingressos até a confirmação do pagamento, com envio de confirmação por e-mail;
-    \item Integração com uma API de pagamento que processe transações de forma segura, seguindo as normas PCI DSS de segurança de dados~\cite{PCIDSS:2022};
+    \item Busca pública unificada por título, cidade e descrição, com filtro por intervalo de datas e destaque para eventos próximos, em andamento e encerrados; e fila de espera para eventos com vendas ainda não abertas;
+    \item Processo de compra completo, desde a seleção dos ingressos até a aprovação do pagamento, com \textbf{pagamento simulado} (sem gateway financeiro real) e captura dos dados do titular (nome e CPF);
+    \item Arquitetura preparada para a futura integração a uma API de pagamento que processe transações de forma segura, seguindo as normas PCI DSS de segurança de dados~\cite{PCIDSS:2022};
     \item Geração de ingressos digitais com QR Code que se atualiza periodicamente para evitar a captura de tela e o compartilhamento indevido;
     \item Uma aplicação ou página web simplificada para o controle de acesso, que permita aos staffs do evento validar os ingressos de forma rápida e consultar o status de cada um em tempo real;
     \item Modelo de papéis por evento, no qual qualquer usuário pode organizar eventos e gerenciar seus operadores, com um perfil global de administrador;
