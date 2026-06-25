@@ -64,10 +64,10 @@ Os recursos tecnológicos abrangem software, hardware, infraestrutura e ferramen
 \begin{itemize}
     \item Plataforma de execucao para Next.js (Vercel, AWS, Azure ou GCP)
     \item Banco de dados documental gerenciado (MongoDB Atlas ou servico equivalente)
-    \item Cache e fila virtual (Redis, opcional)
+    \item Fila de pré-venda implementada sobre o próprio MongoDB; Redis fica como evolução futura apenas se a escala exigir
     \item Storage de objetos para imagens e arquivos (S3, Azure Blob ou Cloud Storage)
     \item Content Delivery Network (CloudFront, Azure CDN ou Cloud CDN)
-    \item Load Balancer e Auto-scaling configurados
+    \item Balanceador de carga e escala horizontal configuráveis em produção (aplicação \textit{stateless})
 \end{itemize}
 
 \textbf{Ferramentas de Desenvolvimento:}
@@ -83,14 +83,14 @@ Os recursos tecnológicos abrangem software, hardware, infraestrutura e ferramen
 \begin{itemize}
     \item CI/CD: GitHub Actions, GitLab CI ou Jenkins
     \item Testes automatizados: Jest, Pytest, Cypress, Selenium
-    \item Análise de código: SonarQube para qualidade e segurança
+    \item Análise de código: verificação de tipos (TypeScript) e ESLint; SonarQube como evolução futura
     \item Monitoramento: New Relic, DataDog ou Prometheus+Grafana
     \item Logging: ELK Stack (Elasticsearch, Logstash, Kibana) ou CloudWatch
 \end{itemize}
 
 \textbf{Integrações Externas:}
 \begin{itemize}
-    \item Gateway de Pagamento: Stripe, Mercado Pago ou PagSeguro
+    \item Gateway de Pagamento (integração prevista para produção): Asaas
     \item Serviço de E-mail Transacional: SendGrid, AWS SES ou Mailgun
     \item Serviço de SMS (opcional): Twilio ou SNS
     \item Geolocalização: Google Maps API ou Mapbox
@@ -152,11 +152,13 @@ O MongoDB e utilizado como banco de dados principal, com colecoes bem definidas,
 
 Os principais modulos identificados sao:
 \begin{enumerate}
-    \item \textbf{Identidade e Acesso:} Autenticacao, autorizacao por papeis por evento (organizador/operador), perfil global de administrador e gestao de usuarios
+    \item \textbf{Identidade e Acesso:} Autenticacao, cadastro com verificação de e-mail e recuperação de senha por token, autorizacao por papeis por evento (organizador/operador), perfil global de administrador e gestao de usuarios. O administrador é um papel de governança da plataforma (gerir eventos e usuários, analisar o faturamento), não um operador de portaria; qualquer usuário pode organizar os próprios eventos
+    \item \textbf{Segurança e Auditoria:} \textit{Middleware} com cabeçalhos de segurança e proteção de rotas, \textit{rate limiting} em ações sensíveis, \textit{endpoint} de \textit{health check} com verificação de banco e trilha de auditoria de ações administrativas (quem fez o quê e quando)
     \item \textbf{Eventos:} Cadastro, categorias, lotes, eventos em destaque, busca unificada (titulo, cidade e descricao) com filtro por intervalo de datas e destaque de proximidade
     \item \textbf{Equipe e Cortesias:} Designacao de operadores por evento e emissao de ingressos de cortesia (gratuitos, sem valor monetario para o faturamento)
     \item \textbf{Ingressos:} Tipos, lotes, disponibilidade e geracao de QR Codes; ingresso nominal com titular e CPF protegido por ocultar/mostrar
-    \item \textbf{Pedidos e Carrinho:} Reserva, itens, fluxo de compra e historico de pedidos com busca e filtros
+    \item \textbf{Pedidos e Carrinho:} Carrinho de múltiplos tipos de ingresso num mesmo pedido, reserva, fluxo de compra, reenvio do comprovante por e-mail e historico de pedidos com busca e filtros
+    \item \textbf{Fila de pré-venda:} Para eventos cujas vendas abrem em data futura, o interessado entra numa fila por ordem de chegada (FIFO) e recebe sua posição; é notificado quando o lote abre
     \item \textbf{Pagamentos e Monetizacao:} \textbf{Pagamento simulado} (prototipo), taxa de servico de 5\% e impulsionamento pago de eventos
     \item \textbf{Notificacoes:} Envios de e-mail e comunicacoes transacionais
     \item \textbf{Check-in:} Validacao de ingressos, modo offline com fila/sincronizacao e exportacao da lista de compradores
@@ -168,35 +170,31 @@ Os principais modulos identificados sao:
 
 A versao implementada da plataforma materializa os requisitos centrais em um produto funcional. Em conformidade com o carater academico do trabalho, o \textbf{modulo de pagamento e simulado}: o \textit{checkout} registra o pedido com a taxa de servico de 5\% e o aprova automaticamente apos um curto intervalo, emitindo os ingressos, sem integracao a um \textit{gateway} financeiro real ou trafego de dados de cartao. Essa decisao preserva o foco arquitetural em seguranca, escalabilidade e usabilidade, evitando os custos e a complexidade de certificacao PCI~DSS, que permanece como evolucao futura.
 
-Entre as funcionalidades efetivamente entregues destacam-se: cadastro e gestao de eventos com tipos de ingresso e lotes programados; vitrine publica com busca unificada e destaque para eventos proximos, ao vivo e encerrados; \textit{checkout} simulado com captura de titular e CPF; carteira de ingressos com QR dinamico e detalhamento (tipo, lote, valor, titular e CPF com ocultar/mostrar); historico de pedidos com busca e filtros; check-in por leitura de QR com modo \textit{offline}; cortesias; gestao administrativa de usuarios (com data de criacao e valores gastos); perfil estendido com alteracao de e-mail; e o painel de \textit{Analytics} com intervalos temporais e comparativos. O sistema foi validado por verificacao de tipos, \textit{lint}, testes unitarios automatizados e \textit{build} de producao.
+Entre as funcionalidades efetivamente entregues destacam-se: cadastro com verificação de e-mail e recuperação de senha por token; cadastro e gestao de eventos com tipos de ingresso e lotes programados; vitrine publica com busca unificada e destaque para eventos proximos, ao vivo e encerrados; \textit{checkout} simulado com \textbf{carrinho de múltiplos tipos de ingresso} e captura de titular e CPF; \textbf{fila de pré-venda} por ordem de chegada (FIFO) para eventos com vendas agendadas; carteira de ingressos com QR dinamico e detalhamento (tipo, lote, valor, titular e CPF com ocultar/mostrar); historico de pedidos com busca e filtros e \textbf{reenvio do comprovante por e-mail}; check-in por leitura de QR com modo \textit{offline}; cortesias; gestao administrativa de usuarios (com data de criacao e valores gastos) com \textbf{trilha de auditoria}; perfil estendido com alteracao de e-mail; e o painel de \textit{Analytics} com intervalos temporais e comparativos. O sistema foi validado por verificacao de tipos, \textit{lint}, testes unitarios automatizados e \textit{build} de producao.
 
 \subsection{Controle de Qualidade e Testes}
 
-A estratégia de qualidade é estruturada em múltiplas camadas de testes automatizados e manuais~\cite{Pressman:2019}:
+A estratégia de qualidade do protótipo combina verificação estática e testes automatizados~\cite{Pressman:2019}:
 
-\textbf{Testes Unitários:} Executados automaticamente a cada commit, garantindo que funções e componentes individuais funcionem corretamente. Meta: cobertura mínima de 80\% do código.
+\textbf{Verificação de tipos e \textit{lint}:} Checagem estática com TypeScript em modo estrito e ESLint, executada localmente e na esteira de integração contínua, evitando classes inteiras de defeitos antes da execução.
 
-\textbf{Testes de Integracao:} Validam a comunicacao entre modulos internos e com sistemas externos. Executados automaticamente no pipeline de CI/CD.
+\textbf{Testes Unitários:} Implementados com Vitest sobre os módulos de domínio (identidade, pedidos, ingressos, check-in e \textit{health}), usando um MongoDB em memória (\textit{mongodb-memory-server}) para isolar o banco. Cobrem as regras de negócio críticas, como o uso único do ingresso e o cálculo da taxa.
 
-\textbf{Testes End-to-End (E2E):} Simulam fluxos completos de usuário através da interface. Executados antes de cada release em ambiente de homologação.
+\textbf{Testes End-to-End (E2E):} Roteiros com Playwright para os fluxos principais (autenticação, eventos e check-in).
 
-\textbf{Testes de Carga e Performance:} Validam escalabilidade e tempos de resposta sob diferentes níveis de carga. Executados periodicamente e antes de releases importantes.
+\textbf{\textit{Build} de produção:} O \textit{build} do Next.js é executado como verificação adicional, garantindo que todas as rotas compilam.
 
-\textbf{Testes de Segurança:} Incluem análise estática de código (SAST), análise dinâmica (DAST) e testes de penetração conduzidos por especialista externo.
-
-\textbf{Testes de Usabilidade:} Realizados com usuários reais (5-8 participantes por perfil) para validar interfaces e fluxos.
+Testes de carga, análise dinâmica de segurança (DAST) e teste de penetração por especialista externo ficam previstos como evolução futura, fora do escopo do protótipo acadêmico.
 
 \subsection{Integração Contínua e Entrega Contínua (CI/CD)}
 
-O projeto implementa um pipeline automatizado de CI/CD que:
+A entrega contínua é apoiada por uma esteira enxuta, adequada ao porte do protótipo:
 
 \begin{enumerate}
-    \item Executa testes automatizados a cada push para o repositório
-    \item Realiza análise estática de código para identificar vulnerabilidades e code smells
-    \item Constrói o build do aplicativo Next.js e imagens Docker quando aplicavel
-    \item Implanta automaticamente em ambiente de desenvolvimento
-    \item Requer aprovação manual para deploy em homologação e produção
-    \item Implementa estratégia de blue-green deployment para zero downtime
+    \item Uma \textit{workflow} de GitHub Actions executa, a cada \textit{push}, a verificação de tipos, o \textit{lint} e os testes unitários
+    \item O empacotamento usa um \textit{Dockerfile} multi-estágio que gera a saída \textit{standalone} do Next.js, resultando numa imagem de produção mínima
+    \item O deploy é feito pelo \textbf{Easypanel} (PaaS auto-hospedado baseado em Docker), que constrói a imagem a partir do repositório e publica a cada atualização
+    \item As variáveis de ambiente e segredos são injetados em \textit{runtime} pelo Easypanel, nunca embutidos na imagem
 \end{enumerate}
 
 \subsection{Gestão de Configuração e Documentação}
@@ -210,13 +208,7 @@ Todo o código-fonte é versionado usando Git, com estratégia de branching base
     \item \textbf{hotfix/*:} Branches para correções urgentes em produção
 \end{itemize}
 
-A documentação é mantida continuamente e inclui:
-\begin{itemize}
-    \item Documentação de APIs (OpenAPI/Swagger)
-    \item Diagramas de arquitetura (C4 Model)
-    \item Manuais de usuário e guias de operação
-    \item Runbooks para incidentes e operações
-\end{itemize}
+A documentação do protótipo centra-se em um \textbf{diagrama de arquitetura} que descreve os módulos de domínio e o fluxo entre a aplicação Next.js, o \textit{middleware} de segurança e o MongoDB. Artefatos como especificação de API (OpenAPI/Swagger) e \textit{runbooks} de operação são pertinentes apenas a um cenário de produção com operação dedicada e não fazem parte do escopo deste trabalho.
 
 \section{Avaliação do Projeto}
 
@@ -236,15 +228,15 @@ A avaliação do projeto será realizada através de múltiplas métricas e indi
 \begin{itemize}
     \item Número de usuários simultâneos suportados (meta: 10.000)
     \item Tempo de resposta sob carga (degradação máxima de 20\% com carga máxima)
-    \item Eficiência de auto-scaling (tempo de provisionamento de novos recursos)
+    \item Facilidade de escala horizontal (subir novas instâncias da aplicação \textit{stateless})
 \end{itemize}
 
 \textbf{Qualidade de Código:}
 \begin{itemize}
-    \item Cobertura de testes unitários (meta: > 80\%)
-    \item Índice de manutenibilidade (meta: A ou B no SonarQube)
-    \item Densidade de defeitos (meta: < 0,5 defeitos por 1000 linhas de código)
-    \item Dívida técnica (meta: classificação A no SonarQube)
+    \item Testes unitários cobrindo as regras de negócio críticas
+    \item Manutenibilidade: código modular e tipado (TypeScript em modo estrito)
+    \item Verificação estática sem erros de tipo (TypeScript) ou de \textit{lint} (ESLint)
+    \item Dívida técnica controlada via \textit{lint} e revisões de código
 \end{itemize}
 
 \textbf{Segurança:}
@@ -329,7 +321,7 @@ Os dados serão coletados através de:
 
 \subsection{Limitações Temporais}
 
-\textbf{Prazo de Desenvolvimento:} O projeto está limitado ao cronograma acadêmico de 30 semanas (7,5 meses), o que pode restringir o nível de refinamento e otimização de algumas funcionalidades. Recursos avançados de analytics, machine learning para detecção de fraudes e funcionalidades de marketing automatizado foram priorizados para fases posteriores.
+\textbf{Prazo de Desenvolvimento:} O projeto está limitado ao cronograma acadêmico de 30 semanas (7,5 meses), o que pode restringir o nível de refinamento e otimização de algumas funcionalidades. Recursos avançados de analytics e funcionalidades de marketing automatizado foram priorizados para fases posteriores.
 
 \textbf{Dados Históricos:} Como se trata de um sistema novo (greenfield), não haverá dados históricos de uso real durante a fase de desenvolvimento. Testes de carga e validações de escalabilidade serão realizados com dados sintéticos e simulações, podendo não capturar completamente todos os padrões de uso reais.
 

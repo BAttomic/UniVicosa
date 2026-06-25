@@ -93,7 +93,7 @@ A plataforma será construída sobre uma arquitetura full-stack baseada em Next.
 \textbf{Infraestrutura Cloud:}
 \begin{itemize}
     \item Ambientes segregados (desenvolvimento, homologação, produção)
-    \item Auto-scaling horizontal baseado em métricas de carga
+    \item Escala horizontal da aplicação \textit{stateless} (mais instâncias) prevista para produção
     \item Load balancing com distribuição inteligente de tráfego
     \item CDN global para distribuição de conteúdo estático
     \item Backup automatizado com RPO de 4 horas e RTO de 4 horas
@@ -124,7 +124,7 @@ O projeto entregará um sistema com altos padrões de qualidade, evidenciados po
 
 \textbf{Métricas de Qualidade de Código:}
 \begin{itemize}
-    \item Índice de manutenibilidade classificação A no SonarQube
+    \item Código modular e tipado (TypeScript em modo estrito), facilitando a manutenção
     \item Densidade de defeitos inferior a 0,5 por 1000 linhas de código
     \item Dívida técnica inferior a 5\% (classificação A)
     \item Zero code smells críticos ou bloqueadores
@@ -326,8 +326,8 @@ O sucesso do projeto será mensurado através dos seguintes indicadores-chave:
 Disponibilidade do sistema & > 99,9\% & APM e logs & Contínuo \\ \hline
 Tempo resposta P95 APIs & < 500ms & APM & Contínuo \\ \hline
 Tempo carregamento páginas & < 2s & Lighthouse & Semanal \\ \hline
-Cobertura testes unitários & > 80\% & SonarQube & Sprint \\ \hline
-Vulnerabilidades críticas & 0 & SAST/DAST & Sprint \\ \hline
+Regras críticas com testes & Cobertas & Vitest & Sprint \\ \hline
+Verificação estática sem erros & Sim & TypeScript/ESLint & Sprint \\ \hline
 Taxa erro transações & < 0,1\% & Logs/Analytics & Diário \\ \hline
 Capacidade concorrência & 10.000 users & Testes carga & Mensal \\ \hline
 \end{tabular}
@@ -381,8 +381,7 @@ Embora o projeto tenha prazo definido de 30 semanas, espera-se que a plataforma 
 \begin{itemize}
     \item Documentação técnica detalhada de arquitetura, APIs e deploy
     \item Manuais de usuário para cada perfil (comprador, organizador, operador e administrador)
-    \item Runbooks para operação, troubleshooting e resolução de incidentes
-    \item Base de conhecimento para suporte e manutenção
+    \item Diagrama de arquitetura dos módulos de domínio e do fluxo de dados
 \end{itemize}
 
 \textbf{Código Limpo e Manutenível:}
@@ -398,7 +397,7 @@ Embora o projeto tenha prazo definido de 30 semanas, espera-se que a plataforma 
 Funcionalidades candidatas para fases futuras pós-projeto inicial:
 \begin{itemize}
     \item \textbf{Fase 2 (3-6 meses):} Marketplace secundário para revenda segura, escolha de assentos marcados, programa de fidelidade
-    \item \textbf{Fase 3 (6-12 meses):} Aplicativos móveis nativos iOS/Android, analytics avançado com machine learning, integração com redes sociais
+    \item \textbf{Fase 3 (6-12 meses):} Aplicativos móveis nativos iOS/Android, analytics avançado e integração com redes sociais
     \item \textbf{Fase 4 (12+ meses):} Expansão internacional, suporte multi-idioma e multi-moeda, white-label para organizadores grandes
 \end{itemize}
 

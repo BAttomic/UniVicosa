@@ -6,9 +6,10 @@ Com base na análise dos stakeholders e no Termo de Abertura, foram identificado
 
 \textbf{RF001 - Sistema de Autenticação e Autorização}
 \begin{itemize}
-    \item Cadastro de usuários com validação de e-mail
+    \item Cadastro de usuários com verificação de e-mail por link de confirmação
+    \item Recuperação de senha por e-mail, com token de uso único e expiração
     \item Modelo de autorização com papéis por evento: qualquer usuário autenticado pode criar eventos (tornando-se o organizador deles) e designar outros usuários como operadores de um evento específico
-    \item Perfil global de administrador, com acesso de gestão a todos os eventos e usuários da plataforma
+    \item Perfil global de administrador como papel de \textbf{governança da plataforma} (gerir eventos e usuários, analisar o faturamento); não é um operador de portaria nem comprador, embora possa acessar o check-in de qualquer evento pelo gerenciador quando necessário
     \item Autenticação segura baseada em JWT, com proteção de rotas e ações por papel
 \end{itemize}
 
@@ -25,10 +26,11 @@ Com base na análise dos stakeholders e no Termo de Abertura, foram identificado
 
 \textbf{RF003 - Processo de Compra (Pagamento Simulado)}
 \begin{itemize}
-    \item Seleção de tipo de ingresso, lote ativo e quantidade
+    \item \textbf{Carrinho de múltiplos tipos de ingresso} num mesmo pedido, com quantidade por tipo respeitando o limite por pedido e a disponibilidade do lote ativo
+    \item \textbf{Fila de pré-venda (FIFO)}: para eventos cujas vendas abrem em data futura, o interessado entra numa fila por ordem de chegada e recebe sua posição, sendo notificado quando o lote abre
     \item Captura dos dados do titular (nome e CPF) e da forma de pagamento simulada (PIX, cartão ou boleto)
-    \item \textbf{Pagamento simulado}: o pedido é registrado como pendente e aprovado automaticamente após curto intervalo, emitindo os ingressos, sem integração a \textit{gateway} financeiro real (decisão de escopo do protótipo acadêmico)
-    \item Histórico de pedidos com busca e filtros por status e período
+    \item \textbf{Pagamento simulado}: o pedido é registrado como pendente e aprovado automaticamente após curto intervalo (cerca de 20 segundos), emitindo os ingressos, sem integração a \textit{gateway} financeiro real. A integração de produção está prevista com o \textbf{Asaas} (decisão de escopo do protótipo acadêmico)
+    \item Histórico de pedidos com busca e filtros por status e período, com \textbf{reenvio do comprovante por e-mail}
 \end{itemize}
 
 \textbf{RF004 - Ingressos Digitais Seguros}
@@ -45,7 +47,7 @@ Com base na análise dos stakeholders e no Termo de Abertura, foram identificado
     \item Funcionamento offline com sincronização posterior
     \item Exportação da lista de compradores do evento em CSV para conferência offline
     \item Validação pelo organizador e pelos operadores do evento (atalho no cabeçalho) e pelo administrador por meio do gerenciador de eventos; o check-in admite pré-seleção do evento
-    \item Registro de entrada e controle de capacidade em tempo real
+    \item Registro de entrada; a \textbf{capacidade é física} e definida pelo organizador ao cadastrar a quantidade de ingressos de cada tipo conforme o limite do local — o sistema controla a quantidade vendida frente a esse total, não a lotação física em si
     \item Interface otimizada para uso em dispositivos móveis
 \end{itemize}
 
@@ -80,15 +82,16 @@ Com base na análise dos stakeholders e no Termo de Abertura, foram identificado
     \item Tempo de resposta inferior a 2 segundos para 95\% das requisições
     \item Suporte a 10.000 usuários simultâneos sem degradação
     \item Disponibilidade superior a 99,9\% (máximo 8,76h de indisponibilidade/ano)
-    \item Auto-scaling automático baseado na demanda
+    \item Arquitetura \textit{stateless} permitindo escala horizontal (mais instâncias) quando necessário
 \end{itemize}
 
 \textbf{RNF002 - Segurança}
 \begin{itemize}
-    \item Conformidade com os padrões PCI DSS prevista para a futura integração a um \textit{gateway} de pagamento real; no protótipo o pagamento é simulado e não há tráfego de dados de cartão~\cite{PCIDSS:2022}
-    \item Criptografia de dados sensíveis em trânsito e em repouso
+    \item Conformidade com os padrões PCI DSS prevista para a futura integração ao \textit{gateway} de pagamento \textbf{Asaas}; no protótipo o pagamento é simulado e não há tráfego de dados de cartão~\cite{PCIDSS:2022}
+    \item \textit{Middleware} de segurança com proteção de rotas e cabeçalhos (HSTS, X-Frame-Options, \textit{Content-Type} \textit{nosniff}, \textit{Referrer-Policy} e \textit{Content-Security-Policy})
+    \item \textit{Rate limiting} em ações sensíveis e \textit{hashing} de senhas com \textit{bcrypt}
     \item Proteção contra ataques do OWASP Top 10~\cite{OWASP:2021}
-    \item Auditoria completa de todas as transações financeiras
+    \item Trilha de auditoria das ações administrativas (criação/edição/remoção de usuários, gestão de operadores e exclusão de eventos)
 \end{itemize}
 
 \textbf{RNF003 - Usabilidade}
@@ -145,7 +148,7 @@ Com base na análise dos stakeholders e no Termo de Abertura, foram identificado
 \begin{itemize}
     \item \textbf{Descrição:} Sistema pode não suportar demanda massiva em lançamentos de eventos populares
     \item \textbf{Probabilidade:} Alta | \textbf{Impacto:} Crítico
-    \item \textbf{Mitigação:} Implementar filas virtuais, CDN global e auto-scaling agressivo
+    \item \textbf{Mitigação:} Fila de pré-venda (FIFO) em MongoDB, CDN para \textit{assets} e escala horizontal da aplicação \textit{stateless}
 \end{itemize}
 
 \textbf{R002 - Falhas na Integração de Pagamentos}
@@ -159,7 +162,7 @@ Com base na análise dos stakeholders e no Termo de Abertura, foram identificado
 \begin{itemize}
     \item \textbf{Descrição:} Tentativas de burlar sistema com ingressos falsos ou cambismo
     \item \textbf{Probabilidade:} Média | \textbf{Impacto:} Alto
-    \item \textbf{Mitigação:} QR Codes dinâmicos, machine learning para detecção de padrões suspeitos
+    \item \textbf{Mitigação:} QR Codes dinâmicos com assinatura HMAC e rotação a cada 30s, vínculo do ingresso à conta do comprador e uso único validado de forma atômica no servidor
 \end{itemize}
 
 \textbf{R004 - Conectividade no Local do Evento}
@@ -179,7 +182,7 @@ As restrições do projeto definem as limitações e condições obrigatórias q
     \item Proteção contra vulnerabilidades do OWASP Top 10~\cite{OWASP:2021}
     \item Acessibilidade seguindo diretrizes WCAG 2.1 nível AA~\cite{WCAG:2018}
     \item Ausência de aplicativos móveis nativos -- solução exclusivamente web responsiva
-    \item Utilização obrigatória de tecnologias de nuvem com auto-scaling automático
+    \item Implantação conteinerizada (Docker) com escala horizontal quando necessário
 \end{itemize}
 
 \textbf{Restrições Legais e Regulatórias}

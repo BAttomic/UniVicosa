@@ -90,7 +90,7 @@ Custos relacionados à infraestrutura de nuvem, software, ferramentas e serviço
 \textbf{Serviço} & \textbf{Especificação} & \textbf{Período} & \textbf{Custo Total} \\ \hline
 Servidores de Aplicacao & 1x instancia basica & 7,5 meses & R\$ 1.800 \\ \hline
 Banco de Dados MongoDB & Cluster Atlas M0/M2 & 7,5 meses & R\$ 2.100 \\ \hline
-Redis (cache/filas) & Plano basico & 7,5 meses & R\$ 600 \\ \hline
+Cache/fila distribuida (provisao futura) & Plano basico & 7,5 meses & R\$ 600 \\ \hline
 Storage S3 & 100 GB + transferencia & 7,5 meses & R\$ 500 \\ \hline
 CDN CloudFront & Trafego basico & 7,5 meses & R\$ 700 \\ \hline
 Load Balancer & Aplicacao gerenciada & 7,5 meses & R\$ 400 \\ \hline
@@ -103,7 +103,7 @@ Backup e DR & Snapshots simples & 7,5 meses & R\$ 400 \\ \hline
 \begin{itemize}
     \item Valores incluem ambientes de desenvolvimento e homologacao com recursos basicos
     \item Producao em escala reduzida, com ajuste de capacidade sob demanda
-    \item Auto-scaling configurado para otimizar custos em periodos de baixa demanda
+    \item Escala horizontal (instancias adicionais) prevista para periodos de alta demanda
     \item Uso de tiers basicos e instancias pequenas
 \end{itemize}
 
@@ -141,7 +141,7 @@ E-mail free tier & E-mails transacionais & 3 meses & R\$ 100 \\ \hline
 \textbf{Serviço} & \textbf{Descrição} & \textbf{Custo} \\ \hline
 Gateway de Pagamento & Setup + testes em sandbox & R\$ 1.000 \\ \hline
 Revisao de seguranca & Revisao pontual de seguranca & R\$ 1.000 \\ \hline
-Teste de penetracao & Auditoria simplificada & R\$ 800 \\ \hline
+Teste de penetracao (provisao futura) & Auditoria externa & R\$ 800 \\ \hline
 Maps API & Geolocalizacao (teste) & R\$ 200 \\ \hline
 Dominio e SSL & Registro de dominio + certificados & R\$ 1.000 \\ \hline
 \multicolumn{2}{|r|}{\textbf{Total Integrações e Serviços:}} & \textbf{R\$ 4.000} \\ \hline

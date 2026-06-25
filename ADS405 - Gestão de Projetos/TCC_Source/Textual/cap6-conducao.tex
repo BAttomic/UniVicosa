@@ -103,17 +103,17 @@ Para os riscos de maior prioridade identificados no Capítulo 3, as seguintes es
 
 \textbf{R001 - Picos de Demanda Extrema:}
 \begin{itemize}
-    \item \textit{Mitigação:} Implementação de sistema de filas virtuais com Redis desde o início
-    \item \textit{Mitigação:} Configuração agressiva de auto-scaling (escala a 60\% de CPU)
-    \item \textit{Mitigação:} Utilização de CDN para distribuir carga de assets estáticos
+    \item \textit{Mitigação:} Fila de pré-venda por ordem de chegada (FIFO) sobre o MongoDB para eventos com vendas agendadas; fila distribuída (Redis) como evolução para escala massiva
+    \item \textit{Mitigação:} Aplicação \textit{stateless} permitindo escala horizontal (mais instâncias) em produção quando necessário
+    \item \textit{Mitigação:} Utilização de CDN para distribuir carga de assets estáticos (produção)
     \item \textit{Monitoramento:} Testes de carga progressivos a cada 3 sprints
 \end{itemize}
 
 \textbf{R002 - Falhas na Integração de Pagamentos:}
 \begin{itemize}
-    \item \textit{Mitigação:} Integração com 2 gateways independentes desde o início
-    \item \textit{Mitigação:} Implementação de circuit breaker e fallback automático
-    \item \textit{Mitigação:} Testes extensivos em ambiente sandbox antes de produção
+    \item \textit{Mitigação:} No protótipo o pagamento é simulado, isolando o risco; em produção, integração ao gateway Asaas
+    \item \textit{Mitigação:} Tratamento de erro e reprocessamento idempotente do pedido (aprovação atômica \textit{pending}$\rightarrow$\textit{paid})
+    \item \textit{Mitigação:} Testes em ambiente sandbox do gateway antes de produção
     \item \textit{Monitoramento:} Alertas automáticos para taxa de erro > 1\% em transações
 \end{itemize}
 
@@ -218,9 +218,9 @@ A qualidade é assegurada através de processos contínuos de verificação, val
 
 \textbf{Análise Estática de Código:}
 \begin{itemize}
-    \item SonarQube integrado ao pipeline de CI/CD
-    \item Quality Gates definindo limites aceitáveis de dívida técnica
-    \item Bloqueio automático de merges que introduzam vulnerabilidades críticas
+    \item Verificação de tipos (TypeScript estrito) e ESLint na esteira de CI (GitHub Actions)
+    \item A esteira falha quando há erros de tipo ou de \textit{lint}, impedindo a integração
+    \item Ferramentas dedicadas de análise (ex.: SonarQube) ficam como evolução futura
 \end{itemize}
 
 \textbf{Testes de Performance:}
@@ -288,7 +288,7 @@ O projeto depende de diversos fornecedores e serviços externos que devem ser ad
     \item Qualidade de suporte técnico e SLAs oferecidos
 \end{itemize}
 
-\textbf{Gateway de Pagamento:} Avaliação baseada em:
+\textbf{Gateway de Pagamento (Asaas, para produção):} Avaliação baseada em:
 \begin{itemize}
     \item Taxa de aprovação de transações (conversion rate)
     \item Taxas por transação e custos recorrentes

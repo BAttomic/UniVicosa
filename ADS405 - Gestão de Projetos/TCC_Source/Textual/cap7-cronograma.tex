@@ -62,12 +62,12 @@ A análise revelou o seguinte caminho crítico do projeto, com duração total d
 5.3.3 & Executar testes progressivos & 1 semana & Sem. 22-23 & Sem. 23 \\ \hline
 5.3.4 & Otimizar gargalos & 1 semana & Sem. 24 & Sem. 24 \\ \hline
 5.3.5 & Validar metas performance & 2 dias & Sem. 25 & Sem. 25 \\ \hline
-5.4.2 & Análise DAST & 3 dias & Sem. 25 & Sem. 25 \\ \hline
-5.4.3 & Teste de penetração & 1 semana & Sem. 25-26 & Sem. 26 \\ \hline
+5.4.2 & Revisar OWASP Top 10 & 3 dias & Sem. 25 & Sem. 25 \\ \hline
+5.4.3 & Teste de penetração (futuro) & 1 semana & Sem. 25-26 & Sem. 26 \\ \hline
 5.4.4 & Remediar vulnerabilidades & 1 semana & Sem. 27 & Sem. 27 \\ \hline
-5.4.5 & Certificação de segurança & 1 semana & Sem. 28 & Sem. 28 \\ \hline
+5.4.5 & Revisão de segurança da aplicação & 1 semana & Sem. 28 & Sem. 28 \\ \hline
 6.1.1 & Preparar ambiente produção & 3 dias & Sem. 28 & Sem. 28 \\ \hline
-6.1.2 & Deploy blue-green & 1 dia & Sem. 29 & Sem. 29 \\ \hline
+6.1.2 & Deploy (Easypanel) & 1 dia & Sem. 29 & Sem. 29 \\ \hline
 6.1.3 & Migrar dados iniciais & 1 dia & Sem. 29 & Sem. 29 \\ \hline
 6.1.4 & Validar funcionamento & 1 dia & Sem. 29 & Sem. 29 \\ \hline
 6.1.5 & Go-live oficial & 1 dia & Sem. 29 & Sem. 29 \\ \hline
@@ -111,9 +111,9 @@ O projeto estabelece 8 marcos principais que funcionam como gates de qualidade:
 M1 & Requisitos aprovados (Sem. 3) & Documento de requisitos assinado por stakeholders, baseline estabelecida \\ \hline
 M2 & Arquitetura aprovada (Sem. 5) & Diagramas C4 completos, decisões técnicas documentadas, revisão técnica aprovada \\ \hline
 M3 & Infraestrutura operacional (Sem. 7) & Ambientes dev/homolog/prod provisionados, testes de conectividade 100\% \\ \hline
-M4 & APIs core funcionais (Sem. 14) & APIs autenticação, eventos e pagamentos testadas, cobertura > 80\% \\ \hline
+M4 & APIs core funcionais (Sem. 14) & APIs de autenticação, eventos e pedidos testadas, com regras críticas cobertas \\ \hline
 M5 & Frontend completo (Sem. 19) & Interfaces comprador e organizador funcionais, testes usabilidade aprovados \\ \hline
-M6 & Testes de qualidade aprovados (Sem. 25) & Cobertura testes > 80\%, performance validada, zero vulnerabilidades críticas \\ \hline
+M6 & Testes de qualidade aprovados (Sem. 25) & Testes unitários e E2E aprovados, \textit{build} de produção e verificação estática sem erros \\ \hline
 M7 & Sistema em produção (Sem. 29) & Deploy realizado, smoke tests aprovados, monitoramento ativo \\ \hline
 M8 & Projeto finalizado (Sem. 30) & Documentação completa, treinamentos realizados, retrospectiva conduzida \\ \hline
 \end{tabular}
@@ -137,8 +137,8 @@ O cronograma sumarizado apresenta a organização temporal do projeto em fases e
 \textbf{2. Infraestrutura e Segurança} & 3 semanas & Sem. 5-7 & Ambientes cloud operacionais, CDN configurada, segurança implementada \\ \hline
 \textbf{3. Desenvolvimento Backend} & 8 semanas & Sem. 7-14 & APIs de autenticação, eventos, pagamentos e ingressos testadas \\ \hline
 \textbf{4. Desenvolvimento Frontend} & 5 semanas & Sem. 15-19 & Interfaces de comprador, organizador e check-in funcionais \\ \hline
-\textbf{5. Integrações} & 4 semanas & Sem. 16-19 & Gateways pagamento, e-mail, filas integrados e testados \\ \hline
-\textbf{6. Testes e Qualidade} & 7 semanas & Sem. 19-25 & Suites de testes completas, performance validada, segurança certificada \\ \hline
+\textbf{5. Integrações} & 4 semanas & Sem. 16-19 & Pagamento simulado (Asaas previsto), e-mail e fila de pré-venda integrados \\ \hline
+\textbf{6. Testes e Qualidade} & 7 semanas & Sem. 19-25 & Suites de testes (unitários e E2E), \textit{build} e revisão de segurança da aplicação \\ \hline
 \textbf{7. Implantação e Encerramento} & 2 semanas & Sem. 29-30 & Sistema em produção, documentação completa, treinamentos realizados \\ \hline
 \end{tabular}
 \end{table}

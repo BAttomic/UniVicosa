@@ -169,10 +169,10 @@ A plataforma deve incluir sistema de validação rápida e segura de ingressos n
 \subsection{Requisitos Não-Funcionais de Alto Nível}
 
 \textbf{RNF001 - Escalabilidade:}
-O sistema deve suportar picos de demanda de até 10.000 usuários simultâneos sem degradação significativa de performance.
+O sistema deve ser escalável horizontalmente, mantendo a aplicação \textit{stateless} para operar em múltiplas instâncias. A meta de suportar picos de até 10.000 usuários simultâneos é um objetivo de produção; no protótipo, a escalabilidade é validada arquiteturalmente.
 
 \textbf{RNF002 - Segurança:}
-A plataforma deve implementar padrões de segurança PCI DSS para transações financeiras e criptografia de dados sensíveis.
+A plataforma deve aplicar boas práticas de segurança (cabeçalhos, proteção de rotas, \textit{rate limiting}, \textit{hashing} de senhas e LGPD). Os padrões PCI DSS aplicam-se à futura integração de pagamento real (Asaas); no protótipo o pagamento é simulado, sem tráfego de dados de cartão.
 
 \textbf{RNF003 - Usabilidade:}
 A interface deve ser responsiva e otimizada para dispositivos móveis, com tempo de carregamento inferior a 2 segundos.
@@ -192,7 +192,7 @@ Projetar e desenvolver um sistema web completo e robusto para venda de ingressos
 \begin{itemize}
     \item Desenvolver módulo de identidade e acesso seguro para diferentes perfis de usuário
     \item Implementar interface administrativa completa para gestão autônoma de eventos
-    \item Construir fluxo de compra otimizado com integração a gateway de pagamento moderno
+    \item Construir fluxo de compra otimizado com carrinho de múltiplos ingressos e pagamento simulado (gateway Asaas previsto para produção)
     \item Projetar sistema de ingressos digitais seguros utilizando QR Codes dinâmicos
     \item Criar portal do cliente para visualização e gerenciamento de ingressos
     \item Desenvolver solução de controle de acesso eficiente para validação na portaria
@@ -204,9 +204,9 @@ Projetar e desenvolver um sistema web completo e robusto para venda de ingressos
 \begin{itemize}
     \item Plataforma web responsiva compatível com desktop, tablet e smartphone
     \item Sistema de cadastro detalhado de eventos com múltiplas categorias de ingressos
-    \item Implementação de filas virtuais para gerenciamento de alta demanda
+    \item Fila de pré-venda por ordem de chegada (FIFO) para eventos com vendas agendadas
     \item Processo de compra completo com confirmação automática por e-mail
-    \item Integração com API de pagamento seguindo normas PCI DSS de segurança
+    \item Pagamento simulado, com a integração ao gateway Asaas (sob normas PCI DSS) prevista para produção
     \item Geração de ingressos digitais com QR Code que se atualiza periodicamente
     \item Aplicação simplificada para controle de acesso com validação em tempo real
 \end{itemize}
@@ -263,9 +263,9 @@ Projetar e desenvolver um sistema web completo e robusto para venda de ingressos
 
 \textbf{Recursos Tecnológicos:}
 \begin{itemize}
-    \item Infraestrutura de nuvem escalável (AWS/Azure/GCP)
-    \item CDN para distribuição global de conteúdo
-    \item Gateway de pagamento certificado PCI DSS
+    \item Servidor próprio com Easypanel (PaaS baseado em Docker) e MongoDB; aplicação \textit{stateless} para escala horizontal
+    \item CDN para distribuição global de conteúdo (produção)
+    \item Gateway de pagamento Asaas para a fase de produção (pagamento simulado no protótipo)
     \item Ferramentas de desenvolvimento e CI/CD
     \item Sistemas de monitoramento e observabilidade
 \end{itemize}
@@ -314,7 +314,7 @@ Projetar e desenvolver um sistema web completo e robusto para venda de ingressos
 \textbf{Critérios de Segurança:}
 \begin{itemize}
     \item Taxa de fraude inferior a 0,1\% do volume total de transações
-    \item Certificação PCI DSS Level 1 para processamento de pagamentos
+    \item Conformidade PCI DSS prevista para a futura integração de pagamento (Asaas); no protótipo não há tráfego de dados de cartão
     \item Zero vazamentos de dados pessoais ou financeiros
 \end{itemize}
 
