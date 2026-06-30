@@ -1,0 +1,9 @@
+[submodule "TCC_Software"]
+	path = ADS405 - Gestão de Projetos/TCC_Software
+	url = https://github.com/BAttomic/TCC_Software.git
+[submodule "ChessMate"]
+	path = Games/ChessMate
+	url = https://github.com/BAttomic/ChessMate.git
+[submodule "DamaLink"]
+	path = Games/DamaLink
+	url = https://github.com/BAttomic/DamaLink.git
