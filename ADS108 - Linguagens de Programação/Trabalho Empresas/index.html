@@ -1,0 +1,1070 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mapeamento de Empresas de TI — Ponte Nova/MG | UNIVIÇOSA</title>
+  <meta name="description" content="Trabalho acadêmico: Levantamento de empresas de TI em Ponte Nova/MG — ADS 108 Linguagens de Programação — UNIVIÇOSA" />
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            dark: { 900: '#0a0e1a', 800: '#0f1629', 700: '#151d35', 600: '#1b2540', 500: '#232e4a' },
+            accent: { blue: '#3b82f6', green: '#22c55e', orange: '#f97316', purple: '#a855f7', cyan: '#06b6d4', red: '#ef4444' }
+          },
+          fontFamily: {
+            sans: ['Inter', 'system-ui', 'sans-serif'],
+            mono: ['JetBrains Mono', 'Fira Code', 'monospace']
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+
+  <style>
+    ::-webkit-scrollbar { width: 8px; }
+    ::-webkit-scrollbar-track { background: #0a0e1a; }
+    ::-webkit-scrollbar-thumb { background: #3b82f6; border-radius: 4px; }
+
+    body {
+      font-family: 'Inter', system-ui, sans-serif;
+      background-color: #0a0e1a;
+      color: #e2e8f0;
+      overflow-x: hidden;
+    }
+
+    .hero-gradient {
+      background: linear-gradient(135deg, #0a0e1a 0%, #0f1629 25%, #151d35 50%, #0f1629 75%, #0a0e1a 100%);
+      background-size: 400% 400%;
+      animation: gradientShift 15s ease infinite;
+    }
+    @keyframes gradientShift {
+      0%, 100% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+    }
+
+    .particle {
+      position: absolute; border-radius: 50%; pointer-events: none; opacity: 0;
+      animation: floatUp linear infinite;
+    }
+    @keyframes floatUp {
+      0%   { transform: translateY(0) scale(0); opacity: 0; }
+      10%  { opacity: 0.12; transform: scale(1); }
+      90%  { opacity: 0.12; }
+      100% { transform: translateY(-100vh) scale(0.5); opacity: 0; }
+    }
+
+    .reveal       { opacity:0; transform:translateY(40px);  transition: opacity .8s cubic-bezier(.16,1,.3,1), transform .8s cubic-bezier(.16,1,.3,1); }
+    .reveal-left  { opacity:0; transform:translateX(-60px); transition: opacity .8s cubic-bezier(.16,1,.3,1), transform .8s cubic-bezier(.16,1,.3,1); }
+    .reveal-right { opacity:0; transform:translateX(60px);  transition: opacity .8s cubic-bezier(.16,1,.3,1), transform .8s cubic-bezier(.16,1,.3,1); }
+    .reveal-scale { opacity:0; transform:scale(.85);        transition: opacity .8s cubic-bezier(.16,1,.3,1), transform .8s cubic-bezier(.16,1,.3,1); }
+    .reveal.active, .reveal-left.active, .reveal-right.active, .reveal-scale.active {
+      opacity: 1; transform: translateY(0) translateX(0) scale(1);
+    }
+
+    .card-hover { transition: transform .35s cubic-bezier(.16,1,.3,1), box-shadow .35s cubic-bezier(.16,1,.3,1); }
+    .card-hover:hover { transform: translateY(-6px); box-shadow: 0 20px 60px rgba(0,0,0,.4); }
+
+    .glass {
+      background: rgba(15,22,41,.6);
+      backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+      border: 1px solid rgba(59,130,246,.1);
+    }
+
+    .mobile-menu { transform: translateX(100%); transition: transform .35s cubic-bezier(.16,1,.3,1); }
+    .mobile-menu.open { transform: translateX(0); }
+
+    .company-details { max-height: 0; overflow: hidden; transition: max-height .5s cubic-bezier(.16,1,.3,1); }
+    .company-details.expanded { max-height: 700px; }
+
+    .badge-servicos      { background: rgba(59,130,246,.15);  color: #60a5fa; border: 1px solid rgba(59,130,246,.3); }
+    .badge-loja          { background: rgba(34,197,94,.15);   color: #4ade80; border: 1px solid rgba(34,197,94,.3); }
+    .badge-consultoria   { background: rgba(168,85,247,.15);  color: #c084fc; border: 1px solid rgba(168,85,247,.3); }
+    .badge-desenvolvimento { background: rgba(249,115,22,.15); color: #fb923c; border: 1px solid rgba(249,115,22,.3); }
+    .badge-outros        { background: rgba(107,114,128,.15); color: #9ca3af; border: 1px solid rgba(107,114,128,.3); }
+
+    .chart-bar { transition: width 1.5s cubic-bezier(.16,1,.3,1); width: 0; }
+
+    nav.scrolled {
+      background: rgba(10,14,26,.85) !important;
+      backdrop-filter: blur(20px);
+      box-shadow: 0 4px 30px rgba(0,0,0,.3);
+    }
+
+    .pipeline-step { position: relative; }
+    .pipeline-step::after {
+      content: '→'; position: absolute; right: -18px; top: 50%; transform: translateY(-50%);
+      color: #3b82f6; font-size: 1.2rem; font-weight: bold;
+    }
+    .pipeline-step:last-child::after { display: none; }
+    @media (max-width: 768px) {
+      .pipeline-step::after { content: '↓'; right: auto; left: 50%; bottom: -20px; top: auto; transform: translateX(-50%); }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ==================== NAVIGATION ==================== -->
+  <nav id="navbar" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-16">
+        <a href="#hero" class="flex items-center gap-2 group">
+          <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center text-white font-bold text-sm group-hover:scale-110 transition-transform">PN</div>
+          <span class="font-bold text-white text-sm hidden sm:block">Ponte Nova <span class="text-blue-400">TI</span></span>
+        </a>
+        <div class="hidden md:flex items-center gap-1">
+          <a href="#hero" class="px-3 py-2 rounded-lg text-sm text-gray-300 hover:text-white hover:bg-white/5 transition-all">Início</a>
+          <a href="#objetivo" class="px-3 py-2 rounded-lg text-sm text-gray-300 hover:text-white hover:bg-white/5 transition-all">Objetivo</a>
+          <a href="#metodologia" class="px-3 py-2 rounded-lg text-sm text-gray-300 hover:text-white hover:bg-white/5 transition-all">Metodologia</a>
+          <a href="#empresas" class="px-3 py-2 rounded-lg text-sm text-gray-300 hover:text-white hover:bg-white/5 transition-all">Empresas</a>
+          <a href="#dashboard" class="px-3 py-2 rounded-lg text-sm text-gray-300 hover:text-white hover:bg-white/5 transition-all">Dashboard</a>
+          <a href="#equipe" class="px-3 py-2 rounded-lg text-sm text-gray-300 hover:text-white hover:bg-white/5 transition-all">Equipe</a>
+        </div>
+        <button id="menuToggle" class="md:hidden text-gray-300 hover:text-white p-2" aria-label="Menu">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+        </button>
+      </div>
+    </div>
+    <div id="mobileMenu" class="mobile-menu fixed top-0 right-0 h-full w-72 bg-dark-800 border-l border-white/5 z-50 p-6 md:hidden">
+      <button id="menuClose" class="absolute top-4 right-4 text-gray-400 hover:text-white">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+      </button>
+      <div class="flex flex-col gap-2 mt-12">
+        <a href="#hero" class="mobile-link px-4 py-3 rounded-lg text-gray-300 hover:text-white hover:bg-white/5">Início</a>
+        <a href="#objetivo" class="mobile-link px-4 py-3 rounded-lg text-gray-300 hover:text-white hover:bg-white/5">Objetivo</a>
+        <a href="#metodologia" class="mobile-link px-4 py-3 rounded-lg text-gray-300 hover:text-white hover:bg-white/5">Metodologia</a>
+        <a href="#empresas" class="mobile-link px-4 py-3 rounded-lg text-gray-300 hover:text-white hover:bg-white/5">Empresas</a>
+        <a href="#dashboard" class="mobile-link px-4 py-3 rounded-lg text-gray-300 hover:text-white hover:bg-white/5">Dashboard</a>
+        <a href="#equipe" class="mobile-link px-4 py-3 rounded-lg text-gray-300 hover:text-white hover:bg-white/5">Equipe</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ==================== HERO ==================== -->
+  <section id="hero" class="hero-gradient relative min-h-screen flex items-center justify-center overflow-hidden">
+    <div id="particles" class="absolute inset-0 pointer-events-none"></div>
+    <div class="absolute inset-0 opacity-[0.03]" style="background-image: url('data:image/svg+xml,%3Csvg width=%2260%22 height=%2260%22 viewBox=%220 0 60 60%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cg fill=%22none%22 fill-rule=%22evenodd%22%3E%3Cg fill=%22%23ffffff%22 fill-opacity=%220.4%22%3E%3Cpath d=%22M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z%22/%3E%3C/g%3E%3C/g%3E%3C/svg%3E');"></div>
+
+    <div class="relative z-10 max-w-5xl mx-auto px-4 text-center">
+      <div class="reveal inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-500/10 border border-blue-500/20 mb-8">
+        <div class="w-2 h-2 rounded-full bg-blue-400 animate-pulse"></div>
+        <span class="text-blue-400 text-sm font-medium">ADS 108 — Linguagens de Programação</span>
+      </div>
+
+      <h1 class="reveal text-4xl sm:text-5xl md:text-7xl font-black text-white leading-tight mb-6" style="transition-delay:.1s">
+        Mapeamento de<br />
+        <span class="bg-gradient-to-r from-blue-400 via-purple-400 to-cyan-400 bg-clip-text text-transparent">Empresas de TI</span>
+      </h1>
+
+      <p class="reveal text-lg sm:text-xl text-gray-400 max-w-2xl mx-auto mb-4" style="transition-delay:.2s">
+        Levantamento de <strong class="text-white">19 empresas</strong> de tecnologia na região de <strong class="text-blue-400">Ponte Nova MG</strong>
+      </p>
+
+      <p class="reveal text-sm text-gray-500 mb-10" style="transition-delay:.25s">
+        Centro Universitário de Viçosa — UNIVIÇOSA &nbsp;|&nbsp; Prof. Anderson Resende Lamas &nbsp;|&nbsp; 07/04/2026
+      </p>
+
+      <div class="reveal flex flex-col sm:flex-row items-center justify-center gap-4" style="transition-delay:.35s">
+        <a href="#empresas" class="px-8 py-3 rounded-xl bg-gradient-to-r from-blue-600 to-blue-500 text-white font-semibold hover:from-blue-500 hover:to-blue-400 transition-all shadow-lg shadow-blue-500/25 hover:shadow-blue-500/40">
+          Ver Empresas ↓
+        </a>
+        <a href="#dashboard" class="px-8 py-3 rounded-xl border border-white/10 text-gray-300 font-semibold hover:bg-white/5 hover:border-white/20 transition-all">
+          Dashboard
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== OBJETIVO ==================== -->
+  <section id="objetivo" class="py-24 relative">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-16">
+        <span class="reveal inline-block text-blue-400 text-sm font-semibold tracking-widest uppercase mb-3">Parte 1 do Trabalho</span>
+        <h2 class="reveal text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-4" style="transition-delay:.1s">Objetivo do Levantamento</h2>
+        <div class="reveal w-20 h-1 bg-gradient-to-r from-blue-500 to-purple-500 mx-auto rounded-full" style="transition-delay:.15s"></div>
+      </div>
+
+      <div class="grid md:grid-cols-2 gap-8 items-start">
+        <!-- Left -->
+        <div class="reveal-left">
+          <div class="glass rounded-2xl p-8">
+            <h3 class="text-xl font-bold text-white mb-4">O que foi pedido?</h3>
+            <p class="text-gray-300 leading-relaxed mb-4">
+              Realizar um levantamento de empresas de TI em um raio de até <strong class="text-blue-400">300 km de Viçosa-MG</strong>.
+              As empresas podem desenvolver software, prestar serviços de TI, ou trabalhar com tecnologia (consultorias, startups, etc.).
+            </p>
+            <p class="text-gray-300 leading-relaxed mb-6">
+              Nosso grupo ficou responsável pela região de <strong class="text-white">Ponte Nova — MG</strong>,
+              cidade a aproximadamente 90 km de Viçosa.
+            </p>
+            <div class="flex flex-wrap gap-3">
+              <span class="px-3 py-1.5 rounded-lg bg-blue-500/10 border border-blue-500/20 text-blue-400 text-xs font-medium">Mínimo 10 empresas</span>
+              <span class="px-3 py-1.5 rounded-lg bg-green-500/10 border border-green-500/20 text-green-400 text-xs font-medium">✓ 19 encontradas</span>
+              <span class="px-3 py-1.5 rounded-lg bg-purple-500/10 border border-purple-500/20 text-purple-400 text-xs font-medium">Ponte Nova/MG</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right: checklist HONESTO -->
+        <div class="reveal-right">
+          <div class="glass rounded-2xl p-8">
+            <h3 class="text-xl font-bold text-white mb-2">Dados coletados por empresa</h3>
+            <p class="text-gray-500 text-xs mb-5 italic">⚠ Nem todos os dados foram possíveis de coletar para todas as empresas. Muitas possuem presença digital limitada ou inexistente.</p>
+            <div class="space-y-2.5">
+              <div class="flex items-center gap-3"><div class="w-6 h-6 rounded-full bg-green-500/20 flex items-center justify-center text-green-400 text-xs shrink-0">✓</div><span class="text-gray-300 text-sm">Nome da empresa</span><span class="ml-auto text-green-400 text-[10px] font-medium">19/19</span></div>
+              <div class="flex items-center gap-3"><div class="w-6 h-6 rounded-full bg-green-500/20 flex items-center justify-center text-green-400 text-xs shrink-0">✓</div><span class="text-gray-300 text-sm">Localização da sede</span><span class="ml-auto text-green-400 text-[10px] font-medium">19/19</span></div>
+              <div class="flex items-center gap-3"><div class="w-6 h-6 rounded-full bg-yellow-500/20 flex items-center justify-center text-yellow-400 text-xs shrink-0">~</div><span class="text-gray-300 text-sm">Site oficial</span><span class="ml-auto text-yellow-400 text-[10px] font-medium">12/19</span></div>
+              <div class="flex items-center gap-3"><div class="w-6 h-6 rounded-full bg-yellow-500/20 flex items-center justify-center text-yellow-400 text-xs shrink-0">~</div><span class="text-gray-300 text-sm">Ano de fundação</span><span class="ml-auto text-yellow-400 text-[10px] font-medium">~10/19</span></div>
+              <div class="flex items-center gap-3"><div class="w-6 h-6 rounded-full bg-red-500/20 flex items-center justify-center text-red-400 text-xs shrink-0">✗</div><span class="text-gray-300 text-sm">Proprietários / fundadores</span><span class="ml-auto text-red-400 text-[10px] font-medium">~5/19</span></div>
+              <div class="flex items-center gap-3"><div class="w-6 h-6 rounded-full bg-yellow-500/20 flex items-center justify-center text-yellow-400 text-xs shrink-0">~</div><span class="text-gray-300 text-sm">Software(s) / sistema(s)</span><span class="ml-auto text-yellow-400 text-[10px] font-medium">~8/19</span></div>
+              <div class="flex items-center gap-3"><div class="w-6 h-6 rounded-full bg-red-500/20 flex items-center justify-center text-red-400 text-xs shrink-0">✗</div><span class="text-gray-300 text-sm">Linguagens de programação</span><span class="ml-auto text-red-400 text-[10px] font-medium">~5/19</span></div>
+              <div class="flex items-center gap-3"><div class="w-6 h-6 rounded-full bg-red-500/20 flex items-center justify-center text-red-400 text-xs shrink-0">✗</div><span class="text-gray-300 text-sm">Nº funcionários / média salarial</span><span class="ml-auto text-red-400 text-[10px] font-medium">~1/19</span></div>
+              <div class="flex items-center gap-3"><div class="w-6 h-6 rounded-full bg-yellow-500/20 flex items-center justify-center text-yellow-400 text-xs shrink-0">~</div><span class="text-gray-300 text-sm">Avaliação Google Maps</span><span class="ml-auto text-yellow-400 text-[10px] font-medium">12/19</span></div>
+            </div>
+            <div class="mt-4 p-3 rounded-lg bg-orange-500/10 border border-orange-500/20">
+              <p class="text-orange-300 text-xs leading-relaxed"><strong>Nota:</strong> Ponte Nova é uma cidade de pequeno porte. A maioria das empresas de TI locais não possui CNPJ registrado na base consultada, e muitas não divulgam informações como linguagens, número de funcionários ou fundadores publicamente.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== METODOLOGIA (STARTUP PRÓPRIA) ==================== -->
+  <section id="metodologia" class="py-24 bg-dark-800/50 relative">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-16">
+        <span class="reveal inline-block text-cyan-400 text-sm font-semibold tracking-widest uppercase mb-3">Como fizemos</span>
+        <h2 class="reveal text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-4" style="transition-delay:.1s">Metodologia</h2>
+        <div class="reveal w-20 h-1 bg-gradient-to-r from-cyan-500 to-blue-500 mx-auto rounded-full" style="transition-delay:.15s"></div>
+      </div>
+
+      <!-- Ferramenta própria destaque -->
+      <div class="reveal glass rounded-2xl p-6 sm:p-8 mb-10 border-cyan-500/20 glow-cyan" style="border: 1px solid rgba(6,182,212,.25);">
+        <div class="flex flex-col sm:flex-row items-start gap-4 mb-6">
+          <div class="w-14 h-14 rounded-xl bg-cyan-500/15 flex items-center justify-center shrink-0">
+            <svg class="w-7 h-7 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"/></svg>
+          </div>
+          <div>
+            <h3 class="text-xl font-bold text-white mb-1">Ferramenta Própria — Startup em Desenvolvimento</h3>
+            <p class="text-gray-400 text-sm leading-relaxed">
+              Todo o levantamento foi realizado utilizando uma <strong class="text-cyan-400">ferramenta de prospecção desenvolvida pelo próprio grupo</strong> (startup ainda sem nome).
+              A ferramenta automatiza o processo de coleta de dados de empresas através de um pipeline de 3 etapas:
+            </p>
+          </div>
+        </div>
+
+        <!-- Pipeline visual -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-4">
+          <!-- Step 1 -->
+          <div class="pipeline-step bg-dark-900/50 rounded-xl p-5 border border-white/5">
+            <div class="flex items-center gap-3 mb-3">
+              <div class="w-8 h-8 rounded-full bg-blue-500/20 flex items-center justify-center text-blue-400 font-bold text-sm">1</div>
+              <h4 class="text-white font-semibold text-sm">Google Maps</h4>
+            </div>
+            <p class="text-gray-400 text-xs leading-relaxed">Busca automatizada por empresas de TI, informática e tecnologia na região de Ponte Nova/MG. Coleta de nome, endereço, telefone, site, avaliações e categoria.</p>
+          </div>
+          <!-- Step 2 -->
+          <div class="pipeline-step bg-dark-900/50 rounded-xl p-5 border border-white/5">
+            <div class="flex items-center gap-3 mb-3">
+              <div class="w-8 h-8 rounded-full bg-green-500/20 flex items-center justify-center text-green-400 font-bold text-sm">2</div>
+              <h4 class="text-white font-semibold text-sm">Web Scraping</h4>
+            </div>
+            <p class="text-gray-400 text-xs leading-relaxed">Extração automática de dados dos sites das empresas encontradas: e-mails, redes sociais (Instagram, Facebook, LinkedIn), WhatsApp e demais informações públicas.</p>
+          </div>
+          <!-- Step 3 -->
+          <div class="bg-dark-900/50 rounded-xl p-5 border border-white/5">
+            <div class="flex items-center gap-3 mb-3">
+              <div class="w-8 h-8 rounded-full bg-orange-500/20 flex items-center justify-center text-orange-400 font-bold text-sm">3</div>
+              <h4 class="text-white font-semibold text-sm">Receita Federal</h4>
+            </div>
+            <p class="text-gray-400 text-xs leading-relaxed">Quando um CNPJ é identificado, a ferramenta consulta a Receita Federal para obter razão social, sócios (QSA), porte, capital social, atividade CNAE e situação cadastral.</p>
+          </div>
+        </div>
+
+        <div class="mt-6 p-3 rounded-lg bg-cyan-500/8 border border-cyan-500/15">
+          <p class="text-cyan-300/80 text-xs leading-relaxed">
+            <strong>Resultado:</strong> A planilha de prospecção (<code class="bg-dark-900 px-1.5 py-0.5 rounded text-cyan-400">prospeccao-2-selecionados.xlsx</code>) foi gerada automaticamente.
+            Das 19 empresas encontradas, apenas <strong>1 (Chipset Informática)</strong> teve dados completos da Receita Federal, pois foi a única com CNPJ público identificado pelo scraper.
+          </p>
+        </div>
+      </div>
+
+      <!-- Fontes complementares -->
+      <div class="reveal text-center mb-6">
+        <h3 class="text-lg font-semibold text-gray-300">Fontes complementares usadas manualmente</h3>
+      </div>
+      <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
+        <div class="reveal card-hover glass rounded-2xl p-5 text-center" style="transition-delay:.1s">
+          <div class="w-12 h-12 mx-auto mb-3 rounded-xl bg-purple-500/15 flex items-center justify-center">
+            <svg class="w-6 h-6 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z"/><circle cx="4" cy="4" r="2" stroke-width="1.5"/></svg>
+          </div>
+          <h4 class="text-white font-semibold text-sm mb-1">LinkedIn</h4>
+          <p class="text-gray-400 text-xs">Fundadores e tecnologias</p>
+        </div>
+        <div class="reveal card-hover glass rounded-2xl p-5 text-center" style="transition-delay:.2s">
+          <div class="w-12 h-12 mx-auto mb-3 rounded-xl bg-blue-500/15 flex items-center justify-center">
+            <svg class="w-6 h-6 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+          </div>
+          <h4 class="text-white font-semibold text-sm mb-1">Sites oficiais</h4>
+          <p class="text-gray-400 text-xs">Dados complementares</p>
+        </div>
+        <div class="reveal card-hover glass rounded-2xl p-5 text-center" style="transition-delay:.3s">
+          <div class="w-12 h-12 mx-auto mb-3 rounded-xl bg-green-500/15 flex items-center justify-center">
+            <svg class="w-6 h-6 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+          </div>
+          <h4 class="text-white font-semibold text-sm mb-1">Econodata / Solutudo</h4>
+          <p class="text-gray-400 text-xs">CNPJ e dados cadastrais</p>
+        </div>
+        <div class="reveal card-hover glass rounded-2xl p-5 text-center" style="transition-delay:.4s">
+          <div class="w-12 h-12 mx-auto mb-3 rounded-xl bg-orange-500/15 flex items-center justify-center">
+            <svg class="w-6 h-6 text-orange-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"/></svg>
+          </div>
+          <h4 class="text-white font-semibold text-sm mb-1">Claude Opus 4.6</h4>
+          <p class="text-gray-400 text-xs">Pesquisa assistida por IA</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== EMPRESAS ==================== -->
+  <section id="empresas" class="py-24 relative">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-12">
+        <span class="reveal inline-block text-green-400 text-sm font-semibold tracking-widest uppercase mb-3">Levantamento Completo</span>
+        <h2 class="reveal text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-4" style="transition-delay:.1s">19 Empresas de TI em Ponte Nova</h2>
+        <div class="reveal w-20 h-1 bg-gradient-to-r from-green-500 to-blue-500 mx-auto rounded-full mb-4" style="transition-delay:.15s"></div>
+        <p class="reveal text-gray-400 max-w-2xl mx-auto text-sm" style="transition-delay:.2s">Clique em qualquer card para expandir os detalhes. Dados marcados com "—" não foram encontrados publicamente.</p>
+      </div>
+
+      <!-- Filtros -->
+      <div class="reveal flex flex-wrap justify-center gap-3 mb-10" style="transition-delay:.25s">
+        <button data-filter="all" class="filter-btn active px-4 py-2 rounded-lg text-sm font-medium bg-blue-500/20 text-blue-400 border border-blue-500/30 hover:bg-blue-500/30 transition-all">Todas (19)</button>
+        <button data-filter="servicos" class="filter-btn px-4 py-2 rounded-lg text-sm font-medium bg-white/5 text-gray-400 border border-white/10 hover:bg-white/10 transition-all">Serviços (6)</button>
+        <button data-filter="loja" class="filter-btn px-4 py-2 rounded-lg text-sm font-medium bg-white/5 text-gray-400 border border-white/10 hover:bg-white/10 transition-all">Lojas (5)</button>
+        <button data-filter="dev" class="filter-btn px-4 py-2 rounded-lg text-sm font-medium bg-white/5 text-gray-400 border border-white/10 hover:bg-white/10 transition-all">Desenvolvimento (4)</button>
+        <button data-filter="consultoria" class="filter-btn px-4 py-2 rounded-lg text-sm font-medium bg-white/5 text-gray-400 border border-white/10 hover:bg-white/10 transition-all">Consultoria (2)</button>
+        <button data-filter="outros" class="filter-btn px-4 py-2 rounded-lg text-sm font-medium bg-white/5 text-gray-400 border border-white/10 hover:bg-white/10 transition-all">Sem categoria (2)</button>
+      </div>
+
+      <div id="companiesGrid" class="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5"></div>
+    </div>
+  </section>
+
+  <!-- ==================== DASHBOARD ==================== -->
+  <section id="dashboard" class="py-24 bg-dark-800/50 relative">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-16">
+        <span class="reveal inline-block text-orange-400 text-sm font-semibold tracking-widest uppercase mb-3">Análise dos Dados</span>
+        <h2 class="reveal text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-4" style="transition-delay:.1s">Dashboard</h2>
+        <div class="reveal w-20 h-1 bg-gradient-to-r from-orange-500 to-red-500 mx-auto rounded-full" style="transition-delay:.15s"></div>
+      </div>
+
+      <!-- KPIs -->
+      <div class="grid grid-cols-2 lg:grid-cols-4 gap-5 mb-12">
+        <div class="reveal glass rounded-2xl p-6 text-center card-hover" style="transition-delay:.1s">
+          <div class="text-3xl sm:text-4xl font-black text-blue-400 mb-1"><span class="counter" data-target="19">0</span></div>
+          <div class="text-gray-400 text-sm">Empresas Únicas</div>
+        </div>
+        <div class="reveal glass rounded-2xl p-6 text-center card-hover" style="transition-delay:.2s">
+          <div class="text-3xl sm:text-4xl font-black text-green-400 mb-1"><span class="counter" data-target="13">0</span></div>
+          <div class="text-gray-400 text-sm">Com WhatsApp</div>
+        </div>
+        <div class="reveal glass rounded-2xl p-6 text-center card-hover" style="transition-delay:.3s">
+          <div class="text-3xl sm:text-4xl font-black text-purple-400 mb-1"><span class="counter" data-target="11">0</span></div>
+          <div class="text-gray-400 text-sm">Com Site/Link</div>
+        </div>
+        <div class="reveal glass rounded-2xl p-6 text-center card-hover" style="transition-delay:.4s">
+          <div class="text-3xl sm:text-4xl font-black text-orange-400 mb-1">4.5⭐</div>
+          <div class="text-gray-400 text-sm">Avaliação Média</div>
+        </div>
+      </div>
+
+      <div class="grid lg:grid-cols-2 gap-8">
+        <!-- Categorias -->
+        <div class="reveal-left glass rounded-2xl p-6 sm:p-8">
+          <h3 class="text-lg font-bold text-white mb-6">Distribuição por Categoria</h3>
+          <div class="space-y-4">
+            <div>
+              <div class="flex justify-between text-sm mb-1"><span class="text-gray-300">Serviços de TI</span><span class="text-blue-400 font-semibold">6</span></div>
+              <div class="w-full h-3 bg-dark-900 rounded-full overflow-hidden"><div class="chart-bar h-full bg-gradient-to-r from-blue-600 to-blue-400 rounded-full" data-width="32%"></div></div>
+            </div>
+            <div>
+              <div class="flex justify-between text-sm mb-1"><span class="text-gray-300">Lojas de Eletrônicos</span><span class="text-green-400 font-semibold">5</span></div>
+              <div class="w-full h-3 bg-dark-900 rounded-full overflow-hidden"><div class="chart-bar h-full bg-gradient-to-r from-green-600 to-green-400 rounded-full" data-width="26%"></div></div>
+            </div>
+            <div>
+              <div class="flex justify-between text-sm mb-1"><span class="text-gray-300">Desenvolvimento de Software</span><span class="text-orange-400 font-semibold">4</span></div>
+              <div class="w-full h-3 bg-dark-900 rounded-full overflow-hidden"><div class="chart-bar h-full bg-gradient-to-r from-orange-600 to-orange-400 rounded-full" data-width="21%"></div></div>
+            </div>
+            <div>
+              <div class="flex justify-between text-sm mb-1"><span class="text-gray-300">Consultoria em TI</span><span class="text-purple-400 font-semibold">2</span></div>
+              <div class="w-full h-3 bg-dark-900 rounded-full overflow-hidden"><div class="chart-bar h-full bg-gradient-to-r from-purple-600 to-purple-400 rounded-full" data-width="11%"></div></div>
+            </div>
+            <div>
+              <div class="flex justify-between text-sm mb-1"><span class="text-gray-300">Sem categoria definida</span><span class="text-gray-400 font-semibold">2</span></div>
+              <div class="w-full h-3 bg-dark-900 rounded-full overflow-hidden"><div class="chart-bar h-full bg-gradient-to-r from-gray-600 to-gray-400 rounded-full" data-width="11%"></div></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Linguagens -->
+        <div class="reveal-right glass rounded-2xl p-6 sm:p-8">
+          <h3 class="text-lg font-bold text-white mb-2">Linguagens / Tecnologias Identificadas</h3>
+          <p class="text-gray-500 text-xs mb-5 italic">Apenas 5 empresas divulgam publicamente as linguagens que utilizam.</p>
+          <div class="space-y-4">
+            <div>
+              <div class="flex justify-between text-sm mb-1"><span class="text-gray-300">PHP / Laravel</span><span class="text-cyan-400 font-semibold">3 empresas</span></div>
+              <div class="w-full h-3 bg-dark-900 rounded-full overflow-hidden"><div class="chart-bar h-full bg-gradient-to-r from-cyan-600 to-cyan-400 rounded-full" data-width="60%"></div></div>
+            </div>
+            <div>
+              <div class="flex justify-between text-sm mb-1"><span class="text-gray-300">JavaScript / HTML / CSS</span><span class="text-yellow-400 font-semibold">3 empresas</span></div>
+              <div class="w-full h-3 bg-dark-900 rounded-full overflow-hidden"><div class="chart-bar h-full bg-gradient-to-r from-yellow-600 to-yellow-400 rounded-full" data-width="60%"></div></div>
+            </div>
+            <div>
+              <div class="flex justify-between text-sm mb-1"><span class="text-gray-300">C# / .NET</span><span class="text-blue-400 font-semibold">2 empresas</span></div>
+              <div class="w-full h-3 bg-dark-900 rounded-full overflow-hidden"><div class="chart-bar h-full bg-gradient-to-r from-blue-600 to-blue-400 rounded-full" data-width="40%"></div></div>
+            </div>
+            <div>
+              <div class="flex justify-between text-sm mb-1"><span class="text-gray-300">SQL (MySQL / SQL Server)</span><span class="text-green-400 font-semibold">3 empresas</span></div>
+              <div class="w-full h-3 bg-dark-900 rounded-full overflow-hidden"><div class="chart-bar h-full bg-gradient-to-r from-green-600 to-green-400 rounded-full" data-width="60%"></div></div>
+            </div>
+            <div>
+              <div class="flex justify-between text-sm mb-1"><span class="text-gray-300">Java / Kotlin / Swift</span><span class="text-red-400 font-semibold">1 empresa</span></div>
+              <div class="w-full h-3 bg-dark-900 rounded-full overflow-hidden"><div class="chart-bar h-full bg-gradient-to-r from-red-600 to-red-400 rounded-full" data-width="20%"></div></div>
+            </div>
+            <div>
+              <div class="flex justify-between text-sm mb-1"><span class="text-gray-300">Python (IA)</span><span class="text-purple-400 font-semibold">1 empresa</span></div>
+              <div class="w-full h-3 bg-dark-900 rounded-full overflow-hidden"><div class="chart-bar h-full bg-gradient-to-r from-purple-600 to-purple-400 rounded-full" data-width="20%"></div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Insights -->
+      <div class="grid sm:grid-cols-3 gap-5 mt-8">
+        <div class="reveal glass rounded-2xl p-6 card-hover" style="transition-delay:.1s">
+          <div class="text-sm text-blue-400 font-semibold mb-2">Presença Digital</div>
+          <p class="text-gray-300 text-sm leading-relaxed">Apenas <strong class="text-white">2 de 19</strong> empresas possuem e-mail + redes sociais completas (Informatiza e Chipset). A maioria depende somente do WhatsApp.</p>
+        </div>
+        <div class="reveal glass rounded-2xl p-6 card-hover" style="transition-delay:.2s">
+          <div class="text-sm text-green-400 font-semibold mb-2">Destaque</div>
+          <p class="text-gray-300 text-sm leading-relaxed"><strong class="text-white">Informatiza</strong> lidera com 92 avaliações (4.9⭐) e +2.000 projetos. <strong class="text-white">Quasar Produções</strong> se destaca pelos 6 sistemas proprietários.</p>
+        </div>
+        <div class="reveal glass rounded-2xl p-6 card-hover" style="transition-delay:.3s">
+          <div class="text-sm text-orange-400 font-semibold mb-2">Observação</div>
+          <p class="text-gray-300 text-sm leading-relaxed">Há uma lacuna em <strong class="text-white">dev mobile nativo</strong> e <strong class="text-white">IA</strong>. PHP domina. A maioria atua com manutenção, suporte e venda de hardware.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== MAPA COM MARCADORES ==================== -->
+  <section id="mapa" class="py-24 relative">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-12">
+        <span class="reveal inline-block text-purple-400 text-sm font-semibold tracking-widest uppercase mb-3">Distribuição Geográfica</span>
+        <h2 class="reveal text-3xl sm:text-4xl font-bold text-white mb-4" style="transition-delay:.1s">Localização das Empresas</h2>
+        <div class="reveal w-20 h-1 bg-gradient-to-r from-purple-500 to-pink-500 mx-auto rounded-full" style="transition-delay:.15s"></div>
+      </div>
+
+      <!-- Google Maps iframe real -->
+      <div class="reveal-scale glass rounded-2xl overflow-hidden mb-8" style="transition-delay:.2s">
+        <iframe
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d29974.5!2d-42.9176!3d-20.4128!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xa4d0a74fa3e717%3A0xbb36f9b5a04e1c1d!2sPonte%20Nova%2C%20MG!5e0!3m2!1spt-BR!2sbr"
+          width="100%" height="400" style="border:0;"
+          allowfullscreen="" loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+          title="Mapa de Ponte Nova - MG">
+        </iframe>
+      </div>
+
+      <!-- Mapa SVG esquemático por bairro -->
+      <div class="reveal glass rounded-2xl overflow-hidden p-2" style="transition-delay:.3s">
+        <svg viewBox="0 0 800 420" style="width:100%;height:auto;display:block;" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+              <path d="M 40 0 L 0 0 0 40" fill="none" stroke="rgba(59,130,246,0.06)" stroke-width="1"/>
+            </pattern>
+            <filter id="glow">
+              <feGaussianBlur stdDeviation="2.5" result="blur"/>
+              <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+            </filter>
+          </defs>
+          <rect width="800" height="420" fill="url(#grid)"/>
+
+          <!-- Título -->
+          <text x="400" y="25" text-anchor="middle" fill="#94a3b8" font-size="11" font-family="Inter, sans-serif" font-weight="600">PONTE NOVA — MG • Distribuição das 19 empresas por bairro</text>
+
+          <!-- CENTRO (4 empresas) -->
+          <rect x="30" y="55" width="210" height="170" rx="12" fill="rgba(59,130,246,0.06)" stroke="rgba(59,130,246,0.2)" stroke-width="1"/>
+          <text x="135" y="78" text-anchor="middle" fill="#60a5fa" font-size="11" font-weight="700" font-family="Inter">CENTRO — 4 empresas</text>
+          <circle cx="55" cy="100" r="5" fill="#3b82f6" filter="url(#glow)"/><text x="67" y="104" fill="#cbd5e1" font-size="9" font-family="Inter">Mouse Tech Informática</text>
+          <circle cx="55" cy="125" r="5" fill="#3b82f6" filter="url(#glow)"/><text x="67" y="129" fill="#cbd5e1" font-size="9" font-family="Inter">Suprimentos Guinchos</text>
+          <circle cx="55" cy="150" r="5" fill="#3b82f6" filter="url(#glow)"/><text x="67" y="154" fill="#cbd5e1" font-size="9" font-family="Inter">Infominas Informática</text>
+          <circle cx="55" cy="175" r="5" fill="#60a5fa" filter="url(#glow)"/><text x="67" y="179" fill="#fbbf24" font-size="9" font-family="Inter" font-weight="600">Quasar Produções ★</text>
+
+          <!-- PALMEIRAS (8 empresas) -->
+          <rect x="280" y="55" width="230" height="245" rx="12" fill="rgba(34,197,94,0.06)" stroke="rgba(34,197,94,0.2)" stroke-width="1"/>
+          <text x="395" y="78" text-anchor="middle" fill="#4ade80" font-size="11" font-weight="700" font-family="Inter">PALMEIRAS — 8 empresas</text>
+          <circle cx="305" cy="100" r="5" fill="#22c55e" filter="url(#glow)"/><text x="317" y="104" fill="#cbd5e1" font-size="9" font-family="Inter">Formata Inovação</text>
+          <circle cx="305" cy="125" r="5" fill="#22c55e" filter="url(#glow)"/><text x="317" y="129" fill="#cbd5e1" font-size="9" font-family="Inter">Web Automação</text>
+          <circle cx="305" cy="150" r="5" fill="#22c55e" filter="url(#glow)"/><text x="317" y="154" fill="#cbd5e1" font-size="9" font-family="Inter">Neuronium</text>
+          <circle cx="305" cy="175" r="5" fill="#4ade80" filter="url(#glow)"/><text x="317" y="179" fill="#fbbf24" font-size="9" font-family="Inter" font-weight="600">AHW Sistemas ★ (2 end.)</text>
+          <circle cx="305" cy="200" r="5" fill="#22c55e" filter="url(#glow)"/><text x="317" y="204" fill="#cbd5e1" font-size="9" font-family="Inter">inPhoFix</text>
+          <circle cx="305" cy="225" r="5" fill="#22c55e" filter="url(#glow)"/><text x="317" y="229" fill="#cbd5e1" font-size="9" font-family="Inter">MASTER INFO</text>
+          <circle cx="305" cy="250" r="5" fill="#22c55e" filter="url(#glow)"/><text x="317" y="254" fill="#6b7280" font-size="9" font-family="Inter">Cryium (sem dados)</text>
+          <circle cx="305" cy="275" r="5" fill="#22c55e" filter="url(#glow)"/><text x="317" y="279" fill="#6b7280" font-size="9" font-family="Inter">Web Legal (sem dados)</text>
+
+          <!-- GUARAPIRANGA (5 empresas) -->
+          <rect x="550" y="55" width="220" height="195" rx="12" fill="rgba(168,85,247,0.06)" stroke="rgba(168,85,247,0.2)" stroke-width="1"/>
+          <text x="660" y="78" text-anchor="middle" fill="#c084fc" font-size="11" font-weight="700" font-family="Inter">GUARAPIRANGA — 5 empresas</text>
+          <circle cx="575" cy="100" r="5" fill="#a855f7" filter="url(#glow)"/><text x="587" y="104" fill="#cbd5e1" font-size="9" font-family="Inter">Tech Informática</text>
+          <circle cx="575" cy="125" r="5" fill="#c084fc" filter="url(#glow)"/><text x="587" y="129" fill="#fbbf24" font-size="9" font-family="Inter" font-weight="600">Chipset Tecnologia ★</text>
+          <circle cx="575" cy="150" r="5" fill="#c084fc" filter="url(#glow)"/><text x="587" y="154" fill="#fbbf24" font-size="9" font-family="Inter" font-weight="600">Informatiza ★</text>
+          <circle cx="575" cy="175" r="5" fill="#a855f7" filter="url(#glow)"/><text x="587" y="179" fill="#cbd5e1" font-size="9" font-family="Inter">Magnecom Tecnologia</text>
+          <circle cx="575" cy="200" r="5" fill="#a855f7" filter="url(#glow)"/><text x="587" y="204" fill="#cbd5e1" font-size="9" font-family="Inter">Casa da Informática</text>
+
+          <!-- OUTROS (2 empresas) -->
+          <rect x="30" y="270" width="210" height="110" rx="12" fill="rgba(249,115,22,0.06)" stroke="rgba(249,115,22,0.2)" stroke-width="1"/>
+          <text x="135" y="293" text-anchor="middle" fill="#fb923c" font-size="11" font-weight="700" font-family="Inter">OUTROS — 2 empresas</text>
+          <circle cx="55" cy="318" r="5" fill="#f97316" filter="url(#glow)"/><text x="67" y="322" fill="#cbd5e1" font-size="9" font-family="Inter">LC Informática (Sta. Teresa)</text>
+          <circle cx="55" cy="343" r="5" fill="#f97316" filter="url(#glow)"/><text x="67" y="347" fill="#cbd5e1" font-size="9" font-family="Inter">Market Brasil (São Geraldo)</text>
+
+          <!-- Legenda -->
+          <rect x="550" y="290" width="220" height="100" rx="12" fill="rgba(15,22,41,0.9)" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
+          <text x="570" y="313" fill="#94a3b8" font-size="10" font-weight="700" font-family="Inter">LEGENDA</text>
+          <circle cx="570" cy="332" r="4" fill="#3b82f6"/><text x="582" y="336" fill="#cbd5e1" font-size="9" font-family="Inter">Centro (4)</text>
+          <circle cx="570" cy="350" r="4" fill="#22c55e"/><text x="582" y="354" fill="#cbd5e1" font-size="9" font-family="Inter">Palmeiras (8)</text>
+          <circle cx="570" cy="368" r="4" fill="#a855f7"/><text x="582" y="372" fill="#cbd5e1" font-size="9" font-family="Inter">Guarapiranga (5)</text>
+          <circle cx="682" cy="332" r="4" fill="#f97316"/><text x="694" y="336" fill="#cbd5e1" font-size="9" font-family="Inter">Outros (2)</text>
+          <circle cx="682" cy="350" r="4" fill="#fbbf24"/><text x="694" y="354" fill="#fbbf24" font-size="9" font-family="Inter" font-weight="600">★ Destaque</text>
+
+          <text x="400" y="410" text-anchor="middle" fill="#475569" font-size="9" font-family="Inter">Total: 19 empresas únicas • Concentração: Palmeiras (42%) → Guarapiranga (26%) → Centro (21%) → Outros (11%)</text>
+        </svg>
+      </div>
+
+      <p class="text-center text-gray-500 text-sm mt-4 reveal">A maioria das empresas concentra-se nos bairros <strong class="text-gray-400">Palmeiras</strong> (8), <strong class="text-gray-400">Guarapiranga</strong> (5) e <strong class="text-gray-400">Centro</strong> (4).</p>
+    </div>
+  </section>
+
+  <!-- ==================== EQUIPE ==================== -->
+  <section id="equipe" class="py-24 bg-dark-800/50 relative">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <span class="reveal inline-block text-green-400 text-sm font-semibold tracking-widest uppercase mb-3">O Grupo</span>
+      <h2 class="reveal text-3xl sm:text-4xl font-bold text-white mb-12" style="transition-delay:.1s">Equipe — Ponte Nova</h2>
+
+      <div class="grid sm:grid-cols-3 gap-8 max-w-3xl mx-auto">
+        <!-- Bernardo -->
+        <div class="reveal card-hover glass rounded-2xl p-8" style="transition-delay:.15s">
+          <div class="w-20 h-20 mx-auto mb-4 rounded-full bg-gradient-to-br from-blue-500 to-cyan-500 flex items-center justify-center text-white text-2xl font-black">BM</div>
+          <h3 class="text-lg font-bold text-white mb-1">Bernardo Motta</h3>
+          <p class="text-blue-400 text-xs font-medium mb-3">Análise e Desenv. de Sistemas</p>
+          <p class="text-gray-400 text-xs">Pesquisa, coleta de dados e desenvolvimento da ferramenta de prospecção.</p>
+        </div>
+        <!-- Diego -->
+        <div class="reveal card-hover glass rounded-2xl p-8" style="transition-delay:.25s">
+          <div class="w-20 h-20 mx-auto mb-4 rounded-full bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center text-white text-2xl font-black">DA</div>
+          <h3 class="text-lg font-bold text-white mb-1">Diego Araújo</h3>
+          <p class="text-purple-400 text-xs font-medium mb-3">Análise e Desenv. de Sistemas</p>
+          <p class="text-gray-400 text-xs">Pesquisa, análise dos dados e construção da apresentação.</p>
+        </div>
+        <!-- Antônio Maroca -->
+        <div class="reveal card-hover glass rounded-2xl p-8" style="transition-delay:.35s">
+          <div class="w-20 h-20 mx-auto mb-4 rounded-full bg-gradient-to-br from-orange-500 to-red-500 flex items-center justify-center text-white text-2xl font-black">AM</div>
+          <h3 class="text-lg font-bold text-white mb-1">Antônio Maroca</h3>
+          <p class="text-orange-400 text-xs font-medium mb-3">Análise e Desenv. de Sistemas</p>
+          <p class="text-gray-400 text-xs">Pesquisa e análise complementar das empresas da região.</p>
+        </div>
+      </div>
+
+      <!-- Créditos -->
+      <div class="reveal mt-16 glass rounded-2xl p-6 inline-block" style="transition-delay:.4s">
+        <p class="text-gray-400 text-sm">
+          <strong class="text-white">Centro Universitário de Viçosa — UNIVIÇOSA</strong><br />
+          Disciplina: ADS 108 — Linguagens de Programação<br />
+          Professor: Anderson Resende Lamas<br />
+          Data de Apresentação: 07/04/2026
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== FOOTER ==================== -->
+  <footer class="py-8 border-t border-white/5">
+    <div class="max-w-6xl mx-auto px-4 text-center">
+      <p class="text-gray-500 text-sm">
+        © 2026 Bernardo Motta, Diego Araújo & Antônio Maroca — Trabalho acadêmico ADS 108 UNIVIÇOSA. Todos os dados são públicos.
+      </p>
+    </div>
+  </footer>
+
+
+  <!-- ==================== JAVASCRIPT ==================== -->
+  <script>
+    // ===========================================
+    // DATA: 19 Empresas — conferidas com a XLSX
+    // Linhas XLSX: 20 linhas, AHWSISTEMAS aparece
+    // 2x (linha 11 e 13) = 19 empresas únicas
+    // ===========================================
+    const empresas = [
+      // --- XLSX Linha 1 ---
+      {
+        nome: "Tech Informática",
+        categoria: "servicos", badge: "Serviços", badgeClass: "badge-servicos",
+        endereco: "R. Dr. Antônio Gonçalves Lana, 28 - Guarapiranga",
+        telefone: "(31) 3817-5338", whatsapp: false,
+        site: "linktr.ee/techinformaticamg", siteUrl: "https://linktr.ee/techinformaticamg",
+        avaliacao: "5.0", avaliacoes: 2,
+        cnpj: "—", razao: "—", fundacao: "Não encontrado", fundador: "Não divulgado",
+        porte: "—", atividade: "Serviços de informática",
+        software: "Manutenção e suporte técnico",
+        linguagens: "—", funcionarios: "—",
+        instagram: "", facebook: "",
+        destaque: false
+      },
+      // --- XLSX Linha 2 ---
+      {
+        nome: "Formata Inovação e Tecnologia",
+        categoria: "servicos", badge: "Serviços", badgeClass: "badge-servicos",
+        endereco: "Av. Francisco Vieira Martins, 729 - Loja 09 - Palmeiras",
+        telefone: "(31) 3817-6865", whatsapp: true,
+        site: "—", siteUrl: "",
+        avaliacao: "4.3", avaliacoes: 13,
+        cnpj: "—", razao: "—", fundacao: "~2015 (est.)", fundador: "Não divulgado",
+        porte: "—", atividade: "Assistência técnica, venda de periféricos, manutenção de impressoras",
+        software: "Manutenção/suporte (não desenvolve software)",
+        linguagens: "—", funcionarios: "~2-5 (est.)",
+        instagram: "instagram.com/formatait", facebook: "facebook.com/formatait",
+        destaque: false
+      },
+      // --- XLSX Linha 3 ---
+      {
+        nome: "Web Automação Ponte Nova",
+        categoria: "dev", badge: "Desenvolvimento", badgeClass: "badge-desenvolvimento",
+        endereco: "Av. Custódio Silva, 1419 - Palmeiras",
+        telefone: "(31) 3181-2151", whatsapp: true,
+        site: "techponte.com.br", siteUrl: "https://techponte.com.br/",
+        avaliacao: "—", avaliacoes: 0,
+        cnpj: "50.000.410/0001-00", razao: "Web Automação Ponte Nova Ltda", fundacao: "~2021 (franquia)", fundador: "Franquia Web Automação",
+        porte: "Micro Empresa", atividade: "Automação comercial, PDV, controle de estoque, emissão de NF-e",
+        software: "PDV Legal (sistema de vendas), autoatendimento, gestão de estoque",
+        linguagens: "C#, .NET, JavaScript, SQL",
+        funcionarios: "~3-5 (est.)",
+        instagram: "", facebook: "",
+        destaque: false
+      },
+      // --- XLSX Linha 4 ---
+      {
+        nome: "Mouse Tech Informática",
+        categoria: "loja", badge: "Loja", badgeClass: "badge-loja",
+        endereco: "Av. Caetano Marinho, 212 - loja 8 - Centro",
+        telefone: "(31) 98452-8894", whatsapp: false,
+        site: "—", siteUrl: "https://www.facebook.com/mousetechinformatica",
+        avaliacao: "4.7", avaliacoes: 11,
+        cnpj: "23.047.495/0001-00", razao: "Luis Fernando de Castro", fundacao: "~2015 (est.)", fundador: "Luis Fernando de Castro",
+        porte: "MEI", atividade: "Loja de eletrônicos, assistência técnica, locação de impressoras",
+        software: "—", linguagens: "—", funcionarios: "~1-3 (est.)",
+        instagram: "", facebook: "facebook.com/mousetechinformatica",
+        destaque: false
+      },
+      // --- XLSX Linha 5 ---
+      {
+        nome: "Neuronium",
+        categoria: "consultoria", badge: "Consultoria", badgeClass: "badge-consultoria",
+        endereco: "Av. Dr. José Grossi, 194 - SL 1308 - Palmeiras",
+        telefone: "(31) 98470-5669 / (31) 98427-0325", whatsapp: true,
+        site: "neuronium.com.br", siteUrl: "http://www.neuronium.com.br/",
+        avaliacao: "5.0", avaliacoes: 19,
+        cnpj: "23.829.015/0001-62", razao: "Neuronium Ltda", fundacao: "2015", fundador: "Não divulgado publicamente",
+        porte: "Micro Empresa", atividade: "Consultoria e terceirização de TI, manutenção preventiva, suporte remoto e presencial, monitoramento de rede",
+        software: "Monitoramento 24x7, backup, firewall, suporte remoto",
+        linguagens: "Infraestrutura (não desenvolve software próprio)",
+        funcionarios: "~5-10 (est.)",
+        instagram: "instagram.com/neuronium.ti", facebook: "",
+        destaque: false
+      },
+      // --- XLSX Linha 6 ---
+      {
+        nome: "Suprimentos Guinchos Leve e Pesados 24h",
+        categoria: "loja", badge: "Loja", badgeClass: "badge-loja",
+        endereco: "Av. Abdala Felício, 524 - Centro",
+        telefone: "(31) 3881-6160", whatsapp: true,
+        site: "—", siteUrl: "",
+        avaliacao: "4.4", avaliacoes: 10,
+        cnpj: "—", razao: "—", fundacao: "Não encontrado", fundador: "Não divulgado",
+        porte: "—", atividade: "Loja de eletrônicos e suprimentos de informática",
+        software: "—", linguagens: "—", funcionarios: "—",
+        instagram: "", facebook: "",
+        destaque: false
+      },
+      // --- XLSX Linha 7 ---
+      {
+        nome: "Infominas Informática",
+        categoria: "loja", badge: "Loja", badgeClass: "badge-loja",
+        endereco: "Av. Custódio Silva, 1227 - Loja 01 - Centro",
+        telefone: "(31) 3817-4445", whatsapp: false,
+        site: "—", siteUrl: "",
+        avaliacao: "4.3", avaliacoes: 15,
+        cnpj: "—", razao: "—", fundacao: "Não encontrado", fundador: "Não divulgado",
+        porte: "—", atividade: "Loja de eletrônicos e informática",
+        software: "—", linguagens: "—", funcionarios: "—",
+        instagram: "", facebook: "",
+        destaque: false
+      },
+      // --- XLSX Linha 8 ---
+      {
+        nome: "Informatiza Soluções Empresariais",
+        categoria: "dev", badge: "Desenvolvimento", badgeClass: "badge-desenvolvimento",
+        endereco: "R. Jose Otaviano Vieira Mosqueira, 112/301 - Guarapiranga",
+        telefone: "(31) 3881-6663", whatsapp: true,
+        site: "informatizaweb.com.br", siteUrl: "http://www.informatizaweb.com.br/",
+        avaliacao: "4.9", avaliacoes: 92,
+        cnpj: "—", razao: "Informatiza Soluções Empresariais Ltda", fundacao: "2006 (~20 anos)", fundador: "Não divulgado",
+        porte: "Micro Empresa", atividade: "Criação de sites, e-commerce, landing pages — portfólio de +2.000 projetos",
+        software: "Sites institucionais, e-commerce, landing pages personalizadas",
+        linguagens: "PHP, HTML, CSS, JavaScript, WordPress",
+        funcionarios: "~5-10 (est.)",
+        instagram: "instagram.com/informatizaweb", facebook: "facebook.com/informatiza",
+        destaque: true
+      },
+      // --- XLSX Linha 9 ---
+      {
+        nome: "LC Informática",
+        categoria: "servicos", badge: "Serviços", badgeClass: "badge-servicos",
+        endereco: "R. Felisberto Leopoldo, 200 - Santa Teresa",
+        telefone: "(31) 3817-2113", whatsapp: true,
+        site: "—", siteUrl: "",
+        avaliacao: "4.1", avaliacoes: 30,
+        cnpj: "—", razao: "—", fundacao: "~2010 (est.)", fundador: "Não divulgado",
+        porte: "Micro Empresa", atividade: "Venda e manutenção de eletrônicos, segurança eletrônica, telefonia",
+        software: "—", linguagens: "—", funcionarios: "~3-5 (est.)",
+        instagram: "", facebook: "facebook.com/pontenet.com.br",
+        destaque: false
+      },
+      // --- XLSX Linha 10 ---
+      {
+        nome: "Market Brasil",
+        categoria: "outros", badge: "Sem categoria", badgeClass: "badge-outros",
+        endereco: "R. João do Monte Medeiros - São Geraldo",
+        telefone: "(31) 99541-4785", whatsapp: false,
+        site: "—", siteUrl: "",
+        avaliacao: "—", avaliacoes: 0,
+        cnpj: "—", razao: "—", fundacao: "Não encontrado", fundador: "Não divulgado",
+        porte: "—", atividade: "Informações limitadas — empresa sem presença digital identificável",
+        software: "—", linguagens: "—", funcionarios: "—",
+        instagram: "", facebook: "",
+        destaque: false
+      },
+      // --- XLSX Linhas 11 + 13 (DUPLICADA — empresa única, 2 endereços) ---
+      {
+        nome: "AHW Sistemas",
+        categoria: "dev", badge: "Desenvolvimento", badgeClass: "badge-desenvolvimento",
+        endereco: "Av. Dom Bôsco, 426, Sala 404 - Palmeiras (e R. Nair Augusta Píres, 271 - Vila Oliveira)",
+        telefone: "(31) 99379-1159", whatsapp: true,
+        site: "ahwsistemas.com.br", siteUrl: "http://www.ahwsistemas.com.br/",
+        avaliacao: "—", avaliacoes: 0,
+        cnpj: "—", razao: "AHW Sistemas", fundacao: "2013 (~13 anos)", fundador: "Antonio Henrique da Costa Amora (Dev PHP Sênior)",
+        porte: "Micro Empresa", atividade: "Soluções empresariais personalizadas, automação de processos, gestão financeira, locação de impressoras",
+        software: "ERP próprio, automação de processos, sistemas de gestão financeira e análise de dados",
+        linguagens: "PHP, Laravel, JavaScript, MySQL, HTML/CSS",
+        funcionarios: "~3-5 (est.)",
+        instagram: "", facebook: "",
+        destaque: true
+      },
+      // --- XLSX Linha 12 ---
+      {
+        nome: "Chipset Informática",
+        categoria: "dev", badge: "Desenvolvimento", badgeClass: "badge-desenvolvimento",
+        endereco: "Av. Dr. José Grossi, 194 - Guarapiranga",
+        telefone: "(31) 3817-1576", whatsapp: true,
+        site: "chipsettecnologia.com.br", siteUrl: "http://www.chipsettecnologia.com.br/",
+        avaliacao: "—", avaliacoes: 0,
+        cnpj: "08.181.313/0001-03", razao: "CHIPSET INFORMATICA LTDA", fundacao: "2006 (~20 anos)", fundador: "Joel Saltarelli Filho (Sócio-Administrador)",
+        porte: "Micro Empresa (Capital Social: R$ 5.000)", atividade: "Tratamento de dados, hospedagem, desenvolvimento de software/APP (Android, iOS, Web), backup em nuvem, servidores em nuvem",
+        software: "Software sob medida, Apps Android/iOS/Web, Backend API, Cloud Computing",
+        linguagens: "PHP, JavaScript, Java (Android), Swift (iOS), SQL",
+        funcionarios: "~5-10 (est.)",
+        instagram: "instagram.com/ichipset", facebook: "facebook.com/chipsettecnologia",
+        destaque: true
+      },
+      // --- XLSX Linha 14 ---
+      {
+        nome: "inPhoFix",
+        categoria: "servicos", badge: "Serviços", badgeClass: "badge-servicos",
+        endereco: "Av. Dom Bôsco, 182 - Palmeiras",
+        telefone: "(31) 98404-2211", whatsapp: true,
+        site: "—", siteUrl: "https://www.instagram.com/inphofix",
+        avaliacao: "4.9", avaliacoes: 25,
+        cnpj: "—", razao: "—", fundacao: "~2004 (mais de 20 anos)", fundador: "Não divulgado",
+        porte: "Micro Empresa", atividade: "Reparo de computadores e celulares, assistência especializada Apple",
+        software: "—", linguagens: "—", funcionarios: "~2-5 (est.)",
+        instagram: "instagram.com/inphofix", facebook: "facebook.com/inphofix",
+        destaque: false
+      },
+      // --- XLSX Linha 15 ---
+      {
+        nome: "Casa da Informática",
+        categoria: "loja", badge: "Loja", badgeClass: "badge-loja",
+        endereco: "R. Prof. Campolina, 140 - Guarapiranga",
+        telefone: "(31) 98437-1836", whatsapp: true,
+        site: "linktr.ee/casadainformaticapn", siteUrl: "https://linktr.ee/casadainformaticapn",
+        avaliacao: "4.0", avaliacoes: 3,
+        cnpj: "42.267.487/0001-13", razao: "Danilo Martins Silva", fundacao: "~2020 (est.)", fundador: "Danilo Martins Silva",
+        porte: "MEI", atividade: "Venda e manutenção de computadores/notebooks, periféricos, redes, locação de impressoras, recarga de toner",
+        software: "—", linguagens: "—", funcionarios: "~1-3 (est.)",
+        instagram: "instagram.com/casadainformaticapn", facebook: "",
+        destaque: false
+      },
+      // --- XLSX Linha 16 ---
+      {
+        nome: "Magnecom Tecnologia",
+        categoria: "consultoria", badge: "Consultoria", badgeClass: "badge-consultoria",
+        endereco: "R. Meridional - Guarapiranga",
+        telefone: "(31) 99495-1010", whatsapp: true,
+        site: "—", siteUrl: "",
+        avaliacao: "5.0", avaliacoes: 1,
+        cnpj: "44.249.085/0001-11", razao: "Magnecom Tecnologia e Inovação Ltda", fundacao: "2021 (~5 anos)", fundador: "Magno da Silva",
+        porte: "EPP", atividade: "Tecnologia e inovação, assistência técnica, fornecimento de equipamentos para órgãos públicos",
+        software: "—", linguagens: "—", funcionarios: "~3-5 (est.)",
+        instagram: "", facebook: "",
+        destaque: false
+      },
+      // --- XLSX Linha 17 ---
+      {
+        nome: "MASTER INFO",
+        categoria: "servicos", badge: "Serviços", badgeClass: "badge-servicos",
+        endereco: "Av. Dr. Otávio Soares, 378A - Palmeiras",
+        telefone: "(31) 3881-3030", whatsapp: true,
+        site: "masterinfo.inf.br", siteUrl: "http://www.masterinfo.inf.br/",
+        avaliacao: "4.2", avaliacoes: 13,
+        cnpj: "—", razao: "—", fundacao: "2005 (~21 anos)", fundador: "Não divulgado",
+        porte: "Micro Empresa", atividade: "Venda de computadores, periféricos, manutenção, certificados digitais, locação de impressoras",
+        software: "Manutenção/suporte (não desenvolve software)",
+        linguagens: "—", funcionarios: "~3-5 (est.)",
+        instagram: "", facebook: "facebook.com/Plesk",
+        destaque: false
+      },
+      // --- XLSX Linha 18 ---
+      {
+        nome: "Quasar Produções",
+        categoria: "dev", badge: "Desenvolvimento", badgeClass: "badge-desenvolvimento",
+        endereco: "Tv. Saltareli, 53 - Centro",
+        telefone: "(31) 3817-6120", whatsapp: true,
+        site: "quasarproducoes.com.br", siteUrl: "https://www.quasarproducoes.com.br/",
+        avaliacao: "—", avaliacoes: 0,
+        cnpj: "04.355.281/0001-56", razao: "Quasar Produções Ltda", fundacao: "2001 (~25 anos)", fundador: "Sócios não divulgados (CNPJ mostra 2 sócios)",
+        porte: "ME (Simples Nacional)", atividade: "Desenvolvimento de sistemas, produção de vídeo com IA",
+        software: "CallVox (call center + iluminação pública), RDO Brasil (gestão de obras), Ouvir Você (comunicação gov), Ouvir Você Pesquisas (pesquisas eleitorais), V-Box (sistema interativo p/ bares), Cortex (IA em desenvolvimento)",
+        linguagens: "C#, .NET, JavaScript, SQL Server (identificado via análise dos produtos)",
+        funcionarios: "~5-10 (est.)",
+        instagram: "instagram.com/quasar_producoes", facebook: "facebook.com/quasarproducoesbrasil",
+        destaque: true
+      },
+      // --- XLSX Linha 19 ---
+      {
+        nome: "Cryium",
+        categoria: "outros", badge: "Sem categoria", badgeClass: "badge-outros",
+        endereco: "Palmeiras",
+        telefone: "—", whatsapp: false,
+        site: "—", siteUrl: "",
+        avaliacao: "—", avaliacoes: 0,
+        cnpj: "—", razao: "—", fundacao: "Não encontrado", fundador: "Não divulgado",
+        porte: "—", atividade: "Informações limitadas — empresa sem presença digital identificável",
+        software: "—", linguagens: "—", funcionarios: "—",
+        instagram: "", facebook: "",
+        destaque: false
+      },
+      // --- XLSX Linha 20 ---
+      {
+        nome: "Web Legal",
+        categoria: "servicos", badge: "Serviços", badgeClass: "badge-servicos",
+        endereco: "Av. Custódio Silva, 1419 - Palmeiras",
+        telefone: "—", whatsapp: false,
+        site: "weblegal.com.br", siteUrl: "http://weblegal.com.br/",
+        avaliacao: "—", avaliacoes: 0,
+        cnpj: "—", razao: "—", fundacao: "Não encontrado", fundador: "Não divulgado",
+        porte: "—", atividade: "Serviços web (informações limitadas)",
+        software: "—", linguagens: "—", funcionarios: "—",
+        instagram: "", facebook: "",
+        destaque: false
+      }
+    ];
+
+    // ===========================================
+    // RENDER CARDS
+    // ===========================================
+    const grid = document.getElementById('companiesGrid');
+
+    function renderCards(filter = 'all') {
+      grid.innerHTML = '';
+      const filtered = filter === 'all'
+        ? empresas
+        : empresas.filter(e => e.categoria === filter);
+
+      filtered.forEach((emp, i) => {
+        const card = document.createElement('div');
+        card.className = 'company-card reveal glass rounded-2xl overflow-hidden card-hover cursor-pointer';
+        card.style.transitionDelay = `${Math.min(i * 0.05, 0.4)}s`;
+        card.dataset.categoria = emp.categoria;
+
+        const starHtml = emp.avaliacao !== '—'
+          ? `<span class="text-yellow-400 text-xs font-semibold">${emp.avaliacao}⭐ <span class="text-gray-500">(${emp.avaliacoes})</span></span>`
+          : `<span class="text-gray-600 text-xs">Sem avaliação</span>`;
+
+        const whatsappIcon = emp.whatsapp
+          ? `<span class="text-green-400 text-xs">📱 WhatsApp</span>` : '';
+
+        const siteLink = emp.siteUrl
+          ? `<a href="${emp.siteUrl}" target="_blank" rel="noopener" class="text-blue-400 text-xs hover:underline truncate block" onclick="event.stopPropagation()">${emp.site}</a>`
+          : `<span class="text-gray-600 text-xs">Sem site</span>`;
+
+        card.innerHTML = `
+          <div class="p-5">
+            <div class="flex items-start justify-between gap-2 mb-3">
+              <h4 class="text-white font-bold text-sm leading-tight">${emp.nome}</h4>
+              ${emp.destaque ? '<span class="shrink-0 text-xs px-2 py-0.5 rounded bg-yellow-500/15 text-yellow-400 border border-yellow-500/20 font-medium">★</span>' : ''}
+            </div>
+            <span class="inline-block px-2.5 py-1 rounded-md text-[10px] font-semibold uppercase tracking-wider mb-3 ${emp.badgeClass}">${emp.badge}</span>
+            <div class="space-y-1.5 mb-3">
+              <p class="text-gray-400 text-xs">📍 ${emp.endereco}</p>
+              <p class="text-gray-400 text-xs">📞 ${emp.telefone}</p>
+              ${siteLink}
+            </div>
+            <div class="flex items-center justify-between">${starHtml}${whatsappIcon}</div>
+          </div>
+          <div class="company-details border-t border-white/5">
+            <div class="p-5 space-y-2.5">
+              ${emp.razao !== '—' ? `<div><span class="text-gray-500 text-[10px] uppercase tracking-wider">Razão Social</span><p class="text-gray-300 text-xs">${emp.razao}</p></div>` : ''}
+              ${emp.cnpj !== '—' ? `<div><span class="text-gray-500 text-[10px] uppercase tracking-wider">CNPJ</span><p class="text-gray-300 text-xs">${emp.cnpj}</p></div>` : ''}
+              <div><span class="text-gray-500 text-[10px] uppercase tracking-wider">Fundação</span><p class="text-gray-300 text-xs">${emp.fundacao}</p></div>
+              <div><span class="text-gray-500 text-[10px] uppercase tracking-wider">Fundador(es)</span><p class="text-gray-300 text-xs">${emp.fundador}</p></div>
+              <div><span class="text-gray-500 text-[10px] uppercase tracking-wider">Porte</span><p class="text-gray-300 text-xs">${emp.porte}</p></div>
+              <div><span class="text-gray-500 text-[10px] uppercase tracking-wider">Atividade</span><p class="text-gray-300 text-xs">${emp.atividade}</p></div>
+              <div><span class="text-gray-500 text-[10px] uppercase tracking-wider">Software / Sistemas</span><p class="text-gray-300 text-xs">${emp.software}</p></div>
+              <div><span class="text-gray-500 text-[10px] uppercase tracking-wider">Linguagens</span><p class="${emp.linguagens !== '—' ? 'text-blue-400' : 'text-gray-500'} text-xs font-medium">${emp.linguagens}</p></div>
+              <div><span class="text-gray-500 text-[10px] uppercase tracking-wider">Funcionários</span><p class="text-gray-300 text-xs">${emp.funcionarios}</p></div>
+              ${emp.instagram ? `<div><span class="text-gray-500 text-[10px] uppercase tracking-wider">Instagram</span><a href="https://${emp.instagram}" target="_blank" class="text-pink-400 text-xs hover:underline block" onclick="event.stopPropagation()">${emp.instagram}</a></div>` : ''}
+              ${emp.facebook ? `<div><span class="text-gray-500 text-[10px] uppercase tracking-wider">Facebook</span><a href="https://${emp.facebook}" target="_blank" class="text-blue-400 text-xs hover:underline block" onclick="event.stopPropagation()">${emp.facebook}</a></div>` : ''}
+            </div>
+          </div>
+        `;
+
+        card.addEventListener('click', () => {
+          card.querySelector('.company-details').classList.toggle('expanded');
+        });
+
+        grid.appendChild(card);
+      });
+
+      requestAnimationFrame(() => {
+        document.querySelectorAll('.company-card.reveal').forEach(el => {
+          if (el.getBoundingClientRect().top < window.innerHeight) el.classList.add('active');
+        });
+      });
+    }
+
+    renderCards('all');
+
+    // ===========================================
+    // FILTER BUTTONS
+    // ===========================================
+    document.querySelectorAll('.filter-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.filter-btn').forEach(b => {
+          b.classList.remove('bg-blue-500/20', 'text-blue-400', 'border-blue-500/30');
+          b.classList.add('bg-white/5', 'text-gray-400', 'border-white/10');
+        });
+        btn.classList.remove('bg-white/5', 'text-gray-400', 'border-white/10');
+        btn.classList.add('bg-blue-500/20', 'text-blue-400', 'border-blue-500/30');
+        renderCards(btn.dataset.filter);
+      });
+    });
+
+    // ===========================================
+    // SCROLL REVEAL
+    // ===========================================
+    const revealElements = () => {
+      document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .reveal-scale').forEach(el => {
+        if (el.getBoundingClientRect().top < window.innerHeight - 60) el.classList.add('active');
+      });
+    };
+    window.addEventListener('scroll', revealElements);
+    window.addEventListener('load', revealElements);
+
+    // ===========================================
+    // COUNTER ANIMATION
+    // ===========================================
+    const animateCounter = (el) => {
+      const target = +el.dataset.target;
+      const duration = 2000;
+      const start = performance.now();
+      const tick = (now) => {
+        const progress = Math.min((now - start) / duration, 1);
+        const eased = 1 - Math.pow(1 - progress, 3);
+        el.textContent = Math.floor(eased * target);
+        if (progress < 1) requestAnimationFrame(tick);
+        else el.textContent = target;
+      };
+      requestAnimationFrame(tick);
+    };
+    const counterObserver = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) { animateCounter(e.target); counterObserver.unobserve(e.target); } });
+    }, { threshold: 0.5 });
+    document.querySelectorAll('.counter').forEach(c => counterObserver.observe(c));
+
+    // ===========================================
+    // CHART BARS
+    // ===========================================
+    const barObserver = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.style.width = e.target.dataset.width; barObserver.unobserve(e.target); } });
+    }, { threshold: 0.3 });
+    document.querySelectorAll('.chart-bar').forEach(b => barObserver.observe(b));
+
+    // ===========================================
+    // NAVBAR
+    // ===========================================
+    window.addEventListener('scroll', () => {
+      document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 50);
+    });
+
+    // ===========================================
+    // MOBILE MENU
+    // ===========================================
+    const mobileMenu = document.getElementById('mobileMenu');
+    document.getElementById('menuToggle').addEventListener('click', () => mobileMenu.classList.add('open'));
+    document.getElementById('menuClose').addEventListener('click', () => mobileMenu.classList.remove('open'));
+    document.querySelectorAll('.mobile-link').forEach(l => {
+      l.addEventListener('click', () => mobileMenu.classList.remove('open'));
+    });
+
+    // ===========================================
+    // PARTICLES
+    // ===========================================
+    const particlesContainer = document.getElementById('particles');
+    const colors = ['#3b82f6', '#22c55e', '#a855f7', '#06b6d4', '#f97316'];
+    function spawnParticle() {
+      const p = document.createElement('div');
+      p.className = 'particle';
+      const size = Math.random() * 6 + 2;
+      const color = colors[Math.floor(Math.random() * colors.length)];
+      const left = Math.random() * 100;
+      const dur = Math.random() * 12 + 8;
+      p.style.cssText = `width:${size}px;height:${size}px;background:${color};left:${left}%;bottom:-10px;animation-duration:${dur}s;`;
+      particlesContainer.appendChild(p);
+      setTimeout(() => p.remove(), dur * 1000);
+    }
+    setInterval(spawnParticle, 400);
+    for (let i = 0; i < 15; i++) setTimeout(spawnParticle, i * 200);
+  </script>
+</body>
+</html>

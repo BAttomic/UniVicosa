@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Divs</title>
+<style>
+    body, html {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+    }
+
+    .grid-container {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        grid-template-rows: repeat(3, 1fr);
+        gap: 10px;
+        height: 95vh;
+        padding: 5px;
+    }
+
+    .grid-container > div {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.5em;
+        color: #333;
+        background-color: #f5f5dc; /* Beige */
+        border-radius: 10px;
+    }
+
+    .div-alta {
+        grid-column: 1;
+        grid-row: 2 / span 2;
+    }
+
+    .div-quadrada {
+        grid-column: 2 / span 2;
+        grid-row: 2 / span 2;
+    }
+</style>
+</head>
+<body>
+
+<div class="grid-container">
+    <div class="div1">DIV-1 1x1</div>
+    <div class="div2">DIV-2 1x1</div>
+    <div class="div3">DIV-3 1x1</div>
+    <div class="div-alta">DIV-ALTA 2x1</div>
+    <div class="div-quadrada">DIV-QUADRADA 2x2</div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Boeing 737 MAX Accidents — Segurança e Confiabilidade de Sistemas</title>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;600&display=swap');
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{overflow:hidden;width:100vw;height:100vh;background:#08090d;font-family:'Inter',sans-serif}
+#scaler{width:1920px;height:1080px;position:absolute;top:50%;left:50%;transform-origin:center center}
+:root{
+  --bg:#0b0d14;--sf:#12151f;--sf2:#181c28;--bd:#1f2437;
+  --blue:#4f8ff7;--red:#f74f4f;--amber:#f7a94f;--green:#3ddfa0;--purple:#a855f7;--cyan:#22d3ee;
+  --t1:#eef1f8;--t2:#a0a8c0;--t3:#5e6580;
+}
+.progress{position:absolute;top:0;left:0;height:3px;background:linear-gradient(90deg,var(--blue),var(--cyan));z-index:999;transition:width .5s cubic-bezier(.4,0,.2,1);border-radius:0 2px 2px 0}
+.counter{position:absolute;bottom:28px;right:44px;z-index:999;font-family:'JetBrains Mono',monospace;font-size:13px;color:var(--t3);letter-spacing:2px}
+.s{position:absolute;inset:0;width:1920px;height:1080px;opacity:0;visibility:hidden;transition:opacity .5s cubic-bezier(.4,0,.2,1),transform .5s cubic-bezier(.4,0,.2,1);transform:scale(.97);overflow:hidden}
+.s.on{opacity:1;visibility:visible;transform:scale(1)}
+.s.out-l{opacity:0;visibility:hidden;transform:translateX(-50px) scale(.98)}
+.s.out-r{opacity:0;visibility:hidden;transform:translateX(50px) scale(.98)}
+.pad{padding:68px 88px}.col{display:flex;flex-direction:column}.row{display:flex}
+.gap-8{gap:8px}.gap-12{gap:12px}.gap-14{gap:14px}.gap-16{gap:16px}.gap-20{gap:20px}.gap-24{gap:24px}.gap-28{gap:28px}.gap-32{gap:32px}.gap-40{gap:40px}.gap-48{gap:48px}.gap-64{gap:64px}
+.flex-1{flex:1}.items-center{align-items:center}.justify-center{justify-content:center}
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+.grid-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:24px}
+.grid-4{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:20px}
+.w-full{width:100%}.h-full{height:100%}.text-center{text-align:center}
+.mono{font-family:'JetBrains Mono',monospace}
+h1{font-size:56px;font-weight:800;line-height:1.1;color:var(--t1)}
+h2{font-size:42px;font-weight:800;line-height:1.15;color:var(--t1)}
+p,.body{font-size:17px;line-height:1.8;color:var(--t2)}
+.label{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:3px;text-transform:uppercase;font-weight:600;color:var(--blue)}
+.label-r{color:var(--red)}.label-a{color:var(--amber)}.label-g{color:var(--green)}.label-p{color:var(--purple)}
+.tc{color:var(--cyan)}.tb{color:var(--blue)}.tr{color:var(--red)}.ta{color:var(--amber)}.tg{color:var(--green)}.tp{color:var(--purple)}.tm{color:var(--t3)}
+.sm{font-size:14px}.xs{font-size:12px}
+.bold{font-weight:700}.semibold{font-weight:600}.light{font-weight:300}
+.lh{line-height:1.9}
+.gb{background:linear-gradient(135deg,#4f8ff7,#22d3ee);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.gr{background:linear-gradient(135deg,#f74f4f,#f7a94f);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.gg{background:linear-gradient(135deg,#3ddfa0,#22d3ee);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.gp{background:linear-gradient(135deg,#a855f7,#4f8ff7);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.card{background:var(--sf);border:1px solid var(--bd);border-radius:16px;padding:32px;transition:border-color .25s,transform .25s}
+.card:hover{border-color:rgba(79,143,247,.2);transform:translateY(-1px)}
+.card-sm{padding:24px;border-radius:14px}
+.ci{font-size:28px;margin-bottom:14px;display:block}
+.ct{font-size:16px;font-weight:700;color:var(--t1);margin-bottom:8px}
+.cb{font-size:14px;color:var(--t2);line-height:1.75}
+.stat{background:var(--sf);border:1px solid var(--bd);border-radius:16px;padding:26px 24px;text-align:center}
+.sv{font-size:40px;font-weight:900;line-height:1;margin-bottom:6px}
+.sl{font-size:11px;font-family:'JetBrains Mono',monospace;letter-spacing:2px;text-transform:uppercase;color:var(--t3)}
+.divider{width:48px;height:3px;border-radius:3px;background:var(--blue);margin:18px 0}
+.div-r{background:var(--red)}.div-a{background:var(--amber)}.div-g{background:var(--green)}.div-p{background:var(--purple)}
+
+/* Flow centered */
+.flow-wrap{background:var(--sf);border:1px solid var(--bd);border-radius:16px;padding:28px 36px;display:flex;flex-direction:column;align-items:center;gap:20px}
+.flow{display:flex;align-items:center;justify-content:center;gap:0}
+.fn{background:var(--sf2);border:1px solid var(--bd);border-radius:12px;padding:16px 20px;text-align:center;min-width:155px;flex-shrink:0}
+.fn.warn{border-color:rgba(247,169,79,.25);background:rgba(247,169,79,.04)}
+.fn.dng{border-color:rgba(247,79,79,.25);background:rgba(247,79,79,.04)}
+.fa{color:var(--t3);font-size:20px;margin:0 8px;flex-shrink:0}
+
+/* Chain: continuous 8-block flow with wrap */
+.chain-wrap{background:var(--sf);border:1px solid var(--bd);border-radius:16px;padding:36px 44px}
+.chain{display:flex;align-items:center;flex-wrap:wrap;justify-content:center;gap:6px 0}
+.chain .fn{min-width:170px;max-width:190px}
+.chain .fa{margin:0 6px}
+/* The arrow that wraps to next line — a curved return arrow */
+.chain-break{
+  width:100%;display:flex;justify-content:flex-end;padding-right:20px;
+  margin:-4px 0 -4px 0;
+}
+.chain-return{
+  width:calc(100% - 40px);height:40px;position:relative;margin:0 auto;
+}
+.chain-return svg{width:100%;height:100%}
+
+.tbl{width:100%;border-collapse:separate;border-spacing:0;background:var(--sf);border:1px solid var(--bd);border-radius:16px;overflow:hidden}
+.tbl th{padding:16px 24px;font-size:12px;font-family:'JetBrains Mono',monospace;letter-spacing:2px;text-transform:uppercase;color:var(--blue);font-weight:600;text-align:left;background:rgba(79,143,247,.04);border-bottom:1px solid var(--bd)}
+.tbl td{padding:14px 24px;font-size:15px;color:var(--t2);border-bottom:1px solid var(--bd)}
+.tbl tr:last-child td{border-bottom:none}
+.tag{display:inline-block;padding:4px 12px;border-radius:8px;font-size:12px;font-weight:600}
+.tag-r{background:rgba(247,79,79,.1);color:var(--red)}.tag-a{background:rgba(247,169,79,.1);color:var(--amber)}
+.quote{border-left:3px solid var(--blue);padding:22px 30px;background:rgba(79,143,247,.03);border-radius:0 14px 14px 0;margin:14px 0}
+.quote p{font-size:15.5px;color:var(--t2);line-height:1.85;font-style:italic}
+.quote cite{font-style:normal;font-weight:600;color:var(--blue);display:block;margin-top:10px;font-size:13px}
+.quote-r{border-color:var(--red);background:rgba(247,79,79,.03)}.quote-r cite{color:var(--red)}
+.lesson{display:flex;gap:24px;background:var(--sf);border:1px solid var(--bd);border-radius:14px;padding:24px 28px;align-items:flex-start}
+.ln{font-family:'JetBrains Mono',monospace;font-size:30px;font-weight:900;color:var(--blue);min-width:44px;line-height:1}
+.lesson h4{font-size:16px;font-weight:700;color:var(--t1);margin-bottom:5px}
+.lesson p{font-size:13.5px;color:var(--t2);line-height:1.75}
+
+/* ===== HORIZONTAL TIMELINE — FIXED ===== */
+.htl{position:relative;margin-top:40px;height:420px}
+/* The horizontal line — positioned absolutely at exact vertical center */
+.htl-rail{position:absolute;left:60px;right:60px;top:50%;height:3px;transform:translateY(-50%);background:linear-gradient(90deg,var(--blue) 0%,var(--blue) 30%,var(--red) 55%,var(--amber) 70%,var(--red) 85%,var(--green) 100%);border-radius:2px}
+/* Container for all items */
+.htl-items{position:absolute;inset:0;display:flex;justify-content:space-between;padding:0 40px}
+/* Each item is a column spanning full height, centered on the rail */
+.htl-col{display:flex;flex-direction:column;align-items:center;width:195px;height:100%;position:relative}
+/* The dot — always at exact vertical center */
+.htl-dot{
+  position:absolute;top:50%;left:50%;
+  width:16px;height:16px;border-radius:50%;
+  transform:translate(-50%,-50%);
+  background:var(--blue);border:3px solid var(--bg);
+  box-shadow:0 0 0 2px var(--blue);z-index:3;
+}
+.htl-dot.red{background:var(--red);box-shadow:0 0 0 2px var(--red)}
+.htl-dot.amb{background:var(--amber);box-shadow:0 0 0 2px var(--amber)}
+.htl-dot.grn{background:var(--green);box-shadow:0 0 0 2px var(--green)}
+/* Content above the line */
+.htl-above{
+  position:absolute;bottom:calc(50% + 22px);left:0;right:0;
+  text-align:center;
+}
+/* Content below the line */
+.htl-below{
+  position:absolute;top:calc(50% + 22px);left:0;right:0;
+  text-align:center;
+}
+.htl-date{font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:600;letter-spacing:1px;margin-bottom:4px}
+.htl-title{font-size:13.5px;font-weight:700;color:var(--t1);margin-bottom:3px;line-height:1.3}
+.htl-text{font-size:11.5px;color:var(--t2);line-height:1.5}
+
+.mw{border-radius:16px;overflow:hidden;border:1px solid var(--bd)}
+.split{display:flex;height:100%}
+.sp-l{flex:0 0 53%;padding:68px 48px 68px 88px;display:flex;flex-direction:column;justify-content:center}
+.sp-r{flex:1;position:relative;padding:68px 88px 68px 24px;display:flex;flex-direction:column;justify-content:center}
+.sp-l40{flex:0 0 42%;padding:68px 36px 68px 88px;display:flex;flex-direction:column;justify-content:center}
+.sp-r60{flex:1;position:relative;padding:68px 88px 68px 36px;display:flex;flex-direction:column;justify-content:center}
+.cover-bg{position:absolute;inset:0;background:radial-gradient(ellipse at 25% 40%,rgba(79,143,247,.06) 0%,transparent 55%),radial-gradient(ellipse at 75% 60%,rgba(247,79,79,.05) 0%,transparent 50%),var(--bg)}
+.cover-lines{position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.012) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.012) 1px,transparent 1px);background-size:80px 80px}
+@keyframes fu{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:translateY(0)}}
+.s.on .a{animation:fu .55s cubic-bezier(.16,1,.3,1) both}
+.s.on .d1{animation-delay:.08s}.s.on .d2{animation-delay:.16s}.s.on .d3{animation-delay:.24s}
+.s.on .d4{animation-delay:.32s}.s.on .d5{animation-delay:.40s}.s.on .d6{animation-delay:.48s}
+.pill{padding:6px 20px;border:1px solid var(--bd);border-radius:24px;font-size:14px;color:var(--t2);background:var(--sf);display:inline-block}
+.pill-top{padding:8px 26px;border:1px solid rgba(79,143,247,.2);border-radius:40px;background:rgba(79,143,247,.04);font-size:11px;font-family:'JetBrains Mono',monospace;letter-spacing:3px;text-transform:uppercase;color:var(--blue);font-weight:600;display:inline-block}
+.alert{background:rgba(247,79,79,.04);border:1px solid rgba(247,79,79,.18);border-radius:14px;padding:20px 32px;text-align:center}
+.alert p{font-size:17px;font-weight:700;color:var(--red)}
+</style>
+</head>
+<body>
+<div id="scaler">
+<div class="progress" id="prog"></div>
+<div class="counter mono" id="cnt"></div>
+
+<!-- ====== S0 COVER ====== -->
+<div class="s on" data-i="0">
+  <div class="cover-bg"></div><div class="cover-lines"></div>
+  <div class="col items-center justify-center h-full w-full" style="position:relative;z-index:1">
+    <div class="pill-top a d1">Segurança e Confiabilidade de Sistemas</div>
+    <div style="font-size:68px;margin:36px 0 28px" class="a d2">✈️</div>
+    <h1 class="text-center a d3" style="font-size:58px;max-width:880px">The Boeing <span class="gb">737 MAX</span><br><span class="gr">Accidents</span></h1>
+    <p class="text-center a d4" style="margin-top:18px;font-size:19px;color:var(--t3);font-weight:300;max-width:620px">Análise de falhas de projeto, software e cultura organizacional que causaram 346 mortes</p>
+    <div class="divider a d5" style="margin:32px auto 26px"></div>
+    <div class="row gap-12 a d6" style="flex-wrap:wrap;justify-content:center">
+      <span class="pill">Matheus</span><span class="pill">Kayo</span><span class="pill">Bernardo</span><span class="pill">Edson Ramos</span><span class="pill">Julimar</span>
+    </div>
+  </div>
+</div>
+
+<!-- ====== S1 AGENDA ====== -->
+<div class="s" data-i="1">
+  <div class="col pad w-full h-full justify-center">
+    <div class="a d1"><div class="label">Slide 02</div><h2 style="margin-top:8px">Roteiro da <span class="gb">Apresentação</span></h2><div class="divider"></div></div>
+    <div class="grid-3 a d2" style="margin-top:12px">
+      <div class="card"><div class="ci">📋</div><div class="ct">Contexto Histórico</div><div class="cb">O que é o 737 MAX e a corrida comercial contra a Airbus que levou a decisões fatais de engenharia.</div></div>
+      <div class="card"><div class="ci">⚙️</div><div class="ct">O Sistema MCAS</div><div class="cb">O software que deveria proteger, mas criou um ponto único de falha mortal na aeronave.</div></div>
+      <div class="card"><div class="ci">💥</div><div class="ct">Os Dois Acidentes</div><div class="cb">Lion Air 610 e Ethiopian 302 — mapas com rotas, cronologia e dados de cada tragédia.</div></div>
+      <div class="card"><div class="ci">🔍</div><div class="ct">Análise de Falhas</div><div class="cb">SPOF, falta de redundância, falha regulatória e a cadeia causal completa dos acidentes.</div></div>
+      <div class="card"><div class="ci">🏢</div><div class="ct">Fatores Organizacionais</div><div class="cb">Cultura corporativa da Boeing, pressão por lucro e a relação disfuncional com a FAA.</div></div>
+      <div class="card"><div class="ci">🎓</div><div class="ct">Lições Aprendidas</div><div class="cb">Princípios de confiabilidade violados, correções aplicadas e o que mudou após as tragédias.</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ====== S2 CONTEXTO ====== -->
+<div class="s" data-i="2">
+  <div class="col pad w-full h-full justify-center">
+    <div class="a d1"><div class="label">Slide 03 — Contexto</div><h2 style="margin-top:8px">A Origem do <span class="gb">Boeing 737 MAX</span></h2><div class="divider"></div></div>
+    <div class="row gap-40 a d2" style="margin-top:12px">
+      <div class="flex-1">
+        <p class="lh" style="font-size:16px">Em <strong style="color:var(--t1)">dezembro de 2010</strong>, a Airbus anunciou o <strong style="color:var(--t1)">A320neo</strong> com motores mais eficientes. A Boeing, para não perder mercado, decidiu <strong style="color:var(--t1)">atualizar o 737</strong> existente (que voava desde os anos 60) em vez de projetar um avião novo — economizando anos de desenvolvimento.</p>
+        <p class="lh" style="font-size:16px;margin-top:18px">O resultado foi o <strong style="color:var(--t1)">737 MAX</strong> (2017), com motores <strong style="color:var(--t1)">CFM LEAP-1B</strong> maiores. Porém, como o 737 era mais baixo que o A320, os novos motores tiveram que ser montados <strong class="tc">mais altos e mais à frente nas asas</strong>, alterando a aerodinâmica e criando risco de <strong class="tr">estol em certas condições</strong>.</p>
+        <p class="lh" style="font-size:16px;margin-top:18px">Para compensar sem exigir treinamento adicional, a Boeing criou o <strong class="ta">MCAS</strong> — o software que seria a semente da tragédia.</p>
+      </div>
+      <div style="width:400px;flex-shrink:0" class="col gap-16">
+        <div class="stat"><div class="sv tb">5.000+</div><div class="sl">Pedidos de +100 companhias</div></div>
+        <div class="stat"><div class="sv ta">2017</div><div class="sl">Entrada em serviço</div></div>
+        <div class="stat"><div class="sv tg">14%</div><div class="sl">Mais eficiente que o 737NG</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ====== S3 MCAS ====== -->
+<div class="s" data-i="3">
+  <div class="col pad w-full h-full justify-center">
+    <div class="a d1"><div class="label label-r">Slide 04 — O Sistema Crítico</div><h2 style="margin-top:8px">O que era o <span class="gr">MCAS</span>?</h2><div class="divider div-r"></div></div>
+    <p class="a d2 lh" style="font-size:15.5px;max-width:1100px;margin-top:4px">O <strong style="color:var(--t1)">MCAS</strong> (Maneuvering Characteristics Augmentation System) empurrava <strong class="tr">automaticamente o nariz para baixo</strong> ao detectar proximidade de estol, para que o MAX se comportasse como o 737 anterior — evitando treinamento em simulador.</p>
+    <div class="flow-wrap a d3" style="margin-top:20px">
+      <div class="flow">
+        <div class="fn"><div class="label xs" style="margin-bottom:3px">Entrada</div><div class="semibold sm" style="color:var(--t1)">Sensor AoA</div><div class="xs tm">Ângulo de Ataque</div></div>
+        <div class="fa">→</div>
+        <div class="fn warn"><div class="label label-a xs" style="margin-bottom:3px">Processamento</div><div class="semibold sm" style="color:var(--t1)">MCAS</div><div class="xs tm">Interpreta dados</div></div>
+        <div class="fa">→</div>
+        <div class="fn"><div class="label xs" style="margin-bottom:3px">Atuação</div><div class="semibold sm" style="color:var(--t1)">Estabilizador</div><div class="xs tm">Move cauda horizontal</div></div>
+        <div class="fa">→</div>
+        <div class="fn dng"><div class="label label-r xs" style="margin-bottom:3px">Resultado</div><div class="semibold sm" style="color:var(--t1)">Nariz Para Baixo</div><div class="xs tm">Mergulho forçado</div></div>
+      </div>
+    </div>
+    <div class="grid-3 a d4" style="margin-top:22px">
+      <div class="card card-sm" style="border-top:3px solid var(--red)"><div class="ci">🎯</div><div class="ct">Sensor Único</div><div class="cb">Usava dados de <strong>apenas 1</strong> dos 2 sensores AoA disponíveis. Ponto único de falha.</div></div>
+      <div class="card card-sm" style="border-top:3px solid var(--amber)"><div class="ci">🔁</div><div class="ct">Ativação Repetida</div><div class="cb">Podia se ativar <strong>repetidamente</strong>, empurrando o nariz para baixo diversas vezes seguidas.</div></div>
+      <div class="card card-sm" style="border-top:3px solid var(--purple)"><div class="ci">🙈</div><div class="ct">Oculto dos Pilotos</div><div class="cb">A existência do MCAS <strong>não constava</strong> nos manuais de treinamento dos pilotos.</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ====== S4 LION AIR + MAP ====== -->
+<div class="s" data-i="4">
+  <div class="split">
+    <div class="sp-l">
+      <div class="a d1"><div class="label label-r">Slide 05 — Primeiro Acidente</div><h2 style="margin-top:8px">Lion Air Flight <span class="gr">610</span></h2><div class="divider div-r"></div></div>
+      <div class="grid-2 a d2" style="margin-top:18px"><div class="stat"><div class="sv tr">189</div><div class="sl">Vítimas fatais</div></div><div class="stat"><div class="sv ta">13 min</div><div class="sl">Tempo de voo</div></div></div>
+      <p class="a d3 lh" style="margin-top:20px;font-size:15px"><strong style="color:var(--t1)">29 de outubro de 2018</strong> — O voo decolou de <strong class="tc">Jacarta</strong> e caiu no <strong class="tr">Mar de Java</strong> após 13 minutos. Um sensor AoA defeituoso fez o MCAS empurrar o nariz para baixo <strong class="tr">26 vezes em 10 minutos</strong>.</p>
+      <p class="a d4 lh" style="margin-top:14px;font-size:15px">A aeronave já tinha problemas no voo anterior. Os pilotos <strong class="ta">não sabiam da existência do MCAS</strong> e não tinham como combater o sistema.</p>
+    </div>
+    <div class="sp-r"><div class="mw a d5" style="width:100%;height:100%"><div id="map1" style="width:100%;height:100%"></div></div></div>
+  </div>
+</div>
+
+<!-- ====== S5 RESPOSTA BOEING ====== -->
+<div class="s" data-i="5">
+  <div class="col pad w-full h-full justify-center">
+    <div class="a d1"><div class="label label-a">Slide 06 — A Falha em Aprender</div><h2 style="margin-top:8px">A Resposta da Boeing <span class="gr">Após o 1º Acidente</span></h2><div class="divider div-a"></div></div>
+    <p class="a d2 lh" style="font-size:15.5px;max-width:1200px;margin-top:4px">Após o desastre, a Boeing <strong class="tr">não corrigiu o software</strong> e <strong class="tr">não retirou os aviões de serviço</strong>. Emitiu apenas um boletim orientando pilotos a seguir procedimentos de "trim descontrolado" — que não correspondia ao comportamento real do MCAS.</p>
+    <div class="row gap-28 a d3" style="margin-top:20px">
+      <div class="flex-1"><div class="quote"><p>"Se um piloto é treinado para responder a um stick shaker e velocidade errática como 'velocidade não confiável', como ele identificaria isso como um problema de trim — e ainda mais um ligado ao MCAS?"</p><cite>— Ethiopian Airlines, questionamento à Boeing</cite></div></div>
+      <div class="flex-1"><div class="quote quote-r"><p>A Boeing, alegando envolvimento na investigação, <strong>recusou-se a responder</strong>. Apenas reiterou que os pilotos tinham "autoridade para desligar o sistema usando os interruptores de corte do estabilizador."</p><cite>— Resposta oficial da Boeing</cite></div></div>
+    </div>
+    <div class="alert a d4" style="margin-top:24px"><p>⚠️ A companhia aérea que tentou prevenir o próximo acidente se tornou a próxima vítima.</p></div>
+  </div>
+</div>
+
+<!-- ====== S6 ETHIOPIAN + MAP ====== -->
+<div class="s" data-i="6">
+  <div class="split">
+    <div class="sp-l">
+      <div class="a d1"><div class="label label-r">Slide 07 — Segundo Acidente</div><h2 style="margin-top:8px">Ethiopian Airlines <span class="gr">Flight 302</span></h2><div class="divider div-r"></div></div>
+      <div class="grid-2 a d2" style="margin-top:18px"><div class="stat"><div class="sv tr">157</div><div class="sl">Vítimas (35 países)</div></div><div class="stat"><div class="sv ta">6 min</div><div class="sl">Tempo de voo</div></div></div>
+      <p class="a d3 lh" style="margin-top:20px;font-size:15px"><strong style="color:var(--t1)">10 de março de 2019</strong> — Menos de 5 meses depois, o voo decolou de <strong class="tc">Addis Ababa</strong> rumo a Nairobi e caiu em <strong class="tr">Bishoftu</strong> em apenas 6 minutos. Mesma falha: sensor AoA + MCAS.</p>
+      <p class="a d4 lh" style="margin-top:14px;font-size:15px">Os pilotos <strong class="ta">seguiram o boletim da Boeing</strong>, mas não conseguiram controlar. O relatório <strong class="tg">exonerou pilotos e companhia</strong>. Após isso, o 737 MAX foi <strong class="tr">proibido mundialmente</strong>.</p>
+    </div>
+    <div class="sp-r"><div class="mw a d5" style="width:100%;height:100%"><div id="map2" style="width:100%;height:100%"></div></div></div>
+  </div>
+</div>
+
+<!-- ====== S7 COMPARAÇÃO ====== -->
+<div class="s" data-i="7">
+  <div class="col pad w-full h-full justify-center">
+    <div class="a d1"><div class="label label-r">Slide 08 — Comparação</div><h2 style="margin-top:8px">Dois Acidentes, <span class="gr">Mesma Causa</span></h2><div class="divider div-r"></div></div>
+    <div class="a d2" style="margin-top:18px">
+      <table class="tbl"><thead><tr><th style="width:22%">Aspecto</th><th>Lion Air 610</th><th>Ethiopian Airlines 302</th></tr></thead><tbody>
+        <tr><td><strong style="color:var(--t1)">Data</strong></td><td>29 de outubro de 2018</td><td>10 de março de 2019</td></tr>
+        <tr><td><strong style="color:var(--t1)">Local</strong></td><td>Mar de Java, Indonésia</td><td>Bishoftu, Etiópia</td></tr>
+        <tr><td><strong style="color:var(--t1)">Vítimas</strong></td><td><span class="tag tag-r">189 mortos</span></td><td><span class="tag tag-r">157 mortos</span></td></tr>
+        <tr><td><strong style="color:var(--t1)">Duração do voo</strong></td><td>13 minutos</td><td>6 minutos</td></tr>
+        <tr><td><strong style="color:var(--t1)">Aeronave</strong></td><td>737 MAX 8 (2 meses de uso)</td><td>737 MAX 8 (4 meses de uso)</td></tr>
+        <tr><td><strong style="color:var(--t1)">Causa raiz</strong></td><td><span class="tag tag-a">Sensor AoA + MCAS</span></td><td><span class="tag tag-a">Sensor AoA + MCAS</span></td></tr>
+        <tr><td><strong style="color:var(--t1)">Pilotos sabiam do MCAS?</strong></td><td><span class="tag tag-r">Não</span></td><td><span class="tag tag-a">Parcial (boletim)</span></td></tr>
+        <tr><td colspan="3" style="text-align:center;padding:18px"><span style="font-size:20px;font-weight:800;color:var(--red)">Total: 346 vidas perdidas</span></td></tr>
+      </tbody></table>
+    </div>
+  </div>
+</div>
+
+<!-- ====== S8 MAPA GLOBAL ====== -->
+<div class="s" data-i="8">
+  <div class="split">
+    <div class="sp-l40">
+      <div class="a d1"><div class="label">Slide 09 — Visão Global</div><h2 style="margin-top:8px">Mapa dos <span class="gr">Acidentes</span></h2><div class="divider div-r"></div></div>
+      <div class="col gap-16 a d2" style="margin-top:20px">
+        <div class="card card-sm" style="border-left:3px solid var(--red)"><div class="row items-center gap-12"><span style="font-size:22px">🔴</span><div><div class="ct" style="margin:0">Lion Air 610</div><div class="xs tm">Jacarta → Mar de Java · 29/10/2018</div></div></div></div>
+        <div class="card card-sm" style="border-left:3px solid var(--amber)"><div class="row items-center gap-12"><span style="font-size:22px">🟠</span><div><div class="ct" style="margin:0">Ethiopian Airlines 302</div><div class="xs tm">Addis Ababa → Bishoftu · 10/03/2019</div></div></div></div>
+        <div class="card card-sm" style="border-left:3px solid var(--blue)"><div class="ct" style="margin-bottom:4px">Destinos pretendidos</div><div class="cb"><strong>LA610:</strong> Pangkal Pinang, Indonésia<br><strong>ET302:</strong> Nairobi, Quênia</div></div>
+      </div>
+      <div class="stat a d3" style="margin-top:20px"><div class="sv tr">346</div><div class="sl">Vidas perdidas em 5 meses</div></div>
+    </div>
+    <div class="sp-r60"><div class="mw a d4" style="width:100%;height:100%"><div id="map3" style="width:100%;height:100%"></div></div></div>
+  </div>
+</div>
+
+<!-- ====== S9 ANÁLISE ====== -->
+<div class="s" data-i="9">
+  <div class="col pad w-full h-full justify-center">
+    <div class="a d1"><div class="label">Slide 10 — Análise Técnica</div><h2 style="margin-top:8px">Análise de <span class="gb">Falhas de Confiabilidade</span></h2><div class="divider"></div></div>
+    <div class="grid-2 a d2" style="margin-top:14px">
+      <div class="card" style="border-top:3px solid var(--red)"><div class="ci">🎯</div><div class="ct">Ponto Único de Falha (SPOF)</div><div class="cb">O MCAS dependia de <strong>1 único sensor AoA</strong> apesar de existirem 2. Se esse sensor falhasse, o sistema inteiro agia com dados errados — violação direta do princípio de redundância.</div></div>
+      <div class="card" style="border-top:3px solid var(--amber)"><div class="ci">🔄</div><div class="ct">Sem Cross-Check entre Sensores</div><div class="cb">Os dois sensores AoA não eram comparados. O alerta de discordância era vendido como <strong>opcional</strong>, não padrão. Nenhuma das companhias o possuía.</div></div>
+      <div class="card" style="border-top:3px solid var(--purple)"><div class="ci">📊</div><div class="ct">Análise de Risco Subestimada</div><div class="cb">A análise delegada à Boeing: (1) subestimou o poder do MCAS; (2) não considerou ativação repetida; (3) classificou o risco como baixo, permitindo sensor único.</div></div>
+      <div class="card" style="border-top:3px solid var(--cyan)"><div class="ci">🧠</div><div class="ct">Falha na Interface Humano-Máquina</div><div class="cb">O MCAS atuava <strong>sem aviso claro</strong>. A emergência não parecia um "trim descontrolado" clássico, confundindo pilotos experientes. Interação ambígua e letal.</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ====== S10 CADEIA CAUSAL — CONTÍNUA ====== -->
+<div class="s" data-i="10">
+  <div class="col pad w-full h-full justify-center">
+    <div class="a d1"><div class="label label-r">Slide 11 — Cadeia Causal</div><h2 style="margin-top:8px">Cadeia de <span class="gr">Causa e Efeito</span></h2><div class="divider div-r"></div></div>
+    <p class="a d2 lh" style="font-size:16px;max-width:1200px;margin-top:4px">Os acidentes resultaram de uma <strong style="color:var(--t1)">sequência contínua de falhas</strong> — técnicas, organizacionais e regulatórias — que se acumularam até a catástrofe.</p>
+    <!-- Continuous chain: 8 blocks, row 1 ends with ↴, row 2 starts aligned right -->
+    <div class="chain-wrap a d3" style="margin-top:24px">
+      <!-- ROW 1: blocks 1-4 left to right -->
+      <div style="display:flex;align-items:center;justify-content:center;gap:0">
+        <div class="fn" style="min-width:175px"><div class="label xs" style="margin-bottom:2px">① Pressão</div><div class="semibold sm" style="color:var(--t1)">Competição</div><div class="xs tm">Airbus A320neo</div></div>
+        <div class="fa">→</div>
+        <div class="fn" style="min-width:175px"><div class="label xs" style="margin-bottom:2px">② Decisão</div><div class="semibold sm" style="color:var(--t1)">Adaptar 737</div><div class="xs tm">Não criar avião novo</div></div>
+        <div class="fa">→</div>
+        <div class="fn warn" style="min-width:175px"><div class="label label-a xs" style="margin-bottom:2px">③ Consequência</div><div class="semibold sm" style="color:var(--t1)">Aerodinâmica alterada</div><div class="xs tm">Motores reposicionados</div></div>
+        <div class="fa">→</div>
+        <div class="fn warn" style="min-width:175px"><div class="label label-a xs" style="margin-bottom:2px">④ Band-Aid</div><div class="semibold sm" style="color:var(--t1)">MCAS criado</div><div class="xs tm">Software compensa hardware</div></div>
+      </div>
+      <!-- CURVED CONNECTOR: right side goes down and loops back to left -->
+      <svg width="1640" height="48" viewBox="0 0 1640 48" fill="none" style="display:block;margin:0 auto">
+        <path d="M 1560 0 L 1560 16 Q 1560 24 1552 24 L 88 24 Q 80 24 80 32 L 80 48" stroke="#5e6580" stroke-width="2" stroke-dasharray="6 4" fill="none"/>
+        <!-- arrowhead at bottom-left -->
+        <polygon points="74,42 80,52 86,42" fill="#5e6580"/>
+      </svg>
+      <!-- ROW 2: blocks 5-8, continues left to right -->
+      <div style="display:flex;align-items:center;justify-content:center;gap:0">
+        <div class="fn warn" style="min-width:175px"><div class="label label-a xs" style="margin-bottom:2px">⑤ Corte de custo</div><div class="semibold sm" style="color:var(--t1)">Sensor único</div><div class="xs tm">Sem treinamento</div></div>
+        <div class="fa">→</div>
+        <div class="fn dng" style="min-width:175px"><div class="label label-r xs" style="margin-bottom:2px">⑥ Falha</div><div class="semibold sm" style="color:var(--t1)">Sensor defeituoso</div><div class="xs tm">Dados incorretos</div></div>
+        <div class="fa">→</div>
+        <div class="fn dng" style="min-width:175px"><div class="label label-r xs" style="margin-bottom:2px">⑦ Efeito</div><div class="semibold sm" style="color:var(--t1)">Mergulho repetido</div><div class="xs tm">MCAS empurra nariz</div></div>
+        <div class="fa">→</div>
+        <div class="fn dng" style="min-width:175px"><div class="label label-r xs" style="margin-bottom:2px">⑧ Resultado</div><div class="semibold sm" style="color:var(--t1)">346 mortes</div><div class="xs tm">2 acidentes em 5 meses</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ====== S11 ORGANIZACIONAL ====== -->
+<div class="s" data-i="11">
+  <div class="col pad w-full h-full justify-center">
+    <div class="a d1"><div class="label label-p">Slide 12 — Fatores Organizacionais</div><h2 style="margin-top:8px">Cultura Corporativa e <span class="gp">Falha Regulatória</span></h2><div class="divider div-p"></div></div>
+    <div class="grid-2 a d2" style="margin-top:14px">
+      <div class="card"><div class="ci">💰</div><div class="ct">Finanças sobre Engenharia</div><div class="cb">Após fusão com McDonnell Douglas (1997), a Boeing trocou liderança de engenharia por executivos financeiros. Engenheiros marginalizados. Sede mudou de Seattle para Chicago.</div></div>
+      <div class="card"><div class="ci">🤐</div><div class="ct">Alertas Internos Ignorados</div><div class="cb">Em <strong>2015</strong>, engenheiro questionou sensor único. Em <strong>2016</strong>, piloto-chefe relatou MCAS <em>"running rampant"</em> no simulador. Curtis Ewbank fez queixa ética. Nada mudou.</div></div>
+      <div class="card"><div class="ci">🏛️</div><div class="ct">Autocertificação (FAA)</div><div class="cb">Desde 2005, a FAA delegou certificação aos fabricantes. Em 2018, a Boeing <strong>certificava 96% do próprio trabalho</strong>. FAA não exigiu simulador para o MAX.</div></div>
+      <div class="card"><div class="ci">⏱️</div><div class="ct">Pressão de Prazo e Mercado</div><div class="cb">Gestão <strong>rejeitou qualquer mudança</strong> que atrasasse certificação. Promessa: pilotos migrariam do 737NG para o MAX <strong>sem simulador</strong>.</div></div>
+    </div>
+    <div class="alert a d3" style="margin-top:22px;background:rgba(247,79,79,.03)"><p style="font-size:15px">A FAA estimou, após o Lion Air, que <strong>mais 15 acidentes</strong> ocorreriam na vida útil da frota se o problema não fosse resolvido — mas não divulgou publicamente.</p></div>
+  </div>
+</div>
+
+<!-- ====== S12 TIMELINE HORIZONTAL — FIXED ====== -->
+<div class="s" data-i="12">
+  <div class="col pad w-full h-full justify-center">
+    <div class="a d1 text-center"><div class="label">Slide 13 — Cronologia</div><h2 style="margin-top:8px">Linha do <span class="gb">Tempo</span></h2></div>
+    <div class="htl a d2">
+      <!-- The horizontal rail -->
+      <div class="htl-rail"></div>
+      <!-- Items -->
+      <div class="htl-items">
+        <!-- 1: TOP -->
+        <div class="htl-col">
+          <div class="htl-dot"></div>
+          <div class="htl-above">
+            <div class="htl-date tb">DEZ 2010</div>
+            <div class="htl-title">Airbus lança A320neo</div>
+            <div class="htl-text">Força Boeing a reagir rapidamente.</div>
+          </div>
+        </div>
+        <!-- 2: BOTTOM -->
+        <div class="htl-col">
+          <div class="htl-dot"></div>
+          <div class="htl-below">
+            <div class="htl-date tb">AGO 2011</div>
+            <div class="htl-title">Boeing anuncia 737 MAX</div>
+            <div class="htl-text">Atualiza 737 em vez de criar novo.</div>
+          </div>
+        </div>
+        <!-- 3: TOP -->
+        <div class="htl-col">
+          <div class="htl-dot"></div>
+          <div class="htl-above">
+            <div class="htl-date tb">2015–2016</div>
+            <div class="htl-title">Alertas ignorados</div>
+            <div class="htl-text">Engenheiros reportam problemas.</div>
+          </div>
+        </div>
+        <!-- 4: BOTTOM -->
+        <div class="htl-col">
+          <div class="htl-dot"></div>
+          <div class="htl-below">
+            <div class="htl-date tb">MAI 2017</div>
+            <div class="htl-title">MAX entra em serviço</div>
+            <div class="htl-text">Mais vendido da história da Boeing.</div>
+          </div>
+        </div>
+        <!-- 5: TOP — CRASH 1 -->
+        <div class="htl-col">
+          <div class="htl-dot red"></div>
+          <div class="htl-above">
+            <div class="htl-date tr">29 OUT 2018</div>
+            <div class="htl-title" style="color:var(--red)">Lion Air 610</div>
+            <div class="htl-text">189 mortos. MCAS + sensor defeituoso.</div>
+          </div>
+        </div>
+        <!-- 6: BOTTOM -->
+        <div class="htl-col">
+          <div class="htl-dot amb"></div>
+          <div class="htl-below">
+            <div class="htl-date ta">NOV 2018</div>
+            <div class="htl-title">Boeing emite boletim</div>
+            <div class="htl-text">Não corrige software nem retira aviões.</div>
+          </div>
+        </div>
+        <!-- 7: TOP — CRASH 2 -->
+        <div class="htl-col">
+          <div class="htl-dot red"></div>
+          <div class="htl-above">
+            <div class="htl-date tr">10 MAR 2019</div>
+            <div class="htl-title" style="color:var(--red)">Ethiopian 302</div>
+            <div class="htl-text">157 mortos. Mesma falha. Proibido.</div>
+          </div>
+        </div>
+        <!-- 8: BOTTOM -->
+        <div class="htl-col">
+          <div class="htl-dot grn"></div>
+          <div class="htl-below">
+            <div class="htl-date tg">NOV 2020</div>
+            <div class="htl-title" style="color:var(--green)">Retorno ao serviço</div>
+            <div class="htl-text">MCAS corrigido, simulador obrigatório.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ====== S13 CORREÇÕES ====== -->
+<div class="s" data-i="13">
+  <div class="col pad w-full h-full justify-center">
+    <div class="a d1"><div class="label label-g">Slide 14 — Correções</div><h2 style="margin-top:8px">O que foi <span class="gg">Corrigido</span>?</h2><div class="divider div-g"></div></div>
+    <div class="grid-4 a d2" style="margin-top:18px">
+      <div class="card card-sm" style="border-left:3px solid var(--green)"><div class="ci">✅</div><div class="ct">Dois Sensores AoA</div><div class="cb">MCAS usa ambos. Se discordam, MCAS desativa e alerta é exibido.</div></div>
+      <div class="card card-sm" style="border-left:3px solid var(--green)"><div class="ci">✅</div><div class="ct">Ativação Única</div><div class="cb">MCAS só ativa uma vez por evento. Impede mergulhos repetidos.</div></div>
+      <div class="card card-sm" style="border-left:3px solid var(--green)"><div class="ci">✅</div><div class="ct">Poder Limitado</div><div class="cb">Amplitude reduzida. Pilotos sempre conseguem superar o sistema.</div></div>
+      <div class="card card-sm" style="border-left:3px solid var(--green)"><div class="ci">✅</div><div class="ct">Simulador Obrigatório</div><div class="cb">Treinamento obrigatório incluindo cenários de falha do MCAS.</div></div>
+    </div>
+    <div class="grid-3 a d3" style="margin-top:26px">
+      <div class="stat"><div class="sv tr">$20B+</div><div class="sl">Prejuízo da Boeing</div></div>
+      <div class="stat"><div class="sv ta">20 meses</div><div class="sl">Proibição de voo</div></div>
+      <div class="stat"><div class="sv tb">96% → 0%</div><div class="sl">FAA parou autocertificação</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ====== S14 LIÇÕES ====== -->
+<div class="s" data-i="14">
+  <div class="col pad w-full h-full justify-center">
+    <div class="a d1"><div class="label">Slide 15 — Lições Aprendidas</div><h2 style="margin-top:8px">Lições para <span class="gb">Segurança e Confiabilidade</span></h2><div class="divider"></div></div>
+    <div class="col gap-14 a d2" style="margin-top:14px">
+      <div class="lesson"><div class="ln">01</div><div><h4>Redundância é inegociável em sistemas críticos</h4><p>Um sistema de segurança com sensor único é falha de design. Sistemas críticos devem ter redundância, votação majoritária ou cross-check entre sensores independentes.</p></div></div>
+      <div class="lesson"><div class="ln">02</div><div><h4>Software não substitui projeto seguro de hardware</h4><p>Usar software como "band-aid" para deficiências de hardware é arriscado. O software é parte da segurança, não substituto — como demonstrado também no caso Therac-25.</p></div></div>
+      <div class="lesson"><div class="ln">03</div><div><h4>Transparência na interação humano-máquina</h4><p>Operadores devem saber que sistemas automatizados existem e como desativá-los. Ocultar funcionalidades críticas é falha ética e de confiabilidade.</p></div></div>
+      <div class="lesson"><div class="ln">04</div><div><h4>A primeira falha é um sinal — agir antes da segunda</h4><p>Após o primeiro acidente, as informações para prevenir o segundo já existiam. A inação transformou uma tragédia em duas.</p></div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ====== S15 CONCEITOS ====== -->
+<div class="s" data-i="15">
+  <div class="col pad w-full h-full justify-center">
+    <div class="a d1"><div class="label label-p">Slide 16 — Conceitos-Chave</div><h2 style="margin-top:8px">Conceitos de <span class="gp">Confiabilidade</span> Aplicados</h2><div class="divider div-p"></div></div>
+    <div class="grid-2 a d2" style="margin-top:14px">
+      <div class="card"><div class="ci">🔗</div><div class="ct">Single Point of Failure (SPOF)</div><div class="cb">Componente cuja falha derruba o sistema inteiro. O sensor AoA único era SPOF clássico. Deve ser eliminado por redundância — dois ou mais componentes independentes.</div></div>
+      <div class="card"><div class="ci">🛡️</div><div class="ct">Defense in Depth</div><div class="cb">Múltiplas camadas independentes de proteção. No 737 MAX, falharam em cascata: sensor único → MCAS sem limite → pilotos sem informação → FAA sem supervisão.</div></div>
+      <div class="card"><div class="ci">⚖️</div><div class="ct">Fail-Safe vs. Fail-Deadly</div><div class="cb">Fail-safe: estado seguro na falha. O MCAS era fail-deadly — ao receber dados errados, empurrava ativamente o avião para o chão. A falha piorava tudo.</div></div>
+      <div class="card"><div class="ci">🤝</div><div class="ct">Trust Calibration</div><div class="cb">Se pilotos não sabem que um sistema existe, não podem avaliar sua confiabilidade nem intervir. Automação deve ser transparente, previsível e com override humano.</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ====== S16 CONCLUSÃO ====== -->
+<div class="s" data-i="16">
+  <div class="col pad items-center justify-center w-full h-full text-center">
+    <div class="a d1"><div class="label">Slide 17 — Conclusão</div><h2 style="margin-top:8px">Conclusão</h2><div class="divider" style="margin:18px auto"></div></div>
+    <p class="a d2 lh" style="font-size:18px;max-width:880px;margin-top:4px">O caso do Boeing 737 MAX é um dos maiores exemplos modernos de como <strong style="color:var(--t1)">falhas sistêmicas</strong> — técnicas, organizacionais e regulatórias — se combinam para produzir tragédias evitáveis.</p>
+    <div class="quote a d3" style="max-width:800px;margin:28px auto;text-align:left"><p style="font-size:17px">"O primeiro acidente revelou o modo de falha.<br>O segundo acidente revelou a falha em aprender."</p><cite>— ThinkReliability, Análise de Causa Raiz</cite></div>
+    <p class="a d4 lh" style="font-size:17px;max-width:840px"><strong class="tc">Redundância</strong>, <strong class="tg">transparência</strong>, <strong class="ta">cultura de segurança</strong> e <strong class="tp">aprendizado com falhas</strong> não são opcionais — são a base da confiabilidade.</p>
+    <div class="row gap-24 a d5" style="margin-top:36px">
+      <div class="stat" style="min-width:220px;border-color:rgba(247,79,79,.25)"><div class="sv tr">346</div><div class="sl">Vidas perdidas</div></div>
+      <div class="stat" style="min-width:320px;border-color:rgba(61,223,160,.25)"><div class="sv tg" style="font-size:28px;line-height:1.3">Infinitas</div><div class="sl">Lições a lembrar</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ====== S17 REFERÊNCIAS ====== -->
+<div class="s" data-i="17">
+  <div class="col pad w-full h-full justify-center">
+    <div class="a d1"><div class="label">Slide 18 — Referências</div><h2 style="margin-top:8px">Referências <span class="gb">Bibliográficas</span></h2><div class="divider"></div></div>
+    <div class="row gap-32 a d2" style="margin-top:18px">
+      <div class="flex-1 card" style="padding:28px 30px">
+        <div class="ct" style="margin-bottom:12px;color:var(--blue)">Artigos e Relatórios</div>
+        <p style="font-size:13px;line-height:2.1;color:var(--t2)">
+          <strong style="color:var(--t1)">Herkert, J., Borenstein, J. & Miller, K.</strong> (2020). The Boeing 737 MAX: Lessons for Engineering Ethics. <em>Sci. and Eng. Ethics</em>, 26, 2957–2974.<br>
+          <strong style="color:var(--t1)">Republic of Indonesia.</strong> (2019). Final Report — Lion Air Flight JT610. KNKT.<br>
+          <strong style="color:var(--t1)">Fed. Dem. Rep. of Ethiopia.</strong> (2020). Interim Report — Ethiopian Airlines ET302.<br>
+          <strong style="color:var(--t1)">FAA.</strong> (2022). Summary of the FAA's Review of the Boeing 737 MAX.<br>
+          <strong style="color:var(--t1)">NRC.</strong> (2022). 737 MAX Digital Lessons Learned Report.
+        </p>
+      </div>
+      <div class="flex-1 card" style="padding:28px 30px">
+        <div class="ct" style="margin-bottom:12px;color:var(--blue)">Jornalismo e Análises</div>
+        <p style="font-size:13px;line-height:2.1;color:var(--t2)">
+          <strong style="color:var(--t1)">Gates, D.</strong> (2019). The inside story of MCAS. <em>The Seattle Times</em>.<br>
+          <strong style="color:var(--t1)">Travis, G.</strong> (2019). How the 737 Max disaster looks to a software developer. <em>IEEE Spectrum</em>.<br>
+          <strong style="color:var(--t1)">ThinkReliability.</strong> (2025). Four Lessons from the 737 MAX 8 Crashes.<br>
+          <strong style="color:var(--t1)">Sullenberger, C.</strong> (2019). Letter to the Editor. <em>The New York Times</em>.<br>
+          <strong style="color:var(--t1)">IChemE.</strong> (2020). Key lessons from the 737 MAX 8 accidents. <em>LPB</em>, 287.
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ====== S18 FIM ====== -->
+<div class="s" data-i="18">
+  <div class="cover-bg"></div><div class="cover-lines"></div>
+  <div class="col items-center justify-center h-full w-full" style="position:relative;z-index:1">
+    <div style="font-size:68px;margin-bottom:28px" class="a d1">🎓</div>
+    <h1 class="text-center a d2" style="font-size:62px"><span class="gb">Obrigado!</span></h1>
+    <p class="text-center a d3" style="margin-top:14px;font-size:21px;color:var(--t3);font-weight:300">Dúvidas e discussão</p>
+    <div class="divider a d4" style="margin:32px auto 28px"></div>
+    <div class="row gap-12 a d5" style="flex-wrap:wrap;justify-content:center">
+      <span class="pill">Matheus</span><span class="pill">Kayo</span><span class="pill">Bernardo</span><span class="pill">Edson Ramos</span><span class="pill">Julimar</span>
+    </div>
+    <p class="text-center a d6" style="margin-top:36px;font-size:13px;color:var(--t3)">Segurança e Confiabilidade de Sistemas — 2026</p>
+  </div>
+</div>
+
+</div><!-- /scaler -->
+
+<script>
+function rescale(){const s=document.getElementById('scaler'),vw=window.innerWidth,vh=window.innerHeight,sc=Math.min(vw/1920,vh/1080);s.style.transform=`translate(-50%,-50%) scale(${sc})`}
+window.addEventListener('resize',rescale);rescale();
+
+let cur=0;const slides=document.querySelectorAll('.s'),total=slides.length,prog=document.getElementById('prog'),cnt=document.getElementById('cnt');
+let maps={},mapsOk={};
+function go(i){
+  if(i<0||i>=total||i===cur)return;
+  const dir=i>cur?1:-1,prev=cur;
+  slides[prev].classList.remove('on');slides[prev].classList.add(dir>0?'out-l':'out-r');
+  cur=i;slides[cur].classList.remove('out-l','out-r');slides[cur].classList.add('on');
+  setTimeout(()=>slides[prev].classList.remove('out-l','out-r'),600);
+  prog.style.width=(cur/(total-1)*100)+'%';cnt.textContent=(cur+1)+' / '+total;
+  initMap(cur);
+}
+document.addEventListener('keydown',e=>{
+  if(e.key==='ArrowRight'||e.key==='ArrowDown'||e.key===' '){e.preventDefault();go(cur+1)}
+  else if(e.key==='ArrowLeft'||e.key==='ArrowUp'){e.preventDefault();go(cur-1)}
+  else if(e.key==='Home'){e.preventDefault();go(0)}
+  else if(e.key==='End'){e.preventDefault();go(total-1)}
+  else if(e.key==='f'||e.key==='F'){if(!document.fullscreenElement)document.documentElement.requestFullscreen();else document.exitFullscreen()}
+});
+let tx=0;
+document.addEventListener('touchstart',e=>tx=e.changedTouches[0].screenX);
+document.addEventListener('touchend',e=>{const d=tx-e.changedTouches[0].screenX;if(Math.abs(d)>50)go(cur+(d>0?1:-1))});
+prog.style.width='0%';cnt.textContent='1 / '+total;
+
+const tile='https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png';
+function ic(c,s){return L.divIcon({className:'',html:`<div style="width:${s}px;height:${s}px;background:${c};border-radius:50%;border:3px solid rgba(255,255,255,.85);box-shadow:0 0 14px ${c}88"></div>`,iconSize:[s,s],iconAnchor:[s/2,s/2]})}
+function initMap(si){
+  const di=parseInt(slides[si].dataset.i);
+  if(di===4&&!mapsOk[1]){mapsOk[1]=true;setTimeout(()=>{
+    const m=L.map('map1',{zoomControl:false,attributionControl:false,scrollWheelZoom:false}).setView([-4.5,106.4],7);
+    L.tileLayer(tile).addTo(m);
+    L.marker([-6.1256,106.6558],{icon:ic('#22d3ee',16)}).addTo(m).bindPopup('<b>Decolagem</b><br>Jacarta (CGK)');
+    L.marker([-5.7708,107.1211],{icon:ic('#f74f4f',18)}).addTo(m).bindPopup('<b style="color:#f74f4f">Local do Acidente</b><br>Mar de Java — 189 vítimas');
+    L.marker([-2.1622,106.1396],{icon:ic('#4f8ff7',13)}).addTo(m).bindPopup('<b>Destino pretendido</b><br>Pangkal Pinang');
+    L.polyline([[-6.1256,106.6558],[-5.7708,107.1211]],{color:'#f74f4f',weight:3,dashArray:'8,8',opacity:.7}).addTo(m);
+    L.polyline([[-5.7708,107.1211],[-2.1622,106.1396]],{color:'#4f8ff7',weight:2,dashArray:'4,8',opacity:.25}).addTo(m);
+    maps[1]=m},350)}
+  if(di===6&&!mapsOk[2]){mapsOk[2]=true;setTimeout(()=>{
+    const m=L.map('map2',{zoomControl:false,attributionControl:false,scrollWheelZoom:false}).setView([4.5,38.5],6);
+    L.tileLayer(tile).addTo(m);
+    L.marker([8.9779,38.7993],{icon:ic('#22d3ee',16)}).addTo(m).bindPopup('<b>Decolagem</b><br>Addis Ababa (ADD)');
+    L.marker([8.8769,39.2511],{icon:ic('#f74f4f',18)}).addTo(m).bindPopup('<b style="color:#f74f4f">Local do Acidente</b><br>Bishoftu — 157 vítimas');
+    L.marker([-1.3192,36.9278],{icon:ic('#4f8ff7',13)}).addTo(m).bindPopup('<b>Destino pretendido</b><br>Nairobi (NBO)');
+    L.polyline([[8.9779,38.7993],[8.8769,39.2511]],{color:'#f74f4f',weight:3,dashArray:'8,8',opacity:.7}).addTo(m);
+    L.polyline([[8.8769,39.2511],[-1.3192,36.9278]],{color:'#4f8ff7',weight:2,dashArray:'4,8',opacity:.25}).addTo(m);
+    maps[2]=m},350)}
+  if(di===8&&!mapsOk[3]){mapsOk[3]=true;setTimeout(()=>{
+    const m=L.map('map3',{zoomControl:false,attributionControl:false,scrollWheelZoom:false}).setView([5,68],4);
+    L.tileLayer(tile).addTo(m);
+    L.marker([-6.1256,106.6558],{icon:ic('#22d3ee',11)}).addTo(m).bindPopup('<b>Jacarta</b>');
+    L.marker([-5.7708,107.1211],{icon:ic('#f74f4f',15)}).addTo(m).bindPopup('<b style="color:#f74f4f">Lion Air 610</b><br>189 mortos');
+    L.marker([-2.1622,106.1396],{icon:ic('#4f8ff7',10)}).addTo(m).bindPopup('Pangkal Pinang');
+    L.marker([8.9779,38.7993],{icon:ic('#22d3ee',11)}).addTo(m).bindPopup('<b>Addis Ababa</b>');
+    L.marker([8.8769,39.2511],{icon:ic('#f7a94f',15)}).addTo(m).bindPopup('<b style="color:#f7a94f">Ethiopian 302</b><br>157 mortos');
+    L.marker([-1.3192,36.9278],{icon:ic('#4f8ff7',10)}).addTo(m).bindPopup('Nairobi');
+    L.polyline([[-6.1256,106.6558],[-5.7708,107.1211]],{color:'#f74f4f',weight:2.5,dashArray:'6,6',opacity:.6}).addTo(m);
+    L.polyline([[8.9779,38.7993],[8.8769,39.2511]],{color:'#f7a94f',weight:2.5,dashArray:'6,6',opacity:.6}).addTo(m);
+    L.polyline([[-5.7708,107.1211],[-2.1622,106.1396]],{color:'#4f8ff7',weight:1.5,dashArray:'4,8',opacity:.2}).addTo(m);
+    L.polyline([[8.8769,39.2511],[-1.3192,36.9278]],{color:'#4f8ff7',weight:1.5,dashArray:'4,8',opacity:.2}).addTo(m);
+    maps[3]=m},350)}
+  setTimeout(()=>Object.values(maps).forEach(m=>m.invalidateSize()),650);
+}
+</script>
+</body>
+</html>

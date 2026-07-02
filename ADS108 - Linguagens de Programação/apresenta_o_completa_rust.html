@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Linguagem Rust - Apresentação ADS 108</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #121214;
+            --text-main: #e1e1e6;
+            --text-muted: #a8a8b3;
+            --rust-orange: #ff5f1f;
+            --rust-dark: #b33a00;
+            --card-bg: #202024;
+            --code-bg: #0d0d0f;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            overflow: hidden;
+        }
+
+        /* Slide Container */
+        #presentation-container {
+            width: 100vw;
+            height: 100vh;
+            position: relative;
+        }
+
+        .slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            padding: 60px 100px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.4s ease-in-out;
+        }
+
+        .slide.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        /* Typography */
+        h1 { font-size: 4rem; font-weight: 800; margin-bottom: 1rem; color: #fff; }
+        h1 span { color: var(--rust-orange); }
+        h2 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 2rem;
+            color: var(--rust-orange);
+            border-bottom: 2px solid var(--card-bg);
+            padding-bottom: 10px;
+            position: relative;
+            z-index: 2;
+        }
+        h3 { font-size: 1.5rem; color: #fff; margin-bottom: 10px; margin-top: 20px; }
+        p, li { font-size: 1.25rem; line-height: 1.6; color: var(--text-muted); margin-bottom: 1rem; }
+        ul { margin-left: 2rem; margin-bottom: 1.5rem; }
+        li::marker { color: var(--rust-orange); }
+
+        /* Layouts */
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            width: 100%;
+            position: relative;
+            z-index: 2;
+        }
+
+        .card {
+            background-color: var(--card-bg);
+            padding: 30px;
+            border-radius: 12px;
+            border-left: 4px solid var(--rust-orange);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+        }
+
+        /* Code Blocks */
+        pre {
+            background-color: var(--code-bg);
+            padding: 20px;
+            border-radius: 8px;
+            font-family: 'Fira Code', monospace;
+            font-size: 1.1rem;
+            overflow-x: auto;
+            border: 1px solid #333;
+            box-shadow: inset 0 0 10px rgba(0,0,0,0.5);
+            position: relative;
+            z-index: 2;
+        }
+
+        code .keyword { color: #ff7b72; }
+        code .type { color: #79c0ff; }
+        code .string { color: #a5d6ff; }
+        code .comment { color: #8b949e; }
+        code .function { color: #d2a8ff; }
+        code .macro { color: #f2cc60; font-weight: bold; } /* Destaque para macro */
+
+        /* Controls */
+        .controls {
+            position: fixed;
+            bottom: 30px;
+            right: 50px;
+            display: flex;
+            gap: 15px;
+            z-index: 100;
+            align-items: center;
+        }
+
+        button {
+            background-color: var(--card-bg);
+            color: var(--rust-orange);
+            border: 2px solid var(--rust-orange);
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1.2rem;
+            font-weight: bold;
+            transition: all 0.2s;
+        }
+
+        button:hover {
+            background-color: var(--rust-orange);
+            color: #fff;
+        }
+
+        #slide-counter {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: var(--text-muted);
+        }
+
+        .highlight-box {
+            background: rgba(255, 95, 31, 0.1);
+            border: 1px dashed var(--rust-orange);
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 20px;
+        }
+
+        /* Ferris & Easter Eggs */
+        .ferris-main {
+            position: absolute;
+            right: 80px;
+            bottom: 120px;
+            width: 280px;
+            animation: float 4s ease-in-out infinite;
+            filter: drop-shadow(0px 10px 15px rgba(0,0,0,0.5));
+            z-index: 1;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-15px) rotate(3deg); }
+            100% { transform: translateY(0px) rotate(0deg); }
+        }
+
+        .ferris-egg {
+            position: absolute;
+            width: 50px;
+            opacity: 0.03; /* Quase invisível */
+            transition: opacity 0.4s, transform 0.4s;
+            z-index: 1;
+        }
+
+        .ferris-egg:hover {
+            opacity: 1;
+            transform: scale(2) rotate(15deg);
+            cursor: pointer;
+            z-index: 10;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div id="presentation-container">
+
+        <!-- Slide 1: Capa -->
+        <div class="slide active">
+            <h3 style="color: var(--text-muted); font-weight: 400;">ADS 108 - Linguagens de Programação</h3>
+            <h1>Linguagem <span>Rust</span></h1>
+            <p style="font-size: 1.8rem; color: #fff; max-width: 600px;">Performance de baixo nível, segurança de alto nível.</p>
+            <br><br>
+            <p><strong>Professor:</strong> Anderson Resende Lamas</p>
+            <p><strong>Grupo:</strong> Diego Araújo, Bernardo Motta e Antonio Maroca</p>
+            
+            <!-- Mascote Ferris Principal -->
+            <img src="https://rustacean.net/assets/rustacean-flat-happy.svg" alt="Ferris o Mascote" class="ferris-main">
+        </div>
+
+        <!-- Slide 2: Histórico -->
+        <div class="slide">
+            <h2>1. Histórico</h2>
+            <div class="grid-2">
+                <div>
+                    <h3>Origem e Criação</h3>
+                    <ul>
+                        <li><strong>Criador:</strong> Graydon Hoare, como projeto pessoal (2006).</li>
+                        <li><strong>Adoção:</strong> A Mozilla patrocinou o projeto em 2009.</li>
+                        <li><strong>Lançamento Oficial:</strong> Versão 1.0 lançada em 2015.</li>
+                    </ul>
+                    <h3>Objetivo Inicial</h3>
+                    <p>Resolver o problema crônico de <em>falhas de segurança de memória</em> no navegador Firefox, criando uma linguagem para substituir o C++ sem perder performance.</p>
+                </div>
+                <div class="card">
+                    <h3>Árvore Genealógica</h3>
+                    <p><strong>Influenciada por:</strong></p>
+                    <ul>
+                        <li>C++ (sintaxe básica e performance)</li>
+                        <li>ML / Haskell (sistema de tipos forte, pattern matching)</li>
+                        <li>Erlang (conceitos de concorrência)</li>
+                    </ul>
+                    <p><strong>Influenciou:</strong></p>
+                    <ul>
+                        <li>Swift (Apple) - adotou conceitos de segurança.</li>
+                        <li>WebAssembly - Rust moldou o padrão Wasm.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 3: Ferramentas (Cargo) -->
+        <div class="slide">
+            <img src="https://rustacean.net/assets/rustacean-flat-gesture.svg" class="ferris-egg" style="top: 30px; right: 40px; transform: rotate(-30deg);" alt="Easter Egg">
+            <h2>2. Ferramentas: Cargo e Crates.io</h2>
+            <div class="grid-2">
+                <div>
+                    <h3>Cargo: O Maestro</h3>
+                    <p>Diferente de linguagens antigas que exigem Makefiles complexos, o Rust vem com o <strong>Cargo</strong>.</p>
+                    <ul>
+                        <li><code>cargo new</code>: Cria o esqueleto do projeto.</li>
+                        <li><code>cargo build</code>: Baixa dependências e compila.</li>
+                        <li><code>cargo test</code>: Roda testes automatizados nativamente.</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <h3>Crates.io (O "NPM" do Rust)</h3>
+                    <p>Bibliotecas em Rust são chamadas de <em>Crates</em> (caixotes).</p>
+                    <p>Existe um repositório centralizado oficialmente suportado extremamente rico, garantindo que você não precise reinventar a roda. Tudo é configurado em um arquivo simples chamado <code>Cargo.toml</code>.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 4: Características -->
+        <div class="slide">
+            <h2>3. Características da Linguagem</h2>
+            <div class="grid-2">
+                <div>
+                    <h3>Paradigmas e Compilação</h3>
+                    <ul>
+                        <li><strong>Compilada:</strong> Compila diretamente para código de máquina via LLVM. Não tem máquina virtual (JVM).</li>
+                        <li><strong>Multiparadigma:</strong> Imperativa, Funcional e Orientada a Dados.</li>
+                        <li><strong>Tipagem:</strong> Forte e Estática (com inferência inteligente).</li>
+                    </ul>
+                </div>
+                <div>
+                    <h3>Sistema de Tipos</h3>
+                    <ul>
+                        <li><strong>Tipos Primitivos:</strong> Inteiros (i32, u64), Float (f32), Booleanos, Chars.</li>
+                        <li><strong>Tipos Compostos:</strong> Tuplas, Arrays (tamanho fixo).</li>
+                        <li><strong>Novos Tipos:</strong> Feita através de <code>structs</code> e <code>enums</code>.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 5: Mindset -->
+        <div class="slide">
+            <h2>Curiosidade: O Mindset de Memória</h2>
+            <p>O dev de Rust pensa na memória <strong>em tempo de compilação</strong> através do <em>Ownership</em> e <em>Borrowing</em>.</p>
+            <div class="grid-2">
+                <div class="highlight-box">
+                    <h3 style="color: var(--rust-orange); margin-top:0;">A Luta com o Compilador</h3>
+                    <p>Dois "donos" não podem ter a mesma variável na memória heap.</p>
+<pre><code><span class="keyword">let</span> s1 = String::from(<span class="string">"Olá"</span>);
+<span class="keyword">let</span> s2 = s1; <span class="comment">// A posse MUDOU para s2</span>
+
+<span class="comment">// println!("{}", s1); // ERRO! </span>
+<span class="comment">// s1 não é mais válida.</span></code></pre>
+                </div>
+                <div>
+                    <h3>Como Reestruturar o Pensamento?</h3>
+                    <ul>
+                        <li>O dev se pergunta: <em>"Quem é o dono deste dado?"</em></li>
+                        <li>Se outra função precisa ler, nós "emprestamos" <strong>(Borrowing)</strong> com referências (<code>&</code>).</li>
+                        <li><strong>Regra de Ouro:</strong> Infinitas referências de leitura, OU apenas uma mutável. Fim das "corridas de dados"!</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 6: Unsafe Rust -->
+        <div class="slide">
+            <h2>Curiosidade: O Lado "Obscuro" (Unsafe)</h2>
+            <p>Se o compilador bloqueia tudo que é perigoso, como interagir com hardware (acesso direto à memória)?</p>
+            <div class="grid-2">
+                <div>
+                    <h3>O bloco <code>unsafe {}</code></h3>
+                    <p>O Rust permite "desligar" algumas proteções dentro de um bloco específico:</p>
+                    <ul>
+                        <li>Ler/escrever em ponteiros crus (raw pointers).</li>
+                        <li>Chamar bibliotecas legadas (C/C++).</li>
+                        <li>Acessar hardware de baixo nível diretamente.</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <h3 style="color: var(--rust-orange); margin-top:0;">Isolando o Perigo</h3>
+                    <p>A vantagem disso não é "nunca ter bugs", mas sim <strong>isolar</strong> onde eles ocorrem. Se houver uma falha crítica de memória, ela <em>só pode estar</em> dentro de um bloco <code>unsafe</code>, reduzindo a busca de milhões de linhas para algumas dezenas.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 7: Áreas de Uso e Empresas -->
+        <div class="slide">
+            <img src="https://rustacean.net/assets/rustacean-flat-noshadow.svg" class="ferris-egg" style="bottom: 50px; left: 50px;" alt="Easter Egg">
+            <h2>4. Desenvolvimento & Ecossistema</h2>
+            <div class="grid-2">
+                <div>
+                    <h3>Áreas de Uso</h3>
+                    <ul>
+                        <li><strong>Sistemas Operacionais:</strong> Linux (segunda linguagem oficial).</li>
+                        <li><strong>Cloud/Backend:</strong> Microsserviços e APIs (Actix, Axum).</li>
+                        <li><strong>Blockchain:</strong> Contratos inteligentes e infraestrutura Web3.</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <h3>Empresas que Utilizam</h3>
+                    <ul>
+                        <li><strong>Amazon (AWS):</strong> Usa no <em>Firecracker</em> (base do Lambda).</li>
+                        <li><strong>Microsoft:</strong> Reescrevendo Kernel do Windows.</li>
+                        <li><strong>Meta:</strong> Linguagem oficial para backend.</li>
+                        <li><strong>Cloudflare:</strong> Roteamento de tráfego de internet no Edge.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 8: O Futuro do Frontend (WASM) -->
+        <div class="slide">
+            <h2>5. WebAssembly (Wasm): O Futuro do Frontend</h2>
+            <p>O Rust não ficou restrito ao Backend. Ele está mudando a forma como usamos o navegador.</p>
+            <div class="grid-2">
+                <div>
+                    <h3>O que é WebAssembly?</h3>
+                    <p>Wasm é um formato binário que roda nativamente dentro do browser (Chrome, Edge, Firefox) ao lado do JavaScript, mas com performance de linguagem compilada.</p>
+                    <ul>
+                        <li>Rust é hoje a linguagem <strong>número 1</strong> para gerar código Wasm, graças à sua ausência de Garbage Collector.</li>
+                    </ul>
+                </div>
+                <div class="highlight-box">
+                    <h3 style="color: var(--rust-orange); margin-top:0;">Aplicações Reais (Frontend Pesado)</h3>
+                    <p>Empresas como <strong>Figma</strong> e <strong>Adobe</strong> compilam programas inteiros (edição gráfica, renderização 3D, edição de vídeo) em Rust/Wasm para que rodem lisos direto na aba do seu navegador, sem precisar instalar nada no Windows.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 9: Codificação 1 - Structs e Enums + MACRO -->
+        <div class="slide">
+            <h2>6. Código: Tipos (Struct e Enum) + O Segredo do "!"</h2>
+            <div class="grid-2">
+                <div>
+                    <p>Sem classes tradicionais de POO, o Rust une dados com <code>structs</code> e <code>enums</code>.</p>
+<pre><code><span class="keyword">enum</span> <span class="type">Status</span> {
+    Ativo,
+    Suspenso(<span class="type">String</span>),
+}
+
+<span class="keyword">struct</span> <span class="type">Usuario</span> {
+    nome: <span class="type">String</span>,
+    status: <span class="type">Status</span>,
+}
+
+<span class="keyword">impl</span> <span class="type">Usuario</span> {
+    <span class="keyword">fn</span> <span class="function">novo</span>(n: <span class="type">String</span>) -> <span class="type">Usuario</span> {
+        Usuario { nome: n, status: Status::Ativo }
+    }
+}</code></pre>
+                </div>
+                <div>
+                    <div class="highlight-box" style="margin-top: 0;">
+                        <h3 style="color: var(--rust-orange); margin-top:0;">O Segredo da exclamação "!"</h3>
+                        <p>No comando <code><span class="macro">println!</span>("Olá {}", nome);</code> o "!" indica que isso <strong>não é uma função</strong>, mas uma <strong>Macro</strong>.</p>
+                        <p style="font-size: 1.1rem; margin-top: 10px;">Macros expandem o código <em>antes</em> de compilar. Isso permite que o compilador verifique se você passou a quantidade correta de variáveis para imprimir, prevenindo crashes que ocorreriam no <code>printf</code> do C.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 10: Codificação 2 - Exceções -->
+        <div class="slide">
+            <img src="https://rustacean.net/assets/rustacean-flat-gesture.svg" class="ferris-egg" style="top: 150px; right: 50vw; transform: rotate(180deg);" alt="Easter Egg">
+            <h2>6. Código: Tratamento de Exceções</h2>
+            <p>Rust <strong>não possui blocos try/catch</strong>. Exceções são retornadas como valores através do enum <code>Result&lt;T, E&gt;</code>, forçando o dev a tratar o erro.</p>
+<pre><code><span class="keyword">use</span> std::fs::File;
+
+<span class="keyword">fn</span> <span class="function">abrir_arquivo</span>() {
+    <span class="comment">// File::open retorna Ok(arquivo) ou Err(erro)</span>
+    <span class="keyword">let</span> resultado = File::open(<span class="string">"dados.txt"</span>);
+
+    <span class="comment">// 'match' obriga a tratar todos os cenários possíveis</span>
+    <span class="keyword">match</span> resultado {
+        Ok(_arquivo) => <span class="macro">println!</span>(<span class="string">"Arquivo aberto com sucesso!"</span>),
+        Err(erro) => <span class="macro">println!</span>(<span class="string">"Falha ao abrir: {}"</span>, erro),
+    }
+}</code></pre>
+        </div>
+
+        <!-- Slide 11: Codificação 3 - Threads -->
+        <div class="slide">
+            <h2>6. Código: Concorrência (Threads)</h2>
+            <p>O lema é <em>"Fearless Concurrency"</em>. O compilador impede o acesso simultâneo indevido aos dados.</p>
+<pre><code><span class="keyword">use</span> std::thread;
+<span class="keyword">use</span> std::time::Duration;
+
+<span class="keyword">fn</span> <span class="function">main</span>() {
+    <span class="keyword">let</span> handle = thread::spawn(|| {
+        <span class="keyword">for</span> i <span class="keyword">in</span> <span class="type">1</span>..<span class="type">4</span> {
+            <span class="macro">println!</span>(<span class="string">"Na thread paralela: {}"</span>, i);
+            thread::sleep(Duration::from_millis(<span class="type">500</span>));
+        }
+    });
+
+    <span class="macro">println!</span>(<span class="string">"Na thread principal!"</span>);
+    handle.join().unwrap(); <span class="comment">// Espera paralela terminar</span>
+}</code></pre>
+        </div>
+
+        <!-- Slide 12: Codificação 4 - Polimorfismo -->
+        <div class="slide">
+            <h2>6. Código: Polimorfismo (Traits)</h2>
+            <p>Para compartilhar comportamentos (POO/Polimorfismo), utilizamos <strong>Traits</strong> (semelhante às <em>Interfaces</em> no Java).</p>
+<pre><code><span class="comment">// A Interface de comportamento</span>
+<span class="keyword">trait</span> <span class="type">Veiculo</span> {
+    <span class="keyword">fn</span> <span class="function">acelerar</span>(&<span class="keyword">self</span>);
+}
+
+<span class="keyword">struct</span> <span class="type">Carro</span>;
+<span class="keyword">struct</span> <span class="type">Moto</span>;
+
+<span class="comment">// Implementando o Trait para Tipos Diferentes</span>
+<span class="keyword">impl</span> <span class="type">Veiculo</span> <span class="keyword">for</span> <span class="type">Carro</span> {
+    <span class="keyword">fn</span> <span class="function">acelerar</span>(&<span class="keyword">self</span>) { <span class="macro">println!</span>(<span class="string">"Carro: Vrum Vrum!"</span>); }
+}
+
+<span class="keyword">impl</span> <span class="type">Veiculo</span> <span class="keyword">for</span> <span class="type">Moto</span> {
+    <span class="keyword">fn</span> <span class="function">acelerar</span>(&<span class="keyword">self</span>) { <span class="macro">println!</span>(<span class="string">"Moto: Ran dan dan!"</span>); }
+}</code></pre>
+        </div>
+
+        <!-- Slide 13: Mercado de Trabalho -->
+        <div class="slide">
+            <h2>7. Mercado de Trabalho</h2>
+            <div class="grid-2">
+                <div>
+                    <h3>Demanda e Aceitação</h3>
+                    <p>Rust é eleita a linguagem <em>"mais amada"</em> no StackOverflow há anos. A demanda migrou de nichos web3 para Bancos, Big Techs e Cloud Providers.</p>
+                    <ul>
+                        <li>Engenheiro de Backend (Alta concorrência)</li>
+                        <li>Engenheiro de Sistemas / Cibersegurança</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <h3>Remuneração (Prêmio de Senioridade)</h3>
+                    <p>Por exigir amplo domínio técnico, paga-se acima da média do mercado Web.</p>
+                    <ul>
+                        <li><strong>Brasil (Pleno):</strong> R$ 8.000 a R$ 12.000</li>
+                        <li><strong>Brasil (Sênior):</strong> R$ 15.000 a R$ 25.000+</li>
+                        <li><strong>Global (Remoto):</strong> US$ 80.000 a US$ 160.000/ano (Uma das maiores remunerações globais).</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 14: Estudo de Caso / Green Computing -->
+        <div class="slide">
+            <img src="https://rustacean.net/assets/rustacean-flat-happy.svg" class="ferris-egg" style="bottom: 20px; right: 20vw;" alt="Easter Egg">
+            <h2>8. Estudo de Caso e Sustentabilidade</h2>
+            <div class="grid-2">
+                <div>
+                    <h3>Case Discord (Adeus, GC)</h3>
+                    <p>O Discord migrou um serviço vital (Read States) de <strong>Go</strong> para <strong>Rust</strong>. Em Go, o <em>Garbage Collector</em> causava enormes picos de latência (travamentos). Em Rust, com o Ownership liberando memória na hora, o uso de CPU despencou e a latência ficou perfeitamente reta.</p>
+                </div>
+                <div class="highlight-box">
+                    <h3 style="color: var(--rust-orange); margin-top:0;">Green Computing (ESG)</h3>
+                    <p>Sustentabilidade em TI é real. Um estudo recente da <strong>AWS (Amazon)</strong> demonstrou que migrar servidores de linguagens interpretadas (como Python ou Java) para Rust reduziu o consumo de energia dos Data Centers em <strong>até 50%</strong>.</p>
+                    <p style="margin-top: 10px; font-size: 1.1rem;">O Rust não economiza só tempo e dinheiro; ele gasta literalmente menos eletricidade.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 15: Casa Branca -->
+        <div class="slide">
+            <h2>9. O Apelo da Casa Branca (EUA)</h2>
+            <div class="grid-2">
+                <div style="display: flex; flex-direction: column; justify-content: center;">
+                    <p style="font-size: 1.5rem; color: #fff;">"A escolha da linguagem virou uma questão de Segurança Nacional."</p>
+                </div>
+                <div class="card" style="border-left-color: #e53e3e;">
+                    <h3 style="color: #fc8181; margin-top:0;">O Relatório ONCD (Fev/2024)</h3>
+                    <p>O governo dos Estados Unidos emitiu um relatório oficial clamando para que as Big Techs abandonem projetos em C e C++ devido às intermináveis falhas de injeção de memória (que viram portas para hackers).</p>
+                    <p>O relatório recomendou enfaticamente a transição para linguagens **Memory-Safe**, colocando o <strong>Rust</strong> como o principal candidato para o futuro seguro da tecnologia mundial.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 16: Conclusões -->
+        <div class="slide">
+            <h2>10. Conclusões</h2>
+            <div class="grid-2">
+                <div>
+                    <h3>Facilidade de Aprendizado</h3>
+                    <p><strong>Desafiadora.</strong> A curva inicial é íngreme. O programador precisa lutar contra o compilador e absorver o conceito de <em>Borrowing</em>. É como aprender a programar de novo, mas do jeito certo.</p>
+                </div>
+                <div class="card">
+                    <h3>Potencial de Mercado</h3>
+                    <p><strong>Crescimento Absoluto.</strong> Devido à demanda por Cloud barata, WebAssembly, e agora pela pressão governamental por cibersegurança (Casa Branca), o Rust garantiu seu lugar como a linguagem de infraestrutura mais crítica da próxima década.</p>
+                </div>
+            </div>
+            
+            <h1 style="text-align: center; margin-top: 50px; font-size: 3rem;">Obrigado! <span style="font-size: 2rem;">🦀</span></h1>
+        </div>
+
+    </div>
+
+    <!-- Controls -->
+    <div class="controls">
+        <span id="slide-counter">1 / 16</span>
+        <button onclick="prevSlide()">&#8592; Anterior</button>
+        <button onclick="nextSlide()">Próximo &#8594;</button>
+    </div>
+
+    <script>
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+        const counter = document.getElementById('slide-counter');
+
+        function updateSlides() {
+            slides.forEach((slide, index) => {
+                if(index === currentSlide) {
+                    slide.classList.add('active');
+                } else {
+                    slide.classList.remove('active');
+                }
+            });
+            counter.innerText = `${currentSlide + 1} / ${slides.length}`;
+        }
+
+        function nextSlide() {
+            if (currentSlide < slides.length - 1) {
+                currentSlide++;
+                updateSlides();
+            }
+        }
+
+        function prevSlide() {
+            if (currentSlide > 0) {
+                currentSlide--;
+                updateSlides();
+            }
+        }
+
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight' || e.key === ' ') {
+                nextSlide();
+            } else if (e.key === 'ArrowLeft') {
+                prevSlide();
+            }
+        });
+    </script>
+</body>
+</html>

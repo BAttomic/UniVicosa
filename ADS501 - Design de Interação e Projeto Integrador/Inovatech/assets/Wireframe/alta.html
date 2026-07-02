@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ERP - Wireframe</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background-color: #e0e0e0;
+        }
+        header {
+            width: 100%;
+            background-color: #424242;
+            color: #ffffff;
+            padding: 1em;
+            text-align: center;
+        }
+        header h1 {
+            font-size: 1.5em;
+            margin: 0;
+        }
+        .container {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            grid-template-rows: repeat(4, 1fr);
+            gap: 1em;
+            width: 90%;
+            max-width: 1200px;
+            height: 80vh;
+            margin: 1em auto;
+        }
+        .module {
+            border: 2px solid #757575;
+            padding: 1em;
+            background-color: #ffffff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: start;
+            text-align: center;
+        }
+        h2 {
+            margin-bottom: 0.5em;
+            color: #212121;
+        }
+        .description {
+            font-size: 0.9em;
+            color: #616161;
+            margin-bottom: 1em;
+        }
+        .button {
+            width: 80%;
+            height: 30px;
+            margin: 0.5em 0;
+            background-color: #757575;
+            color: #ffffff;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.9em;
+            position: relative;
+            transition: background-color 0.3s;
+        }
+        .button:hover {
+            background-color: #616161;
+        }
+        .alerts {
+            grid-column: 1 / span 3;
+            grid-row: 1;
+        }
+        .performance {
+            grid-column: 1 / span 3;
+            grid-row: 2 / span 3;
+        }
+        .clients {
+            grid-column: 4;
+            grid-row: 1 / span 2;
+        }
+        .stock {
+            grid-column: 4;
+            grid-row: 3 / span 2;
+        }
+        .chart-container {
+            width: 100%;
+            max-width: 500px;
+            height: 250px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 1em;
+        }
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            justify-content: center;
+            align-items: center;
+            animation: fadeIn 0.3s ease;
+        }
+        .modal-content {
+            background-color: #ffffff;
+            padding: 20px;
+            width: 90%;
+            max-width: 500px;
+            border-radius: 8px;
+            text-align: left;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
+            overflow-y: auto;
+            max-height: 80vh;
+        }
+        .modal-content h3 {
+            margin-bottom: 0.5em;
+            color: #424242;
+            font-size: 1.2em;
+        }
+        .modal-content ul {
+            margin-top: 10px;
+            list-style-type: disc;
+            padding-left: 20px;
+        }
+        .modal-content li {
+            margin-bottom: 8px;
+        }
+        .modal-content button {
+            display: inline-block;
+            margin: 10px 5px;
+            padding: 10px 20px;
+            font-size: 1rem;
+            color: #ffffff;
+            background-color: #757575;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+        .modal-content button:hover {
+            background-color: #616161;
+            transform: scale(1.05);
+        }
+        .modal-content button:active {
+            transform: scale(0.95);
+        }
+        @keyframes fadeIn {
+            from {opacity: 0;}
+            to {opacity: 1;}
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Sistema ERP - Wireframe</h1>
+</header>
+
+<div class="container">
+    <div class="module alerts">
+        <h2>Alertas e Notificações</h2>
+        <p class="description">Notificações para estoque baixo e vencimento de contas</p>
+        <button class="button" onclick="popupManager.openPopup('Estoque Baixo', generateStockAlert())">
+            Alerta de Estoque Baixo
+        </button>
+        <button class="button" onclick="popupManager.openPopup('Vencimento de Conta', generateDueAlert())">
+            Alerta de Vencimento
+        </button>
+        <button class="button" onclick="popupManager.openPopup('Adicionar Novo Boleto/Conta', generateNewBillForm())">
+            Adicionar Boleto/Conta
+        </button>
+    </div>
+
+    <div class="module performance">
+        <h2>Painel de Análise de Desempenho</h2>
+        <p class="description">Vendas Totais: R$ 150.000 | Produtos Vendidos: 5.200</p>
+        <div class="chart-container">
+            <canvas id="salesChart"></canvas>
+        </div>
+    </div>
+
+    <div class="module clients">
+        <h2>Cadastro de Clientes</h2>
+        <p class="description">Gestão de clientes e histórico de crédito</p>
+        <button class="button" onclick="popupManager.openPopup('Adicionar Cliente', generateForm('cliente'))">
+            Adicionar Cliente
+        </button>
+        <button class="button" onclick="popupManager.openPopup('Visualizar Clientes', generateClientList())">
+            Visualizar Clientes
+        </button>
+    </div>
+
+    <div class="module stock">
+        <h2>Cadastro e Controle de Estoque</h2>
+        <p class="description">Gestão de inventário e controle de produtos</p>
+        <button class="button" onclick="popupManager.openPopup('Adicionar Produto', generateForm('produto'))">
+            Adicionar Produto
+        </button>
+        <button class="button" onclick="popupManager.openPopup('Verificar Estoque', generateStockList())">
+            Verificar Estoque
+        </button>
+    </div>
+</div>
+
+<div id="modal" class="modal">
+    <div class="modal-content">
+        <h3 id="modal-title"></h3>
+        <div id="modal-description"></div>
+        <button class="close-button" onclick="popupManager.closePopup()">Fechar</button>
+    </div>
+</div>
+
+<footer>
+    <p style="text-align: center; padding: 1em;">Projeto ERP - Casa Nunes e Inovatech</p>
+</footer>
+
+<script>
+    class PopupManager {
+        constructor() {
+            this.modal = document.getElementById('modal');
+            this.modalTitle = document.getElementById('modal-title');
+            this.modalDescription = document.getElementById('modal-description');
+        }
+
+        openPopup(title, description) {
+            this.modalTitle.textContent = title;
+            this.modalDescription.innerHTML = description;
+            this.modal.style.display = 'flex';
+        }
+
+        closePopup() {
+            this.modal.style.display = 'none';
+        }
+    }
+
+    const popupManager = new PopupManager();
+
+    const generateStockAlert = () => {
+        const lowStockItems = [
+            'Item 1 - 3 unidades',
+            'Item 2 - 4 unidades',
+            'Item 3 - 2 unidades',
+            'Item 4 - 5 unidades',
+            'Item 5 - 1 unidade'
+        ];
+        return `<ul>${lowStockItems.map(item => `<li>${item}</li>`).join('')}</ul>`;
+    };
+
+    const generateDueAlert = () => {
+        const clients = ['Cliente A', 'Cliente B', 'Cliente C'].map(c => `<li>${c} - Crediário vence em 5 dias</li>`).join('');
+        const bills = ['Boleto X', 'Conta Y'].map(b => `<li>${b} - Vencimento em 7 dias</li>`).join('');
+        return `<h4>Clientes com crediário:</h4><ul>${clients}</ul><h4>Boletos e Contas:</h4><ul>${bills}</ul>`;
+    };
+
+    const generateNewBillForm = () => {
+        return `<form>
+            <label>Descrição: <input type="text" placeholder="Descrição da conta/boleto" required></label><br>
+            <label>Valor: <input type="number" placeholder="Valor (R$)" required></label><br>
+            <label>Data de Vencimento: <input type="date" required></label><br>
+            <button type="submit">Salvar</button>
+        </form>`;
+    };
+
+    const generateForm = (type) => {
+        const fields = type === 'cliente'
+            ? ['Nome Completo', 'CPF', 'RG', 'Telefone', 'Estado', 'Cidade', 'Bairro', 'Rua', 'Complemento', 'Número']
+            : ['Nome do Produto', 'Código', 'Descrição', 'Categoria', 'Quantidade', 'Preço', 'Fornecedor'];
+        return `<form>${fields.map(field => `<label>${field}:<input type="text" placeholder="${field}" required></label><br>`).join('')}<button type="submit">Salvar</button></form>`;
+    };
+
+    const generateClientList = () => {
+        const clients = ['Cliente A', 'Cliente B', 'Cliente C'];
+        return `<ul>${clients.map(client => `<li>${client} <button onclick="popupManager.openPopup('Crediário', 'Detalhes do crediário de ${client}')">Ver Crediário</button></li>`).join('')}</ul>`;
+    };
+
+    const generateStockList = () => {
+        const stockItems = [
+            'Item 1 - 3 unidades',
+            'Item 2 - 4 unidades',
+            'Item 3 - 2 unidades',
+            'Item 4 - 5 unidades',
+            'Item 5 - 1 unidade',
+            'Item 6 - 15 unidades',
+            'Item 7 - 25 unidades',
+            'Item 8 - 18 unidades',
+            'Item 9 - 30 unidades',
+            'Item 10 - 20 unidades'
+        ];
+        return `<ul>${stockItems.map(item => `<li>${item}</li>`).join('')}</ul>`;
+    };
+
+    const ctx = document.getElementById('salesChart').getContext('2d');
+    const salesChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio'],
+            datasets: [{
+                label: 'Vendas (em R$)',
+                data: [12000, 19000, 30000, 50000, 75000],
+                borderColor: '#757575',
+                borderWidth: 2,
+                fill: false,
+                tension: 0.1
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    display: true,
+                    position: 'top'
+                }
+            }
+        }
+    });
+</script>
+
+</body>
+</html>

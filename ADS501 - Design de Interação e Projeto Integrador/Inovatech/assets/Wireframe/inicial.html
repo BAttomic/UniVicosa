@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ERP - Baixa Fidelidade</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background-color: #f5f5f5;
+            color: #333;
+        }
+        header {
+            width: 100%;
+            background-color: #ddd;
+            color: #333;
+            padding: 1em;
+            text-align: center;
+        }
+        header h1 {
+            font-size: 1.5em;
+            margin: 0;
+        }
+        .container {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            grid-template-rows: repeat(4, 1fr);
+            gap: 1em;
+            width: 90%;
+            max-width: 1200px;
+            height: 80vh;
+            margin: 1em auto;
+        }
+        .module {
+            border: 1px solid #aaa;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #fff;
+            font-size: 1em;
+            color: #333;
+            text-align: center;
+        }
+        /* Posicionamento dos itens no grid */
+        .alerts {
+            grid-column: 1 / span 3;
+            grid-row: 1;
+        }
+        .performance {
+            grid-column: 1 / span 3;
+            grid-row: 2 / span 3;
+        }
+        .clients {
+            grid-column: 4;
+            grid-row: 1 / span 2;
+        }
+        .stock {
+            grid-column: 4;
+            grid-row: 3 / span 2;
+        }
+        footer {
+            width: 100%;
+            background-color: #ddd;
+            color: #333;
+            padding: 1em;
+            text-align: center;
+            font-size: 0.9em;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Sistema ERP - Baixa Fidelidade</h1>
+</header>
+
+<div class="container">
+    <!-- Alertas e Notificações -->
+    <div class="module alerts">
+        <p>Alertas e Notificações</p>
+    </div>
+
+    <!-- Painel de Análise de Desempenho -->
+    <div class="module performance">
+        <p>Painel de Análise de Desempenho</p>
+    </div>
+
+    <!-- Cadastro de Clientes -->
+    <div class="module clients">
+        <p>Cadastro de Clientes</p>
+    </div>
+
+    <!-- Controle de Estoque -->
+    <div class="module stock">
+        <p>Cadastro e Controle de Estoque</p>
+    </div>
+</div>
+
+<footer>
+    <p>Projeto ERP - Casa Nunes e Inovatech</p>
+</footer>
+
+</body>
+</html>

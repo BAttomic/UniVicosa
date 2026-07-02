@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+<title>TicketFlow — Premium Keynote</title>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0;}
+  :root{
+    --bg:#06070B;--surface:#11131F;--surface-glow:#1E2235;
+    --border:rgba(255,255,255,0.08);--text:#F8FAFC;--text-muted:#64748B;
+    --primary:#6366F1;--secondary:#10B981;--spark:#F59E0B;
+  }
+  html,body{height:100%;overflow:hidden;background:var(--bg);color:var(--text);font-family:"Inter",system-ui,-apple-system,sans-serif;-webkit-font-smoothing:antialiased;}
+  #stage{display:flex;height:100%;width:100%;transition:transform .6s cubic-bezier(.16,1,.3,1);will-change:transform;}
+  .slide{flex:0 0 100vw;height:100vh;height:100dvh;padding:clamp(30px,4vw,60px) clamp(20px,5vw,60px) 90px;display:flex;flex-direction:column;justify-content:center;background:var(--bg);position:relative;overflow-y:auto;overflow-x:hidden;-ms-overflow-style:none;scrollbar-width:none;}
+  .slide::-webkit-scrollbar{display:none;}
+  .wrap{width:100%;max-width:1300px;margin:auto 0;}
+  .slide::before{content:"";position:absolute;width:40vw;height:40vw;top:-10vw;right:-10vw;background:radial-gradient(circle, rgba(99,102,241,0.15) 0%, transparent 70%);pointer-events:none;}
+  .slide::after{content:"";position:absolute;width:50vw;height:50vw;bottom:-20vw;left:-20vw;background:radial-gradient(circle, rgba(16,185,129,0.1) 0%, transparent 70%);pointer-events:none;}
+  .tagline{font-size:clamp(11px,1vw,14px);letter-spacing:.3em;text-transform:uppercase;font-weight:800;color:var(--secondary);margin-bottom:1rem;display:flex;align-items:center;gap:0.5rem;}
+  .tagline::after{content:"";flex:1;height:1px;background:linear-gradient(90deg, rgba(16,185,129,0.3), transparent);}
+  h1{font-size:clamp(36px,6vw,84px);line-height:0.95;font-weight:900;letter-spacing:-.04em;background:linear-gradient(135deg, #FFF 30%, #64748B);-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+  h2{font-size:clamp(22px,3.5vw,46px);line-height:1.05;font-weight:900;letter-spacing:-.03em;margin-bottom:1.2rem;}
+  h3{font-size:clamp(16px,1.8vw,22px);font-weight:800;color:#FFF;margin-bottom:0.4rem;}
+  p,li{font-size:clamp(13px,1.4vw,18px);line-height:1.5;color:#94A3B8;}
+  strong{color:#FFF;font-weight:700;}
+  .hero-meta{margin-top:2rem;display:flex;flex-wrap:wrap;gap:0.8rem;}
+  .badge{background:var(--surface);border:1px solid var(--border);padding:0.5rem 1rem;border-radius:12px;font-weight:700;font-size:clamp(11px,1.2vw,16px);color:#F1F5F9;}
+  .badge.prime{border-color:rgba(99,102,241,0.4);background:rgba(99,102,241,0.06);color:#A5B4FC;}
+  .grid-layout{display:grid;gap:1.2rem;margin-top:1rem;}
+  .grid-2{grid-template-columns:1fr 1fr;}
+  .grid-3{grid-template-columns:repeat(3,1fr);}
+  .grid-4{grid-template-columns:repeat(4,1fr);}
+  .neo-card{background:rgba(17,19,31,0.6);border:1px solid var(--border);backdrop-filter:blur(12px);padding:clamp(1.2rem, 1.5vw, 1.8rem);border-radius:20px;transition:all 0.4s ease;position:relative;}
+  .neo-card::before{content:"";position:absolute;top:0;left:2rem;right:2rem;height:1px;background:linear-gradient(90deg,transparent,rgba(255,255,255,0.15),transparent);}
+  .neo-card.highlight{border-color:rgba(16,185,129,0.3);background:rgba(16,185,129,0.02);}
+  .neo-card .icon-header{font-size:clamp(1.5rem, 2vw, 2rem);margin-bottom:0.8rem;display:inline-block;}
+  ul.box-list{list-style:none;display:flex;flex-direction:column;gap:0.8rem;}
+  ul.box-list li{background:var(--surface);border-left:4px solid var(--primary);padding:1rem 1.2rem;border-radius:0 12px 12px 0;}
+  ul.box-list.alt li{border-left-color:var(--secondary);}
+  .giant-number{font-size:clamp(36px,5vw,70px);font-weight:900;line-height:1;color:var(--primary);margin-bottom:0.2rem;letter-spacing:-.03em;}
+  .giant-number.sec{color:var(--secondary);}
+  .flow-container{display:flex;gap:0.8rem;align-items:stretch;margin-top:1.5rem;flex-wrap:wrap;}
+  .flow-node{flex:1;min-width:140px;background:var(--surface);border:1px solid var(--border);padding:1.2rem;border-radius:16px;text-align:center;position:relative;}
+  .flow-node b{display:block;font-size:clamp(13px,1.4vw,18px);color:#FFF;margin:0.4rem 0 0.2rem 0;}
+  .flow-node small{color:var(--text-muted);font-size:clamp(11px,1.1vw,13px);}
+  .flow-arrow{align-self:center;font-size:1.2rem;color:var(--text-muted);font-weight:300;}
+  .modern-table-wrapper{overflow-x:auto;margin-top:1rem;}
+  .modern-table{width:100%;border-collapse:collapse;text-align:left;min-width:600px;}
+  .modern-table th,.modern-table td{padding:0.8rem 1rem;border-bottom:1px solid var(--border);}
+  .modern-table th{font-weight:800;text-transform:uppercase;font-size:12px;letter-spacing:0.1em;color:var(--text-muted);background:rgba(255,255,255,0.01);}
+  .modern-table td{font-size:clamp(13px,1.3vw,16px);}
+  .modern-table tr:hover td{background:rgba(255,255,255,0.02);color:#FFF;}
+  .hud-footer{position:fixed;bottom:1.5rem;left:clamp(20px,4vw,3rem);right:clamp(20px,4vw,3rem);display:flex;justify-content:space-between;align-items:center;z-index:100;pointer-events:none;}
+  .hud-progress{width:clamp(80px, 15vw, 150px);height:4px;background:rgba(255,255,255,0.1);border-radius:2px;overflow:hidden;}
+  .hud-progress-bar{height:100%;width:0;background:linear-gradient(90deg, var(--primary), var(--secondary));transition:width .6s ease;}
+  .hud-string{font-size:11px;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:var(--text-muted);}
+  .reveal{opacity:0;transform:translateY(20px);transition:opacity 0.7s cubic-bezier(.16,1,.3,1), transform 0.7s cubic-bezier(.16,1,.3,1);}
+  .slide.active .reveal{opacity:1;transform:none;}
+  .slide.active .reveal.d1{transition-delay:.08s;}
+  .slide.active .reveal.d2{transition-delay:.16s;}
+  .slide.active .reveal.d3{transition-delay:.24s;}
+  .qr-box{display:flex;align-items:center;gap:2rem;margin-top:1rem;}
+  .qr-mock{width:120px;height:120px;background:linear-gradient(45deg, #1E2235 25%, #11131F 25%, #11131F 50%, #1E2235 50%, #1E2235 75%, #11131F 75%, #11131F 100%);background-size:20px 20px;border:2px solid var(--border);border-radius:12px;position:relative;overflow:hidden;}
+  .qr-mock::after{content:"";position:absolute;top:0;left:0;right:0;height:4px;background:var(--secondary);box-shadow:0 0 10px var(--secondary);opacity:0;transition:top 1.5s linear;}
+  .qr-mock.scanning::after{opacity:1;top:100%;}
+  .qr-data{flex:1;font-family:monospace;background:#000;padding:1rem;border-radius:12px;color:var(--secondary);font-size:14px;border:1px solid var(--border);}
+  .qr-timer{height:4px;background:var(--border);border-radius:2px;margin-top:1rem;overflow:hidden;}
+  .qr-timer-bar{height:100%;width:100%;background:var(--secondary);transition:width 1s linear;}
+  @media(max-width:820px){ 
+    .grid-layout,.qr-box{grid-template-columns:1fr !important;flex-direction:column;} 
+    .flow-arrow{transform:rotate(90deg);margin:0.2rem 0;} 
+    .slide{padding:30px 20px 80px;}
+  }
+</style>
+</head>
+<body>
+<main id="stage">
+
+  <section class="slide active">
+    <div class="wrap">
+      <div class="tagline reveal">Trabalho de Graduação</div>
+      <h1 class="reveal d1">TicketFlow</h1>
+      <p class="reveal d2" style="font-size:clamp(18px,2.5vw,32px); margin-top:1.2rem; max-width:32ch; color:#E2E8F0; font-weight:300;">
+        Sistema Web Escalável para Venda de Ingressos Online.
+      </p>
+      <div class="hero-meta reveal d3">
+        <span class="badge prime">Edson Ramos da Silva Junior</span>
+        <span class="badge prime">Bernardo Cordeiro Motta</span>
+        <span class="badge">Viçosa · 2026</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="slide">
+    <div class="wrap">
+      <div class="tagline reveal">Contexto</div>
+      <h2 class="reveal d1">Desafios do Setor de Eventos</h2>
+      <div class="grid-layout grid-2 reveal d2">
+        <div>
+          <ul class="box-list">
+            <li><strong>Instabilidade em Picos:</strong> Falhas em sistemas durante aberturas de lotes de alta procura, frustrando consumidores.</li>
+            <li><strong>Ataques de Bots e Fraudes:</strong> Cambismo automatizado e circulação massiva de ingressos falsificados.</li>
+            <li><strong>Inadequação Legal:</strong> Vulnerabilidades graves na proteção de dados e inadequação à LGPD.</li>
+          </ul>
+        </div>
+        <div class="neo-card highlight">
+          <span class="icon-header">🛑</span>
+          <h3>Atrito Estrutural no Checkout</h3>
+          <p>Fluxos de compra confusos e demorados, dependência de infraestruturas legadas e gateways de pagamento instáveis que geram alto índice de abandono de carrinho.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="slide">
+    <div class="wrap">
+      <div class="tagline reveal">Mapeamento</div>
+      <h2 class="reveal d1">As Personas do Ecossistema</h2>
+      <div class="grid-layout grid-3 reveal d2">
+        <div class="neo-card">
+          <span class="icon-header">👔</span>
+          <h3>João Silva (Organizador)</h3>
+          <p>Produtor de médio porte. Exige autonomia para gerenciar múltiplos lotes, painel analítico com telemetria em tempo real e relatórios financeiros precisos.</p>
+        </div>
+        <div class="neo-card">
+          <span class="icon-header">📱</span>
+          <h3>Maria Santos (Compradora)</h3>
+          <p>Consumidora digital. Busca checkout transparente, experiência Mobile-First, pagamentos integrados via Pix/Cartão e segurança total de dados.</p>
+        </div>
+        <div class="neo-card">
+          <span class="icon-header">🎫</span>
+          <h3>Carlos Mendes (Operador)</h3>
+          <p>Responsável pela portaria. Necessita de validação instantânea (< 2s) via leitura de QR Code, além de contingência de operação em modo offline.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="slide">
+    <div class="wrap">
+      <div class="tagline reveal">Estratégia</div>
+      <h2 class="reveal d1">Objetivos do Sistema</h2>
+      <div class="grid-layout grid-2 reveal d2">
+        <div>
+          <h3>Objetivo Geral</h3>
+          <p style="font-size:clamp(16px, 1.6vw, 22px); font-weight:300; line-height:1.4; color:#FFF;">
+            Projetar um ecossistema full-stack, seguro e altamente escalável para otimizar toda a jornada de comercialização de ingressos, desde a concepção do evento até o controle de acesso físico.
+          </p>
+        </div>
+        <div>
+          <h3>Metas Específicas</h3>
+          <ul class="box-list alt">
+            <li>Autenticação blindada com JWT e OAuth 2.0.</li>
+            <li>Interface administrativa modular para gestão de eventos.</li>
+            <li>Motor de pagamentos com aderência ao PCI DSS.</li>
+            <li>Geração nativa de QR Codes dinâmicos contra cambismo.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="slide">
+    <div class="wrap">
+      <div class="tagline reveal">Engenharia de Software</div>
+      <h2 class="reveal d1">Arquitetura de Microsserviços</h2>
+      <p class="reveal d1">Oliminação de sistemas monolíticos em favor de 8 microsserviços independentes, orquestrados em nuvem com Auto-Scaling e Load Balancing.</p>
+      <div class="flow-container reveal d2">
+        <div class="flow-node">⚡ <b>Frontend (Next.js)</b><small>SSR & Responsividade</small></div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-node">🔌 <b>API Gateway</b><small>Roteamento e Autenticação</small></div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-node">📦 <b>Core Services</b><small>Identity, Event, Ticket</small></div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-node">☁️ <b>Persistência</b><small>Database per service</small></div>
+      </div>
+      <div class="grid-layout grid-2 reveal d3" style="margin-top:1.5rem;">
+         <div class="neo-card"><h3>CI/CD Contínuo</h3><p>Testes unitários e de integração (cobertura >80%), análise estática via SonarQube e blue-green deployment para zero downtime.</p></div>
+         <div class="neo-card"><h3>Filas Virtuais</h3><p>Gerenciamento de alta demanda (Redis/RabbitMQ) para sustentar picos massivos protegendo o banco principal.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="slide">
+    <div class="wrap">
+      <div class="tagline reveal">Criptografia Aplicada</div>
+      <h2 class="reveal d1">Mitigação de Fraudes</h2>
+      <div class="grid-layout grid-2 reveal d2">
+        <div>
+          <ul class="box-list">
+            <li><strong>Payload Dinâmico:</strong> O QR Code gerado altera seu hash criptográfico a cada 30 segundos no dispositivo do usuário.</li>
+            <li><strong>Bloqueio de Prints:</strong> Invalidação imediata de capturas de tela e PDFs estáticos na portaria.</li>
+            <li><strong>Hardware Binding:</strong> Vinculação do ingresso ao token de acesso do dispositivo logado.</li>
+          </ul>
+        </div>
+        <div class="neo-card" style="padding:1.5rem;">
+          <h3 style="margin-bottom:1rem;">Ciclo Criptográfico</h3>
+          <div class="qr-box">
+            <div class="qr-mock" id="qr-visual"></div>
+            <div class="qr-data">
+              <span style="color:#64748B;">hash_payload</span><br>
+              <span id="qr-hash">tk_fA92b8dC...</span><br><br>
+              <span style="color:#64748B;">ttl</span><br>
+              <span id="qr-sec">30</span>s
+            </div>
+          </div>
+          <div class="qr-timer"><div class="qr-timer-bar" id="qr-bar"></div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="slide">
+    <div class="wrap">
+      <div class="tagline reveal">Métricas Técnicas</div>
+      <h2 class="reveal d1">Tolerância a Falhas e Resiliência</h2>
+      <div class="grid-layout grid-4 reveal d2">
+        <div class="neo-card">
+          <div class="giant-number sec">10K+</div>
+          <h3>Simultâneos</h3>
+          <p>Tolerância de usuários no lançamento de lote.</p>
+        </div>
+        <div class="neo-card">
+          <div class="giant-number sec">&lt;200ms</div>
+          <h3>Latência (P95)</h3>
+          <p>Tempo de resposta para endpoints de compra.</p>
+        </div>
+        <div class="neo-card">
+          <div class="giant-number">99.9%</div>
+          <h3>Disponibilidade</h3>
+          <p>Max. 8.76h de downtime por ano garantido.</p>
+        </div>
+        <div class="neo-card">
+          <div class="giant-number">PWA</div>
+          <h3>Offline-First</h3>
+          <p>Check-in com cache de 50 mil registros offline.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="slide">
+    <div class="wrap">
+      <div class="tagline reveal">Financeiro</div>
+      <h2 class="reveal d1">Orçamento Consolidado (Capex & Opex)</h2>
+      <div class="modern-table-wrapper reveal d2">
+        <table class="modern-table">
+          <thead>
+            <tr>
+              <th>Categoria de Custo</th>
+              <th>Investimento Previsto</th>
+              <th>Alocação (%)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>Recursos Humanos (GP, Devs, QA, UX, Seg)</td><td>R$ 592.900,00</td><td>71,0%</td></tr>
+            <tr><td>Infraestrutura Cloud e Softwares</td><td>R$ 49.860,00</td><td>6,0%</td></tr>
+            <tr><td>Hardware, Treinamentos, Viagens, Mkt</td><td>R$ 84.000,00</td><td>9,6%</td></tr>
+            <tr><td>Fundo de Contingência (15%) e Margem</td><td>R$ 140.440,00</td><td>13,4%</td></tr>
+            <tr><td><strong>Orçamento Total (Break-even: 18 a 36 meses)</strong></td><td><strong>R$ 885.000,00</strong></td><td><strong>100,0%</strong></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="reveal d3" style="margin-top:1.2rem; font-size:13px; font-style:italic; color:var(--text-muted)">
+        Custos projetados com viabilidade atestada via modelo de receita de 5% de take-rate sobre ticket médio de R$ 80,00.
+      </p>
+    </div>
+  </section>
+
+  <section class="slide">
+    <div class="wrap">
+      <div class="tagline reveal">Cronograma</div>
+      <h2 class="reveal d1">Plano de Implementação (30 Semanas)</h2>
+      <div class="flow-container reveal d2">
+        <div class="flow-node">💻 <b>Semanas 1-4</b><small>Planejamento e Requisitos<br>Workshops, C4 Model.</small></div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-node">🛠️ <b>Semanas 5-14</b><small>Infra e Backend<br>Cloud, Autenticação, Pagamentos.</small></div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-node">📱 <b>Semanas 15-19</b><small>Frontend e PWA<br>Telas e Aplicativo Offline.</small></div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-node">🚀 <b>Semanas 20-30</b><small>QA e Implantação<br>Testes de Carga, Pentest, Go-Live.</small></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="slide">
+    <div class="wrap">
+      <div class="tagline reveal">Projeções</div>
+      <h2 class="reveal d1">Resultados Esperados (Ano 1)</h2>
+      <div class="grid-layout grid-3 reveal d2">
+        <div class="neo-card text-center">
+          <div class="giant-number sec">&lt; 0.1%</div>
+          <p>Taxa de Fraudes Registrada</p>
+        </div>
+        <div class="neo-card text-center">
+          <div class="giant-number">-50%</div>
+          <p>Redução no Custo Operacional</p>
+        </div>
+        <div class="neo-card text-center">
+          <div class="giant-number sec">100k+</div>
+          <p>Ingressos Transacionados</p>
+        </div>
+      </div>
+      <div class="grid-layout grid-2 reveal d3" style="margin-top:1.5rem;">
+         <div class="neo-card highlight"><h3>Democratização</h3><p>Organizadores de pequeno/médio porte terão acesso a infraestrutura antes restrita a megaeventos, elevando a conversão de vendas.</p></div>
+         <div class="neo-card highlight"><h3>Proteção ao Consumidor</h3><p>Eliminação de filas extensas com tempo de validação menor que 2 segundos, além da proteção absoluta via LGPD.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="slide">
+    <div class="wrap">
+      <h1 class="reveal">Perguntas?</h1>
+      <p class="reveal d1" style="font-size:clamp(18px,2vw,24px); margin-top:1rem; color:var(--text-muted)">Agradecemos imensamente a sua atenção.</p>
+      <div class="hero-meta reveal d2" style="margin-top:3rem;">
+        <span class="badge">edson.jr@univicosa.com.br</span>
+        <span class="badge">bernardo.c@univicosa.com.br</span>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<div class="hud-footer">
+  <div class="hud-string">TicketFlow</div>
+  <div class="hud-progress"><div class="hud-progress-bar" id="bar"></div></div>
+  <div class="hud-string" id="counter">1 / 11</div>
+</div>
+
+<script>
+(function(){
+  var stage=document.getElementById('stage');
+  var slides=Array.prototype.slice.call(document.querySelectorAll('.slide'));
+  var bar=document.getElementById('bar'), counter=document.getElementById('counter');
+  var i=0, total=slides.length;
+  function render(){
+    stage.style.transform='translate3d('+(-i*100)+'vw,0,0)';
+    counter.textContent=(i+1)+' / '+total;
+    bar.style.width=(total>1?(i/(total-1))*100:100)+'%';
+    for(var k=0;k<slides.length;k++) slides[k].classList.toggle('active',k===i);
+  }
+  function go(n){ i=Math.max(0,Math.min(total-1,n)); render(); }
+  window.addEventListener('keydown',function(e){
+    switch(e.key){
+      case 'ArrowRight': case 'ArrowDown': case 'PageDown': case ' ': case 'Spacebar': go(i+1); e.preventDefault(); break;
+      case 'ArrowLeft': case 'ArrowUp': case 'PageUp': go(i-1); e.preventDefault(); break;
+      case 'Home': go(0); e.preventDefault(); break;
+      case 'End': go(total-1); e.preventDefault(); break;
+    }
+  });
+  var sx=0,sy=0;
+  window.addEventListener('touchstart',function(e){ sx=e.touches[0].clientX; sy=e.touches[0].clientY; },{passive:true});
+  window.addEventListener('touchend',function(e){
+    var dx=e.changedTouches[0].clientX-sx, dy=e.changedTouches[0].clientY-sy;
+    if(Math.abs(dx)>50 && Math.abs(dx)>Math.abs(dy)) go(dx<0?i+1:i-1);
+  },{passive:true});
+  var qrHash=document.getElementById('qr-hash');
+  var qrSec=document.getElementById('qr-sec');
+  var qrBar=document.getElementById('qr-bar');
+  var qrVisual=document.getElementById('qr-visual');
+  if(qrHash && qrSec && qrBar && qrVisual){
+    var timerInterval;
+    var timeLeft=30;
+    function generateHash(){
+      var chars='ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+      var hash='tk_';
+      for(var j=0;j<12;j++) hash+=chars.charAt(Math.floor(Math.random()*chars.length));
+      return hash;
+    }
+    function resetQr(){
+      clearInterval(timerInterval);
+      timeLeft=30;
+      qrHash.innerText=generateHash();
+      qrSec.innerText=timeLeft;
+      qrBar.style.transition='none';
+      qrBar.style.width='100%';
+      qrVisual.classList.remove('scanning');
+      void qrVisual.offsetWidth;
+      qrVisual.classList.add('scanning');
+      setTimeout(function(){
+        qrBar.style.transition='width 30s linear';
+        qrBar.style.width='0%';
+      }, 50);
+      timerInterval=setInterval(function(){
+        timeLeft--;
+        qrSec.innerText=timeLeft;
+        if(timeLeft<=0) resetQr();
+      }, 1000);
+    }
+    resetQr();
+  }
+  render();
+})();
+</script>
+</body>
+</html>
