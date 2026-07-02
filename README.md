@@ -6,7 +6,7 @@ Repositório-portfólio com **todo o material da minha graduação em ADS na Uni
 atividades, projetos, códigos, seminários e anotações, organizados por disciplina.
 Serve como registro do meu percurso e evolução ao longo do curso.
 
-> **Aluno:** Bernardo Cordeiro Motta · **Matrícula:** 26351
+> **Aluno:** Bernardo Cordeiro Motta
 > **Curso:** Análise e Desenvolvimento de Sistemas — UniViçosa
 
 <img src="https://capsule-render.vercel.app/api?type=rect&color=timeGradient&height=2" width="100%"/>
@@ -15,10 +15,9 @@ Serve como registro do meu percurso e evolução ao longo do curso.
 
 | | |
 |---|---|
-| **Disciplinas no currículo** | 34 (32 com pasta neste repositório + 2 eletivas pendentes) |
+| **Disciplinas no currículo** | 32 |
 | **Disciplinas concluídas** | 24 |
 | **Carga horária integralizada** | ≈ 1.560h |
-| **Média geral (disciplinas com nota)** | **≈ 74,6** |
 | **Situação** | Concluindo o curso 🎯 |
 
 <img src="https://capsule-render.vercel.app/api?type=rect&color=timeGradient&height=2" width="100%"/>
@@ -40,48 +39,50 @@ Serve como registro do meu percurso e evolução ao longo do curso.
 ## 📚 Disciplinas por período
 
 ### 2022-2
-| Código | Disciplina | Situação | Nota |
-|---|---|---|---|
-| LET104 | Oficina de Leitura e Produções de Gêneros Acadêmicos | Aprovado | 78,00 |
+| Código | Disciplina | Situação |
+|---|---|---|
+| LET104 | Oficina de Leitura e Produções de Gêneros Acadêmicos | Aproveitamento (UFV) |
+
+> *LET104 foi aproveitada da UFV, cursada no período em que eu estava no Bacharelado em Matemática.*
 
 ### 2024-1
-| Código | Disciplina | Situação | Nota |
-|---|---|---|---|
-| ADS001 | Fundamentos em Análise e Desenvolvimento de Sistemas | Aprovado | 70,00 |
-| ADS100 | Programação de Computadores I | Aprovado | 83,00 |
-| ADS200 | Organização e Arquitetura de Computadores | Aprovado | 75,00 |
-| ADS202 | Banco de Dados | Aprovado | 80,00 |
-| ADS502 | Desenvolvimento Web I e Projeto Integrador | Aprovado | 88,00 |
-| UNI133 | Estatística I | Aprovado | 74,00 |
+| Código | Disciplina | Situação |
+|---|---|---|
+| ADS001 | Fundamentos em Análise e Desenvolvimento de Sistemas | Aprovado |
+| ADS100 | Programação de Computadores I | Aprovado |
+| ADS200 | Organização e Arquitetura de Computadores | Aprovado |
+| ADS202 | Banco de Dados | Aprovado |
+| ADS502 | Desenvolvimento Web I e Projeto Integrador | Aprovado |
+| UNI133 | Estatística I | Aprovado |
 
 ### 2024-2
-| Código | Disciplina | Situação | Nota |
-|---|---|---|---|
-| ADS101 | Programação de Computadores II | Aprovado | 74,00 |
-| ADS107 | Desenvolvimento Web II | Aprovado | 76,00 |
-| ADS201 | Sistemas Operacionais e IOT | Aprovado | 82,00 |
-| ADS300 | Engenharia de Software I | Aprovado | 65,00 |
-| ADS501 | Design de Interação e Projeto Integrador | Aprovado | 80,00 |
-| UNI170 | Interpretação e Produção de Textos | Aproveitamento Externo | — |
+| Código | Disciplina | Situação |
+|---|---|---|
+| ADS101 | Programação de Computadores II | Aprovado |
+| ADS107 | Desenvolvimento Web II | Aprovado |
+| ADS201 | Sistemas Operacionais e IOT | Aprovado |
+| ADS300 | Engenharia de Software I | Aprovado |
+| ADS501 | Design de Interação e Projeto Integrador | Aprovado |
+| UNI170 | Interpretação e Produção de Textos | Aproveitamento Externo |
 
 ### 2025-1
-| Código | Disciplina | Situação | Nota |
-|---|---|---|---|
-| ADS104 | Estrutura de Dados | Aprovado | 70,00 |
-| ADS301 | Engenharia de Software II | Aprovado | 85,00 |
-| ADS305 | Redes de Computadores, Sistemas Distribuídos e Cloud Computing | Aprovado | 66,00 |
-| ADS503 | Interação Humano Computador e Projeto Integrador | Aprovado | 84,00 |
-| INF126 | Informática e Sociedade | Aprovado | 64,00 |
+| Código | Disciplina | Situação |
+|---|---|---|
+| ADS104 | Estrutura de Dados | Aprovado |
+| ADS301 | Engenharia de Software II | Aprovado |
+| ADS305 | Redes de Computadores, Sistemas Distribuídos e Cloud Computing | Aprovado |
+| ADS503 | Interação Humano Computador e Projeto Integrador | Aprovado |
+| INF126 | Informática e Sociedade | Aprovado |
 
 ### 2025-2
-| Código | Disciplina | Situação | Nota |
-|---|---|---|---|
-| ADM235 | Empresa Simulada | Aprovado | 67,00 |
-| ADS307 | Projeto de Sistemas para Internet | Aprovado | 83,00 |
-| ADS310 | Gestão de Dados, Big Data e Data Mining | Aprovado | 64,00 |
-| ADS405 | Gestão de Projetos | Aprovado | 64,00 |
-| ADS504 | Arquitetura de Software e Projeto Integrador | Aprovado | 75,00 |
-| UNI150 | Empreendedorismo e Inovação | Aprovado | 68,00 |
+| Código | Disciplina | Situação |
+|---|---|---|
+| ADM235 | Empresa Simulada | Aprovado |
+| ADS307 | Projeto de Sistemas para Internet | Aprovado |
+| ADS310 | Gestão de Dados, Big Data e Data Mining | Aprovado |
+| ADS405 | Gestão de Projetos | Aprovado |
+| ADS504 | Arquitetura de Software e Projeto Integrador | Aprovado |
+| UNI150 | Empreendedorismo e Inovação | Aprovado |
 
 ### 2026-1 — *em andamento*
 | Código | Disciplina | Situação |
@@ -92,14 +93,8 @@ Serve como registro do meu percurso e evolução ao longo do curso.
 | ADS309 | Segurança e Confiabilidade de Sistemas | Matriculado |
 | ADS404 | Atividades Complementares | Matriculado |
 | ADS505 | Implantação de Soluções em TI e Projeto Integrador | Matriculado |
-| UNI440 | Fundamentos de Administração | Matriculado |
-| UNI506 | Homem, Sociedade e Meio Ambiente | Matriculado |
-
-### Eletivas pendentes
-| Código | Disciplina |
-|---|---|
-| ADS311 | Tópicos Especiais |
-| ADS312 | Optativa |
+| UNI440 | Fundamentos de Administração *(eletiva)* | Matriculado |
+| UNI506 | Homem, Sociedade e Meio Ambiente *(optativa)* | Matriculado |
 
 <img src="https://capsule-render.vercel.app/api?type=rect&color=timeGradient&height=2" width="100%"/>
 
