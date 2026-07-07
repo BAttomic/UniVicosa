@@ -1,2 +1,2 @@
-# Ignorar todas as pastas Aulas em qualquer profundidade
-**/Aulas/
+# Dependências de projetos JS (submódulos têm os seus próprios .gitignore)
+**/node_modules/
