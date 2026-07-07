@@ -32,7 +32,7 @@ Serve como registro do meu percurso e evolução ao longo do curso.
 | **[Inovatech](<ADS501 - Design de Interação e Projeto Integrador/Inovatech>)** | ADS501 | Web | Projeto integrador de design de interação. |
 | **[Práticas de IA](<ADS308 - Inteligência Artificial/Práticas>)** | ADS308 | Python · Jupyter | Notebooks de práticas e trabalho prático de Inteligência Artificial. |
 
-> Os três primeiros são submódulos git (repositórios próprios) referenciados aqui.
+> Todos os projetos acima ficam **dentro deste repositório**, nas pastas das respectivas disciplinas — é só clicar para navegar.
 
 <img src="https://capsule-render.vercel.app/api?type=rect&color=timeGradient&height=2" width="100%"/>
 
