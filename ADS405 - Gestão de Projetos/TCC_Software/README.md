@@ -1,106 +1,137 @@
-# TicketFlow
+<h1 align="center">🎟️ TicketFlow</h1>
 
-Plataforma web full-stack para venda de ingressos online. Qualquer pessoa pode
-criar e gerenciar eventos, vender ingressos com QR Code dinâmico e fazer
-check-in (inclusive offline).
+<p align="center">
+  Plataforma web full-stack para <b>venda de ingressos online</b>: qualquer pessoa cria e gerencia eventos,
+  vende ingressos com <b>QR Code dinâmico</b> e faz <b>check-in — inclusive offline</b>.
+</p>
 
-## Stack
-- Next.js 16 (App Router) + Turbopack
-- TypeScript strict
-- MongoDB + Mongoose
-- TailwindCSS + shadcn/ui
-- NextAuth v5 (Credentials + JWT)
-- Vitest (unitário) + Playwright (e2e)
+<p align="center">
+  <img src="https://img.shields.io/badge/Next.js-16-000000?logo=nextdotjs&logoColor=white" alt="Next.js"/>
+  <img src="https://img.shields.io/badge/TypeScript-strict-3178C6?logo=typescript&logoColor=white" alt="TypeScript"/>
+  <img src="https://img.shields.io/badge/MongoDB-Mongoose-47A248?logo=mongodb&logoColor=white" alt="MongoDB"/>
+  <img src="https://img.shields.io/badge/NextAuth-v5-000000?logo=auth0&logoColor=white" alt="NextAuth"/>
+  <img src="https://img.shields.io/badge/Tailwind-shadcn/ui-06B6D4?logo=tailwindcss&logoColor=white" alt="Tailwind"/>
+  <img src="https://img.shields.io/badge/tests-Vitest%20%2B%20Playwright-6E9F18?logo=vitest&logoColor=white" alt="Tests"/>
+  <img src="https://img.shields.io/badge/Docker-ready-2496ED?logo=docker&logoColor=white" alt="Docker"/>
+</p>
 
-## Modelo de negócio
-Criar conta e organizar eventos é gratuito. A plataforma monetiza por:
-- **Taxa de serviço de 5%** sobre o valor das vendas — uma das menores do mercado.
-- **Destaque/promoção de eventos** dentro da plataforma: eventos patrocinados
-  ganham posição de destaque na home e na listagem pública.
+> 📄 Este é o **software do TCC**. A monografia (LaTeX) está em **[`../TCC_Source`](../TCC_Source)** e o PDF compilado em [`public/tcc.pdf`](public/tcc.pdf).
 
-## Requisitos
-- Node.js 20+
-- pnpm
-- Uma instância de MongoDB acessível (local ou remota)
+---
 
-## Como rodar
-1. Instale as dependências: `pnpm install`
-2. Configure o ambiente: copie `.env.example` para `.env.local` e preencha as
-   variáveis (principalmente `MONGODB_URI`). O `.env.local` é o arquivo que o app
-   e os scripts realmente usam.
-3. Popule dados de exemplo: `pnpm seed`
-4. Inicie o app: `pnpm dev` (http://localhost:3000)
+## 📸 Telas
 
-## Scripts
+| Home pública | Página de evento |
+|:---:|:---:|
+| ![Home](public/apresentacao-assets/01-home.png) | ![Evento](public/apresentacao-assets/03-evento-detalhe.png) |
+| **Check-in (scanner QR + offline)** | **Analytics da plataforma** |
+| ![Check-in](public/apresentacao-assets/07-checkin.png) | ![Analytics](public/apresentacao-assets/12-analytics.png) |
+
+<p align="center">
+  <img src="public/apresentacao-assets/mobile-ticket.png" width="260" alt="Ingresso mobile com QR dinâmico"/><br/>
+  <sub>Ingresso no celular com <b>QR renovado a cada 30s</b> (anti-print).</sub>
+</p>
+
+## ✨ O que faz
+
+- **Eventos**: criação/gestão pública, capas, eventos em **destaque** (patrocinados) com prioridade na home.
+- **Ingressos**: lotes programados, fila de espera, checkout com **taxa de serviço de 5%** e **QR dinâmico** (HMAC rotativo, com titular e CPF ocultável).
+- **Check-in**: scanner QR com **modo offline** (cache + fila + sincronização) e lista de compradores em CSV.
+- **Analytics**: faturamento, GMV, ticket médio e tendências com intervalos (semana/mês/ano/total + período custom).
+- **Privacidade/LGPD**: consentimento de cookies, central em `/privacidade`, exportar dados (JSON), corrigir perfil e excluir conta.
+- **Segurança**: middleware com headers de segurança + proteção de rotas; health endpoint com verificação de DB.
+
+## 💰 Modelo de negócio
+
+Criar conta e organizar eventos é **gratuito**. A plataforma monetiza por:
+- **Taxa de serviço de 5%** sobre as vendas (paga pelo comprador; repasse de 100% ao organizador).
+- **Destaque/promoção** de eventos (patrocinados ganham posição na home e na listagem).
+
+## 🧱 Stack
+
+| Camada | Tecnologia |
+|---|---|
+| Framework | Next.js 16 (App Router) + Turbopack |
+| Linguagem | TypeScript (strict) |
+| Dados | MongoDB + Mongoose |
+| UI | TailwindCSS + shadcn/ui |
+| Auth | NextAuth v5 (Credentials + JWT) |
+| Testes | Vitest (unitário) + Playwright (e2e) |
+| Deploy | Docker (multi-stage, Next standalone) |
+
+## 🏗️ Arquitetura
+
+Domínio organizado em **módulos** (`modules/<domínio>`) com modelos, repositórios e schemas próprios; a aplicação chega via **Server Actions** e **Route Handlers**.
+
+```mermaid
+flowchart TD
+  UI[Next.js App Router · RSC + Client] --> SA[Server Actions]
+  UI --> API[Route Handlers /api]
+  SA --> Mods{{Módulos de domínio}}
+  API --> Mods
+  Mods --> Events[events]
+  Mods --> Tickets[tickets]
+  Mods --> Orders[orders]
+  Mods --> Identity[identity]
+  Mods --> Audit[audit]
+  Events & Tickets & Orders & Identity & Audit --> Repo[Repositories]
+  Repo --> DB[(MongoDB · Mongoose)]
+  UI -. sessão .-> Auth[NextAuth v5 · JWT]
+  Tickets -. QR HMAC rotativo .-> QR[TICKET_HMAC_SECRET]
+```
+
+## 👥 Papéis (acesso por evento)
+
+O acesso global é apenas **usuário** ou **admin**. Qualquer usuário cria eventos (virando organizador) e adiciona operadores por evento (`EventStaff`).
+- **usuário** — compra ingressos, cria/gerencia os próprios eventos e faz check-in onde é organizador/operador.
+- **operador (por evento)** — check-in e download de compradores daquele evento.
+- **admin** — gerencia todos os eventos e usuários; analytics e cortesias.
+
+## ▶️ Como rodar
+
+```bash
+pnpm install
+cp .env.example .env.local     # preencha ao menos MONGODB_URI
+pnpm seed                       # popula o cenário de exemplo (Viçosa)
+pnpm dev                        # http://localhost:3000
+```
+
+**Requisitos:** Node.js 20+ · pnpm · uma instância de MongoDB.
+
+<details>
+<summary>📜 Scripts principais</summary>
+
 | Comando | O que faz |
 | --- | --- |
-| `pnpm dev` | Sobe o servidor de desenvolvimento com hot reload em `localhost:3000`. |
-| `pnpm build` | Gera a build de produção (Turbopack) e roda o type-check do Next. |
-| `pnpm start` | Sobe a build de produção já gerada (requer `pnpm build` antes). |
-| `pnpm typecheck` | Verifica os tipos com `tsc --noEmit` (não gera arquivos). |
-| `pnpm lint` | Roda o ESLint em todo o projeto. |
-| `pnpm lint:fix` | Roda o ESLint corrigindo automaticamente o que for possível. |
-| `pnpm test` | Executa os testes unitários (Vitest) uma única vez. |
-| `pnpm test:watch` | Executa os testes unitários em modo watch. |
-| `pnpm test:e2e` | Executa os testes end-to-end com Playwright. |
-| `pnpm seed` | Popula o banco com o cenário padrão (Viçosa). **Limpa e recria** os dados. |
-| `pnpm seed:vicosa` | Cenário completo: eventos da região de Viçosa (mais próximos) + grandes eventos nacionais. |
-| `pnpm seed:brasil` | Foco nos grandes eventos nacionais (Rock in Rio, Lollapalooza, Carnaval, F1, CCXP, etc.). |
-| `pnpm db:reset` | Reseta as coleções do banco (`scripts/reset-db.ts`). |
-| `pnpm shadcn` | Atalho para o CLI do shadcn/ui (adicionar componentes de UI). |
+| `pnpm dev` / `pnpm build` / `pnpm start` | Dev com hot reload / build de produção / servir build |
+| `pnpm typecheck` / `pnpm lint` / `pnpm lint:fix` | Type-check e lint |
+| `pnpm test` / `pnpm test:watch` / `pnpm test:e2e` | Vitest (unitário) e Playwright (e2e) |
+| `pnpm seed` / `pnpm seed:vicosa` / `pnpm seed:brasil` | Popula dados (**limpa e recria**) |
+| `pnpm db:reset` | Reseta as coleções |
 
-> O `pnpm seed` apaga usuários, eventos, ingressos, lotes, pedidos, tickets,
-> check-ins e equipe antes de recriar tudo. Use somente em base de desenvolvimento.
+> ⚠️ Os `seed`/`db:reset` **apagam e recriam** os dados — use apenas em base de desenvolvimento.
+</details>
 
-## Papéis (acesso por evento)
-O acesso global é apenas **usuário** ou **admin**. Qualquer usuário pode criar
-eventos (tornando-se o organizador deles) e, dentro de cada evento, adicionar
-outros usuários como operadores (coleção `EventStaff`).
-- **usuário**: compra ingressos, cria/gerencia os próprios eventos e faz check-in dos eventos onde é organizador ou operador (atalho no header).
-- **operador (por evento)**: faz check-in e baixa a lista de compradores daquele evento; vê em "Meus eventos" os eventos onde atua como operador.
-- **admin**: gerencia todos os eventos (editar, excluir, analytics, cortesias) e usuários. Faz check-in pelo gerenciador de eventos (não há atalho no header).
+<details>
+<summary>🔑 Variáveis de ambiente & contas de teste</summary>
 
-## Contas de teste (seed)
-Senha para todas: `Password123!`
-- `admin@ticketflow.com` — admin (painel administrativo)
-- `organizer1@ticketflow.com` — organizador (perfil PJ; dono de vários eventos)
-- `operator@ticketflow.com` — operador (faz check-in em alguns eventos)
-- `buyer1@ticketflow.com` — comprador com pedidos e ingressos (testa `/orders` e `/tickets`)
+**Obrigatórias:** `MONGODB_URI`, `NEXTAUTH_SECRET`, `NEXTAUTH_URL`, `JWT_SECRET`, `TICKET_HMAC_SECRET`
+**Opcionais:** `RESEND_API_KEY` (e-mail), `STRIPE_SECRET_KEY` (o checkout atual é simulado). Lista completa em `.env.example`.
 
-## Variáveis de ambiente
-Veja `.env.example` para a lista completa.
+**Contas do seed** (senha `Password123!`):
+- `admin@ticketflow.com` — admin
+- `organizer1@ticketflow.com` — organizador
+- `operator@ticketflow.com` — operador
+- `buyer1@ticketflow.com` — comprador (com pedidos e ingressos)
+</details>
 
-Obrigatórias:
-- `MONGODB_URI`
-- `NEXTAUTH_SECRET`
-- `NEXTAUTH_URL`
-- `JWT_SECRET`
-- `TICKET_HMAC_SECRET`
+## 📄 Documentação
 
-Opcionais:
-- `RESEND_API_KEY` (envio de e-mails)
-- `STRIPE_SECRET_KEY` (pagamento real — atualmente o checkout é simulado)
+Plano de projeto completo (arquitetura, requisitos, escopo, cronograma e custos) em [`TCC.md`](TCC.md).
 
-## Privacidade e LGPD
-- Banner de consentimento de cookies (essenciais x não essenciais) em todas as páginas.
-- Central de privacidade em `/privacidade`: dados coletados, cookies usados e requisições LGPD.
-- Requisições do titular: exportar dados (JSON), corrigir perfil e excluir conta.
+---
 
-## Documentação do projeto
-Plano de projeto completo (arquitetura, requisitos, escopo, cronograma e custos) em `TCC.md`.
-
-## Status atual
-- Home com eventos em destaque e capas
-- Autenticação (registro, login, recuperação de senha com stub)
-- Páginas públicas de eventos (listagem e detalhes) responsivas
-- Gestão de eventos, ingressos, lotes e analytics por organizador
-- Equipe por evento (operadores) e cortesias (ingressos gratuitos sem valor para o faturamento)
-- Analytics da plataforma com intervalos (semana/mês/ano/total e período personalizado) e comparativos
-- Compra com pagamento simulado e ingressos com QR dinâmico (com lote, titular e CPF com ocultar/mostrar)
-- Taxa de serviço de 5% somada ao comprador no checkout (repasse de 100% ao organizador)
-- Eventos em destaque (patrocinados) com prioridade na home e na listagem
-- Check-in com scanner QR, modo offline (cache + fila) e sincronização
-- Lista de compradores em CSV para conferência offline
-- Consentimento de cookies + central de privacidade (LGPD)
-- Health endpoint com verificação de DB
-- Middleware com headers de segurança + proteção de rotas
+<p align="center">
+  <sub>📚 <b>ADS405 — Gestão de Projetos</b> · Análise e Desenvolvimento de Sistemas — UniViçosa</sub><br/>
+  <sub>Parte do repositório-portfólio <a href="../../">UniVicosa</a> · Curso concluído 🎓 · 👤 Bernardo Cordeiro Motta</sub>
+</p>

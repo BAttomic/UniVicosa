@@ -1,4 +1,4 @@
-<img src="https://capsule-render.vercel.app/api?type=waving&color=timeGradient&height=180&section=header&text=Gradua%C3%A7%C3%A3o%20em%20ADS&fontSize=48&fontColor=ffffff&desc=Bernardo%20Cordeiro%20Motta%20%C2%B7%20UniVi%C3%A7osa&descSize=18&descAlignY=62" width="100%"/>
+<img src="https://capsule-render.vercel.app/api?type=waving&color=timeGradient&height=180&section=header&text=Gradua%C3%A7%C3%A3o%20em%20ADS&fontSize=48&fontColor=ffffff&desc=Curso%20conclu%C3%ADdo%20%C2%B7%20Bernardo%20Cordeiro%20Motta%20%C2%B7%20UniVi%C3%A7osa&descSize=18&descAlignY=62" width="100%"/>
 
 # 🎓 Graduação em Análise e Desenvolvimento de Sistemas
 
@@ -16,9 +16,9 @@ Serve como registro do meu percurso e evolução ao longo do curso.
 | | |
 |---|---|
 | **Disciplinas no currículo** | 32 |
-| **Disciplinas concluídas** | 24 |
-| **Carga horária integralizada** | ≈ 1.560h |
-| **Situação** | Concluindo o curso 🎯 |
+| **Disciplinas concluídas** | 32 ✅ |
+| **Carga horária** | Integralizada (100%) |
+| **Situação** | **Curso concluído** 🎓 |
 
 <img src="https://capsule-render.vercel.app/api?type=rect&color=timeGradient&height=2" width="100%"/>
 
@@ -84,17 +84,17 @@ Serve como registro do meu percurso e evolução ao longo do curso.
 | ADS504 | Arquitetura de Software e Projeto Integrador | Aprovado |
 | UNI150 | Empreendedorismo e Inovação | Aprovado |
 
-### 2026-1 — *em andamento*
+### 2026-1
 | Código | Disciplina | Situação |
 |---|---|---|
-| ADS108 | Linguagens de Programação | Matriculado |
-| ADS306 | Desenvolvimento para Dispositivos Móveis e Games | Matriculado |
-| ADS308 | Inteligência Artificial | Matriculado |
-| ADS309 | Segurança e Confiabilidade de Sistemas | Matriculado |
-| ADS404 | Atividades Complementares | Matriculado |
-| ADS505 | Implantação de Soluções em TI e Projeto Integrador | Matriculado |
-| UNI440 | Fundamentos de Administração *(eletiva)* | Matriculado |
-| UNI506 | Homem, Sociedade e Meio Ambiente *(optativa)* | Matriculado |
+| ADS108 | Linguagens de Programação | Aprovado |
+| ADS306 | Desenvolvimento para Dispositivos Móveis e Games | Aprovado |
+| ADS308 | Inteligência Artificial | Aprovado |
+| ADS309 | Segurança e Confiabilidade de Sistemas | Aprovado |
+| ADS404 | Atividades Complementares | Aprovado |
+| ADS505 | Implantação de Soluções em TI e Projeto Integrador | Aprovado |
+| UNI440 | Fundamentos de Administração *(eletiva)* | Aprovado |
+| UNI506 | Homem, Sociedade e Meio Ambiente *(optativa)* | Aprovado |
 
 <img src="https://capsule-render.vercel.app/api?type=rect&color=timeGradient&height=2" width="100%"/>
 
@@ -114,7 +114,7 @@ React Native (Expo), Next.js.
 
 **Ambientes:** VS Code, Visual Studio, Dev-C++, MySQL Workbench, Jupyter, Docker.
 
-**Assistentes:** utilizo IA (ex.: ChatGPT, GitHub Copilot, Claude) como apoio — todo o
+**Assistentes:** utilizo IA (ex.: ChatGPT, GitHub Copilot) como apoio — todo o
 código é revisado e adaptado por mim.
 
 <img src="https://capsule-render.vercel.app/api?type=waving&color=timeGradient&height=120&section=footer" width="100%"/>

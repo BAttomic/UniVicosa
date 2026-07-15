@@ -1,97 +1,81 @@
-# DamaLink - Câmbio + Damas 2D
+<p align="center">
+  <img src="assets/icon.png" width="110" alt="DamaLink"/>
+</p>
 
-Projeto para a disciplina ADS306 — Desenvolvimento para Dispositivos Móveis e Games.
+<h1 align="center">DamaLink</h1>
 
-Um aplicativo híbrido que combina um utilitário de câmbio (AwesomeAPI) com um jogo de damas 2D.
+<p align="center">
+  App mobile híbrido: <b>utilitário de câmbio</b> (cotações em tempo real) + <b>jogo de damas 2D</b>.
+</p>
 
-## Tecnologias
+<p align="center">
+  <img src="https://img.shields.io/badge/Expo-SDK%2054-000020?logo=expo&logoColor=white" alt="Expo"/>
+  <img src="https://img.shields.io/badge/React%20Native-61DAFB?logo=react&logoColor=black" alt="React Native"/>
+  <img src="https://img.shields.io/badge/JavaScript-F7DF1E?logo=javascript&logoColor=black" alt="JavaScript"/>
+  <img src="https://img.shields.io/badge/API-AwesomeAPI-4B32C3" alt="AwesomeAPI"/>
+</p>
 
-- **React Native** (Expo)
-- **React Navigation** (Bottom Tabs + Native Stack)
-- **Axios** (consumo de API REST)
-- **Hooks customizados** (useExchangeRates, useExchangeDetail)
-- **Lógica pura** para regras do jogo de Damas
+---
 
-## API
+## ✨ Funcionalidades
 
-- **AwesomeAPI** - https://economia.awesomeapi.com.br
+**💱 Aba Câmbio** — consome a [AwesomeAPI](https://economia.awesomeapi.com.br)
+- Lista dos principais pares do real (BRL) com cotação de compra, variação e atualização.
+- Estados de **loading, erro e vazio** tratados; resiliência a falhas de rede e timeout.
 
-## Funcionalidades
+**🔴 Aba Jogo (Damas)** — regras completas em lógica pura
+- Tabuleiro 8×8 responsivo, **captura obrigatória e encadeada**, promoção a dama.
+- Dama move/captura em diagonal por qualquer distância; brancas sempre começam.
+- Bot adversário, timer de turno (30s), placar e modal de fim de jogo.
 
-### Aba Câmbio
-- Lista de pares principais do real (BRL)
-- Cartões com compra, variação e atualização
-- Estados de loading, erro e vazio
-- Tratamento de falhas de rede e timeout
+## 🧱 Stack
 
-### Aba Jogo (Damas)
-- Tabuleiro 8x8 responsivo
-- Captura obrigatória e captura encadeada
-- Promoção a dama
-- Dama move e captura em diagonais por qualquer distância
-- Brancas sempre começam (mesmo se for o bot)
-- Player 1 sempre embaixo, com 50% de chance de ser preto ou branco
-- Bot adversário com movimentos aleatórios
-- Timer de turno (30s), placar e modal de fim de jogo
+| Camada | Tecnologia |
+|---|---|
+| App | React Native (Expo) |
+| Navegação | React Navigation (Bottom Tabs + Native Stack) |
+| Rede | Axios (AwesomeAPI) |
+| Estado | Hooks customizados (`useExchangeRates`, `useExchangeDetail`) |
+| Lógica de jogo | JavaScript puro (`checkersEngine`) |
 
-## Arquitetura
+## 🏗️ Arquitetura
 
-Organização **feature-based**: cada domínio (damas, câmbio) é autocontido em
-`src/features/<feature>`, com telas, hooks e lógica próprios. Código transversal
-(botões, tema, gradiente neon, utilitários) vive em `src/shared`, e a composição
-das features acontece em `src/navigation`. A regra do jogo é separada da UI:
-`checkersEngine` concentra toda a lógica das damas.
+Organização **feature-based**: cada domínio (damas, câmbio) é autocontido em `src/features/<feature>`, com telas, hooks e lógica próprios. O código transversal vive em `src/shared` e a regra do jogo é separada da UI.
 
-```
-├── App.js
-├── app.json
-├── babel.config.js
-├── package.json
-├── README.md
-└── src/
-    ├── features/
-    │   ├── checkers/
-    │   │   ├── logic/
-    │   │   │   └── checkersEngine.js     # regras das damas (captura, dama, etc.)
-    │   │   └── screens/
-    │   │       └── CheckersGameScreen.jsx
-    │   └── exchange/
-    │       ├── services/
-    │       │   └── exchangeApi.js         # cliente Axios da AwesomeAPI
-    │       ├── hooks/
-    │       │   ├── useExchangeRates.js
-    │       │   └── useExchangeDetail.js
-    │       └── screens/
-    │           ├── ExchangeListScreen.jsx
-    │           └── ExchangeDetailScreen.jsx
-    ├── navigation/
-    │   ├── RootTabNavigator.jsx           # abas Câmbio | Jogo
-    │   └── ExchangeStackNavigator.jsx     # lista -> detalhe do câmbio
-    └── shared/
-        ├── components/                    # Button, Header, InfoCard, etc.
-        ├── hooks/
-        │   └── useGameLoop.js             # game loop (requestAnimationFrame)
-        ├── theme/
-        │   ├── colors.js                  # paleta neon + gradientes
-        │   └── dimensions.js              # tokens responsivos
-        └── utils/
-            └── collisionDetection.js
+```mermaid
+flowchart TD
+  App[App.js] --> Nav[navigation · RootTabNavigator]
+  Nav -->|aba 💱| Exch[features/exchange]
+  Nav -->|aba 🔴| Game[features/checkers]
+  Exch --> Hooks[hooks · useExchangeRates / Detail]
+  Hooks --> ApiC[services/exchangeApi · Axios → AwesomeAPI]
+  Game --> Engine[logic/checkersEngine · regras das damas]
+  Exch -. usa .-> Shared[shared · componentes · tema neon · utils]
+  Game -. usa .-> Shared
 ```
 
-## Apresentação
-
-`apresentacao.html` na raiz é um deck de slides (navegável por teclado/clique)
-com a visão geral do projeto, arquitetura e stack — abra direto no navegador.
-
-## Instalação
+## ▶️ Como executar
 
 ```bash
 npm install
+npm start          # abre o Metro; escaneie o QR com o Expo Go
 ```
 
-## Execução
+```bash
+npm run android    # emulador/dispositivo Android
+npm run ios         # simulador iOS
+npm run web         # navegador
+```
 
-- **Android**: `npm run android`
-- **iOS**: `npm run ios`
-- **Web**: `npm run web`
-- **QR Code**: `npm start` e escaneie com o app Expo Go
+**Requisitos:** Node 20 LTS · Expo Go (Android/iOS) ou emulador/simulador.
+
+## 🖥️ Apresentação
+
+`apresentacao.html` (na raiz do projeto) é um deck de slides navegável com a visão geral de projeto, arquitetura e stack — abra direto no navegador.
+
+---
+
+<p align="center">
+  <sub>📚 <b>ADS306 — Desenvolvimento para Dispositivos Móveis e Games</b> · Análise e Desenvolvimento de Sistemas — UniViçosa</sub><br/>
+  <sub>Parte do repositório-portfólio <a href="../../">UniVicosa</a> · Curso concluído 🎓 · 👤 Bernardo Cordeiro Motta</sub>
+</p>
