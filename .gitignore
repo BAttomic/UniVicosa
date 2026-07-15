@@ -1,2 +1,5 @@
 # Dependências de projetos JS (submódulos têm os seus próprios .gitignore)
 **/node_modules/
+
+# Slides das aulas (material do professor) — ficam locais, fora do GitHub
+**/Aulas/
