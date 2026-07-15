@@ -21,16 +21,28 @@
 
 ## 📸 Telas
 
-| Home pública | Página de evento |
-|:---:|:---:|
-| ![Home](public/apresentacao-assets/01-home.png) | ![Evento](public/apresentacao-assets/03-evento-detalhe.png) |
-| **Check-in (scanner QR + offline)** | **Analytics da plataforma** |
-| ![Check-in](public/apresentacao-assets/07-checkin.png) | ![Analytics](public/apresentacao-assets/12-analytics.png) |
+### 🖥️ Desktop
 
-<p align="center">
-  <img src="public/apresentacao-assets/mobile-ticket.png" width="260" alt="Ingresso mobile com QR dinâmico"/><br/>
-  <sub>Ingresso no celular com <b>QR renovado a cada 30s</b> (anti-print).</sub>
-</p>
+<table align="center">
+  <tr>
+    <td align="center" width="50%"><img src="public/apresentacao-assets/01-home.png" width="400" alt="Home pública"/><br/><sub><b>Home pública</b> · busca + eventos em destaque</sub></td>
+    <td align="center" width="50%"><img src="public/apresentacao-assets/14-pre-venda.png" width="400" alt="Evento em pré-venda"/><br/><sub><b>Pré-venda</b> · fila de espera por ordem de chegada</sub></td>
+  </tr>
+  <tr>
+    <td align="center" width="50%"><img src="public/apresentacao-assets/05-organizer-vendas.png" width="400" alt="Vendas do organizador"/><br/><sub><b>Organizador</b> · vendas e ocupação do evento</sub></td>
+    <td align="center" width="50%"><img src="public/apresentacao-assets/12-analytics.png" width="400" alt="Analytics da plataforma"/><br/><sub><b>Analytics</b> · faturamento, GMV e tendências</sub></td>
+  </tr>
+</table>
+
+### 📱 Mobile
+
+<table align="center">
+  <tr>
+    <td align="center"><img src="public/apresentacao-assets/mobile-evento.png" width="220" alt="Evento (mobile)"/><br/><sub><b>Evento</b></sub></td>
+    <td align="center"><img src="public/apresentacao-assets/mobile-checkin.png" width="220" alt="Check-in (mobile)"/><br/><sub><b>Check-in</b> · scanner + offline</sub></td>
+    <td align="center"><img src="public/apresentacao-assets/mobile-ticket.png" width="220" alt="Ingresso com QR dinâmico (mobile)"/><br/><sub><b>Ingresso</b> · QR renova a cada 30s</sub></td>
+  </tr>
+</table>
 
 ## ✨ O que faz
 

@@ -23,12 +23,6 @@ Documento acadêmico (norma **ABNT**) que descreve o problema, a pesquisa e a **
 
 📄 **PDF compilado:** [`../TCC_Software/public/tcc.pdf`](../TCC_Software/public/tcc.pdf)
 
-## 🗺️ Mapa de empatia (personas)
-
-Artefato de levantamento de necessidades usado no trabalho — CEO de startup, analista de BI e diretor de TI:
-
-![Mapa de empatia](img/mapaempatia.png)
-
 ## 🗂️ Estrutura
 
 ```

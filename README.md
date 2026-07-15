@@ -11,25 +11,16 @@ Serve como registro do meu percurso e evolução ao longo do curso.
 
 <img src="https://capsule-render.vercel.app/api?type=rect&color=timeGradient&height=2" width="100%"/>
 
-## 📊 Resumo
-
-| | |
-|---|---|
-| **Disciplinas no currículo** | 32 |
-| **Disciplinas concluídas** | 32 ✅ |
-| **Carga horária** | Integralizada (100%) |
-| **Situação** | **Curso concluído** 🎓 |
-
-<img src="https://capsule-render.vercel.app/api?type=rect&color=timeGradient&height=2" width="100%"/>
-
 ## 🚀 Projetos em destaque
 
 | Projeto | Disciplina | Stack | Descrição |
 |---|---|---|---|
-| **[TCC_Software](<ADS405 - Gestão de Projetos/TCC_Software>)** | ADS405 | Next.js · TypeScript · Docker | Aplicação web do TCC, com testes (Playwright/Vitest) e containerização. |
-| **[ChessMate](<ADS306 - Desenvolvimento para Dispositivos Móveis e Games/ChessMate>)** | ADS306 | React Native · Expo | Jogo de xadrez mobile. |
-| **[DamaLink](<ADS306 - Desenvolvimento para Dispositivos Móveis e Games/DamaLink>)** | ADS306 | React Native · Expo | Jogo de damas mobile. |
-| **[Inovatech](<ADS501 - Design de Interação e Projeto Integrador/Inovatech>)** | ADS501 | Web | Projeto integrador de design de interação. |
+| **[TCC_Software](<ADS405 - Gestão de Projetos/TCC_Software>)** | ADS405 | Next.js · TypeScript · Docker | Aplicação web do TCC (TicketFlow): venda de ingressos com QR dinâmico, testes (Playwright/Vitest) e Docker. |
+| **[TCC_Source](<ADS405 - Gestão de Projetos/TCC_Source>)** | ADS405 | LaTeX · ABNT | Monografia do TCC — fundamentação e arquitetura do sistema de ingressos. |
+| **[ChessMate](<ADS306 - Desenvolvimento para Dispositivos Móveis e Games/ChessMate>)** | ADS306 | React Native · Expo | Jogo de xadrez mobile com IA (negamax + alfa-beta). |
+| **[DamaLink](<ADS306 - Desenvolvimento para Dispositivos Móveis e Games/DamaLink>)** | ADS306 | React Native · Expo | App híbrido: câmbio (AwesomeAPI) + jogo de damas. |
+| **[Banco de Dados](<ADS202 - Banco de Dados>)** | ADS202 | SQL · Modelagem ER | Modelagem Entidade-Relacionamento e práticas SQL. |
+| **[Gestão de Dados & Big Data](<ADS310 - Gestão de Dados, Big Data e Data Mining>)** | ADS310 | Big Data · Data Mining | Governança de dados, Big Data e mineração de dados. |
 | **[Práticas de IA](<ADS308 - Inteligência Artificial/Práticas>)** | ADS308 | Python · Jupyter | Notebooks de práticas e trabalho prático de Inteligência Artificial. |
 
 > Todos os projetos acima ficam **dentro deste repositório**, nas pastas das respectivas disciplinas — é só clicar para navegar.
