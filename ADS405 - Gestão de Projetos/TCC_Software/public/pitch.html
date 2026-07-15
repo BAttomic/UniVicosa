@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+<title>TicketFlow — Pitch de 3 minutos</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Unbounded:wght@500;700;900&family=Sora:wght@300;400;600;700;800&display=swap');
+
+  *{box-sizing:border-box;margin:0;padding:0;}
+  :root{
+    --bg:#07070B;--bg2:#0C0C13;
+    --card:#101019;--card2:#14141F;
+    --line:rgba(255,255,255,0.08);--line-hi:rgba(255,255,255,0.16);
+    --ink:#F5F7EF;--muted:#9AA1B3;--dim:#5B6172;
+    --volt:#CCFF33;--volt-deep:#9FD40A;
+    --pink:#FF5C8A;--violet:#8B7CFF;
+    --pad-x:clamp(28px,5.5vw,120px);
+    --pad-y:clamp(26px,4.5vh,54px);
+    --disp:"Unbounded","Sora",system-ui,sans-serif;
+    --body:"Sora",system-ui,-apple-system,"Segoe UI",sans-serif;
+  }
+  html,body{height:100%;width:100%;max-width:100%;overflow:hidden;overscroll-behavior:none;
+    background:var(--bg);color:var(--ink);font-family:var(--body);
+    -webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;}
+
+  /* grain */
+  #grain{position:fixed;inset:0;z-index:90;pointer-events:none;opacity:.05;mix-blend-mode:overlay;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E");}
+
+  #stage{position:relative;height:100%;width:100%;overflow:hidden;}
+
+  /* slides empilhados com crossfade (evita camada gigante no Chromium) */
+  .slide{
+    position:absolute;inset:0;width:100%;height:100vh;height:100dvh;
+    padding:var(--pad-y) var(--pad-x);
+    display:flex;flex-direction:column;justify-content:center;
+    overflow:hidden;background:var(--bg);
+    opacity:0;visibility:hidden;pointer-events:none;
+    transition:opacity .45s ease,visibility .45s ease;
+  }
+  .slide.active{opacity:1;visibility:visible;pointer-events:auto;}
+  /* luzes de palco */
+  .slide::before{content:"";position:absolute;width:52vw;height:52vw;top:-20vw;right:-14vw;border-radius:50%;
+    background:radial-gradient(circle,rgba(139,124,255,0.14),transparent 66%);filter:blur(10px);pointer-events:none;}
+  .slide::after{content:"";position:absolute;width:46vw;height:46vw;bottom:-22vw;left:-14vw;border-radius:50%;
+    background:radial-gradient(circle,rgba(204,255,51,0.08),transparent 70%);filter:blur(10px);pointer-events:none;}
+
+  .wrap{width:100%;max-width:1600px;margin:0 auto;position:relative;z-index:2;
+    display:flex;flex-direction:column;min-height:0;max-height:100%;
+    overflow-x:hidden;overflow-y:auto;
+    scrollbar-width:thin;scrollbar-color:rgba(255,255,255,0.18) transparent;}
+  .wrap::-webkit-scrollbar{width:8px;}
+  .wrap::-webkit-scrollbar-thumb{background:rgba(255,255,255,0.16);border-radius:4px;}
+
+  /* ---------- tipografia ---------- */
+  .kicker{font-family:var(--body);font-size:clamp(11px,0.95vw,14px);letter-spacing:.34em;text-transform:uppercase;
+    font-weight:800;color:var(--volt);margin-bottom:1.2rem;display:flex;align-items:center;gap:.85rem;}
+  .kicker::after{content:"";flex:1;height:1px;max-width:210px;background:linear-gradient(90deg,rgba(204,255,51,.5),transparent);}
+  h1{font-family:var(--disp);font-size:clamp(34px,5.4vw,78px);line-height:1.02;font-weight:900;letter-spacing:-.015em;}
+  h1 em,h2 em{font-style:normal;color:var(--volt);}
+  h2{font-family:var(--disp);font-size:clamp(24px,3.1vw,46px);line-height:1.06;font-weight:700;letter-spacing:-.01em;margin-bottom:1.5rem;}
+  h3{font-size:clamp(15px,1.5vw,21px);font-weight:800;color:#FFF;margin-bottom:.45rem;letter-spacing:-.01em;}
+  p,li{font-size:clamp(14px,1.25vw,19px);line-height:1.55;color:var(--muted);}
+  strong{color:#FFF;font-weight:700;}
+  em.hl{font-style:normal;color:var(--volt);font-weight:600;}
+
+  .lead{font-size:clamp(16px,1.9vw,25px);max-width:46ch;color:#E6EAF0;font-weight:300;line-height:1.45;margin-top:1.2rem;}
+
+  /* ---------- layout ---------- */
+  .grid{display:grid;gap:clamp(1rem,1.6vw,1.7rem);}
+  .g3{grid-template-columns:repeat(3,1fr);}
+  .split{display:grid;grid-template-columns:1.02fr .98fr;gap:clamp(1.8rem,4vw,4.5rem);align-items:center;}
+  .split.rev{grid-template-columns:.98fr 1.02fr;}
+
+  /* ---------- canhoto de ingresso (cards) ---------- */
+  .tk{position:relative;background:var(--card);border:1px solid var(--line);border-radius:18px;
+    padding:clamp(1.2rem,1.8vw,2rem);}
+  .tk::before,.tk::after{content:"";position:absolute;width:22px;height:22px;border-radius:50%;
+    background:var(--bg);border:1px solid var(--line);top:50%;transform:translateY(-50%);}
+  .tk::before{left:-12px;border-left-color:transparent;}
+  .tk::after{right:-12px;border-right-color:transparent;}
+  .tk.volt{border-color:rgba(204,255,51,.3);background:rgba(204,255,51,.045);}
+  .tk.pink{border-color:rgba(255,92,138,.3);background:rgba(255,92,138,.05);}
+  .tk .ico{font-size:clamp(1.5rem,2.1vw,2.1rem);margin-bottom:.65rem;display:inline-block;}
+  .tk .big{font-family:var(--disp);font-size:clamp(34px,4.2vw,58px);font-weight:900;line-height:1;
+    color:var(--volt);margin-bottom:.4rem;letter-spacing:-.02em;}
+  .tk .big.word{font-size:clamp(20px,2.2vw,34px);line-height:1.12;letter-spacing:0;}
+  .tk.pink .big{color:var(--pink);}
+
+  /* reserva espaço para o QR absoluto na capa */
+  .cover-main{padding-right:clamp(200px,22vw,380px);}
+  @media(max-width:880px){.cover-main{padding-right:0;}}
+
+  /* ---------- lista check ---------- */
+  ul.feat{list-style:none;display:flex;flex-direction:column;gap:clamp(.7rem,1vw,1.05rem);}
+  ul.feat li{display:flex;gap:.8rem;align-items:flex-start;line-height:1.5;}
+  ul.feat li::before{content:"";flex:0 0 auto;width:10px;height:10px;border-radius:2px;background:var(--volt);
+    margin-top:.5rem;box-shadow:0 0 10px rgba(204,255,51,.65);}
+  ul.feat li b{color:#FFF;}
+
+  /* ---------- mockup navegador ---------- */
+  .browser{border-radius:14px;overflow:hidden;border:1px solid var(--line-hi);background:#0B0B12;
+    box-shadow:0 38px 70px -32px rgba(0,0,0,.92);max-height:70vh;}
+  .browser-bar{display:flex;align-items:center;gap:6px;padding:8px 13px;background:rgba(255,255,255,.04);border-bottom:1px solid var(--line);}
+  .browser-bar i{width:10px;height:10px;border-radius:50%;display:inline-block;}
+  .browser-bar i:nth-child(1){background:#FF5F57;}
+  .browser-bar i:nth-child(2){background:#FEBC2E;}
+  .browser-bar i:nth-child(3){background:#28C840;}
+  .browser-url{margin-left:9px;font-size:11px;color:var(--dim);font-family:ui-monospace,monospace;
+    background:rgba(0,0,0,.4);padding:3px 11px;border-radius:6px;flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+  .browser img{display:block;width:100%;height:auto;}
+  .cap{font-size:11px;color:var(--dim);letter-spacing:.05em;margin-top:.55rem;text-align:center;}
+  .imgph{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.5rem;
+    min-height:clamp(200px,38vh,400px);background:linear-gradient(160deg,#15151F,#0D0D14);color:var(--muted);text-align:center;padding:2rem;}
+  .imgph span{font-size:2.3rem;}
+  .imgph b{color:#CBD5E1;font-size:15px;}
+  .imgph small{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--dim);}
+
+  /* ---------- celular ---------- */
+  .phone{width:clamp(140px,14.5vw,210px);aspect-ratio:9/19.5;background:#0A0A10;border:2px solid rgba(255,255,255,.14);
+    border-radius:30px;padding:6px;box-shadow:0 34px 60px -26px rgba(0,0,0,.95);position:relative;flex:0 0 auto;}
+  .phone::before{content:"";position:absolute;top:6px;left:50%;transform:translateX(-50%);width:34%;height:12px;
+    background:var(--bg);border-radius:0 0 10px 10px;z-index:3;}
+  .phone-screen{position:relative;width:100%;height:100%;border-radius:24px;overflow:hidden;
+    background:linear-gradient(160deg,#1B1B28,#101018);}
+  .phone-screen img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:top center;}
+
+  /* composição notebook + celular sobreposto */
+  .combo{position:relative;padding-bottom:clamp(2rem,4vh,3rem);padding-right:clamp(2.6rem,4vw,4.4rem);}
+  .combo .browser{max-height:50vh;}
+  .combo .phone{position:absolute;right:0;bottom:0;z-index:5;transform:rotate(3deg);width:clamp(120px,11.5vw,180px);}
+
+  /* ---------- faixa marquee (capa) ---------- */
+  .strip{position:absolute;left:-6%;right:-6%;bottom:7.5%;transform:rotate(-2.4deg);z-index:1;
+    background:var(--volt);color:#0A0A0E;padding:.6rem 0;overflow:hidden;pointer-events:none;
+    box-shadow:0 18px 50px -18px rgba(204,255,51,.35);}
+  .strip-in{display:flex;gap:0;white-space:nowrap;width:max-content;animation:mq 22s linear infinite;}
+  .strip span{font-family:var(--disp);font-weight:700;font-size:clamp(12px,1.1vw,16px);letter-spacing:.12em;
+    text-transform:uppercase;padding:0 1.6rem;}
+  @keyframes mq{from{transform:translateX(0);}to{transform:translateX(-50%);}}
+
+  /* ---------- QR ---------- */
+  .qr-box{display:flex;flex-direction:column;align-items:center;gap:.85rem;text-align:center;}
+  .qr-frame{background:#fff;padding:13px;border-radius:16px;line-height:0;box-shadow:0 14px 44px rgba(0,0,0,.5);}
+  .qr-frame img{display:block;width:clamp(130px,12vw,180px);height:auto;image-rendering:pixelated;}
+  .qr-label small{display:block;font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--dim);}
+  .qr-label strong{display:block;font-family:var(--disp);font-size:clamp(14px,1.4vw,20px);color:var(--volt);font-weight:700;margin-top:.15rem;}
+
+  /* ---------- capa ---------- */
+  .cover-foot{display:flex;flex-wrap:wrap;gap:clamp(1.2rem,3vw,3.2rem);margin-top:clamp(1.5rem,4vh,2.8rem);}
+  .cred{display:flex;flex-direction:column;gap:.15rem;}
+  .cred-label{font-size:10px;letter-spacing:.22em;text-transform:uppercase;font-weight:800;color:var(--dim);margin-bottom:.3rem;}
+  .cred strong{font-size:clamp(12px,1.15vw,16px);color:#E6EAF0;font-weight:700;line-height:1.35;}
+  /* ---------- CTA final ---------- */
+  .cta-row{display:flex;align-items:center;gap:clamp(2rem,5vw,5rem);flex-wrap:wrap;margin-top:clamp(1.4rem,3.5vh,2.6rem);}
+  .cta-btn{display:inline-block;font-family:var(--disp);font-weight:700;font-size:clamp(14px,1.4vw,20px);
+    color:#0A0A0E;background:var(--volt);padding:1rem 2rem;border-radius:999px;letter-spacing:.02em;
+    box-shadow:0 16px 44px -14px rgba(204,255,51,.5);}
+
+  /* ---------- HUD ---------- */
+  .hud{position:fixed;bottom:clamp(13px,2.2vh,24px);left:var(--pad-x);right:var(--pad-x);
+    display:flex;justify-content:space-between;align-items:center;gap:1.1rem;z-index:100;pointer-events:none;}
+  .hud-id{font-size:11px;font-weight:800;letter-spacing:.18em;text-transform:uppercase;color:var(--dim);
+    display:flex;align-items:center;gap:.5rem;white-space:nowrap;}
+  .hud-id::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--volt);box-shadow:0 0 8px var(--volt);}
+  .progress{flex:1;max-width:clamp(80px,14vw,190px);height:3px;background:rgba(255,255,255,.1);border-radius:2px;overflow:hidden;}
+  .progress-bar{height:100%;width:0;background:linear-gradient(90deg,var(--violet),var(--volt));transition:width .5s ease;}
+  .counter{font-size:11px;font-weight:800;letter-spacing:.16em;color:var(--dim);font-variant-numeric:tabular-nums;}
+
+  /* ---------- reveal ---------- */
+  .reveal{opacity:0;transform:translateY(22px);transition:opacity .7s cubic-bezier(.16,1,.3,1),transform .7s cubic-bezier(.16,1,.3,1);}
+  .slide.active .reveal{opacity:1;transform:none;}
+  .slide.active .reveal.d1{transition-delay:.07s;}
+  .slide.active .reveal.d2{transition-delay:.15s;}
+  .slide.active .reveal.d3{transition-delay:.23s;}
+  .slide.active .reveal.d4{transition-delay:.31s;}
+
+  /* ---------- responsivo ---------- */
+  @media(max-width:880px){
+    .g3,.split,.split.rev{grid-template-columns:1fr;}
+    .browser{max-height:42vh;}
+    .phone{width:clamp(110px,36vw,150px);}
+    .combo{padding-right:1.8rem;}
+    .strip{bottom:4%;}
+    .hud-right .slide-t{display:none;}
+  }
+  @media(max-height:560px){
+    h2{margin-bottom:.7rem;}
+    .browser{max-height:56vh;}
+  }
+</style>
+</head>
+<body>
+<div id="grain"></div>
+<main id="stage">
+
+  <!-- 1 — GANCHO (≈15s) -->
+  <section class="slide active">
+    <div class="wrap">
+      <div class="cover-main">
+      <div class="kicker reveal">TicketFlow · pitch de 3 minutos</div>
+      <h1 class="reveal d1">Vender ingresso<br>não precisa ser <em>um&nbsp;caos</em>.</h1>
+      <p class="lead reveal d2">
+        O TicketFlow é a plataforma onde <strong>qualquer pessoa</strong> cria um evento, vende ingressos
+        <em class="hl">à prova de fraude</em> e controla a portaria — grátis para começar.
+      </p>
+      <div class="cover-foot reveal d3">
+        <div class="cred">
+          <span class="cred-label">Quem apresenta</span>
+          <strong>Edson Ramos da Silva Junior</strong>
+          <strong>Bernardo Cordeiro Motta</strong>
+        </div>
+        <div class="cred">
+          <span class="cred-label">No ar agora</span>
+          <strong style="color:var(--volt);">soft.battomic.com</strong>
+        </div>
+      </div>
+      </div>
+      <div class="qr-box reveal d3" style="position:absolute;top:50%;right:0;transform:translateY(-50%);z-index:3;">
+        <div class="qr-frame"><img src="apresentacao-assets/qr-soft.svg" alt="QR Code para soft.battomic.com" /></div>
+        <div class="qr-label"><small>Aponte a câmera</small><strong>soft.battomic.com</strong></div>
+      </div>
+    </div>
+    <div class="strip"><div class="strip-in" id="mq">
+      <span>TicketFlow</span><span>★</span><span>Ingresso seguro</span><span>★</span><span>Taxa de 5%</span><span>★</span><span>soft.battomic.com</span><span>★</span>
+      <span>TicketFlow</span><span>★</span><span>Ingresso seguro</span><span>★</span><span>Taxa de 5%</span><span>★</span><span>soft.battomic.com</span><span>★</span>
+    </div></div>
+  </section>
+
+  <!-- 2 — PROBLEMA (≈25s) -->
+  <section class="slide">
+    <div class="wrap">
+      <div class="kicker reveal">O problema</div>
+      <h2 class="reveal d1">Todo grande lançamento<br>termina do <em>mesmo jeito</em></h2>
+      <div class="grid g3 reveal d2">
+        <div class="tk pink">
+          <span class="ico">💥</span>
+          <div class="big word">Fora do ar</div>
+          <h3>O site cai na abertura</h3>
+          <p>Plataformas quebram no pico de acesso e o comprador fica atualizando a página — sem saber a sua vez.</p>
+        </div>
+        <div class="tk pink">
+          <span class="ico">🎫</span>
+          <div class="big word">Print vira ingresso</div>
+          <h3>QR estático é fraude fácil</h3>
+          <p>Códigos copiados, revendidos e reutilizados. Quem descobre é a portaria — tarde demais.</p>
+        </div>
+        <div class="tk pink">
+          <span class="ico">💸</span>
+          <div class="big word">Taxa de até 20%</div>
+          <h3>A margem do produtor some</h3>
+          <p>O produtor pequeno e médio paga caro, tem pouca autonomia e nenhum controle sobre a operação.</p>
+        </div>
+      </div>
+      <p class="reveal d3" style="margin-top:1.4rem;font-size:clamp(15px,1.5vw,22px);color:#E6EAF0;">
+        Quem paga essa conta é o <strong>organizador</strong> — e o <strong>fã</strong>.
+      </p>
+    </div>
+  </section>
+
+  <!-- 3 — SOLUÇÃO (≈30s) -->
+  <section class="slide">
+    <div class="wrap">
+      <div class="kicker reveal">A solução</div>
+      <h2 class="reveal d1">Do evento publicado à portaria,<br><em>em um só lugar</em></h2>
+      <div class="split reveal d2">
+        <div>
+          <ul class="feat">
+            <li><span><b>Publicar é grátis:</b> qualquer pessoa cria o evento, define tipos de ingresso e lotes programados.</span></li>
+            <li><span><b>Vender é simples:</b> checkout com carrinho, busca por cidade e destaque de eventos próximos.</span></li>
+            <li><span><b>Taxa única de 5%</b> — transparente, exibida no checkout, sem letra miúda.</span></li>
+            <li><span><b>Tudo pelo navegador:</b> sem app para instalar, do notebook ao celular.</span></li>
+          </ul>
+        </div>
+        <div>
+          <div class="browser">
+            <div class="browser-bar"><i></i><i></i><i></i><span class="browser-url">soft.battomic.com</span></div>
+            <img src="apresentacao-assets/01-home.png" alt="Home do TicketFlow com eventos em destaque" />
+          </div>
+          <div class="cap">A vitrine: eventos em destaque, busca e compra em poucos cliques</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4 — QR DINÂMICO (≈30s) -->
+  <section class="slide">
+    <div class="wrap">
+      <div class="kicker reveal">Diferencial nº 1</div>
+      <h2 class="reveal d1">O ingresso que <em>não dá para falsificar</em></h2>
+      <div class="split rev reveal d2">
+        <div>
+          <div class="combo">
+            <div class="browser">
+              <div class="browser-bar"><i></i><i></i><i></i><span class="browser-url">soft.battomic.com/tickets/…</span></div>
+              <img src="apresentacao-assets/13-ticket-qr.png" alt="Ingresso com QR Code dinâmico" />
+            </div>
+            <div class="phone"><div class="phone-screen">
+              <img src="apresentacao-assets/mobile-ticket.png" alt="Ingresso com QR no celular" onerror="this.remove()" />
+            </div></div>
+          </div>
+          <div class="cap">O QR Code se renova sozinho a cada 30 segundos — no desktop e no bolso</div>
+        </div>
+        <ul class="feat">
+          <li><span><b>QR dinâmico:</b> o código muda a cada 30s, assinado no servidor (HMAC). <b>Print vira papel.</b></span></li>
+          <li><span><b>Vinculado à conta</b> do comprador — revenda por cambista perde o valor.</span></li>
+          <li><span><b>Validação em tempo real</b> na portaria: usado uma vez, nunca duas.</span></li>
+          <li><span><b>Titular protegido:</b> CPF com ocultar/mostrar e dados tratados conforme a LGPD.</span></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5 — FILA DE PRÉ-VENDA (≈25s) -->
+  <section class="slide">
+    <div class="wrap">
+      <div class="kicker reveal">Diferencial nº 2</div>
+      <h2 class="reveal d1">Lançamentos que <em>não derrubam o site</em></h2>
+      <div class="split reveal d2">
+        <ul class="feat">
+          <li><span><b>Fila de pré-venda justa (FIFO):</b> o fã entra logado e recebe a posição dele, vinculada à conta.</span></li>
+          <li><span><b>Posição garantida:</b> fechou a aba? Ao voltar, o lugar continua o mesmo.</span></li>
+          <li><span><b>Abertura ordenada:</b> quando a venda começa, a ordem de chegada é respeitada — sem robôs furando fila.</span></li>
+          <li><span><b>O pico é absorvido</b> pela fila, não pelo servidor.</span></li>
+        </ul>
+        <div>
+          <div class="browser">
+            <div class="browser-bar"><i></i><i></i><i></i><span class="browser-url">soft.battomic.com/eventos/…</span></div>
+            <img src="apresentacao-assets/14-pre-venda.png" alt="Evento com fila de pré-venda e posição do usuário" />
+          </div>
+          <div class="cap">O comprador acompanha a própria posição na fila, dentro da plataforma</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 6 — SALA DE COMANDO (≈30s) -->
+  <section class="slide">
+    <div class="wrap">
+      <div class="kicker reveal">Para o organizador</div>
+      <h2 class="reveal d1">Uma <em>sala de comando</em> para o seu evento</h2>
+      <div class="split reveal d2">
+        <div>
+          <ul class="feat">
+            <li><span><b>Vendas em tempo real:</b> receita, pedidos e ingressos por período, com comparativos automáticos.</span></li>
+            <li><span><b>Equipe por evento:</b> operadores fazem check-in e baixam a lista de compradores.</span></li>
+            <li><span><b>Cortesias com histórico</b> — convidados entram sem distorcer o faturamento.</span></li>
+            <li><span><b>Portaria no celular:</b> a câmera do próprio aparelho vira o leitor de QR. Zero equipamento extra.</span></li>
+          </ul>
+        </div>
+        <div class="combo">
+          <div class="browser">
+            <div class="browser-bar"><i></i><i></i><i></i><span class="browser-url">soft.battomic.com/organizer/analytics</span></div>
+            <img src="apresentacao-assets/05-organizer-vendas.png" alt="Painel de vendas do organizador" />
+          </div>
+          <div class="phone"><div class="phone-screen">
+            <img src="apresentacao-assets/mobile-checkin.png" alt="Check-in pelo celular" onerror="this.remove()" />
+          </div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 7 — MODELO + CTA (≈25s) -->
+  <section class="slide">
+    <div class="wrap">
+      <div class="kicker reveal">Modelo de negócio</div>
+      <h2 class="reveal d1">Simples de entender,<br><em>barato de usar</em></h2>
+      <div class="grid g3 reveal d2">
+        <div class="tk volt">
+          <div class="big">5%</div>
+          <h3>Uma taxa. Só.</h3>
+          <p>Sobre o valor vendido — uma das menores do mercado. Criar conta e organizar não custa nada.</p>
+        </div>
+        <div class="tk volt">
+          <div class="big">R$ 0</div>
+          <h3>Para começar</h3>
+          <p>Sem mensalidade, sem contrato, sem equipamento de portaria. O evento entra no ar hoje.</p>
+        </div>
+        <div class="tk">
+          <div class="big">⭐</div>
+          <h3>Destaque pago</h3>
+          <p>Organizadores impulsionam eventos para a home e a listagem — segunda fonte de receita da plataforma.</p>
+        </div>
+      </div>
+      <div class="cta-row reveal d3">
+        <div>
+          <p style="font-size:clamp(15px,1.5vw,22px);color:#E6EAF0;max-width:38ch;">
+            Está no ar, em produção, esperando o seu primeiro evento.
+          </p>
+          <span class="cta-btn" style="margin-top:1rem;">Crie seu evento hoje → soft.battomic.com</span>
+        </div>
+        <div class="qr-box">
+          <div class="qr-frame"><img src="apresentacao-assets/qr-soft.svg" alt="QR Code para soft.battomic.com" /></div>
+          <div class="qr-label"><small>Aponte a câmera</small><strong>soft.battomic.com</strong></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<div class="hud">
+  <div class="hud-id">TicketFlow · Pitch</div>
+  <div class="progress"><div class="progress-bar" id="bar"></div></div>
+  <span class="counter" id="counter">01 / 07</span>
+</div>
+
+<script>
+(function(){
+  var slides=Array.prototype.slice.call(document.querySelectorAll('.slide'));
+  var bar=document.getElementById('bar'), counter=document.getElementById('counter');
+  var i=0, total=slides.length;
+
+  function pad(n){ return (n<10?'0':'')+n; }
+
+  function render(){
+    counter.textContent=pad(i+1)+' / '+pad(total);
+    bar.style.width=(total>1?(i/(total-1))*100:100)+'%';
+    for(var k=0;k<slides.length;k++) slides[k].classList.toggle('active',k===i);
+  }
+  function go(n){ i=Math.max(0,Math.min(total-1,n)); render(); }
+
+  // ---- fullscreen ----
+  function isFs(){ return !!(document.fullscreenElement||document.webkitFullscreenElement); }
+  function enterFs(){ var el=document.documentElement; var req=el.requestFullscreen||el.webkitRequestFullscreen; if(req && !isFs()){ try{ req.call(el); }catch(err){} } }
+  function exitFs(){ var ex=document.exitFullscreen||document.webkitExitFullscreen; if(ex && isFs()){ try{ ex.call(document); }catch(err){} } }
+  function toggleFs(){ isFs()?exitFs():enterFs(); }
+
+  window.addEventListener('keydown',function(e){
+    switch(e.key){
+      case 'ArrowRight': case 'ArrowDown': case 'PageDown': case ' ': case 'Spacebar': go(i+1); e.preventDefault(); break;
+      case 'ArrowLeft': case 'ArrowUp': case 'PageUp': go(i-1); e.preventDefault(); break;
+      case 'Home': go(0); e.preventDefault(); break;
+      case 'End': go(total-1); e.preventDefault(); break;
+      case 'f': case 'F': toggleFs(); e.preventDefault(); break;
+    }
+  });
+
+  // screenshot ausente → placeholder elegante
+  Array.prototype.forEach.call(document.querySelectorAll('.browser img'),function(img){
+    img.addEventListener('error',function(){
+      var b=img.closest('.browser');
+      if(b){ b.innerHTML='<div class="imgph"><span>🖥️</span><b>'+(img.alt||'TicketFlow')+'</b><small>soft.battomic.com</small></div>'; }
+    });
+    if(img.complete && img.naturalWidth===0){ img.dispatchEvent(new Event('error')); }
+  });
+
+  var sx=0,sy=0;
+  window.addEventListener('touchstart',function(e){ sx=e.touches[0].clientX; sy=e.touches[0].clientY; },{passive:true});
+  window.addEventListener('touchend',function(e){
+    var dx=e.changedTouches[0].clientX-sx, dy=e.changedTouches[0].clientY-sy;
+    if(Math.abs(dx)>50 && Math.abs(dx)>Math.abs(dy)) go(dx<0?i+1:i-1);
+  },{passive:true});
+
+  render();
+})();
+</script>
+</body>
+</html>

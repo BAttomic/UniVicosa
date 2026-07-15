@@ -1,0 +1,650 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>DamaLink — Apresentação</title>
+<style>
+  /* ===========================================================================
+     DamaLink — deck de slides na identidade "neon arcade / fintech":
+     fundo quase-preto, superfícies de vidro e acentos neon ciano→magenta.
+     100% autocontido (sem dependências externas). Navegação por teclado e clique.
+     Os "screenshots" são tabuleiros renderizados em CSS/JS puro no próprio deck.
+     =========================================================================== */
+  :root {
+    --primary: #0b0e1a;
+    --primary-soft: #12172a;
+    --surface: #141a30;
+    --accent: #22d3ee;
+    --accent-soft: #67e8f9;
+    --magenta: #d946ef;
+    --violet: #8b5cf6;
+    --amber: #fbbf24;
+    --text: #eef2ff;
+    --text-dim: #9aa3c8;
+    --muted: #5b6488;
+    --border: rgba(34, 211, 238, 0.18);
+    --board-dark: #0e1326;
+    --board-light: #1b2440;
+    --sans: 'Segoe UI', Roboto, system-ui, sans-serif;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { height: 100%; }
+
+  body {
+    font-family: var(--sans);
+    color: var(--text);
+    background:
+      radial-gradient(circle at 12% 8%, rgba(34, 211, 238, 0.16), transparent 42%),
+      radial-gradient(circle at 88% 92%, rgba(217, 70, 239, 0.16), transparent 42%),
+      radial-gradient(circle at 50% 50%, rgba(139, 92, 246, 0.08), transparent 60%),
+      var(--primary);
+    overflow: hidden;
+  }
+
+  .deck { height: 100%; width: 100%; position: relative; }
+
+  .slide {
+    position: absolute; inset: 0;
+    display: none; flex-direction: column; justify-content: center;
+    padding: 5vh 8vw 10vh;
+    opacity: 0; transform: translateY(16px);
+    transition: opacity .45s ease, transform .45s ease;
+  }
+  .slide.active { display: flex; opacity: 1; transform: translateY(0); }
+  .slide.scroll { justify-content: flex-start; overflow-y: auto; }
+
+  .eyebrow {
+    text-transform: uppercase; letter-spacing: 4px; font-size: 0.78rem;
+    font-weight: 800; margin-bottom: 1rem;
+    color: var(--accent-soft);
+  }
+
+  h1 {
+    font-size: clamp(2.8rem, 7vw, 5.4rem); line-height: 1.02; letter-spacing: 1px;
+    font-weight: 900; text-transform: uppercase;
+    background: linear-gradient(90deg, var(--accent), var(--violet), var(--magenta));
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+    filter: drop-shadow(0 0 26px rgba(34, 211, 238, 0.35));
+  }
+  h2 { font-size: clamp(1.6rem, 3.8vw, 2.9rem); font-weight: 800; letter-spacing: 0.4px; }
+
+  .rule { width: 80px; height: 4px; border-radius: 4px; margin: 1rem 0 1.4rem;
+    background: linear-gradient(90deg, var(--accent), var(--magenta)); box-shadow: 0 0 16px rgba(217,70,239,.5); }
+
+  .lead { font-size: clamp(1rem, 2vw, 1.4rem); color: var(--text-dim); max-width: 62ch; line-height: 1.55; }
+  .tagline { font-size: clamp(1.1rem, 2.6vw, 1.7rem); color: var(--text-dim); margin-top: 1.4rem; max-width: 56ch; }
+  .meta { margin-top: 2rem; color: var(--muted); font-size: 0.95rem; letter-spacing: 0.5px; }
+  .meta strong { color: var(--accent-soft); }
+
+  .grid { display: grid; gap: 1.1rem; margin-top: 0.6rem; }
+  .grid.cols-2 { grid-template-columns: repeat(2, 1fr); }
+
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px; padding: 1.3rem 1.4rem;
+    box-shadow: 0 0 0 1px rgba(34,211,238,0.04), 0 16px 34px rgba(0,0,0,0.4);
+    position: relative; overflow: hidden;
+  }
+  .card::before { content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 3px;
+    background: linear-gradient(180deg, var(--accent), var(--magenta)); }
+  .card h3 { color: var(--accent-soft); font-size: 1.12rem; margin-bottom: 0.6rem; display: flex; align-items: center; gap: 0.5rem; }
+  .card .icon { font-size: 1.35rem; }
+  .card ul { list-style: none; }
+  .card li { color: var(--text-dim); font-size: 0.98rem; padding: 0.2rem 0 0.2rem 1.3rem; position: relative; line-height: 1.4; }
+  .card li::before { content: "◆"; position: absolute; left: 0; color: var(--magenta); font-size: 0.7rem; top: 0.42rem; }
+  .card li b { color: var(--accent-soft); font-weight: 700; }
+
+  .chips { display: flex; flex-wrap: wrap; gap: 0.7rem; margin-top: 1rem; }
+  .chip {
+    background: rgba(34, 211, 238, 0.08);
+    border: 1px solid var(--border); color: var(--text);
+    border-radius: 999px; padding: 0.5rem 1.1rem; font-size: 0.98rem; font-weight: 700;
+  }
+
+  pre {
+    background: #070a14; color: var(--text);
+    border-radius: 16px; padding: 1.2rem 1.4rem;
+    font-family: 'Cascadia Code', 'Consolas', monospace;
+    font-size: clamp(0.66rem, 1.15vw, 0.86rem); line-height: 1.55; overflow: auto;
+    border: 1px solid var(--border); box-shadow: 0 0 26px rgba(34, 211, 238, 0.10);
+  }
+  pre .dir { color: var(--accent); }
+  pre .cmt, pre .com { color: var(--muted); font-style: italic; }
+  /* realce de sintaxe dos trechos de código */
+  pre .kw  { color: var(--magenta); }
+  pre .fn  { color: var(--accent); }
+  pre .num { color: var(--amber); }
+  pre .str { color: var(--accent-soft); }
+  pre .var { color: var(--text); }
+  .filename {
+    font-family: 'Cascadia Code','Consolas', monospace;
+    font-size: 0.8rem; color: var(--accent-soft);
+    margin-bottom: 0.5rem; letter-spacing: 0.5px;
+  }
+  .filename::before { content: "◧ "; }
+
+  .run { display: flex; flex-direction: column; gap: 0.9rem; margin-top: 0.4rem; max-width: 40ch; }
+  .run code {
+    background: #070a14; color: var(--accent-soft);
+    border: 1px solid var(--border);
+    border-radius: 10px; padding: 0.85rem 1.1rem;
+    font-family: 'Cascadia Code','Consolas', monospace; font-size: 1rem; display: block;
+  }
+
+  /* layout dividido: tabuleiro/mockup + explicação */
+  .split { display: flex; gap: 2rem; align-items: center; flex-wrap: wrap; margin-top: 0.3rem; }
+  .split .col { flex: 1 1 340px; min-width: 300px; }
+  .split .col.narrow { flex: 0 1 auto; }
+
+  /* --- "screenshot": tabuleiro de damas renderizado em CSS --- */
+  .board {
+    --sq: clamp(30px, 4.6vw, 50px);
+    display: grid;
+    grid-template-columns: repeat(8, var(--sq));
+    grid-template-rows: repeat(8, var(--sq));
+    border: 4px solid var(--accent);
+    border-radius: 8px; overflow: hidden;
+    box-shadow: 0 0 30px rgba(34, 211, 238, 0.25), 0 18px 40px rgba(0,0,0,0.5);
+  }
+  .board .sq { display: flex; align-items: center; justify-content: center; position: relative; }
+  .board .sq.light { background: var(--board-light); }
+  .board .sq.dark  { background: var(--board-dark); }
+  .board .sq.hl::before {
+    content: ""; position: absolute; inset: 0;
+    background: rgba(217, 70, 239, 0.30);
+    box-shadow: inset 0 0 0 3px var(--magenta);
+  }
+  .board .sq.mv::after {
+    content: ""; width: 30%; height: 30%; border-radius: 50%;
+    background: rgba(34, 211, 238, 0.75); box-shadow: 0 0 10px var(--accent);
+    position: absolute; z-index: 3;
+  }
+  /* peças = discos neon (idênticas às do app: ciano=brancas, magenta=pretas) */
+  .board .pc {
+    width: 72%; height: 72%; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    border: 2px solid; position: relative; z-index: 2;
+  }
+  .board .pc.cw { background: var(--accent);  border-color: #a5f3fc; box-shadow: 0 0 10px rgba(34,211,238,0.85); }
+  .board .pc.cb { background: var(--magenta); border-color: #f0abfc; box-shadow: 0 0 10px rgba(217,70,239,0.85); }
+  .board .pc .king { color: var(--amber); font-size: calc(var(--sq) * 0.42); font-weight: 900; line-height: 1; }
+  .caption { text-align: center; color: var(--text-dim); font-size: 0.85rem; margin-top: 0.7rem; font-style: italic; }
+
+  /* device frame para o "screenshot" da partida */
+  .phone {
+    width: clamp(230px, 26vw, 300px);
+    background: #05070f;
+    border-radius: 28px; padding: 14px 12px 18px;
+    box-shadow: 0 0 30px rgba(34,211,238,0.2), 0 22px 50px rgba(0,0,0,0.55);
+    border: 1px solid var(--border);
+  }
+  .phone .screen { background: var(--primary); border-radius: 16px; padding: 14px 12px; border: 1px solid var(--border); }
+  .dl-title { font-size: 1.15rem; font-weight: 900; color: var(--text); text-align: center; letter-spacing: 0.5px; }
+  .dl-sub { font-size: 0.62rem; color: var(--text-dim); text-align: center; margin-top: 2px; }
+  .dl-bar { width: 60px; height: 3px; margin: 8px auto 10px; border-radius: 3px;
+    background: linear-gradient(90deg, var(--accent), var(--violet), var(--magenta)); box-shadow: 0 0 10px rgba(34,211,238,0.6); }
+  .dl-info { display: flex; gap: 8px; margin-bottom: 8px; }
+  .dl-card { flex: 1; background: rgba(255,255,255,0.05); border: 1px solid var(--border); border-radius: 10px; padding: 7px 9px; }
+  .dl-lbl { display: block; font-size: 0.52rem; letter-spacing: 1px; text-transform: uppercase; color: var(--accent-soft); font-weight: 800; }
+  .dl-val { display: block; font-size: 1rem; font-weight: 900; color: var(--text); margin-top: 2px; }
+  .dl-val.warn { color: var(--amber); }
+  .dl-score { display: flex; flex-wrap: wrap; gap: 3px 10px; font-size: 0.6rem; font-weight: 700; color: var(--text-dim); margin-bottom: 10px; }
+  .dl-score .warn { color: var(--amber); width: 100%; }
+  .phone .board { --sq: clamp(22px, 2.8vw, 27px); border-width: 3px; box-shadow: none; margin: 0 auto; }
+
+  .hud { position: fixed; bottom: 22px; right: 28px; display: flex; align-items: center; gap: 14px; z-index: 10; }
+  .dots { display: flex; gap: 7px; flex-wrap: wrap; max-width: 220px; justify-content: flex-end; }
+  .dot { width: 9px; height: 9px; border-radius: 50%; background: transparent; border: 1px solid var(--muted); cursor: pointer; transition: all .2s; }
+  .dot.active { background: var(--accent); border-color: var(--accent); box-shadow: 0 0 10px var(--accent); transform: scale(1.25); }
+  .nav-btn {
+    width: 40px; height: 40px; border-radius: 50%;
+    border: 1px solid var(--border); background: rgba(34,211,238,0.10); color: var(--accent-soft);
+    font-size: 1.1rem; cursor: pointer; transition: transform .15s, background .15s, box-shadow .15s;
+  }
+  .nav-btn:hover { background: rgba(34,211,238,0.22); box-shadow: 0 0 16px rgba(34,211,238,0.4); transform: translateY(-2px); }
+  .counter { font-size: 0.9rem; color: var(--text-dim); min-width: 48px; text-align: center; letter-spacing: 1px; }
+
+  .progress { position: fixed; top: 0; left: 0; height: 4px; width: 0; z-index: 10;
+    background: linear-gradient(90deg, var(--accent), var(--magenta)); box-shadow: 0 0 12px var(--accent); transition: width .35s ease; }
+  .hint { position: fixed; bottom: 24px; left: 28px; color: var(--muted); font-size: 0.82rem; letter-spacing: 0.5px; z-index: 10; }
+
+  /* dois celulares lado a lado (telas de API) */
+  .duo { display: flex; gap: 1.6rem; align-items: flex-start; justify-content: center; flex-wrap: wrap; margin-top: 0.3rem; }
+  .phone.sm { width: clamp(190px, 21vw, 235px); padding: 10px 8px 12px; }
+  .phone-cap { text-align: center; color: var(--accent-soft); font-size: 0.72rem; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; margin-top: 8px; }
+
+  /* --- telas de Câmbio (AwesomeAPI) --- */
+  .ex-hero { background: var(--primary-soft); border-bottom: 1px solid var(--border); padding: 12px 10px 10px; text-align: center; margin: -14px -12px 10px; border-radius: 16px 16px 0 0; }
+  .ex-title { color: var(--text); font-weight: 900; font-size: 0.95rem; letter-spacing: 1.5px; text-transform: uppercase; text-shadow: 0 0 12px rgba(34,211,238,0.6); }
+  .ex-sub { color: var(--accent-soft); font-size: 0.5rem; margin-top: 3px; line-height: 1.35; }
+  .ex-bar { width: 56px; height: 3px; margin: 8px auto 0; border-radius: 3px; background: linear-gradient(90deg, var(--accent), var(--violet), var(--magenta)); box-shadow: 0 0 10px rgba(34,211,238,0.6); }
+  .ex-card { position: relative; display: flex; align-items: center; background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 7px 10px 7px 14px; margin-bottom: 8px; overflow: hidden; box-shadow: 0 0 12px rgba(34,211,238,0.12); }
+  .ex-card::before { content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 4px; background: var(--accent); }
+  .ex-cc { flex: 1; min-width: 0; }
+  .ex-pair { color: var(--text); font-weight: 800; font-size: 0.76rem; letter-spacing: 0.4px; }
+  .ex-info { color: var(--text-dim); font-size: 0.52rem; margin-top: 2px; line-height: 1.4; }
+  .ex-chev { color: var(--accent); font-size: 1.1rem; font-weight: 900; margin-left: 6px; }
+
+  .ex-herocard { border-radius: 16px; padding: 13px; text-align: center; margin-bottom: 10px;
+    background: linear-gradient(90deg, var(--accent), var(--violet), var(--magenta)); box-shadow: 0 0 18px rgba(217,70,239,0.5); }
+  .ex-hpair { color: var(--primary); font-weight: 900; font-size: 0.78rem; letter-spacing: 2px; }
+  .ex-hname { color: var(--primary); font-weight: 900; font-size: 0.9rem; margin-top: 2px; }
+  .ex-hupd { color: rgba(11,14,26,0.7); font-size: 0.5rem; margin-top: 4px; }
+  .ex-section { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 9px 12px; margin-bottom: 9px; }
+  .ex-stitle { color: var(--accent-soft); font-size: 0.5rem; font-weight: 800; letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 4px; }
+  .ex-row { display: flex; justify-content: space-between; align-items: center; padding: 5px 0; border-bottom: 1px solid var(--border); }
+  .ex-row.last { border-bottom: none; }
+  .ex-rlabel { color: var(--text-dim); font-size: 0.6rem; font-weight: 600; }
+  .ex-rvalue { color: var(--text); font-size: 0.68rem; font-weight: 800; }
+  .ex-rvalue.pos { color: #34d399; }
+
+  /* ---- centralização VERTICAL: conteúdo centrado na altura, alinhado à esquerda ---- */
+  /* slides longos (.scroll) centram quando cabem e voltam ao topo quando transbordam */
+  .slide.scroll { justify-content: safe center; }
+
+  @media (max-width: 860px) {
+    .grid.cols-2 { grid-template-columns: 1fr; }
+    .slide { padding: 4vh 6vw 12vh; justify-content: flex-start; overflow-y: auto; }
+    .split { gap: 1.2rem; }
+  }
+</style>
+</head>
+<body>
+  <div class="progress" id="progress"></div>
+
+  <div class="deck" id="deck">
+
+    <!-- 1 · Capa -->
+    <section class="slide">
+      <p class="eyebrow">Desenvolvimento para Dispositivos Móveis e Games</p>
+      <h1>DamaLink</h1>
+      <p class="tagline">Cotações de câmbio em tempo quase real &amp; Damas 2D — utilitário e jogo no mesmo app.</p>
+      <p class="meta">React Native · <strong>Expo SDK 54</strong> · ADS306 — UniViçosa</p>
+    </section>
+
+    <!-- 2 · Sobre -->
+    <section class="slide">
+      <p class="eyebrow">Visão geral</p>
+      <h2>Utilitário e jogo, lado a lado</h2>
+      <div class="rule"></div>
+      <p class="lead">
+        O DamaLink combina em abas um <strong>consumidor de API de câmbio</strong>
+        (AwesomeAPI) com uma partida de <strong>Damas brasileiras Humano&nbsp;×&nbsp;Bot</strong>.
+        O foco técnico desta apresentação é o <strong>motor de regras</strong> das damas —
+        onde mora a real inteligência do jogo — e a <strong>política de decisão</strong> do bot.
+      </p>
+      <div class="grid cols-2" style="margin-top:1.6rem">
+        <div class="card"><h3><span class="icon">💱</span> Aba Câmbio</h3>
+          <ul><li>Principais pares do real</li><li>Compra, variação e atualização</li><li>Consumo de API REST</li></ul></div>
+        <div class="card"><h3><span class="icon">⛀</span> Aba Jogo</h3>
+          <ul><li>Damas 2D contra o bot</li><li>Tabuleiro responsivo 8×8</li><li>Captura obrigatória e encadeada</li></ul></div>
+      </div>
+    </section>
+
+    <!-- 3 · Arquitetura -->
+    <section class="slide">
+      <p class="eyebrow">Organização do código</p>
+      <h2>Regra do jogo desacoplada da tela</h2>
+      <div class="rule"></div>
+      <p class="lead">O <strong>checkersEngine</strong> é 100% funções puras sobre tabuleiros imutáveis — sem React. A tela apenas orquestra turnos, timer e o bot.</p>
+      <pre>
+src/
+  <span class="dir">features/</span>
+    checkers/
+      logic/      <span class="cmt"># checkersEngine (regras puras e testáveis)</span>
+      screens/    <span class="cmt"># CheckersGameScreen (turnos, timer, bot)</span>
+    exchange/
+      services/   <span class="cmt"># exchangeApi (Axios + interceptors)</span>
+      hooks/      <span class="cmt"># useExchangeRates · useExchangeDetail</span>
+      screens/    <span class="cmt"># ExchangeList · ExchangeDetail</span>
+  <span class="dir">navigation/</span> <span class="cmt"># RootTab · ExchangeStack</span>
+  <span class="dir">shared/</span>     <span class="cmt"># components, hooks, theme, utils</span></pre>
+    </section>
+
+    <!-- 4 · Engine: captura obrigatória -->
+    <section class="slide scroll">
+      <p class="eyebrow">Motor de regras · 1/3</p>
+      <h2>A regra de ouro: captura é obrigatória</h2>
+      <div class="rule"></div>
+      <div class="split">
+        <div class="col narrow">
+          <div class="board" data-pos="........ ........ ........ ....b... ...w.... ........ ........ ........"
+               data-hl="34" data-dot="25"></div>
+          <p class="caption">A peça branca é <b>obrigada</b> a capturar a preta</p>
+        </div>
+        <div class="col">
+          <p class="lead" style="margin-bottom:1rem">
+            Se existe qualquer captura no tabuleiro, os lances simples <b>desaparecem</b> da lista.
+            A engine resolve isso numa única função: pergunta primeiro pelas capturas e só
+            devolve movimentos normais quando não há nenhuma.
+          </p>
+          <p class="filename">features/checkers/logic/checkersEngine.js</p>
+          <pre><span class="kw">function</span> <span class="fn">getValidMoves</span>(board, row, col) {
+  <span class="kw">const</span> piece = board[row]?.[col];
+  <span class="kw">const</span> captures = <span class="fn">getCaptureMoves</span>(board, row, col, piece);
+  <span class="kw">if</span> (captures.length > <span class="num">0</span>) <span class="kw">return</span> captures;  <span class="com">// captura é OBRIGATÓRIA</span>
+  <span class="kw">return</span> <span class="fn">getNormalMoves</span>(board, row, col, piece);
+}</pre>
+        </div>
+      </div>
+    </section>
+
+    <!-- 5 · Engine: dama voadora -->
+    <section class="slide scroll">
+      <p class="eyebrow">Motor de regras · 2/3</p>
+      <h2>A dama voadora: captura a distância</h2>
+      <div class="rule"></div>
+      <div class="split">
+        <div class="col narrow">
+          <div class="board" data-pos="........ ........ .....b.. ........ ........ ..W..... ........ ........"
+               data-hl="25" data-dot="16 07"></div>
+          <p class="caption">A dama (♛) varre a diagonal e pousa <b>em qualquer casa</b> após a vítima</p>
+        </div>
+        <div class="col">
+          <p class="lead" style="margin-bottom:1rem">
+            Ao contrário da peça comum, a dama desliza pela diagonal <b>a qualquer distância</b>.
+            A engine varre casas vazias até achar uma peça inimiga e então oferece todas as
+            casas livres logo após ela como pouso válido.
+          </p>
+          <p class="filename">checkersEngine.js — getKingCaptureMoves()</p>
+          <pre><span class="kw">while</span> (<span class="fn">isWithinBounds</span>(sr, sc) &amp;&amp; !board[sr][sc]) { sr += dr; sc += dc; } <span class="com">// varre</span>
+<span class="kw">const</span> victim = board[sr][sc];
+<span class="kw">if</span> (victim &amp;&amp; victim.player !== piece.player) {
+  <span class="kw">let</span> lr = sr + dr, lc = sc + dc;
+  <span class="kw">while</span> (<span class="fn">isWithinBounds</span>(lr, lc) &amp;&amp; !board[lr][lc]) {  <span class="com">// pousos possíveis</span>
+    captures.push({ row: lr, col: lc, capturedRow: sr, capturedCol: sc });
+    lr += dr; lc += dc;
+  }
+}</pre>
+        </div>
+      </div>
+    </section>
+
+    <!-- 6 · Engine: captura encadeada + promoção -->
+    <section class="slide scroll">
+      <p class="eyebrow">Motor de regras · 3/3</p>
+      <h2>Captura encadeada &amp; promoção</h2>
+      <div class="rule"></div>
+      <div class="split">
+        <div class="col narrow">
+          <div class="board" data-pos="........ ........ ........ ........ ...b.b.. ....w... ........ ........"
+               data-hl="43 45" data-dot="32 36"></div>
+          <p class="caption">Após a 1ª captura, a mesma peça <b>continua capturando</b> em cadeia</p>
+        </div>
+        <div class="col">
+          <p class="lead" style="margin-bottom:1rem">
+            Depois de uma captura, se a mesma peça ainda pode capturar, o turno <b>não passa</b>:
+            ela é forçada a encadear. E ao alcançar a última linha, é <b>promovida a dama</b>.
+          </p>
+          <div class="card">
+            <h3><span class="icon">⛓️</span> Regras cobertas pela engine</h3>
+            <ul>
+              <li>Captura <b>encadeada</b> obrigatória (multi-salto)</li>
+              <li><b>Promoção</b> automática ao chegar na 8ª linha</li>
+              <li>Peça comum captura nas <b>4 diagonais</b>; move só à frente</li>
+              <li>Detecção de fim de jogo: sem peças ou sem lances</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 7 · O cérebro do bot -->
+    <section class="slide scroll">
+      <p class="eyebrow">A inteligência do adversário</p>
+      <h2>O "cérebro" do bot</h2>
+      <div class="rule"></div>
+      <p class="lead" style="margin-bottom:0.9rem">
+        O bot <b>não</b> faz busca em árvore como um motor de xadrez — a inteligência do DamaLink
+        está nas <b>regras</b>. Sobre elas, o bot aplica uma <b>política de lances legais</b>:
+        coleta todos os movimentos permitidos (com as capturas já <b>filtradas como obrigatórias</b>
+        pela engine) e sorteia um. Simples, mas sempre <b>joga dentro das regras</b> — inclusive
+        respeitando a captura forçada.
+      </p>
+      <p class="filename">features/checkers/screens/CheckersGameScreen.jsx</p>
+      <pre><span class="com">// a engine já separou: se há capturas, só capturas entram na lista</span>
+<span class="kw">const</span> list = captureMoves.length > <span class="num">0</span> ? captureMoves : moves;
+
+<span class="com">// política do bot: escolha uniforme entre os lances legais</span>
+<span class="kw">const</span> choice = list[<span class="fn">Math.floor</span>(<span class="fn">Math.random</span>() * list.length)];
+<span class="fn">applyMove</span>(choice.from, choice.to, <span class="fn">getNow</span>());</pre>
+      <p class="caption" style="margin-top:1rem">Evolução natural do projeto: trocar o sorteio por uma heurística gulosa ou minimax — a engine já daria o suporte.</p>
+    </section>
+
+    <!-- 8 · Screenshot da partida -->
+    <section class="slide">
+      <p class="eyebrow">Screenshot</p>
+      <h2>A partida em execução</h2>
+      <div class="rule"></div>
+      <div class="split">
+        <div class="col narrow">
+          <div class="phone">
+            <div class="screen">
+              <div class="dl-title">Damas 2D</div>
+              <div class="dl-sub">Capture todas as peças adversárias para vencer.</div>
+              <div class="dl-bar"></div>
+              <div class="dl-info">
+                <div class="dl-card"><span class="dl-lbl">Vez das</span><span class="dl-val">Brancas</span></div>
+                <div class="dl-card"><span class="dl-lbl">Tempo</span><span class="dl-val warn">7s</span></div>
+              </div>
+              <div class="dl-score">
+                <span>Pretas capturaram: 2</span>
+                <span>Brancas capturaram: 1</span>
+                <span>Você: Brancas | Bot: Pretas</span>
+                <span class="warn">Captura obrigatória!</span>
+              </div>
+              <div class="board" data-pos="........ ..B.b.b. .b...b.. ....w... ...w.w.. ..w...w. .w.w.w.. ........"
+                   data-hl="34"></div>
+            </div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="card">
+            <h3><span class="icon">✨</span> Experiência de jogo</h3>
+            <ul>
+              <li><b>Timer de turno</b> de 30s com aviso de tempo crítico</li>
+              <li>Aviso de <b>captura obrigatória</b> em destaque</li>
+              <li>Placar de peças capturadas por lado</li>
+              <li>Animação de movimento via <code>requestAnimationFrame</code></li>
+              <li>Sorteio do lado do jogador no início</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 9 · Screenshot da feature Câmbio (AwesomeAPI) -->
+    <section class="slide scroll">
+      <p class="eyebrow">Screenshot · Segunda feature</p>
+      <h2>Câmbio — consumo de API REST</h2>
+      <div class="rule"></div>
+      <p class="lead" style="margin-bottom:0.6rem">
+        A aba de câmbio consome a <b>AwesomeAPI</b> via <b>hooks customizados</b> (loading, erro,
+        vazio, refetch) e um interceptor Axios. Lista de pares do real e detalhe da cotação.
+      </p>
+      <div class="duo">
+        <div>
+          <div class="phone sm">
+            <div class="screen">
+              <div class="ex-hero">
+                <div class="ex-title">Câmbio Brasil</div>
+                <div class="ex-sub">Acompanhe as principais taxas do real em tempo quase real.</div>
+                <div class="ex-bar"></div>
+              </div>
+              <div class="ex-card"><div class="ex-cc"><div class="ex-pair">USD/BRL</div><div class="ex-info">Compra: R$ 5,42 • Var: +0,31%<br>Atualizado: 02/07 16:45</div></div><span class="ex-chev">›</span></div>
+              <div class="ex-card"><div class="ex-cc"><div class="ex-pair">EUR/BRL</div><div class="ex-info">Compra: R$ 5,88 • Var: −0,12%<br>Atualizado: 02/07 16:45</div></div><span class="ex-chev">›</span></div>
+              <div class="ex-card"><div class="ex-cc"><div class="ex-pair">GBP/BRL</div><div class="ex-info">Compra: R$ 6,90 • Var: +0,08%<br>Atualizado: 02/07 16:45</div></div><span class="ex-chev">›</span></div>
+              <div class="ex-card"><div class="ex-cc"><div class="ex-pair">JPY/BRL</div><div class="ex-info">Compra: R$ 0,0342 • Var: +0,05%<br>Atualizado: 02/07 16:45</div></div><span class="ex-chev">›</span></div>
+            </div>
+          </div>
+          <p class="phone-cap">Lista</p>
+        </div>
+        <div>
+          <div class="phone sm">
+            <div class="screen">
+              <div class="ex-herocard">
+                <div class="ex-hpair">USD/BRL</div>
+                <div class="ex-hname">Dólar Americano/Real Brasileiro</div>
+                <div class="ex-hupd">Atualizado: 02/07/2026 16:45</div>
+              </div>
+              <div class="ex-section">
+                <div class="ex-stitle">Cotação</div>
+                <div class="ex-row"><span class="ex-rlabel">Compra</span><span class="ex-rvalue">R$ 5,42</span></div>
+                <div class="ex-row"><span class="ex-rlabel">Venda</span><span class="ex-rvalue">R$ 5,43</span></div>
+                <div class="ex-row"><span class="ex-rlabel">Máxima</span><span class="ex-rvalue">R$ 5,45</span></div>
+                <div class="ex-row last"><span class="ex-rlabel">Mínima</span><span class="ex-rvalue">R$ 5,39</span></div>
+              </div>
+              <div class="ex-section">
+                <div class="ex-stitle">Variação</div>
+                <div class="ex-row"><span class="ex-rlabel">Percentual</span><span class="ex-rvalue pos">+0,31%</span></div>
+                <div class="ex-row last"><span class="ex-rlabel">Variação em R$</span><span class="ex-rvalue">R$ 0,017</span></div>
+              </div>
+            </div>
+          </div>
+          <p class="phone-cap">Detalhe</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 10 · Stack -->
+    <section class="slide">
+      <p class="eyebrow">Tecnologias</p>
+      <h2>Stack técnica</h2>
+      <div class="rule"></div>
+      <p class="lead">Uma base React Native/Expo compartilhada pelas duas features; o que muda é o domínio e a API de cada uma.</p>
+      <div class="grid cols-2" style="margin-top:1.4rem">
+        <div class="card"><h3><span class="icon">🧱</span> Base comum</h3>
+          <ul>
+            <li>Expo SDK 54 · React Native 0.81 · React 19</li>
+            <li>React Navigation — Tabs + Native Stack</li>
+            <li>Axios — cliente HTTP</li>
+          </ul>
+        </div>
+        <div class="card"><h3><span class="icon">🧠</span> Domínio do jogo · JS puro</h3>
+          <ul>
+            <li>checkersEngine — regras completas</li>
+            <li>Bot — política de lances legais</li>
+            <li>Zero dependências no núcleo</li>
+          </ul>
+        </div>
+        <div class="card"><h3><span class="icon">💱</span> Feature Câmbio</h3>
+          <ul>
+            <li>AwesomeAPI (cotações do real)</li>
+            <li>Hooks useExchangeRates / useExchangeDetail</li>
+          </ul>
+        </div>
+        <div class="card"><h3><span class="icon">🎨</span> Interface</h3>
+          <ul>
+            <li>NeonGradient sem dependências</li>
+            <li>Tema neon próprio (sem UI kit)</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- 11 · Fim -->
+    <section class="slide">
+      <p class="eyebrow">Obrigado</p>
+      <h1>DamaLink</h1>
+      <p class="tagline">Regras puras, dama voadora e captura encadeada — a inteligência mora no motor.</p>
+      <p class="meta">UniViçosa · ADS306 — Dispositivos Móveis e Games</p>
+    </section>
+
+  </div>
+
+  <p class="hint">← → navega · espaço avança</p>
+  <div class="hud">
+    <button class="nav-btn" id="prev" aria-label="Anterior">‹</button>
+    <div class="dots" id="dots"></div>
+    <span class="counter" id="counter"></span>
+    <button class="nav-btn" id="next" aria-label="Próximo">›</button>
+  </div>
+
+<script>
+  // --- Renderizador de tabuleiros de damas ("screenshots" em CSS) ------------
+  // data-pos: 64 casas, linha 0 (topo) → linha 7. w/b = peça comum, W/B = dama,
+  // '.' vazio. data-hl: casas destacadas "rc". data-dot: alvos de lance.
+  (function () {
+    // w/b = peça comum, W/B = dama (mostra ♛). Cores idênticas ao app.
+    function renderBoard(el) {
+      var pos = (el.getAttribute('data-pos') || '').replace(/\s+/g, '');
+      var hl = (el.getAttribute('data-hl') || '').split(/\s+/).filter(Boolean);
+      var dot = (el.getAttribute('data-dot') || '').split(/\s+/).filter(Boolean);
+      for (var r = 0; r < 8; r++) {
+        for (var c = 0; c < 8; c++) {
+          var i = r * 8 + c, ch = pos[i] || '.', key = '' + r + c;
+          var sq = document.createElement('div');
+          sq.className = 'sq ' + ((r + c) % 2 ? 'dark' : 'light');
+          if (hl.indexOf(key) >= 0) sq.classList.add('hl');
+          if (dot.indexOf(key) >= 0) sq.classList.add('mv');
+          if ('wWbB'.indexOf(ch) >= 0) {
+            var p = document.createElement('span');
+            p.className = 'pc ' + (ch === 'w' || ch === 'W' ? 'cw' : 'cb');
+            if (ch === 'W' || ch === 'B') {
+              var k = document.createElement('span');
+              k.className = 'king'; k.textContent = '♛';
+              p.appendChild(k);
+            }
+            sq.appendChild(p);
+          }
+          el.appendChild(sq);
+        }
+      }
+    }
+
+    window.__renderBoards = function () {
+      document.querySelectorAll('.board[data-pos]').forEach(renderBoard);
+    };
+  })();
+
+  // --- Controlador do deck ---------------------------------------------------
+  (function () {
+    var slides = Array.prototype.slice.call(document.querySelectorAll('.slide'));
+    var dotsBox = document.getElementById('dots');
+    var counter = document.getElementById('counter');
+    var progress = document.getElementById('progress');
+    var current = 0;
+
+    if (window.__renderBoards) window.__renderBoards();
+
+    slides.forEach(function (_, i) {
+      var dot = document.createElement('span');
+      dot.className = 'dot';
+      dot.addEventListener('click', function () { go(i); });
+      dotsBox.appendChild(dot);
+    });
+    var dots = Array.prototype.slice.call(dotsBox.children);
+
+    function render() {
+      slides.forEach(function (s, i) { s.classList.toggle('active', i === current); s.scrollTop = 0; });
+      dots.forEach(function (d, i) { d.classList.toggle('active', i === current); });
+      counter.textContent = (current + 1) + ' / ' + slides.length;
+      progress.style.width = ((current) / (slides.length - 1) * 100) + '%';
+    }
+    function go(i) { current = Math.max(0, Math.min(slides.length - 1, i)); render(); }
+    function next() { go(current + 1); }
+    function prev() { go(current - 1); }
+
+    document.getElementById('next').addEventListener('click', next);
+    document.getElementById('prev').addEventListener('click', prev);
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'PageDown') { e.preventDefault(); next(); }
+      else if (e.key === 'ArrowLeft' || e.key === 'PageUp') { e.preventDefault(); prev(); }
+      else if (e.key === 'Home') { go(0); }
+      else if (e.key === 'End') { go(slides.length - 1); }
+    });
+    document.getElementById('deck').addEventListener('click', function (e) {
+      if (e.target.closest('.hud')) return;
+      if (e.target.closest('pre') || e.target.closest('.board')) return;
+      if (e.clientX > window.innerWidth * 0.6) next();
+      else if (e.clientX < window.innerWidth * 0.4) prev();
+    });
+
+    render();
+  })();
+</script>
+</body>
+</html>

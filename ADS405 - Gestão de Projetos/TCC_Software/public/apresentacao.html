@@ -1,0 +1,635 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+<title>TicketFlow — Plataforma de Ingressos Online</title>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0;}
+  :root{
+    --bg:#070810;--bg-soft:#0C0E1A;--surface:#12152400;
+    --card:rgba(20,23,38,0.55);--card-solid:#141726;
+    --border:rgba(255,255,255,0.08);--border-bright:rgba(255,255,255,0.14);
+    --text:#F7F9FC;--muted:#8A95AD;--dim:#5C6577;
+    --indigo:#7C83FF;--indigo-deep:#6366F1;--emerald:#34D399;--amber:#FBBF24;
+    --pad-x:clamp(28px,5vw,110px);
+    --pad-y:clamp(28px,4.5vh,56px);
+  }
+  html,body{height:100%;width:100%;max-width:100%;overflow:hidden;overscroll-behavior:none;background:var(--bg);color:var(--text);
+    font-family:"Inter",system-ui,-apple-system,"Segoe UI",sans-serif;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;}
+
+  #stage{position:relative;height:100%;width:100%;overflow:hidden;}
+
+  /* Slides empilhados em posição absoluta com crossfade. Evita a faixa flex
+     gigante (12×viewport) que, promovida a uma única camada via will-change,
+     fazia o Chromium pintar de preto os slides fora da origem. */
+  .slide{
+    position:absolute;inset:0;width:100%;height:100vh;height:100dvh;
+    padding:var(--pad-y) var(--pad-x);
+    display:flex;flex-direction:column;justify-content:center;
+    overflow:hidden;background:var(--bg);
+    opacity:0;visibility:hidden;pointer-events:none;
+    transition:opacity .5s ease,visibility .5s ease;
+  }
+  .slide.active{opacity:1;visibility:visible;pointer-events:auto;}
+  /* ambient light */
+  .slide::before{content:"";position:absolute;width:46vw;height:46vw;top:-16vw;right:-12vw;
+    background:radial-gradient(circle,rgba(99,102,241,0.16),transparent 68%);pointer-events:none;filter:blur(8px);}
+  .slide::after{content:"";position:absolute;width:52vw;height:52vw;bottom:-24vw;left:-18vw;
+    background:radial-gradient(circle,rgba(52,211,153,0.10),transparent 70%);pointer-events:none;filter:blur(8px);}
+
+  .wrap{width:100%;max-width:1640px;margin:0 auto;position:relative;z-index:2;
+    display:flex;flex-direction:column;min-height:0;
+    max-height:100%;overflow-x:hidden;overflow-y:auto;
+    scrollbar-width:thin;scrollbar-color:rgba(255,255,255,0.18) transparent;}
+  .wrap::-webkit-scrollbar{width:8px;}
+  .wrap::-webkit-scrollbar-thumb{background:rgba(255,255,255,0.16);border-radius:4px;}
+  .wrap::-webkit-scrollbar-track{background:transparent;}
+
+  /* ---------- typography ---------- */
+  .kicker{font-size:clamp(11px,0.95vw,14px);letter-spacing:.32em;text-transform:uppercase;font-weight:800;
+    color:var(--emerald);margin-bottom:1.1rem;display:flex;align-items:center;gap:0.8rem;}
+  .kicker::after{content:"";flex:1;height:1px;max-width:220px;background:linear-gradient(90deg,rgba(52,211,153,0.45),transparent);}
+  h1{font-size:clamp(48px,7.5vw,104px);line-height:0.94;font-weight:900;letter-spacing:-.045em;
+    background:linear-gradient(120deg,#FFFFFF 35%,#9AA3BD);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;}
+  h2{font-size:clamp(30px,4vw,58px);line-height:1.03;font-weight:900;letter-spacing:-.035em;margin-bottom:1.6rem;}
+  h2 em{font-style:normal;color:var(--indigo);}
+  h3{font-size:clamp(16px,1.6vw,23px);font-weight:800;color:#FFF;margin-bottom:0.45rem;letter-spacing:-.01em;}
+  p,li{font-size:clamp(14px,1.25vw,19px);line-height:1.55;color:var(--muted);}
+  strong{color:#FFF;font-weight:700;}
+  em.hl{font-style:normal;color:var(--emerald);font-weight:600;}
+
+  /* ---------- hero badges ---------- */
+  .meta{display:flex;flex-wrap:wrap;gap:0.6rem;}
+  .badge{background:var(--card-solid);border:1px solid var(--border);padding:0.5rem 0.95rem;border-radius:11px;
+    font-weight:700;font-size:clamp(11px,1.05vw,14px);color:#E6EAF2;}
+  .badge.prime{border-color:rgba(124,131,255,0.4);background:rgba(124,131,255,0.08);color:#BCC2FF;}
+  .badge.tech{border-color:rgba(52,211,153,0.32);background:rgba(52,211,153,0.06);color:#86EFCB;font-size:clamp(10px,1vw,13px);padding:0.42rem 0.8rem;}
+
+  /* ---------- cover / homepage ---------- */
+  .lead{font-size:clamp(17px,2.1vw,27px);max-width:42ch;color:#E2E8F0;font-weight:300;line-height:1.4;margin-top:1.1rem;}
+  .cover-foot{display:flex;flex-wrap:wrap;gap:clamp(1.3rem,3.2vw,3.6rem);margin-top:clamp(1.6rem,4.2vh,3rem);}
+  .cred{display:flex;flex-direction:column;gap:0.18rem;}
+  .cred-label{font-size:11px;letter-spacing:0.22em;text-transform:uppercase;font-weight:800;color:var(--dim);margin-bottom:0.3rem;}
+  .cred strong{font-size:clamp(13px,1.2vw,17px);color:#E6EAF2;font-weight:700;line-height:1.35;}
+  .cover-hint{margin-top:clamp(1.4rem,3.6vh,2.6rem);font-size:12px;color:var(--dim);letter-spacing:0.03em;display:flex;align-items:center;gap:0.55rem;}
+  .cover-hint::before{content:"";flex:0 0 auto;width:7px;height:7px;border-radius:50%;background:var(--emerald);box-shadow:0 0 8px var(--emerald);}
+  .cover-hint kbd{font-family:ui-monospace,monospace;font-size:11px;color:#CBD5E1;background:rgba(255,255,255,0.06);
+    border:1px solid var(--border);border-radius:5px;padding:1px 6px;}
+
+  /* ---------- layout helpers ---------- */
+  .grid{display:grid;gap:clamp(1.1rem,1.6vw,1.8rem);}
+  .g2{grid-template-columns:1fr 1fr;}
+  .g3{grid-template-columns:repeat(3,1fr);}
+  .split{display:grid;grid-template-columns:1.04fr 0.96fr;gap:clamp(1.8rem,4vw,4.5rem);align-items:center;}
+  .split.rev{grid-template-columns:0.96fr 1.04fr;}
+
+  /* ---------- cards ---------- */
+  .card{background:var(--card);border:1px solid var(--border);backdrop-filter:blur(14px);
+    padding:clamp(1.3rem,1.9vw,2.1rem);border-radius:18px;position:relative;}
+  .card::before{content:"";position:absolute;top:0;left:1.6rem;right:1.6rem;height:1px;
+    background:linear-gradient(90deg,transparent,rgba(255,255,255,0.16),transparent);}
+  .card.accent{border-color:rgba(52,211,153,0.32);background:rgba(52,211,153,0.04);}
+  .card.indigo{border-color:rgba(124,131,255,0.32);background:rgba(124,131,255,0.04);}
+  .card .ico{font-size:clamp(1.6rem,2.2vw,2.2rem);margin-bottom:0.7rem;display:inline-block;}
+
+  /* ---------- list with side bar ---------- */
+  ul.bars{list-style:none;display:flex;flex-direction:column;gap:clamp(0.8rem,1.3vw,1.35rem);}
+  ul.bars li{background:var(--card-solid);border-left:4px solid var(--indigo-deep);padding:clamp(1rem,1.45vw,1.55rem) clamp(1.1rem,1.4vw,1.55rem);border-radius:0 13px 13px 0;}
+  ul.bars.em li{border-left-color:var(--emerald);}
+
+  /* ---------- check feature list ---------- */
+  ul.feat{list-style:none;display:flex;flex-direction:column;gap:clamp(0.7rem,1vw,1.05rem);}
+  ul.feat li{display:flex;gap:0.75rem;align-items:flex-start;line-height:1.5;}
+  ul.feat li::before{content:"";flex:0 0 auto;width:9px;height:9px;border-radius:2px;background:var(--emerald);
+    margin-top:0.5rem;box-shadow:0 0 9px rgba(52,211,153,0.7);}
+  ul.feat li b{color:#FFF;}
+
+  /* ---------- big number ---------- */
+  .num{font-size:clamp(46px,5.6vw,78px);font-weight:900;line-height:1;letter-spacing:-.04em;
+    color:var(--indigo);margin-bottom:0.3rem;}
+  .num.em{color:var(--emerald);}
+
+  /* ---------- flow ---------- */
+  .flow{display:flex;gap:clamp(0.7rem,1.1vw,1.2rem);align-items:stretch;flex-wrap:wrap;}
+  .node{flex:1;min-width:135px;background:var(--card-solid);border:1px solid var(--border);
+    padding:clamp(1.1rem,1.6vw,1.7rem) clamp(0.9rem,1.2vw,1.3rem);border-radius:16px;text-align:center;}
+  .node .e{font-size:clamp(1.5rem,2vw,2rem);}
+  .node b{display:block;font-size:clamp(14px,1.35vw,19px);color:#FFF;margin:0.45rem 0 0.25rem;}
+  .node small{color:var(--dim);font-size:clamp(11px,1.05vw,14px);line-height:1.35;display:block;}
+  .arrow{align-self:center;color:var(--dim);font-size:1.3rem;}
+
+  /* ---------- browser mockup ---------- */
+  .browser{border-radius:14px;overflow:hidden;border:1px solid var(--border-bright);background:#0B0D17;
+    box-shadow:0 38px 70px -34px rgba(0,0,0,0.9);max-height:72vh;}
+  .browser-bar{display:flex;align-items:center;gap:6px;padding:8px 13px;background:rgba(255,255,255,0.04);border-bottom:1px solid var(--border);}
+  .browser-bar i{width:10px;height:10px;border-radius:50%;display:inline-block;}
+  .browser-bar i:nth-child(1){background:#FF5F57;}
+  .browser-bar i:nth-child(2){background:#FEBC2E;}
+  .browser-bar i:nth-child(3){background:#28C840;}
+  .browser-url{margin-left:9px;font-size:11px;color:var(--dim);font-family:ui-monospace,monospace;
+    background:rgba(0,0,0,0.4);padding:3px 11px;border-radius:6px;flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+  .browser img{display:block;width:100%;height:auto;}
+  .cap{font-size:11px;color:var(--dim);letter-spacing:0.04em;margin-top:0.55rem;text-align:center;}
+  /* fallback quando a captura de tela não está disponível */
+  .imgph{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0.5rem;
+    min-height:clamp(200px,40vh,420px);background:linear-gradient(160deg,#161A2B,#0E1119);color:var(--muted);text-align:center;padding:2rem;}
+  .imgph span{font-size:2.4rem;}
+  .imgph b{color:#CBD5E1;font-size:15px;}
+  .imgph small{font-size:11px;letter-spacing:0.08em;text-transform:uppercase;color:var(--dim);}
+
+  /* ---------- phones ---------- */
+  .phones{display:flex;gap:clamp(1.4rem,3.5vw,3.4rem);justify-content:center;align-items:flex-start;flex-wrap:wrap;}
+  .phone-item{display:flex;flex-direction:column;align-items:center;}
+  .phone{width:clamp(150px,16.5vw,236px);aspect-ratio:9/19.5;background:#0A0C15;border:2px solid rgba(255,255,255,0.13);
+    border-radius:32px;padding:6px;box-shadow:0 38px 64px -30px rgba(0,0,0,0.9);position:relative;flex:0 0 auto;}
+  .phone::before{content:"";position:absolute;top:6px;left:50%;transform:translateX(-50%);width:34%;height:13px;
+    background:#070810;border-radius:0 0 11px 11px;z-index:3;}
+  .phone-screen{position:relative;width:100%;height:100%;border-radius:26px;overflow:hidden;background:linear-gradient(160deg,#1B1F31,#10131F);}
+  .phone-screen img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:top center;z-index:1;}
+  .phone-ph{position:absolute;inset:0;display:flex;flex-direction:column;gap:0.4rem;align-items:center;justify-content:center;text-align:center;padding:1rem;color:var(--dim);}
+  .phone-ph .em{font-size:1.8rem;}
+  .phone-ph b{color:#CBD5E1;font-size:13px;}
+  .phone-ph small{font-size:10px;letter-spacing:0.08em;text-transform:uppercase;}
+  .phone-cap{font-size:11px;color:var(--dim);margin-top:0.5rem;text-align:center;}
+
+  /* ---------- multi-dispositivo (notebook · tablet · celular) ---------- */
+  .devices{display:flex;gap:clamp(0.8rem,2.6vw,2.6rem);justify-content:center;align-items:flex-end;flex-wrap:wrap;}
+  .device-col{display:flex;flex-direction:column;align-items:center;gap:0.6rem;}
+  .device-cap{font-size:12px;color:var(--muted);letter-spacing:0.04em;font-weight:700;display:flex;align-items:center;gap:0.4rem;}
+  .device-cap span{font-size:1rem;}
+
+  .laptop{width:clamp(360px,42vw,680px);max-width:100%;}
+  .laptop-screen{border:2px solid rgba(255,255,255,0.14);border-bottom:none;border-radius:14px 14px 0 0;
+    background:#0B0D17;overflow:hidden;aspect-ratio:16/10;box-shadow:0 36px 64px -34px rgba(0,0,0,0.9);}
+  .laptop-screen img{width:100%;height:100%;object-fit:cover;object-position:top center;display:block;}
+  .laptop-base{height:13px;width:116%;margin-left:-8%;border-radius:0 0 13px 13px;
+    background:linear-gradient(#2A2E40,#13151F);position:relative;}
+  .laptop-base::after{content:"";position:absolute;top:0;left:50%;transform:translateX(-50%);
+    width:84px;height:5px;background:#0A0C15;border-radius:0 0 6px 6px;}
+
+  .tablet{width:clamp(176px,19vw,272px);aspect-ratio:3/4.1;border:9px solid #15171F;border-radius:22px;
+    background:#0B0D17;overflow:hidden;box-shadow:0 32px 56px -30px rgba(0,0,0,0.9);}
+  .tablet img{width:100%;height:100%;object-fit:cover;object-position:top center;display:block;}
+
+  /* ---------- HUD footer ---------- */
+  .hud{position:fixed;bottom:clamp(14px,2.2vh,26px);left:var(--pad-x);right:var(--pad-x);
+    display:flex;justify-content:space-between;align-items:center;z-index:100;pointer-events:none;}
+  .hud-id{font-size:11px;font-weight:800;letter-spacing:0.18em;text-transform:uppercase;color:var(--dim);display:flex;align-items:center;gap:0.5rem;}
+  .hud-id::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--emerald);box-shadow:0 0 8px var(--emerald);}
+  .progress{flex:1;max-width:clamp(90px,16vw,200px);height:3px;background:rgba(255,255,255,0.1);border-radius:2px;overflow:hidden;margin:0 1.2rem;}
+  .progress-bar{height:100%;width:0;background:linear-gradient(90deg,var(--indigo),var(--emerald));transition:width .6s ease;}
+  .counter{font-size:11px;font-weight:800;letter-spacing:0.16em;color:var(--dim);font-variant-numeric:tabular-nums;}
+
+  /* ---------- reveal animation ---------- */
+  .reveal{opacity:0;transform:translateY(22px);transition:opacity .7s cubic-bezier(.16,1,.3,1),transform .7s cubic-bezier(.16,1,.3,1);}
+  .slide.active .reveal{opacity:1;transform:none;}
+  .slide.active .reveal.d1{transition-delay:.07s;}
+  .slide.active .reveal.d2{transition-delay:.15s;}
+  .slide.active .reveal.d3{transition-delay:.23s;}
+  .slide.active .reveal.d4{transition-delay:.31s;}
+
+  /* ---------- responsive ---------- */
+  @media(max-width:880px){
+    .g2,.g3,.split,.split.rev{grid-template-columns:1fr;}
+    .arrow{transform:rotate(90deg);margin:0.1rem auto;}
+    .browser{max-height:42vh;}
+    .phone{width:clamp(116px,40vw,168px);}
+  }
+  @media(max-height:560px){
+    h2{margin-bottom:0.7rem;}
+    .browser{max-height:58vh;}
+  }
+</style>
+</head>
+<body>
+<main id="stage">
+
+  <!-- 1 — CAPA / HOME -->
+  <section class="slide active">
+    <div class="wrap">
+      <h1 class="reveal d1">TicketFlow</h1>
+      <p class="lead reveal d2">
+        Plataforma web full-stack para criação de eventos e venda de ingressos online —
+        <em class="hl">segura, escalável e em produção</em>.
+      </p>
+      <div class="meta reveal d3" style="margin-top:1.3rem;">
+        <span class="badge tech">Next.js 16</span>
+        <span class="badge tech">MongoDB · Mongoose</span>
+        <span class="badge tech">NextAuth v5</span>
+        <span class="badge tech">QR dinâmico · HMAC</span>
+      </div>
+      <div class="cover-qr reveal d3" style="position:absolute;top:50%;right:var(--pad-x);transform:translateY(-50%);display:flex;flex-direction:column;align-items:center;gap:.9rem;text-align:center;z-index:3;">
+        <div style="background:#fff;padding:14px;border-radius:18px;box-shadow:0 14px 40px rgba(0,0,0,.4);line-height:0;">
+          <img src="apresentacao-assets/qr-soft.svg" alt="QR Code para soft.battomic.com" width="180" height="180" style="display:block;width:180px;height:180px;image-rendering:pixelated;" />
+        </div>
+        <div style="line-height:1.4;">
+          <span style="display:block;font-size:.8rem;letter-spacing:.08em;text-transform:uppercase;color:#9aa3c7;">Acesse agora</span>
+          <strong style="display:block;font-size:clamp(16px,1.6vw,22px);color:#BCC2FF;">soft.battomic.com</strong>
+          <span style="display:block;font-size:.85rem;color:#E8ECF5;font-weight:300;">Aponte a câmera do celular</span>
+        </div>
+      </div>
+      <div class="cover-foot reveal d4">
+        <div class="cred">
+          <span class="cred-label">Autores</span>
+          <strong>Edson Ramos da Silva Junior</strong>
+          <strong>Bernardo Cordeiro Motta</strong>
+        </div>
+        <div class="cred">
+          <span class="cred-label">Orientador</span>
+          <strong>Prof. Hermes Nunes Pereira Junior</strong>
+        </div>
+        <div class="cred">
+          <span class="cred-label">No ar em</span>
+          <strong style="color:#BCC2FF;">soft.battomic.com</strong>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2 — PROBLEMA -->
+  <section class="slide">
+    <div class="wrap">
+      <div class="kicker reveal">Contexto</div>
+      <h2 class="reveal d1">O problema do setor de eventos</h2>
+      <div class="grid g2 reveal d2">
+        <ul class="bars">
+          <li><strong>Instabilidade em picos:</strong> plataformas caem na abertura de lotes concorridos e frustram o comprador.</li>
+          <li><strong>Fraude e cambismo:</strong> ingressos falsificados, prints reaproveitados e revenda por robôs.</li>
+          <li><strong>Inadequação à LGPD:</strong> coleta excessiva de dados e pouca transparência com o titular.</li>
+        </ul>
+        <div class="card accent">
+          <span class="ico">🛑</span>
+          <h3>Barreira de entrada para o organizador</h3>
+          <p>Pequenos e médios produtores ficam reféns de plataformas caras e burocráticas, com taxas altas e pouca autonomia para gerenciar eventos, lotes e o controle de acesso na portaria.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3 — OBJETIVOS -->
+  <section class="slide">
+    <div class="wrap">
+      <div class="kicker reveal">Estratégia</div>
+      <h2 class="reveal d1">Objetivos do sistema</h2>
+      <div class="grid g2 reveal d2">
+        <div class="card indigo">
+          <h3>Objetivo geral</h3>
+          <p style="font-size:clamp(14px,1.35vw,18px);font-weight:300;line-height:1.45;color:#E8ECF5;">
+            Construir uma plataforma full-stack onde <strong>qualquer pessoa</strong> possa criar e gerenciar eventos, vender ingressos com QR Code seguro e fazer o check-in — com baixo custo e aderência à LGPD.
+          </p>
+        </div>
+        <div>
+          <h3 style="margin-bottom:0.7rem;">Metas específicas</h3>
+          <ul class="bars em">
+            <li>Autenticação por papéis, com verificação de e-mail e recuperação de senha.</li>
+            <li>Gestão completa de eventos, tipos de ingresso e lotes.</li>
+            <li>Checkout com carrinho de vários ingressos e taxa transparente de 5%.</li>
+            <li>Ingresso digital com QR Code dinâmico contra fraude.</li>
+            <li>Check-in de baixa latência, com modo offline.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4 — A SOLUÇÃO / PRODUTO -->
+  <section class="slide">
+    <div class="wrap">
+      <div class="kicker reveal">A solução</div>
+      <h2 class="reveal d1">TicketFlow, <em>em produção</em></h2>
+      <div class="split reveal d2">
+        <div>
+          <p>Um marketplace de eventos onde criar conta e organizar é <strong>gratuito</strong>. Da publicação do evento até a portaria, tudo em um só lugar.</p>
+          <ul class="feat" style="margin-top:1.1rem;">
+            <li><span><b>Busca unificada</b> por título, cidade e descrição, com filtro por data e destaque de eventos próximos.</span></li>
+            <li><span><b>Tipos de ingresso e lotes</b> programados, com <b>fila de pré-venda (FIFO)</b> para vendas agendadas.</span></li>
+            <li><span><b>Checkout com carrinho</b> de vários ingressos, taxa transparente de 5% e dados reais do titular.</span></li>
+            <li><span><b>Ingresso digital</b> com QR dinâmico e check-in na portaria.</span></li>
+          </ul>
+          <div class="meta" style="margin-top:1.3rem;">
+            <span class="badge tech">Next.js 16 · App Router</span>
+            <span class="badge tech">MongoDB · Mongoose</span>
+            <span class="badge tech">NextAuth v5</span>
+            <span class="badge tech">Tailwind · User Interface</span>
+          </div>
+        </div>
+        <div>
+          <div class="browser">
+            <div class="browser-bar"><i></i><i></i><i></i><span class="browser-url">soft.battomic.com</span></div>
+            <img src="apresentacao-assets/01-home.png" alt="Home do TicketFlow" />
+          </div>
+          <div class="cap">Home com eventos em destaque e busca</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FILA DE PRÉ-VENDA -->
+  <section class="slide">
+    <div class="wrap">
+      <div class="kicker reveal">Vendas agendadas</div>
+      <h2 class="reveal d1">Fila de pré-venda <em>(FIFO)</em></h2>
+      <div class="split reveal d2">
+        <div>
+          <div class="browser">
+            <div class="browser-bar"><i></i><i></i><i></i><span class="browser-url">soft.battomic.com/eventos/…</span></div>
+            <img src="apresentacao-assets/14-pre-venda.png" alt="Evento com fila de pré-venda" />
+          </div>
+          <div class="cap">Evento com vendas agendadas e formulário de fila</div>
+        </div>
+        <ul class="feat">
+          <li><span><b>Fila por conta (FIFO):</b> o usuário entra logado e recebe a sua <b>posição</b>, vinculada à conta.</span></li>
+          <li><span><b>Posição persistente:</b> ao voltar, a conta mantém o mesmo lugar — não perde a vez.</span></li>
+          <li><span><b>Prioridade na abertura:</b> quando as vendas abrem, a ordem de chegada da fila é respeitada.</span></li>
+          <li><span><b>Absorve os picos</b> de lançamentos concorridos sem derrubar a plataforma.</span></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5 — EXPERIÊNCIA MOBILE -->
+  <section class="slide">
+    <div class="wrap">
+      <div class="kicker reveal">Mobile-first</div>
+      <h2 class="reveal d1">Na palma da mão</h2>
+      <p class="reveal d2" style="max-width:64ch;">
+        Interface 100% responsiva: descobrir e <strong>comprar o ingresso</strong>, guardar o <strong>QR Code dinâmico</strong> no bolso e <strong>validar a entrada</strong> na portaria — tudo pelo celular.
+      </p>
+      <div class="phones reveal d3" style="margin-top:1.4rem;">
+        <div class="phone-item">
+          <div class="phone"><div class="phone-screen">
+            <img src="apresentacao-assets/mobile-evento.png" alt="Evento e checkout no celular" onerror="this.remove()" />
+            <div class="phone-ph"><span class="em">🎟️</span><b>Compra do ingresso</b><small>720×1600</small></div>
+          </div></div>
+          <div class="phone-cap">Evento e checkout</div>
+        </div>
+        <div class="phone-item">
+          <div class="phone"><div class="phone-screen">
+            <img src="apresentacao-assets/mobile-ticket.png" alt="Ingresso com QR no celular" onerror="this.remove()" />
+            <div class="phone-ph"><span class="em">📱</span><b>Ingresso com QR</b><small>720×1600</small></div>
+          </div></div>
+          <div class="phone-cap">QR dinâmico (30s)</div>
+        </div>
+        <div class="phone-item">
+          <div class="phone"><div class="phone-screen">
+            <img src="apresentacao-assets/mobile-checkin.png" alt="Check-in no celular" onerror="this.remove()" />
+            <div class="phone-ph"><span class="em">✅</span><b>Check-in</b><small>720×1600</small></div>
+          </div></div>
+          <div class="phone-cap">Scanner na portaria</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 6 — MULTI-DISPOSITIVO -->
+  <section class="slide">
+    <div class="wrap">
+      <div class="kicker reveal">Responsivo de verdade</div>
+      <h2 class="reveal d1">A mesma experiência <em>em qualquer tela</em></h2>
+      <p class="reveal d2" style="max-width:70ch;">
+        Uma única base de código <strong>Next.js</strong> que se adapta do <strong>notebook</strong> ao
+        <strong>tablet</strong> e ao <strong>celular</strong> — sem app para instalar, com layout fluido
+        (CSS <em class="hl">clamp</em> e grids responsivos) e leitura de QR pela câmera do dispositivo.
+      </p>
+      <div class="devices reveal d3" style="margin-top:1.6rem;">
+        <div class="device-col">
+          <div class="laptop">
+            <div class="laptop-screen"><img src="apresentacao-assets/01-home.png" alt="TicketFlow no notebook" /></div>
+            <div class="laptop-base"></div>
+          </div>
+          <div class="device-cap"><span>💻</span> Notebook</div>
+        </div>
+        <div class="device-col">
+          <div class="tablet"><img src="apresentacao-assets/tablet-eventos.png" alt="TicketFlow no tablet" /></div>
+          <div class="device-cap"><span>📲</span> Tablet</div>
+        </div>
+        <div class="device-col">
+          <div class="phone"><div class="phone-screen">
+            <img src="apresentacao-assets/mobile-evento.png" alt="TicketFlow no celular" onerror="this.remove()" />
+            <div class="phone-ph"><span class="em">🎟️</span><b>Evento no celular</b><small>720×1600</small></div>
+          </div></div>
+          <div class="device-cap"><span>📱</span> Celular</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 7 — INGRESSO QR DINÂMICO -->
+  <section class="slide">
+    <div class="wrap">
+      <div class="kicker reveal">Segurança aplicada</div>
+      <h2 class="reveal d1">Ingresso com QR Code <em>dinâmico</em></h2>
+      <div class="split rev reveal d2">
+        <div>
+          <div class="browser">
+            <div class="browser-bar"><i></i><i></i><i></i><span class="browser-url">soft.battomic.com/tickets/…</span></div>
+            <img src="apresentacao-assets/13-ticket-qr.png" alt="Ingresso com QR dinâmico" />
+          </div>
+          <div class="cap">QR renovado automaticamente a cada 30s</div>
+        </div>
+        <ul class="feat">
+          <li><span><b>Assinatura HMAC</b> no servidor a cada renovação do código.</span></li>
+          <li><span><b>Rotação a cada 30s</b> — print e PDF estático deixam de funcionar.</span></li>
+          <li><span><b>Vinculado à conta</b> do comprador, combatendo o cambismo.</span></li>
+          <li><span><b>Detalhes completos:</b> tipo, lote, valor, titular e CPF com ocultar/mostrar.</span></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- 7 — LGPD -->
+  <section class="slide">
+    <div class="wrap">
+      <div class="kicker reveal">Privacidade</div>
+      <h2 class="reveal d1">Conformidade com a <em>LGPD</em></h2>
+      <div class="split rev reveal d2">
+        <div>
+          <div class="browser">
+            <div class="browser-bar"><i></i><i></i><i></i><span class="browser-url">soft.battomic.com/privacidade</span></div>
+            <img src="apresentacao-assets/08-privacidade.png" alt="Central de privacidade e LGPD" />
+          </div>
+          <div class="cap">Central de privacidade do titular</div>
+        </div>
+        <ul class="feat">
+          <li><span><b>Consentimento de cookies</b> (essenciais × não essenciais) em toda a plataforma.</span></li>
+          <li><span><b>Apenas cookies essenciais</b> — sem rastreamento de terceiros.</span></li>
+          <li><span><b>Direitos do titular:</b> exportar dados em JSON, corrigir perfil e excluir conta.</span></li>
+          <li><span><b>Transparência</b> sobre os dados coletados, conforme a Lei nº 13.709/2018.</span></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- 8 — GESTÃO E OPERAÇÃO -->
+  <section class="slide">
+    <div class="wrap">
+      <div class="kicker reveal">Painel do organizador</div>
+      <h2 class="reveal d1">Gestão completa do evento</h2>
+      <div class="grid g3 reveal d2">
+        <div class="card">
+          <span class="ico">🎟️</span>
+          <h3>Ingressos, lotes e equipe</h3>
+          <p>Tipos de ingresso, lotes programados e operadores por evento — cada operador vê em <strong>"Meus eventos"</strong> onde atua.</p>
+        </div>
+        <div class="card accent">
+          <span class="ico">🎁</span>
+          <h3>Cortesias</h3>
+          <p>Ingressos gratuitos para convidados, <strong>sem valor monetário</strong> no faturamento — com histórico de quem recebeu.</p>
+        </div>
+        <div class="card indigo">
+          <span class="ico">📷</span>
+          <h3>Check-in na portaria</h3>
+          <p>Operador e organizador validam pelo atalho no header; o <strong>admin</strong> abre o check-in de qualquer evento pelo gerenciador de eventos.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 9 — ANALYTICS -->
+  <section class="slide">
+    <div class="wrap">
+      <div class="kicker reveal">Inteligência de negócio</div>
+      <h2 class="reveal d1">Analytics com <em>comparativos</em></h2>
+      <div class="split reveal d2">
+        <div>
+          <p>O faturamento da plataforma — taxa de 5% mais impulsionamentos — analisado por período, com crescimento e tendência.</p>
+          <ul class="feat" style="margin-top:1.1rem;">
+            <li><span><b>Atalhos de período:</b> semana, mês, ano, total e intervalo personalizado.</span></li>
+            <li><span><b>Comparativo automático</b> com o período anterior — variação de receita, pedidos e ingressos.</span></li>
+            <li><span><b>Tendência</b> de faturamento por dia/mês e ranking de eventos por receita.</span></li>
+            <li><span><b>Cortesias</b> reportadas à parte, sem distorcer a receita.</span></li>
+          </ul>
+        </div>
+        <div>
+          <div class="browser">
+            <div class="browser-bar"><i></i><i></i><i></i><span class="browser-url">soft.battomic.com/admin/analytics</span></div>
+            <img src="apresentacao-assets/12-analytics.png" alt="Painel de faturamento e tendências da plataforma" />
+          </div>
+          <div class="cap">Painel de faturamento e tendências, com comparativos de período</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 10 — ARQUITETURA -->
+  <section class="slide">
+    <div class="wrap">
+      <div class="kicker reveal">Engenharia de software</div>
+      <h2 class="reveal d1">Arquitetura full-stack modular</h2>
+      <p class="reveal d1" style="max-width:78ch;">Aplicação <strong>Next.js + MongoDB</strong> com front-end e back-end no mesmo código-fonte, organizada em módulos de domínio e stateless para escalar horizontalmente.</p>
+      <div class="flow reveal d2" style="margin-top:1.3rem;">
+        <div class="node"><span class="e">⚡</span><b>Next.js 16</b><small>App Router · SSR · API Routes</small></div>
+        <div class="arrow">→</div>
+        <div class="node"><span class="e">🔐</span><b>NextAuth + Middleware</b><small>Sessão JWT · headers de segurança · papéis</small></div>
+        <div class="arrow">→</div>
+        <div class="node"><span class="e">🧩</span><b>Módulos de domínio</b><small>Identidade · Eventos · Ingressos · Pedidos · Pagamentos (simulado · Asaas) · Check-in</small></div>
+        <div class="arrow">→</div>
+        <div class="node"><span class="e">🍃</span><b>MongoDB · Mongoose</b><small>Coleções e índices por domínio</small></div>
+      </div>
+      <div class="grid g2 reveal d3" style="margin-top:1.3rem;">
+        <div class="card"><h3>Acesso por papéis</h3><p>Global <strong>usuário/admin</strong>; dentro de cada evento, <strong>operadores</strong> (coleção EventStaff) fazem check-in e baixam a lista de compradores.</p></div>
+        <div class="card"><h3>Segurança por padrão</h3><p>Middleware com proteção de rotas e headers de segurança, <em class="hl">rate limiting</em>, HMAC nos ingressos, <em class="hl">trilha de auditoria</em> e health endpoint com verificação de banco.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 11 — MODELO DE NEGÓCIO -->
+  <section class="slide">
+    <div class="wrap">
+      <div class="kicker reveal">Modelo de negócio</div>
+      <h2 class="reveal d1">Como o TicketFlow se sustenta</h2>
+      <div class="grid g3 reveal d2">
+        <div class="card accent">
+          <div class="num em">5%</div>
+          <h3>Taxa de serviço</h3>
+          <p>Sobre o valor das vendas — uma das menores do mercado. Criar conta e organizar é gratuito.</p>
+        </div>
+        <div class="card accent">
+          <span class="ico">⭐</span>
+          <h3>Eventos em destaque</h3>
+          <p>Organizadores patrocinam eventos para ganhar posição de destaque na home e na listagem pública.</p>
+        </div>
+        <div class="card">
+          <span class="ico">📈</span>
+          <h3>Viabilidade</h3>
+          <p>Ticket médio de R$ 80 → R$ 4 de receita por ingresso. Break-even no cenário realista em ~18 meses.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 12 — ENCERRAMENTO -->
+  <section class="slide">
+    <div class="wrap">
+      <div class="kicker reveal">Obrigado</div>
+      <h1 class="reveal d1">Perguntas?</h1>
+      <p class="reveal d2" style="font-size:clamp(17px,1.9vw,24px);margin-top:1rem;color:var(--muted);">
+        O sistema está no ar em <strong style="color:#BCC2FF;">soft.battomic.com</strong>.
+      </p>
+      <div class="meta reveal d3" style="margin-top:2.4rem;">
+        <span class="badge prime">Edson Ramos da Silva Junior</span>
+        <span class="badge prime">Bernardo Cordeiro Motta</span>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<div class="hud">
+  <div class="hud-id">TicketFlow</div>
+  <div class="progress"><div class="progress-bar" id="bar"></div></div>
+  <div class="counter" id="counter">01 / 12</div>
+</div>
+
+<script>
+(function(){
+  var stage=document.getElementById('stage');
+  var slides=Array.prototype.slice.call(document.querySelectorAll('.slide'));
+  var bar=document.getElementById('bar'), counter=document.getElementById('counter');
+  var i=0, total=slides.length;
+  function pad(n){ return (n<10?'0':'')+n; }
+  function render(){
+    counter.textContent=pad(i+1)+' / '+pad(total);
+    bar.style.width=(total>1?(i/(total-1))*100:100)+'%';
+    for(var k=0;k<slides.length;k++) slides[k].classList.toggle('active',k===i);
+  }
+  function go(n){ i=Math.max(0,Math.min(total-1,n)); render(); }
+
+  // ---- Fullscreen (estilo PowerPoint) ----
+  function isFs(){ return !!(document.fullscreenElement||document.webkitFullscreenElement); }
+  function enterFs(){ var el=document.documentElement; var req=el.requestFullscreen||el.webkitRequestFullscreen; if(req && !isFs()){ try{ req.call(el); }catch(err){} } }
+  function exitFs(){ var ex=document.exitFullscreen||document.webkitExitFullscreen; if(ex && isFs()){ try{ ex.call(document); }catch(err){} } }
+  function toggleFs(){ isFs()?exitFs():enterFs(); }
+
+  window.addEventListener('keydown',function(e){
+    switch(e.key){
+      case 'ArrowRight': case 'ArrowDown': case 'PageDown': case ' ': case 'Spacebar': go(i+1); e.preventDefault(); break;
+      case 'ArrowLeft': case 'ArrowUp': case 'PageUp': go(i-1); e.preventDefault(); break;
+      case 'Home': go(0); e.preventDefault(); break;
+      case 'End': go(total-1); e.preventDefault(); break;
+      case 'f': case 'F': toggleFs(); e.preventDefault(); break;
+    }
+  });
+
+  // Captura de tela ausente → mostra um placeholder elegante no lugar do mockup.
+  Array.prototype.forEach.call(document.querySelectorAll('.browser img'),function(img){
+    img.addEventListener('error',function(){
+      var b=img.closest('.browser');
+      if(b){ b.innerHTML='<div class="imgph"><span>🖥️</span><b>'+(img.alt||'TicketFlow')+'</b><small>soft.battomic.com</small></div>'; }
+    });
+    if(img.complete && img.naturalWidth===0){ img.dispatchEvent(new Event('error')); }
+  });
+
+  var sx=0,sy=0;
+  window.addEventListener('touchstart',function(e){ sx=e.touches[0].clientX; sy=e.touches[0].clientY; },{passive:true});
+  window.addEventListener('touchend',function(e){
+    var dx=e.changedTouches[0].clientX-sx, dy=e.changedTouches[0].clientY-sy;
+    if(Math.abs(dx)>50 && Math.abs(dx)>Math.abs(dy)) go(dx<0?i+1:i-1);
+  },{passive:true});
+
+  render();
+})();
+</script>
+</body>
+</html>
