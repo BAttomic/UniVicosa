@@ -584,8 +584,13 @@ async function seed() {
       ...WAITLIST_NAMES.slice(0, 3).map((person) => ({ name: person.name, email: person.email, phone: randomPhone() })),
     ];
     for (const entry of entries) {
-      await WL.create({ eventId: eventDoc._id.toString(), name: entry.name, email: entry.email, phone: entry.phone, status: "waiting" });
-      waitlistCount += 1;
+      try {
+        await WL.create({ eventId: eventDoc._id.toString(), name: entry.name, email: entry.email, phone: entry.phone, status: "waiting" });
+        waitlistCount += 1;
+      } catch (err: unknown) {
+        // Índice único (eventId,userId) trata guests (userId null) como colisão — ignora duplicados de guest.
+        if ((err as { code?: number })?.code !== 11000) throw err;
+      }
     }
   }
 
